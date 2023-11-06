@@ -1,20 +1,24 @@
 import Logo from "../assets/locum-people-logo.svg";
-const Navbar = () => {
+
+const LogoDiv = () => {
   return (
-    <nav className="navbar w-full text-[2rem] flex flex-row h-[4.5rem] font-semibold box-border px-[2rem]">
-      <div className="logo w-1/4 flex flex-row justify-center items-center">
+    <div className="logo">
         <img
           src={Logo}
           alt="locumpeople logo"
           className=" h-full object-fill"
         />
-        <h2>
-          <span className="text-[#198754]">locum</span>
+        <h2 className="font-bold text-[2.5rem]">
+          <span className="text-[#21573e]">locum</span>
           <span className="text-[#6c757d]">people</span>
         </h2>
       </div>
-      <div className="hamburger absolute right-[2rem]">Humburger</div>
-      <div className="navroutes absolute w-[100dvw]  z-10 bg-white top-[4.5rem] left-0 flex flex-col items-center justify-center text-center py-[1rem] gap-4">
+  )
+}
+
+const Navroutes = () => {
+  return (
+    <div className="navroutes">
         <ul className="flex flex-col gap-4 text-[1.5rem]">
           <li>
             About us
@@ -51,6 +55,15 @@ const Navbar = () => {
           Quick Registration
         </button>
       </div>
+  )
+}
+
+const Navbar = () => {
+  return (
+    <nav className="navbar">
+      <LogoDiv />
+      <div className="hamburger absolute right-[2rem]">Humburger</div>
+      <Navroutes />
     </nav>
   );
 };
