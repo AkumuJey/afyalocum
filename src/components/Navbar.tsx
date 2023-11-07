@@ -17,11 +17,12 @@ const LogoDiv = () => {
   );
 };
 
-const Navroutes = ( {shownav}) => {
+interface NavrouteProps{
+  shownav: boolean
+}
+const Navroutes = ( {shownav} : NavrouteProps) => {
   return (
     <div className={`navroutes ${shownav ? 'hide' : ''}`}>
-      <button onClick={() => console.log(shownav)
-      }>Try</button>
       <ul className="flex flex-col gap-4 text-[1.5rem]">
         <li>
           About us
