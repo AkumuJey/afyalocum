@@ -8,19 +8,11 @@
 *body{
     font-family: 'Segoe UI', Tahoma, sans-serif;
 }
-/* 
-.navbar{
-    @apply w-full text-[2rem] flex flex-row h-[4.5rem] font-semibold box-border px-[2rem] justify-between overflow-auto
+.navbar .links h3 ~ ul {
+    @apply hidden text-[0.8rem] top-[100%] rounded-md absolute min-w-[15rem] font-normal bg-slate-100 p-5 transition-all duration-200 ease-in
 }
-
-.navbar .logo {
-    @apply w-1/4 flex flex-row items-center
+.navbar .links h3:hover + ul,
+.navbar .links h3 ~ ul:hover
+{
+    @apply block transition-all duration-500 ease-in
 }
-
-.navroutes {
-    @apply absolute min-w-full min-h-full z-10 bg-white top-[4.5rem] left-0 flex flex-col items-center justify-center text-center py-[1rem] gap-4
-}
-
-.hide{
-    @apply hidden
-} */

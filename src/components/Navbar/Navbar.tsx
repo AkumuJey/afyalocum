@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <div className="flex justify-between box-border items-center flex-wrap">
+    <div className="navbar flex justify-between box-border items-center flex-wrap">
       <div className="w-full bg-slate-100 shadow-sm shadow-black py-2 px-[4rem]">
         <ul className="flex justify-end gap-[3rem]">
           <li>Latest News</li>
@@ -24,32 +24,56 @@ const Navbar = () => {
       </div>
       <div className="links flex items-center text-[1.2rem] font-medium gap-[3rem] py-7 pr-[4rem]">
         <ul className="flex justify-evenly gap-[3rem] items-center">
-          <li>
+          <li className="dropdown relative">
             <h3>About us</h3>
-            {/* <ul className="text-[1rem]">
+            <ul className="">
               <li>About us</li>
               <li>Meet our Leadership team</li>
               <li>Join our team</li>
               <li>Awards &amp; Accreditation</li>
-            </ul> */}
+            </ul>
           </li>
-          <li>
+          <li className="dropdown relative">
             <h3>Candidates</h3>
-            {/* <ul className="text-[1rem]">
-              <li>Doctors</li>
-              <li>Nurses</li>
-            </ul> */}
+            <ul className="text-[1rem]">
+              <li className="flex gap-2">
+                <ul className="min-w-[10rem]">
+                  <h5>Doctors</h5>
+                  {/* Hidden in mobile view */}
+                  <ul className="hidden md:block">
+                  <li>How we support you</li>
+                  <li>Open days</li>
+                  <li>Refer a friend</li>
+                  <li>How you get paid</li>
+                  <li>What our Doctors say</li>
+                  <li>Republic of Ireland</li>
+                  </ul>
+                </ul>
+                <ul className="min-w-[10rem]">
+                  <h5>Nurses</h5>
+                  {/* Hidden on mobile view */}
+                  <ul className="hidden md:block">
+                    <li>How we support you</li>
+                    <li>Open days</li>
+                    <li>Refer a friend</li>
+                    <li>How you get paid</li>
+                    <li>What our Doctors say</li>
+                    <li>Republic of Ireland</li>
+                  </ul>
+                </ul>
+              </li>
+            </ul>
           </li>
-          <li>Vacancies</li>
-          <li>
+          <li className="dropdown relative">
             <h3>Clients</h3>
-            {/* <ul className="text-[1rem]">
+            <ul className="text-[1rem]">
               <li>Why work with us</li>
               <li>How we support you</li>
               <li>Frameworks and contracts</li>
               <li>What our clients say</li>
-            </ul> */}
+            </ul>
           </li>
+          <li>Vacancies</li>
         </ul>
         <div>
           <button className="bg-teal-800 px-4 py-3 rounded-md shadow-md shadow-slate-400 text-white">
