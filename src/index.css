@@ -12,7 +12,6 @@
     @apply hidden text-[0.8rem] top-[100%] rounded-md absolute min-w-[15rem] font-normal bg-slate-100 p-5 transition-all duration-200 ease-in
 }
 .navbar .links h3:hover + ul,
-.navbar .links h3 ~ ul:hover
-{
+.navbar .links h3 ~ ul:hover {
     @apply block transition-all duration-500 ease-in
 }
