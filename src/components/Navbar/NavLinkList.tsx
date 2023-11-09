@@ -11,7 +11,7 @@ const NavLinkList = ({ open }: PropTypes) => {
           open ? "translate-x-0 translate-y-0" : "-translate-x-full -translate-y-full"
         } md:translate-x-0 md:translate-y-0 top-full w-full md:w-auto h-screen md:h-auto md:static bg-white z-10 flex flex-col md:flex-row justify-evenly gap-[3rem] items-center text-[1.2rem] text-center font-medium py-7 px-[2rem] md:pl-0 md:pr-[4rem] transition-all duration-200 ease-in-out`}
       >
-        <li className="dropdown relative w-full border-b-2 border-slate-600 md:border-none">
+        <li className="dropdown relative w-full border-b-[1px] border-slate-600 md:border-none">
           <h3>About us</h3>
           <ul className="">
             <li>About us</li>
@@ -20,7 +20,7 @@ const NavLinkList = ({ open }: PropTypes) => {
             <li>Awards &amp; Accreditation</li>
           </ul>
         </li>
-        <li className="dropdown relative w-full border-b-2 border-slate-600 md:border-none">
+        <li className="dropdown relative w-full border-b-[1px] border-slate-600 md:border-none">
           <h3>Candidates</h3>
           <ul className="text-[1rem]">
             <li className="flex gap-2">
@@ -51,7 +51,7 @@ const NavLinkList = ({ open }: PropTypes) => {
             </li>
           </ul>
         </li>
-        <li className="dropdown relative w-full border-b-2 border-slate-600 md:border-none">
+        <li className="dropdown relative w-full border-b-[1px] border-slate-600 md:border-none">
           <h3>Clients</h3>
           <ul className="text-[1rem]">
             <li>Why work with us</li>
@@ -60,7 +60,7 @@ const NavLinkList = ({ open }: PropTypes) => {
             <li>What our clients say</li>
           </ul>
         </li>
-        <li className="w-full border-b-2 border-slate-600 md:border-none">
+        <li className="w-full border-b-[1px] border-slate-600 md:border-none">
           <h3>Vacancies</h3>
         </li>
         <ContactsAndResources open={open} />
