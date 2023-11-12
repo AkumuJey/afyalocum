@@ -16,7 +16,7 @@ function App() {
     console.log("Rendered");
   }, []);
   return (
-    <div className="bg-white min-h-[100dvh] flex flex-col text-[1rem] font-sans z-0">
+    <div className="bg-transparent min-h-[100dvh] min-w-full flex flex-col text-[1rem] font-sans z-0">
       <header>
         <Navbar />
       </header>
