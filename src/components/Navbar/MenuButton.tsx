@@ -1,6 +1,16 @@
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 interface propTypes{
     open: boolean
     onToggleClose: () => void
+}
+
+const Content = ({open} : {open: boolean}) => {
+  if (open) {
+    return <CloseIcon/>
+  } else {
+    return <MenuIcon />
+  }
 }
 const MenuButton = ({open, onToggleClose}: propTypes) => {
   return (
@@ -8,7 +18,8 @@ const MenuButton = ({open, onToggleClose}: propTypes) => {
         onClick={onToggleClose}
         className="text-4xl font-bold w-[4rem] md:hidden mr-[2rem]"
       >
-        <i className={`icon ion-md-${open ? "close" : "menu"}`}></i>
+        {/* <i className={`icon ion-md-${open ? "close" : "menu"}`}></i> */}
+        <Content open={open}/>
       </button>
   );
 };

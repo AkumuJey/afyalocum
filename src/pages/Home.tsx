@@ -1,15 +1,18 @@
-import Hero from "../components/Home/Hero"
-import TopJobs from "../components/Home/NewJobs"
+import Adverts from "../components/Home/Adverts";
+import Hero from "../components/Home/Hero";
+import TopJobs from "../components/Home/NewJobs";
+
 
 const Home = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Hero className="bg-white w-full h-64 flex flex-row overflow-auto"/>
-      <div className="grow ">
+      <Hero className="bg-white w-full h-64 flex flex-row overflow-auto" />
+      <div className="grow">
         <TopJobs />
       </div>
+      <Adverts />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

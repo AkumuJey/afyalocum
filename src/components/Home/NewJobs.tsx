@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import PlaceIcon from '@mui/icons-material/Place';
+
 
 const TopJobs = () => {
   return (
@@ -21,7 +23,7 @@ const TopJobs = () => {
       </div>
       <Paper elevation={2}>
         <div className="w-full h-full bg-teal-100 p-3">
-          <h3 className="py-3">Buckinghamshire, South East</h3>
+          <h3 className="py-3"><PlaceIcon />Buckinghamshire, South East</h3>
           <h2 className="font-bold text-teal-800 text-2xl py-3">
             Gastroenterology Consultant – Buckinghamshire
           </h2>
@@ -46,7 +48,7 @@ const TopJobs = () => {
       </Paper>
       <Paper elevation={2}>
         <div className="w-full h-full bg-teal-100 p-3">
-          <h3 className="py-3">Buckinghamshire, South East</h3>
+          <h3 className="py-3"><PlaceIcon />Buckinghamshire, South East</h3>
           <h2 className="font-bold text-teal-800 text-2xl py-3">
             Gastroenterology Consultant – Buckinghamshire
           </h2>
@@ -71,7 +73,7 @@ const TopJobs = () => {
       </Paper>
       <Paper elevation={2}>
         <div className="w-full h-full bg-teal-100 p-3">
-          <h3 className="py-3">Buckinghamshire, South East</h3>
+          <h3 className="py-3"><PlaceIcon />Buckinghamshire, South East</h3>
           <h2 className="font-bold text-teal-800 text-2xl py-3">
             Gastroenterology Consultant – Buckinghamshire
           </h2>
