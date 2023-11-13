@@ -16,13 +16,9 @@ function App() {
     console.log("Rendered");
   }, []);
   return (
-    <div className="bg-transparent min-h-[100dvh] min-w-full flex flex-col text-[1rem] font-sans z-0">
-      <header>
+    <div className="bg-transparent min-h-[100dvh] min-w-full text-[1rem] font-sans z-0">
         <Navbar />
-      </header>
-      <body>
-        <RouterProvider router={router} />
-      </body>
+        <RouterProvider router={router}/>
     </div>
   );
 }

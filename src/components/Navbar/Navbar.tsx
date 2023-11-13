@@ -6,7 +6,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="navbar relative flex flex-col md:flex-row justify-between box-border items-center md:flex-wrap w-full bg-white">
+    <nav className="navbar relative flex flex-col md:flex-row justify-between box-border items-center md:flex-wrap w-full bg-white mb-5">
       <ContactsAndResources open={open}/>
       <div className="flex flex-col w-full md:flex-row justify-between items-center">
         <div className="logo pl-[1rem] md:pl-[4rem] flex justify-between w-full md:w-auto">
