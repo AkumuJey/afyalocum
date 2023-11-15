@@ -1,23 +1,19 @@
 import { useState } from "react";
 import NavLinkList from "./NavLinkList";
 import MenuButton from "./MenuButton";
-import ContactsAndResources from "./ContactsAndResources";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="navbar relative flex flex-col md:flex-row justify-between box-border items-center md:flex-wrap w-full bg-white mb-5">
-      <ContactsAndResources open={open}/>
-      <div className="flex flex-col w-full md:flex-row justify-between items-center">
-        <div className="logo pl-[1rem] md:pl-[4rem] flex justify-between w-full md:w-auto">
-          <h2 className="font-bold text-[2.5rem] text-center">
-            <span className="text-[#21573e]">locum</span>
-            <span className="text-[#6c757d]">people</span>
-          </h2>
-          <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
-        </div>
-        <NavLinkList open={open}/>
+    <nav className="navbar fixed top-0 w-full z-[1000] flex flex-col md:flex-row justify-between items-center py-[0.5rem] px-[0.5rem] md:px-[2rem] bg-slate-100 h-[5rem] box-border">
+      <div className="flex justify-between w-full">
+        <h2 className="font-bold text-[2.5rem] text-center px-[2rem] md:p-0">
+          <span className="text-[#21573e]">afya</span>
+          <span className="text-[#6c757d]">locum</span>
+        </h2>
+        <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
       </div>
+      <NavLinkList open={open} />
     </nav>
   );
 };

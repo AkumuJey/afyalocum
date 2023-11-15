@@ -4,7 +4,7 @@ interface PropTypes{
 
 const ContactsAndResources = ({open}: PropTypes) => {
   return (
-    <ul className={`${open ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} w-full text-center flex order-last md:order-first md:justify-end gap-[3rem] md:w-full bg-white md:bg-slate-100 shadow-none md:shadow-sm shadow-black font-semibold md:py-2 px-[2rem] md:px-[4rem]`}>
+    <ul className={`${open ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} w-full text-center hidden md:flex order-last md:order-first md:justify-end gap-[3rem] md:w-full bg-white md:bg-slate-100 shadow-none md:shadow-sm shadow-black font-semibold md:py-2 px-[2rem] md:px-[4rem]`}>
       <li className="hidden md:block">Latest News</li>
       <li className="hidden md:block">FAQs</li>
       <li className="hidden md:block">Resources for Locums</li>
