@@ -64,7 +64,7 @@ const Resigstration = () => {
   return (
     <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
       <Paper
-        elevation={5}
+        elevation={3}
         sx={{
           width: {
             xs: "100%",
