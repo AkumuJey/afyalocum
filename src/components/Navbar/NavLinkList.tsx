@@ -8,7 +8,7 @@ const NavLinkList = ({ open }: PropTypes) => {
   return (
     <>
       <ul
-       className={`${open ? 'top-[5rem] bottom-0 left-0 right-0 bg-white w-full h-full translate-x-0 transition-all duration-200 ease-linear' : 'hidden fixed translate-x-full md:translate-x-0 transition-all duration-200 ease-linear md:static md:flex'} justify-around gap-[4rem] font-bold text-xl`}
+       className={`${open ? '' : 'hidden'}bg-slate-100 flex flex-col md:flex-row justify-around gap-[4rem] font-bold text-xl`}
       >
         <li><NavLink to='/' className={({isActive}) => isActive ? 'text-purple-800' : ''}>Home</NavLink></li>
         <li><NavLink to='/locums' className={({isActive}) => isActive ? 'text-purple-800' : ''}>Locums</NavLink></li>

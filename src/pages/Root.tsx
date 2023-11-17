@@ -7,7 +7,7 @@ const Root = () => {
   return (
     <div className="bg-transparent min-h-[100dvh] min-w-full text-[1rem] font-sans z-0 pt-[5rem]">
         <Navbar />
-        <div className="min-h-screen">
+        <div className="valid-height">
         <Outlet />
         </div>
         <Footer/>

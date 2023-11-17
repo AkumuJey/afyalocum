@@ -9,10 +9,10 @@
 *body{
     font-family: 'Segoe UI', Tahoma, sans-serif;
 }
-.navbar .links h3 ~ ul {
-    @apply hidden text-[0.8rem] top-[100%] rounded-md absolute min-w-[15rem] font-normal bg-slate-100 p-5 transition-all duration-200 ease-in
-}
-.navbar .links h3:hover + ul,
-.navbar .links h3 ~ ul:hover {
-    @apply block transition-all duration-500 ease-in
-}
+:root {
+    --custom-height: calc(100vh - 5rem);
+  }
+
+  .valid-height{
+    min-height: var(--custom-height);
+  }
