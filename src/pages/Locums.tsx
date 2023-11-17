@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState, SyntheticEvent } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 
 const Locums = () => {
   const [value, setValue] = useState("1");
-  const handleTabChange = (_e: React.SyntheticEvent, newValue: string) => {
+  const handleTabChange = (_e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
   return (
