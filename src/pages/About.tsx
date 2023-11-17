@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 const About = () => {
   const aboutContent = [
@@ -19,7 +19,7 @@ const About = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-3 py-3 md:py-[4rem] justify-around valid-height items-center w-full h-full">
+    <div className="flex flex-col gap-3 py-3 md:py-[4rem] justify-around valid-height items-center w-full">
       {
         aboutContent.map((content) => (
       <Paper
@@ -36,14 +36,15 @@ const About = () => {
         key={content.id}
       >
         <h1 className="text-center font-bold text-3xl">{content.title}</h1>
-        <Box
+        <Typography
+        paragraph={true}
           component="p"
           sx={{
             width: "100%",
           }}
         >
           {content.body}
-        </Box>
+        </Typography>
       </Paper>
         ))
       }
