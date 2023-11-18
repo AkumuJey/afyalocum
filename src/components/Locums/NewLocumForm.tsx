@@ -57,25 +57,6 @@ const NewLocumForm = () => {
           className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
         />
         <InputLabel
-          htmlFor="description"
-          sx={{
-            fontWeight: "bold",
-            color: "black",
-            width: "100%",
-          }}
-        >
-          Job Description:
-        </InputLabel>
-        <Input
-          id="description"
-          value=""
-          onChange={handleInputChange}
-          placeholder="Roles are ..."
-          inputProps={ariaLabel}
-          required
-          className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
-        />
-        <InputLabel
           htmlFor="requirements"
           sx={{
             fontWeight: "bold",
@@ -85,14 +66,33 @@ const NewLocumForm = () => {
         >
           Requirements:
         </InputLabel>
-        <TextareaAutosize
-          maxRows={5}
-          maxLength={150}
+        <Input
           id="requirements"
           value=""
           onChange={handleInputChange}
-          required
           placeholder="e.g. MBCHB, 2 years experience"
+          inputProps={ariaLabel}
+          required
+          className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
+        />
+        <InputLabel
+          htmlFor="description"
+          sx={{
+            fontWeight: "bold",
+            color: "black",
+            width: "100%",
+          }}
+        >
+          Job Description:
+        </InputLabel>
+        <TextareaAutosize
+          maxRows={5}
+          maxLength={150}
+          id="description"
+          value=""
+          onChange={handleInputChange}
+          required
+          placeholder=" Roles are ..."
           className="max-h-[200px] min-h-[150px] p-3 w-full rounded-md bg-white overflow-hidden"
         />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -113,7 +113,7 @@ const NewLocumForm = () => {
           </DemoContainer>
         </LocalizationProvider>
         <Button variant="contained" type="submit">
-          Submit
+          Save Vacancy
         </Button>
       </Box>
     </Paper>
