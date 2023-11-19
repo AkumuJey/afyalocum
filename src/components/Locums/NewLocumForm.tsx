@@ -14,8 +14,8 @@ interface Job{
   title: '',
   requirements: '',
   description: '',
-  start: null | dayjs.Dayjs,
-  stop: null | dayjs.Dayjs
+  start: null | unknown,
+  stop: null | unknown
 }
 const NewLocumForm = () => {
   const [job, setJob] = useState<Job>({
@@ -32,9 +32,11 @@ const NewLocumForm = () => {
     const { id, value } = e.target;
     setJob({ ...job, [id]: value });
   };
-  const handleDateChange = () => {}
+  const handleDateChange = (newValue: unknown ) => {
+    console.log(newValue);
+  }
 
-  const today = dayjs()
+  
   return (
     <Paper
       elevation={3}
@@ -56,7 +58,7 @@ const NewLocumForm = () => {
         }}
       >
         <NewJobInputs handleInputChange={handleInputChange} title={title} description={description} requirements={requirements}/>
-        <TimeSelectionComponent today={today} handleDateChange={handleDateChange}/>
+        <TimeSelectionComponent handleDateChange={handleDateChange}/>
         <Button variant="contained" type="submit">
           Save Vacancy
         </Button>

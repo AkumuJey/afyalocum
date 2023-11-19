@@ -2,13 +2,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import dayjs from "dayjs";
 
 interface Props {
-  today: dayjs.Dayjs;
-  handleDateChange: () => void
+  handleDateChange: (newValue: unknown ) => void
 }
-const TimePicker = ({ today, handleDateChange }: Props) => {
+const TimeSelectionComponent = ({ handleDateChange }: Props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer
@@ -23,19 +21,18 @@ const TimePicker = ({ today, handleDateChange }: Props) => {
         <DateTimePicker
           label="Start date and time"
           sx={{ backgroundColor: "white", borderRadius: 1 }}
-          defaultValue={today}
           disablePast
-          onChange={handleDateChange}
+          onChange={(newValue) => handleDateChange(newValue)}
         />
         <DateTimePicker
           label="End date and time"
           sx={{ backgroundColor: "white", borderRadius: 1 }}
           disablePast
-          onChange={handleDateChange}
+          onChange={(newValue) => handleDateChange(newValue)}
         />
       </DemoContainer>
     </LocalizationProvider>
   );
 };
 
-export default TimePicker;
+export default TimeSelectionComponent;
