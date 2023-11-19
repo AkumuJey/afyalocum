@@ -4,10 +4,15 @@ import {
     TextareaAutosize,
   } from "@mui/material";
 
+  import { ChangeEvent } from "react";
+
   interface Props{
-    handleInputChange: () => void
+    handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+    title: string,
+    requirements: string, 
+    description: string
   }
-const NewJobInputs = ({handleInputChange}: Props) => {
+const NewJobInputs = ({title,description, requirements, handleInputChange}: Props) => {
     const ariaLabel = { "aria-label": "description" };
   return (
    <>
@@ -23,7 +28,7 @@ const NewJobInputs = ({handleInputChange}: Props) => {
         </InputLabel>
         <Input
           id="title"
-          value=""
+          value={title}
           onChange={handleInputChange}
           placeholder="Doctor, Dentist, Pharmacist etc"
           inputProps={ariaLabel}
@@ -42,7 +47,7 @@ const NewJobInputs = ({handleInputChange}: Props) => {
         </InputLabel>
         <Input
           id="requirements"
-          value=""
+          value={requirements}
           onChange={handleInputChange}
           placeholder="e.g. MBCHB, 2 years experience"
           inputProps={ariaLabel}
@@ -63,7 +68,7 @@ const NewJobInputs = ({handleInputChange}: Props) => {
           maxRows={5}
           maxLength={150}
           id="description"
-          value=""
+          value={description}
           onChange={handleInputChange}
           required
           placeholder=" Roles are ..."
