@@ -34,7 +34,7 @@ const Resigstration = () => {
     image: "",
   });
 
-  const [take, setTake] = useState(true)
+  const [take, setTake] = useState(true);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Submitted", organizationInfo);
@@ -52,12 +52,12 @@ const Resigstration = () => {
       ...organizationInfo,
       image: URL.createObjectURL(e.target.files[0]),
     });
-    setTake(false)
+    setTake(false);
   };
 
   const handleRetake = () => {
-    setTake(!take)
-  }
+    setTake(!take);
+  };
 
   return (
     <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
@@ -94,27 +94,27 @@ const Resigstration = () => {
               width: "100%",
             }}
           >
-            {take ? 'Upload Image' : "Hospital's Image"}
+            {take ? "Upload Image" : "Hospital's Image"}
           </InputLabel>
-          {take &&
-          <Button
-          component="label"
-          variant="contained"
-          startIcon={<CloudUploadIcon />}
-          sx={{
-            backgroundColor: "blue",
-          }}
-        >
-           Upload Image
-          <VisuallyHiddenInput
-            type="file"
-            id="image"
-            required
-            accept="image/png, image/jpeg"
-            onChange={handleImageChange}
-          />
-        </Button> 
-          }
+          {take && (
+            <Button
+              component="label"
+              variant="contained"
+              startIcon={<CloudUploadIcon />}
+              sx={{
+                backgroundColor: "blue",
+              }}
+            >
+              Upload Image
+              <VisuallyHiddenInput
+                type="file"
+                id="image"
+                required
+                accept="image/png, image/jpeg"
+                onChange={handleImageChange}
+              />
+            </Button>
+          )}
           {organizationInfo.image.length > 0 && (
             <div className="flex flex-col justify-between gap-1 w-full">
               <Avatar
@@ -129,7 +129,7 @@ const Resigstration = () => {
                     width: "auto",
                     backgroundColor: "teal",
                     borderBlockColor: "black",
-                    color: "white"
+                    color: "white",
                   }}
                   onClick={handleRetake}
                 >

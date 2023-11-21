@@ -1,7 +1,8 @@
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import Fab from "@mui/material/Fab";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const ScrollToTop = () => {
   const trigger = useScrollTrigger({
@@ -11,19 +12,25 @@ const ScrollToTop = () => {
   });
   const handleclick = () => {
     window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    })
+      top: 0,
+      behavior: "smooth",
+    });
   };
   return (
     <Fade in={trigger}>
       <Box
         role="presentation"
-        sx={{ position: "fixed", bottom: 16, right: 16, borderRadius: '100%', overflow: 'hidden' }}
+        sx={{
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          borderRadius: "100%",
+          overflow: "hidden",
+        }}
       >
-        <button className="bg-slate-400 w-full h-full flex justify-center items-center" onClick={handleclick}>
-          <ArrowCircleUpIcon sx={{color: 'white', fontSize: '3rem'}}/>
-        </button>
+        <Fab size="small" aria-label="scroll back to top" onClick={handleclick}>
+          <KeyboardArrowUpIcon />
+        </Fab>
       </Box>
     </Fade>
   );

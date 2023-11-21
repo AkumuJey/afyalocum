@@ -1,5 +1,4 @@
 import { Box, Button, Paper } from "@mui/material";
-import dayjs from "dayjs";
 import { useState, ChangeEvent } from "react";
 
 import TimeSelectionComponent from "./TimeSelectionComponent";
@@ -24,7 +23,7 @@ const NewLocumForm = () => {
     start: null,
     stop: null,
   });
-  const { title, requirements, description, location, rate, start, stop } = job;
+  const { title, requirements, description, location, rate } = job;
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -32,7 +31,10 @@ const NewLocumForm = () => {
     setJob({ ...job, [id]: value });
   };
   const handleDateChange = (newValue: unknown) => {
-    console.log(newValue);
+    const start = newValue
+    const stop = newValue
+    setJob({...job, start, stop})
+    console.log(job);
   };
 
   return (
