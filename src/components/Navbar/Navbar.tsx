@@ -43,14 +43,12 @@ const Navbar = (props: Props) => {
             transitionProperty: "ease"
           }}
         >
-          <Grid container justifyContent={`space-between`}>
-            {/* <div className="flex justify-between w-full"> */}
+          <Grid container justifyContent={`space-between`}>        
             <h2 className="font-bold text-[2.5rem] text-center px-[2rem] md:p-0">
               <span className="text-[#21573e]">afya</span>
               <span className="text-[#6c757d]">locum</span>
             </h2>
             <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
-            {/* </div> */}
           </Grid>
           <NavLinkList open={open} />
         </AppBar>
