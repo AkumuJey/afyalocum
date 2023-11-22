@@ -2,7 +2,7 @@
 import Hero from "../components/Home/Hero";
 // import TopJobs from "../components/Home/NewJobs";
 
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 
 const Home = () => {
   return (
@@ -21,6 +21,38 @@ const Home = () => {
     <>
       <Box component={`div`}>
         <Hero/>
+        <Container sx={{
+          display: 'flex',
+          flexDirection: {
+            xs: `column`,
+            md: `row`
+          },
+          gap: '2rem',
+          padding: '2rem',
+          textAlign: 'center'
+        }}>
+          <Paper elevation={3} >
+            <Box p={2}>
+              <Typography component={`p`}>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta sapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione.
+              </Typography>
+            </Box>
+          </Paper>
+          <Paper elevation={3}>
+            <Box p={2}>
+              <Typography component={`p`}>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta sapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione.
+              </Typography>
+            </Box>
+          </Paper>
+          <Paper elevation={3}>
+            <Box p={2}>
+              <Typography component={`p`}>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta sapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione.
+              </Typography>
+            </Box>
+          </Paper>
+        </Container>
         <Container sx={{
           width: {
             xs: "100%",
