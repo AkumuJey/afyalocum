@@ -2,7 +2,7 @@
 import Hero from "../components/Home/Hero";
 // import TopJobs from "../components/Home/NewJobs";
 
-import { Box } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 
 const Home = () => {
   return (
@@ -21,6 +21,38 @@ const Home = () => {
     <>
       <Box component={`div`}>
         <Hero/>
+        <Container sx={{
+          width: {
+            xs: "100%",
+            sm: "100%",
+            md: "100%",
+            lg: "100%",
+            xl: "85%"
+          },
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          justifyItems: 'center',
+        }}
+        >
+          <Typography paragraph textAlign={`center`} gutterBottom fontSize={`1.2rem`}>
+            We are approved by:
+          </Typography>
+          <Grid container justifyContent={`space-around`}>
+            <Grid item>
+              <Typography variant="h6">KMPDC</Typography>
+              <Container>Logo</Container>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">KMPDC</Typography>
+              <Container>Logo</Container>
+            </Grid>
+            <Grid item width={100}>
+              <Typography variant="h6">KMPDC</Typography>
+              <Container>Logo</Container>
+            </Grid>
+          </Grid>
+        </Container>
       </Box>
     </>
   );
