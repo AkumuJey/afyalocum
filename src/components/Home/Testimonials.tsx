@@ -12,7 +12,7 @@ interface Props {
 const Testimonials = ({ testimony }: Props) => {
   return (
     <>
-      <Paper elevation={3}>
+      <Paper elevation={3} sx={{width: '100%', maxWidth: 350}}>
         <Box p={2}>
           <Typography component={`h4`} fontWeight={`bold`}>{testimony.title}</Typography>
           <Typography component={`p`}>{testimony.body}</Typography>

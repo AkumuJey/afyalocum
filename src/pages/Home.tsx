@@ -34,52 +34,20 @@ const Home = () => {
               xs: `column`,
               md: `row`,
             },
+            justifyContent: 'center',
+            alignItems: "center",
+            flexWrap: 'wrap',
             gap: "2rem",
             padding: "2rem",
             textAlign: "center",
           }}
         >
+          <Typography variant="h4" component={`h2`} minWidth={`100%`} fontWeight={`bold`}>Testimonials</Typography>
           {testimonies.map((testimony) => {
             return (
               <Testimonials testimony={testimony} key={testimony.id}/>
             );
           })}
-          {/* <Paper elevation={3}>
-            <Box p={2}>
-              <Typography component={`p`}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta
-                sapiente totam dolorem ipsa exercitationem aliquid sit optio!
-                Provident, eum reiciendis impedit vitae maiores adipisci non
-                necessitatibus suscipit consequuntur. Quam et maiores pariatur
-                necessitatibus quidem eum quae modi. Laborum, recusandae
-                ratione.
-              </Typography>
-            </Box>
-          </Paper>
-          <Paper elevation={3}>
-            <Box p={2}>
-              <Typography component={`p`}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta
-                sapiente totam dolorem ipsa exercitationem aliquid sit optio!
-                Provident, eum reiciendis impedit vitae maiores adipisci non
-                necessitatibus suscipit consequuntur. Quam et maiores pariatur
-                necessitatibus quidem eum quae modi. Laborum, recusandae
-                ratione.
-              </Typography>
-            </Box>
-          </Paper>
-          <Paper elevation={3}>
-            <Box p={2}>
-              <Typography component={`p`}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta
-                sapiente totam dolorem ipsa exercitationem aliquid sit optio!
-                Provident, eum reiciendis impedit vitae maiores adipisci non
-                necessitatibus suscipit consequuntur. Quam et maiores pariatur
-                necessitatibus quidem eum quae modi. Laborum, recusandae
-                ratione.
-              </Typography>
-            </Box>
-          </Paper> */}
         </Container>
         <Container
           sx={{
@@ -97,10 +65,11 @@ const Home = () => {
           }}
         >
           <Typography
-            paragraph
+            component={`h4`}
             textAlign={`center`}
             gutterBottom
-            fontSize={`1.2rem`}
+            variant="h4"
+            fontWeight={`bold`}
           >
             We are approved by:
           </Typography>
