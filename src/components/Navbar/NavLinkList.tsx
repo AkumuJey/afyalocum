@@ -1,20 +1,37 @@
+import { List } from "@mui/material";
 import { NavLink } from "react-router-dom";
-
 
 interface PropTypes {
   open: boolean;
 }
 const NavLinkList = ({ open }: PropTypes) => {
+  const linkData = [
+    { path: "/", label: "Home" },
+    { path: "/locums", label: "Locums" },
+    { path: "/about", label: "About" },
+    { path: "/register", label: "Register" },
+  ];
   return (
     <>
-      <ul
-       className={`${open ? '' : 'hidden'}bg-slate-100 flex flex-col md:flex-row justify-around gap-[4rem] font-bold text-xl`}
-      >
-        <li><NavLink to='/' className={({isActive}) => isActive ? 'text-purple-800' : ''}>Home</NavLink></li>
-        <li><NavLink to='/locums' className={({isActive}) => isActive ? 'text-purple-800' : ''}>Locums</NavLink></li>
-        <li><NavLink to='/about' className={({isActive}) => isActive ? 'text-purple-800' : ''}>About</NavLink></li>
-        <li><NavLink to='/register' className={({isActive}) => isActive ? 'text-purple-800' : ''}>Register</NavLink></li>
-      </ul>
+        <List sx={{
+          fontSize: '1.25rem',
+          fontWeight: 'bold',
+          display: open ? 'none' : 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          gap: '4rem',
+        }}>
+          {linkData.map((link, index) => (
+          <li key={index}>
+          <NavLink
+            to={link.path}
+            className={({ isActive }) => (isActive ? "text-purple-800" : "")}
+          >
+            {link.label}
+          </NavLink>
+        </li>
+        ))}
+        </List>
     </>
   );
 };

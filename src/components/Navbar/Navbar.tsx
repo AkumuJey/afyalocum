@@ -2,13 +2,15 @@ import * as React from "react";
 import { useState } from "react";
 import NavLinkList from "./NavLinkList";
 import MenuButton from "./MenuButton";
-import { AppBar, Grid, Slide, useScrollTrigger } from "@mui/material";
+import {
+  AppBar,
+  Typography,
+  Grid,
+  Slide,
+  useScrollTrigger,
+} from "@mui/material";
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
   children: React.ReactElement;
 }
@@ -36,18 +38,26 @@ const Navbar = (props: Props) => {
             flexDirection: "row",
             alignItems: "center",
             backgroundColor: "lightgray",
-            paddingBottom: 1,
-            paddingTop: 1,
+            padding: '0.5rem',
             transition: "all",
             transitionDuration: 200,
-            transitionProperty: "ease"
+            transitionProperty: "ease",
           }}
         >
-          <Grid container justifyContent={`space-between`}>        
-            <h2 className="font-bold text-[2.5rem] text-center px-[2rem] md:p-0">
+          <Grid container justifyContent={`space-between`}>
+            <Typography
+              component={`h2`}
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '2.5rem',
+                textAlign: 'center',
+                padding: "0 2rem 0 2rem"
+              }}
+            >
               <span className="text-[#21573e]">afya</span>
               <span className="text-[#6c757d]">locum</span>
-            </h2>
+            </Typography>
+
             <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
           </Grid>
           <NavLinkList open={open} />
