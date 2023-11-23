@@ -7,8 +7,9 @@ import {
   Typography,
   Grid,
   Slide,
-  useScrollTrigger,
+  useScrollTrigger,useMediaQuery, useTheme
 } from "@mui/material";
+
 
 interface Props {
   window?: () => Window;
@@ -28,14 +29,15 @@ const HideOnScroll = (props: Props) => {
 };
 const Navbar = (props: Props) => {
   const [open, setOpen] = useState(false);
-
+  const theme = useTheme()
+  const isMd = useMediaQuery(theme.breakpoints.down('md'))
   return (
     <>
       <HideOnScroll {...props}>
         <AppBar
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: isMd ? 'column' : "row",
             alignItems: "center",
             backgroundColor: "lightgray",
             padding: '0.5rem',
@@ -48,19 +50,16 @@ const Navbar = (props: Props) => {
             <Typography
               component={`h2`}
               sx={{
-                fontWeight: 'bold',
-                fontSize: '2.5rem',
                 textAlign: 'center',
                 padding: "0 2rem 0 2rem"
               }}
             >
-              <span className="text-[#21573e]">afya</span>
-              <span className="text-[#6c757d]">locum</span>
+              <Typography component={`span`} className="text-[`#21573e`]" sx={{fontWeight: 'bold', fontSize: '2.5rem'}}>afya</Typography>
+              <Typography component={`span`}  className="text-[#6c757d]" sx={{fontWeight: 'bold', fontSize: '2.5rem'}}>locum</Typography>
             </Typography>
-
             <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
           </Grid>
-          <NavLinkList open={open} />
+          <NavLinkList open={open} isMd={isMd} handleClose={() => setOpen(false)}/>
         </AppBar>
       </HideOnScroll>
     </>
