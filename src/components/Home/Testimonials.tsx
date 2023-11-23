@@ -1,22 +1,25 @@
 import { Box, Paper, Typography } from "@mui/material";
 
-const Testimonials = () => {
+interface testimony {
+  title: string;
+  body: string;
+  id: number;
+}
+interface Props {
+  testimony: testimony;
+}
+
+const Testimonials = ({ testimony }: Props) => {
   return (
     <>
-    <Paper elevation={3}>
-            <Box p={2}>
-              <Typography component={`p`}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta
-                sapiente totam dolorem ipsa exercitationem aliquid sit optio!
-                Provident, eum reiciendis impedit vitae maiores adipisci non
-                necessitatibus suscipit consequuntur. Quam et maiores pariatur
-                necessitatibus quidem eum quae modi. Laborum, recusandae
-                ratione.
-              </Typography>
-            </Box>
-          </Paper>
+      <Paper elevation={3}>
+        <Box p={2}>
+          <Typography component={`h4`} fontWeight={`bold`}>{testimony.title}</Typography>
+          <Typography component={`p`}>{testimony.body}</Typography>
+        </Box>
+      </Paper>
     </>
   );
 };
 
-export default Testimonials
+export default Testimonials;

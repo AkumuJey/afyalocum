@@ -2,27 +2,27 @@
 import Hero from "../components/Home/Hero";
 // import TopJobs from "../components/Home/NewJobs";
 
-import { Avatar, Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
+import Testimonials from "../components/Home/Testimonials";
 
 const Home = () => {
-
   const testimonies = [
     {
       id: 1,
-      title: 'One',
-      body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dictasapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione."
+      title: "One",
+      body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dictasapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione.",
     },
     {
       id: 2,
-      title: 'Two',
-      body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dictasapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione."
+      title: "Two",
+      body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dictasapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione.",
     },
     {
       id: 3,
-      title: 'Three',
-      body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dictasapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione."
+      title: "Three",
+      body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dictasapiente totam dolorem ipsa exercitationem aliquid sit optio! Provident, eum reiciendis impedit vitae maiores adipisci non necessitatibus suscipit consequuntur. Quam et maiores pariatur necessitatibus quidem eum quae modi. Laborum, recusandae ratione.",
     },
-  ]
+  ];
   return (
     <>
       <Box component={`div`}>
@@ -39,7 +39,12 @@ const Home = () => {
             textAlign: "center",
           }}
         >
-          <Paper elevation={3}>
+          {testimonies.map((testimony) => {
+            return (
+              <Testimonials testimony={testimony} key={testimony.id}/>
+            );
+          })}
+          {/* <Paper elevation={3}>
             <Box p={2}>
               <Typography component={`p`}>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta
@@ -74,7 +79,7 @@ const Home = () => {
                 ratione.
               </Typography>
             </Box>
-          </Paper>
+          </Paper> */}
         </Container>
         <Container
           sx={{
@@ -99,10 +104,14 @@ const Home = () => {
           >
             We are approved by:
           </Typography>
-          <Grid container justifyContent={`space-around`} sx={{
-            marginTop: '2rem',
-            marginBottom: '2rem',
-          }}>
+          <Grid
+            container
+            justifyContent={`space-around`}
+            sx={{
+              marginTop: "2rem",
+              marginBottom: "2rem",
+            }}
+          >
             <Grid item>
               <Typography variant="h6">KMPDC</Typography>
               <Avatar
