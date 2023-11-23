@@ -1,4 +1,4 @@
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button, Paper, Grid, LinearProgress } from "@mui/material";
 import { useState, ChangeEvent } from "react";
 
 import TimeSelectionComponent from "./TimeSelectionComponent";
@@ -31,10 +31,18 @@ const NewLocumForm = () => {
     setJob({ ...job, [id]: value });
   };
   const handleDateChange = (newValue: unknown) => {
-    const start = newValue
-    const stop = newValue
-    setJob({...job, start, stop})
+    const start = newValue;
+    const stop = newValue;
+    setJob({ ...job, start, stop });
     console.log(job);
+  };
+
+  const [step, setStep] = useState<number>(2);
+  const handleNextStep = () => {
+    setStep(step + 1);
+  };
+  const handlePreviousStep = () => {
+    setStep(step - 1);
   };
 
   return (
@@ -57,18 +65,55 @@ const NewLocumForm = () => {
           width: "100%",
         }}
       >
-        <NewJobInputs
-          handleInputChange={handleInputChange}
-          title={title}
-          description={description}
-          requirements={requirements}
-          location={location}
-          rate={rate}
+        <LinearProgress
+          value={(step / 2) * 100}
+          variant="determinate"
+          sx={{ height: "0.5rem", borderRadius: "0.5rem", mb: '1rem',  }}
         />
-        <TimeSelectionComponent handleDateChange={handleDateChange} />
-        <Button variant="contained" type="submit">
-          Save Vacancy
-        </Button>
+        {step === 1 && (
+          <NewJobInputs
+            handleInputChange={handleInputChange}
+            title={title}
+            description={description}
+            requirements={requirements}
+          />
+        )}
+        {step === 2 && (
+          <TimeSelectionComponent
+            handleDateChange={handleDateChange}
+            handleInputChange={handleInputChange}
+            location={location}
+            rate={rate}
+          />
+        )}
+        {step === 1 && (
+          <Grid container justifyContent={`end`} px={4}>
+            <Grid item>
+              <Button variant="contained" onClick={handleNextStep}>
+                Next
+              </Button>
+            </Grid>
+          </Grid>
+        )}
+
+        {step === 2 && (
+          <Grid container justifyContent={`space-between`} px={4}>
+            <Grid item>
+              <Button
+                variant="contained"
+                type="button"
+                onClick={handlePreviousStep}
+              >
+                Back
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" type="submit">
+                Save Vacancy
+              </Button>
+            </Grid>
+          </Grid>
+        )}
       </Box>
     </Paper>
   );
