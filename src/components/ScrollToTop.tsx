@@ -28,7 +28,7 @@ const ScrollToTop = () => {
           overflow: "hidden",
         }}
       >
-        <Fab size="small" aria-label="scroll back to top" onClick={handleclick}>
+        <Fab size="small" aria-label="Scroll back to top" onClick={handleclick}>
           <KeyboardArrowUpIcon />
         </Fab>
       </Box>
