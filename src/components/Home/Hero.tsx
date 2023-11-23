@@ -7,7 +7,7 @@ const Hero = () => {
     navigate(direction);
   };
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{paddingTop: '2rem'}}>
       <Typography variant="h3" component="h1" gutterBottom textAlign={`center`}>
         Connect with Healthcare Anytime, Anywhere
       </Typography>
