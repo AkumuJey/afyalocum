@@ -1,4 +1,4 @@
-import { useState, FormEvent} from "react";
+import { useState, FormEvent } from "react";
 import {
   Container,
   Grid,
@@ -20,14 +20,14 @@ const Login = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget)
-    const data = Object.fromEntries(formData.entries())
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
     console.log(data);
-    navigate('/')
-  }
+    navigate("/");
+  };
   return (
     <>
       <Paper
@@ -42,8 +42,19 @@ const Login = () => {
           backgroundColor: "white",
         }}
       >
-        <Container component={`form`} sx={{ width: "100%" }} noValidate={false} name="login" onSubmit={handleSubmit}>
-          <Typography variant="h4" fontWeight={`bold`} textAlign={`center`} color="secondary">
+        <Container
+          component={`form`}
+          sx={{ width: "100%" }}
+          noValidate={false}
+          name="login"
+          onSubmit={handleSubmit}
+        >
+          <Typography
+            variant="h4"
+            fontWeight={`bold`}
+            textAlign={`center`}
+            color="secondary"
+          >
             Login
           </Typography>
           <Grid
@@ -75,7 +86,7 @@ const Login = () => {
                   px: "0.5rem",
                   py: "0.2rem",
                 }}
-              ></Input>
+              />
             </Grid>
             <Grid item>
               <InputLabel
@@ -107,7 +118,7 @@ const Login = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-              ></Input>
+              />
             </Grid>
           </Grid>
           <Button
@@ -126,10 +137,18 @@ const Login = () => {
             justifyContent: "space-between",
           }}
         >
-          <Button style={{ textTransform: "none" }} type="button">
+          <Button
+            style={{ textTransform: "none" }}
+            type="button"
+            onClick={() => navigate("/register")}
+          >
             Create Account
           </Button>
-          <Button style={{ textTransform: "none" }} type="button">
+          <Button
+            style={{ textTransform: "none" }}
+            type="button"
+            onClick={() => navigate("/recover-password")}
+          >
             Forgot Password
           </Button>
         </Container>

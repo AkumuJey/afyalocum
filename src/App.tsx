@@ -10,6 +10,7 @@ import Resigstration from "./pages/Resigstration";
 import About from "./pages/About";
 import Root from "./pages/Root";
 import Login from "./pages/Login";
+import RecoverPassword from "./pages/RecoverPassword";
 
 interface Props {
 
@@ -38,6 +39,11 @@ function App(props: Props) {
         {
           path: "/login",
           element: <Login />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/recover-password",
+          element: <RecoverPassword />,
           errorElement: <ErrorPage />
         },
         {
