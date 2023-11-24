@@ -7,11 +7,13 @@ import {
   Paper,
   Button,
   Avatar,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { CloudUpload, VisibilityOff, Visibility } from "@mui/icons-material";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -58,7 +60,11 @@ const Resigstration = () => {
   const handleRetake = () => {
     setTake(!take);
   };
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
       <Paper
@@ -101,7 +107,7 @@ const Resigstration = () => {
             <Button
               component="label"
               variant="contained"
-              startIcon={<CloudUploadIcon />}
+              startIcon={<CloudUpload />}
               sx={{
                 backgroundColor: "blue",
               }}
@@ -151,52 +157,13 @@ const Resigstration = () => {
           </InputLabel>
           <Input
             id="name"
+            autoComplete="off"
             value={organizationInfo.name}
             onChange={handleInputChange}
             placeholder="Organization's Name"
             inputProps={ariaLabel}
             required
-            className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
-          />
-          <InputLabel
-            htmlFor="email"
-            sx={{
-              fontWeight: "bold",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            Email:
-          </InputLabel>
-          <Input
-            id="email"
-            type="email"
-            value={organizationInfo.email}
-            onChange={handleInputChange}
-            placeholder="example@email.com"
-            required
-            inputProps={ariaLabel}
-            className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
-          />
-          <InputLabel
-            htmlFor="password"
-            sx={{
-              fontWeight: "bold",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            Password:
-          </InputLabel>
-          <Input
-            id="password"
-            type="password"
-            value={organizationInfo.password}
-            onChange={handleInputChange}
-            placeholder="password"
-            required
-            inputProps={ariaLabel}
-            className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
+            className="w-full px-3 py-2 overflow-hidden"
           />
           <InputLabel
             htmlFor="description"
@@ -212,11 +179,61 @@ const Resigstration = () => {
             maxRows={5}
             maxLength={200}
             id="description"
+            autoComplete="off"
             value={organizationInfo.description}
             onChange={handleInputChange}
             required
             placeholder="Describe Your Hospital"
-            className="max-h-[200px] min-h-[150px] border-none outline-none p-3 w-full rounded-md bg-white overflow-hidden"
+            className="max-h-[200px] min-h-[150px] bg-slate-400 p-3 w-full overflow-hidden"
+          />
+          <InputLabel
+            htmlFor="email"
+            sx={{
+              fontWeight: "bold",
+              color: "black",
+              width: "100%",
+            }}
+          >
+            Email:
+          </InputLabel>
+          <Input
+            id="email"
+            type="email"
+            autoComplete="off"
+            value={organizationInfo.email}
+            onChange={handleInputChange}
+            placeholder="example@email.com"
+            required
+            inputProps={ariaLabel}
+            className="w-full px-3 py-2 overflow-hidden"
+          />
+          <InputLabel
+            htmlFor="password"
+            sx={{
+              fontWeight: "bold",
+              color: "black",
+              width: "100%",
+            }}
+          >
+            Password:
+          </InputLabel>
+          <Input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            autoComplete="off"
+            value={organizationInfo.password}
+            onChange={handleInputChange}
+            placeholder="password"
+            required
+            inputProps={ariaLabel}
+            className="w-full px-3 py-2 overflow-hidden"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={toggleShowPassword} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
           <Button variant="contained" type="submit">
             Create Account

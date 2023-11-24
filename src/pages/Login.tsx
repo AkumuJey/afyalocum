@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent} from "react";
 import {
   Container,
   Grid,
@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -19,6 +20,14 @@ const Login = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  const navigate = useNavigate()
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData.entries())
+    console.log(data);
+    navigate('/')
+  }
   return (
     <>
       <Paper
@@ -33,8 +42,8 @@ const Login = () => {
           backgroundColor: "white",
         }}
       >
-        <Container component={`form`} sx={{ width: "100%" }}>
-          <Typography variant="h4" fontWeight={`bold`} textAlign={`center`}>
+        <Container component={`form`} sx={{ width: "100%" }} noValidate={false} name="login" onSubmit={handleSubmit}>
+          <Typography variant="h4" fontWeight={`bold`} textAlign={`center`} color="secondary">
             Login
           </Typography>
           <Grid
@@ -59,6 +68,7 @@ const Login = () => {
                 id="email"
                 name="email"
                 autoComplete="off"
+                required
                 sx={{
                   width: "100%",
                   backgroundColor: "white",
@@ -81,6 +91,8 @@ const Login = () => {
               <Input
                 id="password"
                 name="password"
+                autoComplete="off"
+                required
                 type={showPassword ? "text" : "password"}
                 sx={{
                   width: "100%",
