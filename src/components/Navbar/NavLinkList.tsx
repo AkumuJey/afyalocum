@@ -80,7 +80,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
               <NavLink
                 to={link.path}
                 className={({ isActive }) =>
-                  isActive ? "text-purple-800" : ""
+                  isActive ? "text-purple-800 transition-all duration-500 ease-in" : ""
                 }
               >
                 {link.label}

@@ -74,6 +74,7 @@ const Resigstration = () => {
       >
         <Box
           component="form"
+          name="registration"
           sx={{
             // "& > :not(style)": { m: 1 },
             width: "100%",

@@ -23,7 +23,7 @@ const NewLocumForm = () => {
     start: null,
     stop: null,
   });
-  const { title, requirements, description, location, rate } = job;
+  const { title, requirements, description, location, rate, start, stop } = job;
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -44,7 +44,21 @@ const NewLocumForm = () => {
   const handlePreviousStep = () => {
     setStep(step - 1);
   };
+  const next =
+    title.length > 0 &&
+    title.replace(/\s/g, "") !== "" &&
+    requirements.length > 0 &&
+    requirements.replace(/\s/g, "") !== "" &&
+    description.length > 0 &&
+    description.replace(/\s/g, "") !== "";
 
+  const validSubmission =
+    next &&
+    start !== null &&
+    stop !== null &&
+    location.length > 0 &&
+    location.replace(/\s/g, "") !== "" &&
+    rate !== null;
   return (
     <Paper
       elevation={3}
@@ -68,7 +82,7 @@ const NewLocumForm = () => {
         <LinearProgress
           value={(step / 2) * 100}
           variant="determinate"
-          sx={{ height: "0.5rem", borderRadius: "0.5rem", mb: '1rem',  }}
+          sx={{ height: "0.5rem", borderRadius: "0.5rem", mb: "1rem" }}
         />
         {step === 1 && (
           <NewJobInputs
@@ -84,12 +98,18 @@ const NewLocumForm = () => {
             handleInputChange={handleInputChange}
             location={location}
             rate={rate}
+            start={start}
+            stop={stop}
           />
         )}
         {step === 1 && (
           <Grid container justifyContent={`end`} px={4}>
             <Grid item>
-              <Button variant="contained" onClick={handleNextStep}>
+              <Button
+                variant="contained"
+                onClick={handleNextStep}
+                disabled={!next}
+              >
                 Next
               </Button>
             </Grid>
@@ -108,7 +128,11 @@ const NewLocumForm = () => {
               </Button>
             </Grid>
             <Grid item>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={!validSubmission}
+              >
                 Save Vacancy
               </Button>
             </Grid>

@@ -14,10 +14,12 @@ interface Props {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   location: string;
+  start: unknown,
+  stop: unknown
   rate: number | null;
 }
 const TimeSelectionComponent = ({ handleDateChange, handleInputChange, rate,
-  location }: Props) => {
+  location, start, stop }: Props) => {
   const ariaLabel = { "aria-label": "description" };
   return (
     <>
@@ -77,12 +79,14 @@ const TimeSelectionComponent = ({ handleDateChange, handleInputChange, rate,
       >
         <DateTimePicker
           label="Start date and time"
+          defaultValue={start}
           sx={{ backgroundColor: "white", borderRadius: 1 }}
           disablePast
           onChange={(newValue) => handleDateChange(newValue)}
         />
         <DateTimePicker
           label="End date and time"
+          defaultValue={stop}
           sx={{ backgroundColor: "white", borderRadius: 1 }}
           disablePast
           onChange={(newValue) => handleDateChange(newValue)}
