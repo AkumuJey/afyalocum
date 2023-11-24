@@ -9,14 +9,20 @@ import Locums from "./pages/Locums";
 import Resigstration from "./pages/Resigstration";
 import About from "./pages/About";
 import Root from "./pages/Root";
+import Login from "./pages/Login";
 
+interface Props {
 
-function App() {
+  window?: () => Window;
+  children: React.ReactElement;
+}
+
+function App(props: Props) {
  
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Root/>,
+      element: <Root {...props}/>,
       children: [
         
         {
@@ -27,6 +33,11 @@ function App() {
         {
           path: "/locums",
           element: <Locums/>,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/login",
+          element: <Login />,
           errorElement: <ErrorPage />
         },
         {
