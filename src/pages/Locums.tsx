@@ -24,6 +24,7 @@ const Locums = () => {
             aria-label="Locums"
             onChange={handleTabChange}
             className="w-full flex flex-row justify-around"
+            
           >
             <Tab label="Active Locums" value="1" />
             <Tab label="Create New Locum" value="2" />

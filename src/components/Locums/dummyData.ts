@@ -24,3 +24,28 @@ export const activeLocumsArray: Locum[] = [
     }
 ]
 
+export const generateRandomData = () => {
+    const rows = [];
+    const names = ["Jon", "Cersei", "Jaime", "Arya", "Daenerys", "Melisandre", "Ferrara", "Rossini", "Harvey"];
+    const lastNames = ["Snow", "Lannister", "Stark", "Targaryen", "Melisandre", "Clifford", "Frances", "Roxie"];
+    
+    for (let i = 1; i <= 100; i++) {
+      const randomFirstName = names[Math.floor(Math.random() * names.length)];
+      const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+      const randomAge = Math.floor(Math.random() * 100) + 1; // Random age between 1 and 100
+  
+      rows.push({
+        id: i,
+        lastName: randomLastName,
+        firstName: randomFirstName,
+        age: randomAge === 100 ? null : randomAge, // Assign null to age if it's 100
+      });
+    }
+  
+    return rows;
+  }
+  
+  const generatedRows = generateRandomData();
+  console.log(generatedRows);
+  
+
