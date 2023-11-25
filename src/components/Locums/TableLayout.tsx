@@ -47,7 +47,7 @@ const TableLayout = () => {
         overflow: "auto",
         width: {
           xs: "100%",
-          md: "80%",
+          md: "60%",
           marginLeft: "auto",
           marginRight: "auto",
         },

@@ -3,6 +3,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 import TableLayout from "../components/Locums/TableLayout";
 import NewLocumForm from "../components/Locums/NewLocumForm";
+import Notification from "../components/Notification";
 
 const Locums = () => {
   const [value, setValue] = useState("1");
@@ -11,6 +12,7 @@ const Locums = () => {
   };
   return (
     <div className="flex flex-col items-center valid-height w-full">
+      <Notification count={4} />
       <TabContext value={value}>
         <Box
           component="div"
