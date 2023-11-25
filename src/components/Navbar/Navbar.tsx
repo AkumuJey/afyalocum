@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import { useState } from "react";
 import NavLinkList from "./NavLinkList";
 import MenuButton from "./MenuButton";
@@ -9,6 +9,7 @@ import {
   Slide,
   useScrollTrigger,useMediaQuery, useTheme
 } from "@mui/material";
+
 
 
 interface Props {
@@ -40,7 +41,6 @@ const Navbar = (props: Props) => {
             flexDirection: isMd ? 'column' : "row",
             alignItems: "center",
             backgroundColor: "lightgray",
-            padding: '0.5rem',
             transition: "all",
             transitionDuration: 200,
             transitionProperty: "ease",

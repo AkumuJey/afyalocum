@@ -1,5 +1,7 @@
 import { List, ListItem, Drawer, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import UserAvatar from "./UserAvatar";
+import { useState } from "react";
 
 interface PropTypes {
   open: boolean;
@@ -13,7 +15,8 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
     { path: "/about", label: "About" },
     { path: "/login", label: "Login" },
   ];
-
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  
   return (
     <>
       {isMd ? (
@@ -75,8 +78,12 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
             gap: "4rem",
           }}
         >
-          {linkData.map((link, index) => (
-            <li key={index}>
+          {linkData.map((link, index) => { 
+            if (isAuthenticated && link.path === '/login') {
+              return null
+            }
+            return (
+            <ListItem key={index}>
               <NavLink
                 to={link.path}
                 className={({ isActive }) =>
@@ -85,8 +92,10 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
               >
                 {link.label}
               </NavLink>
-            </li>
-          ))}
+            </ListItem>
+            
+          )})}
+            <UserAvatar />
         </List>
       )}
     </>
