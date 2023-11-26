@@ -1,29 +1,28 @@
-
-
 import {
- Grid,
- Typography,
- Button,
- Input,
- Box,
- InputLabel,
+  Grid,
+  Typography,
+  Button,
+  Input,
+  Box,
+  InputLabel,
 } from "@mui/material";
 import { useState, FormEvent } from "react";
 
 const Name = () => {
- // State to manage the editable status of the component
- const [isEditable, setIsEditable] = useState(false);
+  // State to manage the editable status of the component
+  const [isEditable, setIsEditable] = useState(false);
 
- // Function to handle form submission
- const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // Function to handle form submission
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    setIsEditable(false);
     console.log(data);
- };
+  };
 
- // Render the component based on the editable status
- return (
+  // Render the component based on the editable status
+  return (
     <>
       {/* If the component is not editable, display the name and an edit button */}
       {!isEditable && (
@@ -33,7 +32,9 @@ const Name = () => {
             <Typography>Akumu Joseph Owino</Typography>
           </Grid>
           <Grid item>
-            <Button onClick={() => setIsEditable(true)}>Edit</Button>
+            <Button onClick={() => setIsEditable(true)} variant="contained">
+              Edit
+            </Button>
           </Grid>
         </Grid>
       )}
@@ -50,7 +51,7 @@ const Name = () => {
             gap: "0.5rem",
           }}
         >
-          <Box component={`div`} sx={{width: "100%"}}>
+          <Box component={`div`} sx={{ width: "100%" }}>
             <InputLabel
               htmlFor="name"
               sx={{
@@ -62,7 +63,12 @@ const Name = () => {
             >
               Name
             </InputLabel>
-            <Input id="name" name="name" autoComplete="off" sx={{width: "100%",}}/>
+            <Input
+              id="name"
+              name="name"
+              autoComplete="off"
+              sx={{ width: "100%" }}
+            />
           </Box>
           <Box
             component={`div`}
@@ -70,7 +76,7 @@ const Name = () => {
               display: "flex",
               justifyContent: "space-between",
               gap: "2rem",
-              width: "100%"
+              width: "100%",
             }}
           >
             <Button type="submit" color="primary" variant="contained">
@@ -88,7 +94,7 @@ const Name = () => {
         </Box>
       )}
     </>
- );
+  );
 };
 
 export default Name;

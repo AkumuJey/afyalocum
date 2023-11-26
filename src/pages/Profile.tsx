@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import UserAvatar from "../components/Navbar/UserAvatar";
 import NameProfile from "../components/Profile/NameProfile"
+import DescriptionProfile from "../components/Profile/DescriptionProfile";
 
 const Profile = () => {
   return (
@@ -18,12 +19,7 @@ const Profile = () => {
             <Button sx={{ height: "auto" }}>Edit</Button>
           </Grid>
           <NameProfile />
-          <Grid container justifyContent={`space-between`}>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <Typography>Description: </Typography>
-            </Grid>
-            <Button>Edit</Button>
-          </Grid>
+          <DescriptionProfile />
         </Paper>
       </Box>
     </>
