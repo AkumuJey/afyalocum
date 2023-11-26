@@ -95,7 +95,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
             </ListItem>
             
           )})}
-            <UserAvatar />
+            <UserAvatar/>
         </List>
       )}
     </>

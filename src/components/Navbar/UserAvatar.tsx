@@ -16,6 +16,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Link } from "react-router-dom";
 
 const UserAvatar = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -87,8 +88,10 @@ const UserAvatar = () => {
                     id="composition-menu"
                     onKeyDown={handleListKeyDown}
                   >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to={`/profile`}>Profile</Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Root from "./pages/Root";
 import Login from "./pages/Login";
 import RecoverPassword from "./pages/RecoverPassword";
+import Profile from "./pages/Profile";
 
 interface Props {
 
@@ -49,6 +50,11 @@ function App(props: Props) {
         {
           path: "/register",
           element: <Resigstration />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: "/profile",
+          element: <Profile/>,
           errorElement: <ErrorPage />
         },
         {
