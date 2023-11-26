@@ -1,7 +1,7 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import UserAvatar from "../components/Navbar/UserAvatar";
+import { Box, Paper, Typography } from "@mui/material";
 import NameProfile from "../components/Profile/NameProfile"
 import DescriptionProfile from "../components/Profile/DescriptionProfile";
+import AvatarProfile from "../components/Profile/AvatarProfile";
 
 const Profile = () => {
   return (
@@ -10,14 +10,9 @@ const Profile = () => {
         component={`div`}
         className="w-[95%] max-w-lg valid-height flex flex-col justify-start gap-[4rem] py-5"
       >
-        <Typography variant="h3">Profile</Typography>
-        <Paper elevation={2} sx={{ padding: 2, }}>
-          <Grid container justifyContent={`space-between`}>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <UserAvatar />
-            </Grid>
-            <Button sx={{ height: "auto" }}>Edit</Button>
-          </Grid>
+        <Typography variant="h3" fontWeight={`bold`}>Profile</Typography>
+        <Paper elevation={2} sx={{ padding: 2, display: "flex", flexDirection: "column", gap: "2rem"}}>
+          <AvatarProfile />
           <NameProfile />
           <DescriptionProfile />
         </Paper>
