@@ -23,12 +23,36 @@ const ScrollToTop = () => {
         sx={{
           position: "fixed",
           bottom: 16,
-          right: 16,
+          right: {
+            xs: 16,
+            md: 32,
+          },
           borderRadius: "100%",
-          overflow: "hidden",
         }}
       >
-        <Fab size="small" aria-label="Scroll back to top" onClick={handleclick}>
+        <Fab
+          size="small"
+          aria-label="Scroll back to top"
+          onClick={handleclick}
+          sx={{
+            "&:hover": {
+              // Change background color on hover
+              "&:after": {
+                content: '"Scroll to Top"',
+                position: "absolute",
+                top: "-50px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                color: "black", // Label text color
+                fontSize: "1rem",
+                fontWeight: "bold",
+                whiteSpace: "nowrap",
+                backgroundColor: "transparent",
+              },
+            },
+          }}
+          style={{ textTransform: "none" }}
+        >
           <KeyboardArrowUpIcon />
         </Fab>
       </Box>

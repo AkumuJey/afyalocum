@@ -40,10 +40,7 @@ const TableLayout = () => {
   return (
     <Box
       sx={{
-        height: {
-          xs: "dvh",
-          md: "vh",
-        },
+        height: 400,
         overflow: "auto",
         width: {
           xs: "100%",
