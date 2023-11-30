@@ -23,10 +23,7 @@ const ScrollToTop = () => {
         sx={{
           position: "fixed",
           bottom: 16,
-          right: {
-            xs: 16,
-            md: 32,
-          },
+          right: 16,
           borderRadius: "100%",
         }}
       >
@@ -42,12 +39,15 @@ const ScrollToTop = () => {
                 position: "absolute",
                 top: "-50px",
                 left: "50%",
-                transform: "translateX(-50%)",
-                color: "black", // Label text color
-                fontSize: "1rem",
+                transform: "translateX(-70%)",
+                color: "white", // Label text color
+                fontSize: "0.8rem",
                 fontWeight: "bold",
                 whiteSpace: "nowrap",
-                backgroundColor: "transparent",
+                backgroundColor: "black",
+                px: "0.8rem",
+                py: "0.3rem",
+                borderRadius: "1.3rem"
               },
             },
           }}
