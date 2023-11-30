@@ -10,6 +10,7 @@ const TableLayout = () => {
       headerName: "First name",
       width: 150,
       editable: true,
+      pinnable: true
     },
     {
       field: "lastName",

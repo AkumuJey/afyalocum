@@ -1,3 +1,4 @@
+import { GridColDef, GridValueGetterParams} from "@mui/x-data-grid"
 
 export interface Locum{
     id: number,
@@ -44,8 +45,37 @@ export const generateRandomData = () => {
   
     return rows;
   }
-  
-  const generatedRows = generateRandomData();
-  console.log(generatedRows);
+
+export  const headers: GridColDef[] = [
+    {
+      field: "title",
+      headerName: "Locum",
+      width: 150,
+      editable: true,
+      pinnable: true
+    },
+    {
+      field: "location",
+      headerName: "Location",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "start",
+      headerName: "Start",
+      type: "date",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "fullName",
+      headerName: "Full name",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
+      width: 160,
+      valueGetter: (params: GridValueGetterParams) =>
+        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    },
+  ]
   
 
