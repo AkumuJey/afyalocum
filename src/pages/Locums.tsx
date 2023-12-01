@@ -4,9 +4,11 @@ import { Box, Tab } from "@mui/material";
 import TableLayout from "../components/Locums/TableLayout";
 import NewLocumForm from "../components/Locums/NewLocumForm";
 import Notification from "../components/Notification";
+import SingleLocum from "../components/Locums/SingleLocum";
 
 const Locums = () => {
   const [value, setValue] = useState("1");
+  const [detailsOpen, setDetailsOpen] = useState(true);
   const handleTabChange = (_e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -55,7 +57,7 @@ const Locums = () => {
             width: "100%",
           }}
         >
-          <TableLayout />
+          {detailsOpen ? (<SingleLocum onClose={() => setDetailsOpen(false)}/>) :(<TableLayout />) }
         </TabPanel>
       </TabContext>
     </div>

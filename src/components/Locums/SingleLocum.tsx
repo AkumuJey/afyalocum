@@ -1,32 +1,21 @@
-import { useEffect, useState } from "react"
-import { Box } from "@mui/material"
 
-interface Props{
-    id: number,
+import { Box, IconButton, Paper } from "@mui/material";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+
+interface Props {
+    onClose: () => void;
 }
-const SingleLocum = ({id}: Props) => {
-    const [locums, setLocums] = useState([])
-    const abortController = new AbortController()
-    const signal = abortController.signal
-    const getData = async() => {
-        const details = await fetch(`xyz${id}`, {signal}).then(response => response.json())
-        return details
-    } 
-    useEffect(() => {
-        const data = getData()
-        if (data){
-            setLocums(data)
-        }
-        return abortController.abort()
-    })
+const SingleLocum = ({onClose} : Props) => {
   return (
     <>
-    <Box component={`div`}>
-        <h1>{`Location ${id}`}</h1>
-        <p>{data?.name}</p>
-    </Box>
+      <Paper elevation={3}>
+        <Box component={`div`}>
+            <IconButton onClick={onClose}><ArrowBackIosIcon /> Back</IconButton>
+        </Box>
+      </Paper>
     </>
-  )
-}
+  );
+};
 
-export default SingleLocum
+export default SingleLocum;
