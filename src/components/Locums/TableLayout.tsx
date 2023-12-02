@@ -2,7 +2,10 @@ import { Box } from "@mui/material";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { generateRandomData } from "./dummyData";
 
-const TableLayout = () => {
+interface Props{
+  onClick: () => void
+}
+const TableLayout = ({onClick} : Props) => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -64,6 +67,7 @@ const TableLayout = () => {
         pageSizeOptions={[10]}
         checkboxSelection
         disableRowSelectionOnClick
+        onRowClick={onClick}
       />
     </Box>
   );

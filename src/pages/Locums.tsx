@@ -8,7 +8,7 @@ import SingleLocum from "../components/Locums/SingleLocum";
 
 const Locums = () => {
   const [value, setValue] = useState("1");
-  const [detailsOpen, setDetailsOpen] = useState(true);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const handleTabChange = (_e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -28,7 +28,6 @@ const Locums = () => {
             aria-label="Locums"
             onChange={handleTabChange}
             className="w-full flex flex-row justify-around"
-            
           >
             <Tab label="Active Locums" value="1" />
             <Tab label="Create New Locum" value="2" />
@@ -41,7 +40,7 @@ const Locums = () => {
             width: "100%",
           }}
         >
-          <TableLayout />
+          <TableLayout onClick={() => null}/>
         </TabPanel>
         <TabPanel
           value="2"
@@ -57,7 +56,11 @@ const Locums = () => {
             width: "100%",
           }}
         >
-          {detailsOpen ? (<SingleLocum onClose={() => setDetailsOpen(false)}/>) :(<TableLayout />) }
+          {detailsOpen ? (
+            <SingleLocum onClose={() => setDetailsOpen(false)} />
+          ) : (
+            <TableLayout onClick={() => setDetailsOpen(true)} />
+          )}
         </TabPanel>
       </TabContext>
     </div>
