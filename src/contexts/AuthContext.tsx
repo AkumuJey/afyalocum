@@ -1,5 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react"
 
+
+
 interface Props{
     children: ReactNode
 }
@@ -9,6 +11,8 @@ export const useAuth = () => {
 }
 export const AuthProvider = ({children} : Props) => {
     const [currentUser, setCurrentUser] = useState(null)
+    // const currentUser = auth.currentUser
+
     const value = {
         currentUser
     }

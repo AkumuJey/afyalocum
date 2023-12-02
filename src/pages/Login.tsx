@@ -13,6 +13,9 @@ import {
 
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -25,6 +28,8 @@ const Login = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    const {email, password} = data
+    signInWithEmailAndPassword(auth, email, password)
     console.log(data);
     navigate("/");
   };
