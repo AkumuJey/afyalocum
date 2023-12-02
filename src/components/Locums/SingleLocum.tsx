@@ -5,6 +5,7 @@ interface Props {
   onClose: () => void;
 }
 const SingleLocum = ({ onClose }: Props) => {
+
   return (
     <>
       <Paper elevation={3} sx={{ display: "relative", padding: "1rem" }}>
