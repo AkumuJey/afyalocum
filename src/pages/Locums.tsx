@@ -1,6 +1,6 @@
-import { useState, SyntheticEvent } from "react";
+import { Suspense, useState, SyntheticEvent } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Box, Tab } from "@mui/material";
+import { Box, Skeleton, Tab } from "@mui/material";
 import TableLayout from "../components/Locums/TableLayout";
 import NewLocumForm from "../components/Locums/NewLocumForm";
 import Notification from "../components/Notification";
@@ -59,7 +59,9 @@ const Locums = () => {
           {detailsOpen ? (
             <SingleLocum onClose={() => setDetailsOpen(false)} />
           ) : (
-            <TableLayout onClick={() => setDetailsOpen(true)} />
+            <Suspense fallback={<Skeleton/>}>
+              <TableLayout onClick={() => setDetailsOpen(true)} />
+            </Suspense>
           )}
         </TabPanel>
       </TabContext>

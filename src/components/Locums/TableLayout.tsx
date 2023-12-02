@@ -41,6 +41,7 @@ const TableLayout = ({onClick} : Props) => {
 
   const rows = generateRandomData()
   
+ 
   return (
     <Box
       sx={{
