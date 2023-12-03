@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -27,11 +26,14 @@ const Login = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    const {email, password} = data
-    signInWithEmailAndPassword(auth, email, password)
-    console.log(data);
-    navigate("/");
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    try {
+      signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -49,8 +51,8 @@ const Login = () => {
       >
         <Container
           component={`form`}
+          aria-required
           sx={{ width: "100%" }}
-          noValidate={false}
           name="login"
           onSubmit={handleSubmit}
         >
@@ -83,6 +85,7 @@ const Login = () => {
               <Input
                 id="email"
                 name="email"
+                type="email"
                 autoComplete="off"
                 required
                 sx={{
