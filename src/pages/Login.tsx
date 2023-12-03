@@ -15,25 +15,32 @@ import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import { LoadingButton } from "@mui/lab";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
   const navigate = useNavigate();
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true)
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     try {
-      signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/"); // Navigate upon successful sign-in
     } catch (error) {
-      console.log(error);
+      console.error(error); // Log or handle the error appropriately
+      // Handle error (e.g., display error message)
+    } finally {
+      setLoading(false); // Set loading to false after the process completes
     }
+    
   };
   return (
     <>
@@ -129,14 +136,15 @@ const Login = () => {
               />
             </Grid>
           </Grid>
-          <Button
+          <LoadingButton
             type="submit"
             variant="contained"
             sx={{ width: "100%" }}
             color="secondary"
+            loading={loading}
           >
             Login
-          </Button>
+          </LoadingButton>
         </Container>
         <Container
           sx={{
