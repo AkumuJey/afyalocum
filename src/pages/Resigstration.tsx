@@ -6,25 +6,25 @@ import {
   TextareaAutosize,
   Paper,
   Button,
-  Avatar,
   InputAdornment,
   IconButton,
 } from "@mui/material";
 
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 
-import { CloudUpload, VisibilityOff, Visibility } from "@mui/icons-material";
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+import { VisibilityOff, Visibility } from "@mui/icons-material";
+import ImageUpload from "../components/registration/ImageUpload";
+// const VisuallyHiddenInput = styled("input")({
+//   clip: "rect(0 0 0 0)",
+//   clipPath: "inset(50%)",
+//   height: 1,
+//   overflow: "hidden",
+//   position: "absolute",
+//   bottom: 0,
+//   left: 0,
+//   whiteSpace: "nowrap",
+//   width: 1,
+// });
 
 const Resigstration = () => {
   const ariaLabel = { "aria-label": "description" };
@@ -65,6 +65,7 @@ const Resigstration = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
       <Paper
@@ -93,58 +94,12 @@ const Resigstration = () => {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <InputLabel
-            htmlFor="image"
-            sx={{
-              fontWeight: "bold",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            {take ? "Upload Image" : "Hospital's Image"}
-          </InputLabel>
-          {take && (
-            <Button
-              component="label"
-              variant="contained"
-              startIcon={<CloudUpload />}
-              sx={{
-                backgroundColor: "blue",
-              }}
-            >
-              Upload Image
-              <VisuallyHiddenInput
-                type="file"
-                id="image"
-                required
-                accept="image/png, image/jpeg"
-                onChange={handleImageChange}
-              />
-            </Button>
-          )}
-          {organizationInfo.image.length > 0 && (
-            <div className="flex flex-col justify-between gap-1 w-full">
-              <Avatar
-                alt="Profile Image"
-                src={organizationInfo.image}
-                sx={{ width: "5rem", height: "5rem" }}
-              />
-              <div>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    width: "auto",
-                    backgroundColor: "teal",
-                    borderBlockColor: "black",
-                    color: "white",
-                  }}
-                  onClick={handleRetake}
-                >
-                  {take ? "Use Initial Image" : "Reatake Image"}
-                </Button>
-              </div>
-            </div>
-          )}
+          <ImageUpload
+            handleImageChange={handleImageChange}
+            image={organizationInfo.image}
+            handleRetake={handleRetake}
+            take={take}
+          />
           <InputLabel
             htmlFor="name"
             sx={{
