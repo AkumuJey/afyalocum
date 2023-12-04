@@ -1,31 +1,17 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import {
-  Input,
   Box,
-  InputLabel,
   Paper,
   Button,
-  InputAdornment,
-  IconButton,
 } from "@mui/material";
 
 // import { styled } from "@mui/material/styles";
 
-import { VisibilityOff, Visibility } from "@mui/icons-material";
 import ImageUpload from "../components/registration/ImageUpload";
 import NameRegistration from "../components/registration/NameRegistration";
 import DescriptionInput from "../components/registration/DescriptionInput";
-// const VisuallyHiddenInput = styled("input")({
-//   clip: "rect(0 0 0 0)",
-//   clipPath: "inset(50%)",
-//   height: 1,
-//   overflow: "hidden",
-//   position: "absolute",
-//   bottom: 0,
-//   left: 0,
-//   whiteSpace: "nowrap",
-//   width: 1,
-// });
+import EmailAndPasswordInput from "../components/registration/EmailAndPasswordInput";
+
 
 const Resigstration = () => {
   const ariaLabel = { "aria-label": "description" };
@@ -60,11 +46,6 @@ const Resigstration = () => {
 
   const handleRetake = () => {
     setTake(!take);
-  };
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
   };
 
   return (
@@ -106,55 +87,15 @@ const Resigstration = () => {
             handleInputChange={handleInputChange}
             name={organizationInfo.name}
           />
-          <DescriptionInput description={organizationInfo.description} handleInputChange={handleInputChange}/>
-          <InputLabel
-            htmlFor="email"
-            sx={{
-              fontWeight: "bold",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            Email:
-          </InputLabel>
-          <Input
-            id="email"
-            type="email"
-            autoComplete="off"
-            value={organizationInfo.email}
-            onChange={handleInputChange}
-            placeholder="example@email.com"
-            required
-            inputProps={ariaLabel}
-            className="w-full px-3 py-2 overflow-hidden"
+          <DescriptionInput
+            description={organizationInfo.description}
+            handleInputChange={handleInputChange}
           />
-          <InputLabel
-            htmlFor="password"
-            sx={{
-              fontWeight: "bold",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            Password:
-          </InputLabel>
-          <Input
-            id="password"
-            type={showPassword ? "text" : "password"}
-            autoComplete="off"
-            value={organizationInfo.password}
-            onChange={handleInputChange}
-            placeholder="password"
-            required
-            inputProps={ariaLabel}
-            className="w-full px-3 py-2 overflow-hidden"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton onClick={toggleShowPassword} edge="end">
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
+          <EmailAndPasswordInput
+            email={organizationInfo.email}
+            password={organizationInfo.password}
+            ariaLabel={ariaLabel}
+            handleInputChange={handleInputChange}
           />
           <Button variant="contained" type="submit">
             Create Account
