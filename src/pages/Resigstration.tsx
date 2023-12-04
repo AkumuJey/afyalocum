@@ -2,32 +2,35 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import {
   Box,
   Paper,
-  Button,
 } from "@mui/material";
-
-// import { styled } from "@mui/material/styles";
+import { LoadingButton } from "@mui/lab";
 
 import ImageUpload from "../components/registration/ImageUpload";
 import NameRegistration from "../components/registration/NameRegistration";
 import DescriptionInput from "../components/registration/DescriptionInput";
 import EmailAndPasswordInput from "../components/registration/EmailAndPasswordInput";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth} from "../firebase/firebase"
 
-
+interface organizationInfo {
+  name: string
+  password: string
+  email: string
+  description: string
+  image: string
+}
 const Resigstration = () => {
-  const ariaLabel = { "aria-label": "description" };
-  const [organizationInfo, setOrganizationInfo] = useState({
+  const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>({
     name: "",
     password: "",
     email: "",
     description: "",
     image: "",
   });
-
-  const [take, setTake] = useState(true);
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Submitted", organizationInfo);
-  };
+ 
+  const ariaLabel = { "aria-label": "description" };
+  const [take, setTake] = useState(true); 
+  const [loading, setLoading] = useState(false); 
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -47,7 +50,19 @@ const Resigstration = () => {
   const handleRetake = () => {
     setTake(!take);
   };
-
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true)
+    console.log("Submitted", organizationInfo);
+    const {email, password} = organizationInfo
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  };
   return (
     <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
       <Paper
@@ -97,9 +112,14 @@ const Resigstration = () => {
             ariaLabel={ariaLabel}
             handleInputChange={handleInputChange}
           />
-          <Button variant="contained" type="submit">
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            color="primary"
+            loading={loading}
+          >
             Create Account
-          </Button>
+          </LoadingButton>
         </Box>
       </Paper>
     </div>
