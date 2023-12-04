@@ -3,7 +3,6 @@ import {
   Input,
   Box,
   InputLabel,
-  TextareaAutosize,
   Paper,
   Button,
   InputAdornment,
@@ -15,6 +14,7 @@ import {
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import ImageUpload from "../components/registration/ImageUpload";
 import NameRegistration from "../components/registration/NameRegistration";
+import DescriptionInput from "../components/registration/DescriptionInput";
 // const VisuallyHiddenInput = styled("input")({
 //   clip: "rect(0 0 0 0)",
 //   clipPath: "inset(50%)",
@@ -106,27 +106,7 @@ const Resigstration = () => {
             handleInputChange={handleInputChange}
             name={organizationInfo.name}
           />
-          <InputLabel
-            htmlFor="description"
-            sx={{
-              fontWeight: "bold",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            Describe the Hospital:
-          </InputLabel>
-          <TextareaAutosize
-            maxRows={5}
-            maxLength={200}
-            id="description"
-            autoComplete="off"
-            value={organizationInfo.description}
-            onChange={handleInputChange}
-            required
-            placeholder="Describe Your Hospital"
-            className="max-h-[200px] min-h-[150px] bg-slate-400 p-3 w-full overflow-hidden"
-          />
+          <DescriptionInput description={organizationInfo.description} handleInputChange={handleInputChange}/>
           <InputLabel
             htmlFor="email"
             sx={{
