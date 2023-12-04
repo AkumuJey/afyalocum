@@ -14,6 +14,7 @@ import {
 
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import ImageUpload from "../components/registration/ImageUpload";
+import NameRegistration from "../components/registration/NameRegistration";
 // const VisuallyHiddenInput = styled("input")({
 //   clip: "rect(0 0 0 0)",
 //   clipPath: "inset(50%)",
@@ -100,25 +101,10 @@ const Resigstration = () => {
             handleRetake={handleRetake}
             take={take}
           />
-          <InputLabel
-            htmlFor="name"
-            sx={{
-              fontWeight: "bold",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            Name of Organization:
-          </InputLabel>
-          <Input
-            id="name"
-            autoComplete="off"
-            value={organizationInfo.name}
-            onChange={handleInputChange}
-            placeholder="Organization's Name"
-            inputProps={ariaLabel}
-            required
-            className="w-full px-3 py-2 overflow-hidden"
+          <NameRegistration
+            ariaLabel={ariaLabel}
+            handleInputChange={handleInputChange}
+            name={organizationInfo.name}
           />
           <InputLabel
             htmlFor="description"
