@@ -20,12 +20,13 @@ import { getAuth } from "firebase/auth";
 
 
 
-;
+
 // Initialize Firebase
 
   
 
 export const app = initializeApp(firebaseConfig);
-export const firestore = getFirestore(app)
+export const db = getFirestore(app)
+
 export const analytics = getAnalytics(app);
 export const auth = getAuth()

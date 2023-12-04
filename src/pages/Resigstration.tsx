@@ -9,14 +9,16 @@ import ImageUpload from "../components/registration/ImageUpload";
 import NameRegistration from "../components/registration/NameRegistration";
 import DescriptionInput from "../components/registration/DescriptionInput";
 import EmailAndPasswordInput from "../components/registration/EmailAndPasswordInput";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth} from "../firebase/firebase"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db} from "../firebase/firebase"
+import { doc, setDoc,} from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 interface organizationInfo {
   name: string
   password: string
   email: string
-  description: string
+  hospitalDescription: string
   image: string
 }
 const Resigstration = () => {
@@ -24,7 +26,7 @@ const Resigstration = () => {
     name: "",
     password: "",
     email: "",
-    description: "",
+    hospitalDescription: "",
     image: "",
   });
  
@@ -50,13 +52,25 @@ const Resigstration = () => {
   const handleRetake = () => {
     setTake(!take);
   };
+  const navigate = useNavigate()
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true)
     console.log("Submitted", organizationInfo);
-    const {email, password} = organizationInfo
+    const {email, password, name, hospitalDescription, image} = organizationInfo
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      if (user) {
+        await updateProfile(user, {
+          displayName: name,
+          photoURL: image,
+        })
+      }
+      const userRef = doc(db, "hospitals", user.uid)
+      await setDoc(userRef, {
+        hospitalDescription
+      }).then(() => navigate("/login"))
     } catch (error) {
       console.log(error)
     } finally {
@@ -80,7 +94,6 @@ const Resigstration = () => {
           component="form"
           name="registration"
           sx={{
-            // "& > :not(style)": { m: 1 },
             width: "100%",
             display: "flex",
             flexDirection: "column",
@@ -103,7 +116,7 @@ const Resigstration = () => {
             name={organizationInfo.name}
           />
           <DescriptionInput
-            description={organizationInfo.description}
+            description={organizationInfo.hospitalDescription}
             handleInputChange={handleInputChange}
           />
           <EmailAndPasswordInput

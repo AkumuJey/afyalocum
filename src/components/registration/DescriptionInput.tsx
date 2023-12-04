@@ -25,7 +25,7 @@ const DescriptionInput = ({description, handleInputChange} : Props) => {
           <TextareaAutosize
             maxRows={5}
             maxLength={200}
-            id="description"
+            id="hospitalDescription"
             autoComplete="off"
             value={description}
             onChange={handleInputChange}
