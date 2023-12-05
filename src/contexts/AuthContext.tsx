@@ -1,25 +1,19 @@
-import { ReactNode, createContext, useContext, useState } from "react"
 
 
-
-interface Props{
-    children: ReactNode
+import { createContext, useContext, ReactNode, useState} from "react"
+interface AuthContext {
+    user: any
+    setUser: any
 }
-const AuthContext = createContext({currentUser: null})
-export const useAuth = () => {
-    return useContext(AuthContext)
+interface Props {
+    children?: ReactNode;
 }
-export const AuthProvider = ({children} : Props) => {
-    const [currentUser, setCurrentUser] = useState(null)
-    // const currentUser = auth.currentUser
+export const AuthContext = createContext({} as AuthContext)
 
-    const value = {
-        currentUser
-    }
- return (
-    <AuthContext.Provider value={value}>
-    {children}
-    </AuthContext.Provider>
- )
+
+export const AuthContextProvider = ({children} : Props) => {
+ const [user, setUser] = useState()
+    return (
+        <AuthContext.Provider value={{user, setUser}}>{children}</AuthContext.Provider>
+    )
 }
-

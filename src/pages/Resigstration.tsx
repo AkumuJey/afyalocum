@@ -10,16 +10,18 @@ import NameRegistration from "../components/registration/NameRegistration";
 import DescriptionInput from "../components/registration/DescriptionInput";
 import EmailAndPasswordInput from "../components/registration/EmailAndPasswordInput";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db} from "../firebase/firebase"
+import { auth, db, storage} from "../firebase/firebase"
 import { doc, setDoc,} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL } from "firebase/storage";
 
 interface organizationInfo {
   name: string
   password: string
   email: string
   hospitalDescription: string
-  image: string
+  image: File | null
 }
 const Resigstration = () => {
   const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>({
@@ -27,7 +29,7 @@ const Resigstration = () => {
     password: "",
     email: "",
     hospitalDescription: "",
-    image: "",
+    image: null,
   });
  
   const ariaLabel = { "aria-label": "description" };
@@ -44,7 +46,7 @@ const Resigstration = () => {
     if (!e.target.files || !e.target.files[0]) return;
     setOrganizationInfo({
       ...organizationInfo,
-      image: URL.createObjectURL(e.target.files[0]),
+      image: e.target.files[0],
     });
     setTake(false);
   };
@@ -53,30 +55,49 @@ const Resigstration = () => {
     setTake(!take);
   };
   const navigate = useNavigate()
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     console.log("Submitted", organizationInfo);
-    const {email, password, name, hospitalDescription, image} = organizationInfo
+    const { email, password, name, hospitalDescription, image } = organizationInfo;
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      if (user) {
+      if (user && image) {
+        // Upload image to Firebase Storage
+        const storageRef = ref(storage, `images/${user.uid}`);
+        await uploadBytes(storageRef, image);
+  
+        // Get image download URL
+        const downloadUrl = await getDownloadURL(storageRef);
+  
+        // Update user profile with name and photoURL
         await updateProfile(user, {
           displayName: name,
-          photoURL: image,
-        })
+          photoURL: downloadUrl,
+        });
+  
+        const userRef = doc(db, "hospitals", user.uid);
+        await setDoc(userRef, {
+          hospitalDescription,
+        });
+        navigate("/login");
       }
-      const userRef = doc(db, "hospitals", user.uid)
-      await setDoc(userRef, {
-        hospitalDescription
-      }).then(() => navigate("/login"))
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
+
+  const createTemporaryURL = (image: File | null) => {
+    if (image) {
+      return URL.createObjectURL(image);
+    }
+    return ""; // Return an empty string if no image is present
+  };
+
   return (
     <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
       <Paper
@@ -106,7 +127,7 @@ const Resigstration = () => {
         >
           <ImageUpload
             handleImageChange={handleImageChange}
-            image={organizationInfo.image}
+            image={createTemporaryURL(organizationInfo.image)}
             handleRetake={handleRetake}
             take={take}
           />

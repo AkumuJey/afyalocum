@@ -32,6 +32,8 @@ const About = () => {
     const unsubscribe = () => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
+          console.log(user);
+          
           // User is signed in.
           // Access the user's information here
           setUserDetails({
@@ -40,6 +42,8 @@ const About = () => {
             photoURL: user.photoURL
             // Add any other user details you want to retrieve
           });
+          console.log(userDetails);
+          
         } else {
           // User is signed out.
           setUserDetails(null);
