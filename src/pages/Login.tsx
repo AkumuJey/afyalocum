@@ -95,6 +95,7 @@ const Login = () => {
                 type="email"
                 autoComplete="off"
                 required
+                disabled={loading}
                 sx={{
                   width: "100%",
                   backgroundColor: "white",
@@ -119,6 +120,7 @@ const Login = () => {
                 name="password"
                 autoComplete="off"
                 required
+                disabled={loading}
                 type={showPassword ? "text" : "password"}
                 sx={{
                   width: "100%",

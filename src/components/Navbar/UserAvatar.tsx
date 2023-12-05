@@ -16,7 +16,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
 
 const UserAvatar = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -51,6 +52,18 @@ const UserAvatar = () => {
 
     prevOpen.current = open;
   }, [open]);
+  const navigate = useNavigate()
+  const signOut = async () => {
+    try {
+      await auth.signOut();
+      navigate("/login")
+      // Redirect or perform any other action after sign-out if needed
+    } catch (error) {
+      // Handle sign-out error
+      console.error("Error signing out:", error);
+    }
+    setOpen(false); // Close the menu after sign-out
+  };
   return (
     <>
       <Grid>
@@ -91,7 +104,7 @@ const UserAvatar = () => {
                     <MenuItem onClick={handleClose}>
                       <Link to={`/profile`}>Profile</Link>
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={signOut}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
