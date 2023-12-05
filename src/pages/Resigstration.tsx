@@ -126,8 +126,9 @@ const Resigstration = () => {
           onSubmit={handleSubmit}
         >
           <ImageUpload
-            handleImageChange={handleImageChange}
             image={createTemporaryURL(organizationInfo.image)}
+            disabled={loading}
+            handleImageChange={handleImageChange}
             handleRetake={handleRetake}
             take={take}
           />
@@ -135,14 +136,17 @@ const Resigstration = () => {
             ariaLabel={ariaLabel}
             handleInputChange={handleInputChange}
             name={organizationInfo.name}
+            disabled={loading}
           />
           <DescriptionInput
             description={organizationInfo.hospitalDescription}
             handleInputChange={handleInputChange}
+            disabled={loading}
           />
           <EmailAndPasswordInput
             email={organizationInfo.email}
             password={organizationInfo.password}
+            disabled={loading}
             ariaLabel={ariaLabel}
             handleInputChange={handleInputChange}
           />

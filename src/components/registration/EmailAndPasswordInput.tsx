@@ -4,6 +4,7 @@ import { VisibilityOff, Visibility } from "@mui/icons-material";
 interface Props {
   email: string;
   password: string;
+  disabled: boolean;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   ariaLabel: {
     "aria-label": string;
@@ -12,6 +13,7 @@ interface Props {
 const EmailAndPasswordInput = ({
   email,
   password,
+  disabled,
   handleInputChange,
   ariaLabel,
 }: Props) => {
@@ -34,6 +36,7 @@ const EmailAndPasswordInput = ({
         type="email"
         autoComplete="off"
         value={email}
+        disabled={disabled}
         onChange={handleInputChange}
         placeholder="example@email.com"
         required
@@ -55,11 +58,12 @@ const EmailAndPasswordInput = ({
         type={showPassword ? "text" : "password"}
         autoComplete="off"
         value={password}
+        disabled={disabled}
         onChange={handleInputChange}
         placeholder="password"
         required
         inputProps={ariaLabel}
-        className="w-full px-3 py-2 overflow-hidden"
+        className={`w-full px-3 py-2 overflow-hidden`}
         endAdornment={
           <InputAdornment position="end">
             <IconButton

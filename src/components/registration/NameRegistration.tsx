@@ -3,12 +3,13 @@ import { Input, InputLabel } from "@mui/material";
 
 interface Props {
   name: string;
+  disabled: boolean;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   ariaLabel: {
     "aria-label": string;
   };
 }
-const NameRegistration = ({ name, handleInputChange, ariaLabel }: Props) => {
+const NameRegistration = ({ name, disabled, handleInputChange, ariaLabel }: Props) => {
   return (
     <>
       <InputLabel
@@ -25,6 +26,7 @@ const NameRegistration = ({ name, handleInputChange, ariaLabel }: Props) => {
         id="name"
         autoComplete="off"
         value={name}
+        disabled={disabled}
         onChange={handleInputChange}
         placeholder="Organization's Name"
         inputProps={ariaLabel}
