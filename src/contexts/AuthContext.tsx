@@ -2,25 +2,32 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
-interface AuthContext {
-  user: User;
-}
-interface Props {
-  children?: ReactNode;
-}
-export const AuthContext = createContext({} as AuthContext);
 
-export const AuthContextProvider = ({ children }: Props) => {
-  const [currentUser, setCurrentUser] = useState<User | null>();
+interface AuthContextProps {
+  currentUser: User | null;
+}
 
-  const value = {
-    currentUser,
-  };
+export const AuthContext = createContext<AuthContextProps>({
+  currentUser: null,
+});
+
+export const AuthContextProvider = ({ children }: { children?: ReactNode }) => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-        setCurrentUser(user)
-      })
-      return unsubscribe()
-  }, [])
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const value: AuthContextProps = {
+    currentUser,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  );
 };
+

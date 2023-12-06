@@ -1,9 +1,8 @@
-import { List, ListItem, Drawer, Typography } from "@mui/material";
+import { Drawer, List, ListItem, Typography } from "@mui/material";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext, } from "../../contexts/AuthContext";
 import UserAvatar from "./UserAvatar";
-import { useState, useEffect } from "react";
-import { auth } from "../../firebase/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
 
 interface PropTypes {
   open: boolean;
@@ -18,15 +17,8 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
     { path: "/login", label: "Login" },
   ];
 
-  const [userDetails, setUserDetails] = useState<User | null>(null);
-  useEffect(() => {
-    const unsubscribe = () => {
-      onAuthStateChanged(auth, (user) => {
-        setUserDetails(user)
-      });
-    };
-    return () => unsubscribe();
-  }, []);
+  const { currentUser } = useContext(AuthContext)
+  console.log(currentUser)
   return (
     <>
       {isMd ? (
@@ -104,7 +96,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
           }}
         >
           {linkData.map((link, index) => {
-            if (userDetails && link.path === "/login") {
+            if (currentUser && link.path === "/login") {
               return null;
             }
             return (
@@ -122,7 +114,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
               </ListItem>
             );
           })}
-          {userDetails && <UserAvatar userDetails={userDetails} />}
+          {currentUser && <UserAvatar currentUser={currentUser} />}
         </List>
       )}
     </>

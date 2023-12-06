@@ -22,9 +22,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 
 interface Props{
-  userDetails: User
+  currentUser: User
 }
-const UserAvatar = ({userDetails} : Props) => {
+const UserAvatar = ({currentUser} : Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
   const handleToggle = () => {
@@ -81,10 +81,10 @@ const UserAvatar = ({userDetails} : Props) => {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          {userDetails && userDetails.photoURL ? (
+          {currentUser && currentUser.photoURL ? (
             <Avatar
               alt="Logo"
-              src={userDetails.photoURL}
+              src={currentUser.photoURL}
               sx={{ width: "3rem", height: "3rem" }}
             />
           ) : (
