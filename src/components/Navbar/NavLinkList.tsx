@@ -1,7 +1,9 @@
 import { List, ListItem, Drawer, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import UserAvatar from "./UserAvatar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth } from "../../firebase/firebase";
+import { onAuthStateChanged, User} from "firebase/auth";
 
 interface PropTypes {
   open: boolean;
@@ -15,8 +17,27 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
     { path: "/about", label: "About" },
     { path: "/login", label: "Login" },
   ];
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
   
+  const [userDetails, setUserDetails] = useState<User | null>(null);
+  useEffect(() => {
+    const unsubscribe = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log(user);
+
+          // User is signed in.
+          // Access the user's information here
+          setUserDetails(user);
+          console.log(userDetails);
+          console.log(userDetails?.displayName)
+        } else {
+          // User is signed out.
+          setUserDetails(null);
+        }
+      });
+    };
+    return () => unsubscribe();
+  }, []);
   return (
     <>
       {isMd ? (
@@ -79,7 +100,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
           }}
         >
           {linkData.map((link, index) => { 
-            if (isAuthenticated && link.path === '/login') {
+            if (userDetails && link.path === '/login') {
               return null
             }
             return (
@@ -95,7 +116,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
             </ListItem>
             
           )})}
-            <UserAvatar/>
+            {userDetails && <UserAvatar/>}
         </List>
       )}
     </>

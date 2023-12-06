@@ -32,6 +32,7 @@ const Navbar = (props: Props) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme()
   const isMd = useMediaQuery(theme.breakpoints.down('md'))
+  
   return (
     <>
       <HideOnScroll {...props}>

@@ -8,6 +8,7 @@ import {
   Popper,
   ClickAwayListener,
   Grow,
+  Skeleton,
 } from "@mui/material";
 import {
   SyntheticEvent,
@@ -18,6 +19,7 @@ import {
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
+import { onAuthStateChanged, User} from "firebase/auth";
 
 const UserAvatar = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -52,11 +54,11 @@ const UserAvatar = () => {
 
     prevOpen.current = open;
   }, [open]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const signOut = async () => {
     try {
       await auth.signOut();
-      navigate("/login")
+      navigate("/login");
       // Redirect or perform any other action after sign-out if needed
     } catch (error) {
       // Handle sign-out error
@@ -64,6 +66,29 @@ const UserAvatar = () => {
     }
     setOpen(false); // Close the menu after sign-out
   };
+
+  
+  const [userDetails, setUserDetails] = useState<User | null>(null);
+  
+  useEffect(() => {
+    const unsubscribe = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log(user);
+
+          // User is signed in.
+          // Access the user's information here
+          setUserDetails(user);
+          console.log(userDetails);
+          console.log(userDetails?.displayName)
+        } else {
+          // User is signed out.
+          setUserDetails(null);
+        }
+      });
+    };
+    return () => unsubscribe();
+  }, []);
   return (
     <>
       <Grid>
@@ -75,7 +100,15 @@ const UserAvatar = () => {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          <Avatar alt="Logo" src={``} sx={{ width: "3rem", height: "3rem" }} />
+          {userDetails && userDetails.photoURL ? (
+            <Avatar
+              alt="Logo"
+              src={userDetails.photoURL}
+              sx={{ width: "3rem", height: "3rem" }}
+            />
+          ) : (
+            <Skeleton variant="circular" width={`3rem`} height={`3rem`} animation="wave"/>
+          )}
         </Button>
         <Popper
           open={open}

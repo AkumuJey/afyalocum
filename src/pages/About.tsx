@@ -1,13 +1,6 @@
-import { Avatar, Paper, Typography } from "@mui/material";
-import { onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { auth } from "../firebase/firebase"
+import { Paper, Typography } from "@mui/material";
 
-interface userDetails {
-  displayName: string | null
-  email: string | null
-  photoURL: string | null
-}
+
 const About = () => {
   const aboutContent = [
     {
@@ -27,35 +20,10 @@ const About = () => {
     },
   ];
 
-  const [userDetails, setUserDetails] = useState<userDetails | null>(null)
-  useEffect(() => {
-    const unsubscribe = () => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          console.log(user);
-          
-          // User is signed in.
-          // Access the user's information here
-          setUserDetails({
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL
-            // Add any other user details you want to retrieve
-          });
-          console.log(userDetails);
-          
-        } else {
-          // User is signed out.
-          setUserDetails(null);
-        }
-      })
-    }
-    return () => unsubscribe()
-  }, [])
+  
   return (
     <div className="flex flex-col gap-3 py-3 md:py-[4rem] justify-around valid-height items-center w-full">
-      {userDetails && userDetails.displayName ? userDetails.displayName : "None"}
-      {userDetails && userDetails.photoURL ? <Avatar src={userDetails.photoURL}/> : "None"}
+      
       {
         aboutContent.map((content) => (
       <Paper

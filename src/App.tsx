@@ -30,7 +30,7 @@ function App(props: Props) {
         {
           path: "/",
           element: <Home/>,
-          errorElement: <ErrorPage />
+          errorElement: <ErrorPage />,
         },
         {
           path: "/locums",
