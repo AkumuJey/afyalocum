@@ -1,27 +1,30 @@
 import {
-  Grid,
   Avatar,
-  MenuList,
-  MenuItem,
   Button,
+  ClickAwayListener,
+  Grid,
+  Grow,
+  MenuItem,
+  MenuList,
   Paper,
   Popper,
-  ClickAwayListener,
-  Grow,
   Skeleton,
 } from "@mui/material";
+import { User } from "firebase/auth";
 import {
-  SyntheticEvent,
   KeyboardEvent,
+  SyntheticEvent,
   useEffect,
   useRef,
   useState,
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
-import { onAuthStateChanged, User} from "firebase/auth";
 
-const UserAvatar = () => {
+interface Props{
+  userDetails: User
+}
+const UserAvatar = ({userDetails} : Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
   const handleToggle = () => {
@@ -59,36 +62,14 @@ const UserAvatar = () => {
     try {
       await auth.signOut();
       navigate("/login");
-      // Redirect or perform any other action after sign-out if needed
     } catch (error) {
-      // Handle sign-out error
       console.error("Error signing out:", error);
     }
-    setOpen(false); // Close the menu after sign-out
+    setOpen(false);
   };
 
-  
-  const [userDetails, setUserDetails] = useState<User | null>(null);
-  
-  useEffect(() => {
-    const unsubscribe = () => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          console.log(user);
 
-          // User is signed in.
-          // Access the user's information here
-          setUserDetails(user);
-          console.log(userDetails);
-          console.log(userDetails?.displayName)
-        } else {
-          // User is signed out.
-          setUserDetails(null);
-        }
-      });
-    };
-    return () => unsubscribe();
-  }, []);
+  
   return (
     <>
       <Grid>
