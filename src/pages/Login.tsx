@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, useContext, FormEvent } from "react";
 import {
   Container,
   Grid,
@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { LoadingButton } from "@mui/lab";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -27,7 +28,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -35,15 +36,16 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/"); // Navigate upon successful sign-in
     } catch (error) {
-      console.error(error); // Log or handle the error appropriately
-      // Handle error (e.g., display error message)
+      console.error(error);
     } finally {
       setLoading(false); // Set loading to false after the process completes
     }
-    
   };
-
-  
+const { currentUser } = useContext(AuthContext)
+if (currentUser) {
+  navigate(-1)
+  return
+}
   return (
     <>
       <Paper

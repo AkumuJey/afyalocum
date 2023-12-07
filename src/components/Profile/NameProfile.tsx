@@ -7,8 +7,10 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useState, FormEvent } from "react";
-
-const Name = () => {
+interface Props{
+  displayName: string
+}
+const Name = ({displayName} : Props) => {
   // State to manage the editable status of the component
   const [isEditable, setIsEditable] = useState(false);
 
@@ -29,7 +31,7 @@ const Name = () => {
         <Grid container justifyContent={`space-between`} spacing={2}>
           <Grid item>
             <Typography fontWeight={`bold`}>Name: </Typography>
-            <Typography>Akumu Joseph Owino</Typography>
+            <Typography>{displayName}</Typography>
           </Grid>
           <Grid item>
             <Button onClick={() => setIsEditable(true)} variant="contained">
@@ -66,6 +68,7 @@ const Name = () => {
             <Input
               id="name"
               name="name"
+              defaultValue={displayName}
               autoComplete="off"
               sx={{ width: "100%" }}
             />

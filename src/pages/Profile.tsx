@@ -3,8 +3,12 @@ import NameProfile from "../components/Profile/NameProfile"
 import DescriptionProfile from "../components/Profile/DescriptionProfile";
 import AvatarProfile from "../components/Profile/AvatarProfile";
 import ChangePassword from "../components/Profile/ChangePassword";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from "react";
 
 const Profile = () => {
+  const { currentUser } = useContext(AuthContext)
+  
   return (
     <>
       <Box
@@ -13,8 +17,8 @@ const Profile = () => {
       >
         <Typography variant="h3" fontWeight={`bold`}>Profile</Typography>
         <Paper elevation={3} sx={{ padding: 2, display: "flex", flexDirection: "column", gap: "2rem"}}>
-          <AvatarProfile />
-          <NameProfile />
+          <AvatarProfile imageUrl={currentUser?.photoURL as string}/>
+          <NameProfile displayName={currentUser?.displayName as string}/>
           <DescriptionProfile />
         </Paper>
         <ChangePassword />

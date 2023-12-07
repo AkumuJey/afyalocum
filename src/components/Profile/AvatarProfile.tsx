@@ -11,7 +11,11 @@ import { CloudUpload } from "@mui/icons-material";
 
 import { styled } from "@mui/material/styles";
 
-const AvatarProfile = () => {
+
+interface Props{
+  imageUrl: string
+}
+const AvatarProfile = ({imageUrl} : Props) => {
   const [take, setTake] = useState(true);
   const [organizationInfo, setOrganizationInfo] = useState({
     image: "",
@@ -54,7 +58,7 @@ const AvatarProfile = () => {
             <Typography fontWeight={`bold`}>Profile Photo: </Typography>
             <Avatar
               alt="Profile Image"
-              src={image}
+              src={imageUrl}
               sx={{ width: "5rem", height: "5rem" }}
             />
           </Grid>
