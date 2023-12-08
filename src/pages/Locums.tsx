@@ -14,7 +14,7 @@ const Locums = () => {
   };
   return (
     <div className="flex flex-col items-center valid-height w-full">
-      <Notification count={4} />
+      
       <TabContext value={value}>
         <Box
           component="div"
@@ -29,7 +29,7 @@ const Locums = () => {
             onChange={handleTabChange}
             className="w-full flex flex-row justify-around"
           >
-            <Tab label="Active Locums" value="1" />
+            <Tab label="Active Locums" value="1" /> <Notification count={4} />
             <Tab label="Create New Locum" value="2" />
             <Tab label="Completed Locum" value="3" />
           </TabList>
