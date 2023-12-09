@@ -1,10 +1,19 @@
 import { TabPanel } from "@mui/lab";
 import TableLayout from "./TableLayout";
 
-interface Props{
-    value: string
+interface Locum {
+  id: number;
+  lastName: string;
+  firstName: string;
+  age: number | null;
 }
-const ActiveLocum = ({value} : Props) => {
+
+interface Props {
+  value: string
+  data: Locum[] | null
+}
+
+const ActiveLocum = ({value, data} : Props) => {
   return (
     <>
       <TabPanel
@@ -13,7 +22,7 @@ const ActiveLocum = ({value} : Props) => {
           width: "100%",
         }}
       >
-        <TableLayout onClick={() => null} />
+        <TableLayout onClick={() => null} data={data}/>
       </TabPanel>
     </>
   );

@@ -1,12 +1,19 @@
 import { Box, Skeleton } from "@mui/material";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import { generateRandomData } from "./dummyData";
-import { useEffect, useState } from "react";
 
+interface Locum {
+  id: number;
+  lastName: string;
+  firstName: string;
+  age: number | null;
+}
 interface Props {
   onClick: () => void;
+  data: Locum[] | null
 }
-const TableLayout = ({ onClick }: Props) => {
+
+
+const TableLayout = ({ onClick, data }: Props) => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -40,27 +47,6 @@ const TableLayout = ({ onClick }: Props) => {
     },
   ];
 
-  const [isLoading, setLoading] = useState(true);
-  const [rows, setRows] = useState([]);
-  useEffect(() => {
-    // Simulating data fetching delay
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        // Simulating API call delay
-        setTimeout(() => {
-          const data = generateRandomData();
-          setRows(data);
-          setLoading(false);
-        }, 5000); // Adjust the timeout to simulate data loading
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
   return (
     <>
       <Box
@@ -78,7 +64,7 @@ const TableLayout = ({ onClick }: Props) => {
           },
         }}
       >
-        {isLoading ? (
+        {!data ? (
           Array.from({ length: 7 }, (_, index) => (
             <Box
               key={index}
@@ -103,7 +89,7 @@ const TableLayout = ({ onClick }: Props) => {
           ))
         ) : (
           <DataGrid
-            rows={rows}
+            rows={data}
             columns={columns}
             initialState={{
               pagination: {
