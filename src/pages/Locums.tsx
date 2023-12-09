@@ -1,15 +1,13 @@
-import { Suspense, useState, SyntheticEvent } from "react";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Badge, Box, Skeleton, Tab } from "@mui/material";
-import TableLayout from "../components/Locums/TableLayout";
-import NewLocumForm from "../components/Locums/NewLocumForm";
+import { useState, SyntheticEvent } from "react";
+import { TabContext, TabList, } from "@mui/lab";
+import { Badge, Box, Tab } from "@mui/material";
 
-import SingleLocum from "../components/Locums/SingleLocum";
 import ActiveLocum from "../components/Locums/ActiveLocum";
+import CompletedLocum from "../components/Locums/CompletedLocum";
+import CreateNewLocum from "../components/Locums/CreateNewLocum";
 
 const Locums = () => {
   const [value, setValue] = useState("1");
-  const [detailsOpen, setDetailsOpen] = useState(false);
   const handleTabChange = (_e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -43,7 +41,8 @@ const Locums = () => {
               value="1"
             />
             <Tab label="Create New Locum" value="2" />
-            <Tab label={
+            <Tab
+              label={
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <span>Completed Locums</span>
                   <Badge
@@ -52,30 +51,14 @@ const Locums = () => {
                     sx={{ marginLeft: 2 }} // Adjust the margin as per your preference
                   />
                 </span>
-              } value="3" />
+              }
+              value="3"
+            />
           </TabList>
         </Box>
-        <ActiveLocum value={value}/>
-        <TabPanel
-          value="2"
-          sx={{
-            width: "100%",
-          }}
-        >
-          <NewLocumForm />
-        </TabPanel>
-        <TabPanel
-          value="3"
-          sx={{
-            width: "100%",
-          }}
-        >
-          {detailsOpen ? (
-            <SingleLocum onClose={() => setDetailsOpen(false)} />
-          ) : (
-              <TableLayout onClick={() => setDetailsOpen(true)} />
-          )}
-        </TabPanel>
+        <ActiveLocum value="1" />
+        <CreateNewLocum value="2" />
+        <CompletedLocum value="3" />
       </TabContext>
     </div>
   );
