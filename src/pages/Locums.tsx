@@ -1,10 +1,11 @@
 import { Suspense, useState, SyntheticEvent } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Box, Skeleton, Tab } from "@mui/material";
+import { Badge, Box, Skeleton, Tab } from "@mui/material";
 import TableLayout from "../components/Locums/TableLayout";
 import NewLocumForm from "../components/Locums/NewLocumForm";
-import Notification from "../components/Notification";
+
 import SingleLocum from "../components/Locums/SingleLocum";
+import ActiveLocum from "../components/Locums/ActiveLocum";
 
 const Locums = () => {
   const [value, setValue] = useState("1");
@@ -14,7 +15,6 @@ const Locums = () => {
   };
   return (
     <div className="flex flex-col items-center valid-height w-full">
-      
       <TabContext value={value}>
         <Box
           component="div"
@@ -29,19 +29,33 @@ const Locums = () => {
             onChange={handleTabChange}
             className="w-full flex flex-row justify-around"
           >
-            <Tab label="Active Locums" value="1" /> <Notification count={4} />
+            <Tab
+              label={
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <span>Active Locums</span>
+                  <Badge
+                    badgeContent={2}
+                    color="warning"
+                    sx={{ marginLeft: 2 }} // Adjust the margin as per your preference
+                  />
+                </span>
+              }
+              value="1"
+            />
             <Tab label="Create New Locum" value="2" />
-            <Tab label="Completed Locum" value="3" />
+            <Tab label={
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <span>Completed Locums</span>
+                  <Badge
+                    badgeContent={2}
+                    color="success"
+                    sx={{ marginLeft: 2 }} // Adjust the margin as per your preference
+                  />
+                </span>
+              } value="3" />
           </TabList>
         </Box>
-        <TabPanel
-          value="1"
-          sx={{
-            width: "100%",
-          }}
-        >
-          <TableLayout onClick={() => null}/>
-        </TabPanel>
+        <ActiveLocum value={value}/>
         <TabPanel
           value="2"
           sx={{
@@ -59,9 +73,7 @@ const Locums = () => {
           {detailsOpen ? (
             <SingleLocum onClose={() => setDetailsOpen(false)} />
           ) : (
-            <Suspense fallback={<Skeleton/>}>
               <TableLayout onClick={() => setDetailsOpen(true)} />
-            </Suspense>
           )}
         </TabPanel>
       </TabContext>

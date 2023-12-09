@@ -65,7 +65,10 @@ const TableLayout = ({ onClick }: Props) => {
     <>
       <Box
         sx={{
-          height: 400,
+          height: {
+            xs: "auto",
+            md: 400,
+          },
           overflow: "auto",
           width: {
             xs: "100%",
