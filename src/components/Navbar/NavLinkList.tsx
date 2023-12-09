@@ -1,24 +1,27 @@
-import { Drawer, List, ListItem, Typography } from "@mui/material";
+import { Button, Drawer, List, ListItem, Typography } from "@mui/material";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { AuthContext, } from "../../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import UserAvatar from "./UserAvatar";
+import { auth } from "../../firebase/firebase";
 
 interface PropTypes {
   open: boolean;
   isMd: boolean;
   handleClose: () => void;
 }
+
 const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
+  const { currentUser } = useContext(AuthContext);
   const linkData = [
     { path: "/", label: "Home" },
     { path: "/locums", label: "Locums" },
     { path: "/about", label: "About" },
     { path: "/login", label: "Login" },
   ];
-
-  const { currentUser } = useContext(AuthContext)
-  console.log(currentUser)
+  const handleSignout = () => {
+    auth.signOut()
+  }
   return (
     <>
       {isMd ? (
@@ -68,19 +71,36 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
                 locum
               </Typography>
             </Typography>
-            {linkData.map((link, index) => (
-              <ListItem key={index}>
-                <NavLink
-                  to={link.path}
-                  className={({ isActive }) =>
-                    isActive ? "text-purple-800" : ""
-                  }
-                  onClick={handleClose}
+            {linkData.map((link, index) => {
+              if (currentUser && link.path === "/login") {
+                return null;
+              }
+              return (
+                <ListItem key={index}>
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      isActive ? "text-purple-800" : ""
+                    }
+                    onClick={handleClose}
+                  >
+                    {link.label}
+                  </NavLink>
+                </ListItem>
+              );
+            })}
+            {currentUser && (
+              <ListItem>
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  sx={{ fontWeight: "bold" }}
+                  onClick={handleSignout}
                 >
-                  {link.label}
-                </NavLink>
+                  Logout
+                </Button>
               </ListItem>
-            ))}
+            )}
           </List>
         </Drawer>
       ) : (

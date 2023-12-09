@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useContext } from "react";
 import { Box, Paper } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
@@ -9,9 +9,10 @@ import EmailAndPasswordInput from "../components/registration/EmailAndPasswordIn
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ref, uploadBytes } from "firebase/storage";
 import { getDownloadURL } from "firebase/storage";
+import { AuthContext } from "../contexts/AuthContext";
 
 interface organizationInfo {
   name: string;
@@ -100,7 +101,10 @@ const Resigstration = () => {
     return ""; // Return an empty string if no image is present
   };
 
-  
+  const {currentUser} = useContext(AuthContext)
+  if (currentUser) {
+    return <Navigate to={`/`} replace={true}/>
+  }
   return (
     <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
       <Paper

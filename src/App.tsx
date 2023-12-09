@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 
 import Locums from "./pages/Locums";
-import Resigstration from "./pages/Resigstration";
+import Resigstration from "./pages/Registration";
 import About from "./pages/About";
 import Root from "./pages/Root";
 import Login from "./pages/Login";
