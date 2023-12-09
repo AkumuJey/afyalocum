@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent, useEffect } from "react";
 import { TabContext, TabList } from "@mui/lab";
-import { Badge, Box, Tab } from "@mui/material";
+import { Badge, Box, Button, Tab } from "@mui/material";
 
 import CompletedLocum from "../components/Locums/CompletedLocum";
 import CreateNewLocum from "../components/Locums/CreateNewLocum";
@@ -102,6 +102,7 @@ const Locums = () => {
         <CreateNewLocum value="2" />
         <CompletedLocum value="3" data={completedLocumData}/>
       </TabContext>
+      <Button color="primary" variant="outlined">Create new locum</Button>
     </div>
   );
 };

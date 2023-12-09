@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 
-
 import Locums from "./pages/Locums";
 import Resigstration from "./pages/Resigstration";
 import About from "./pages/About";
@@ -14,55 +13,52 @@ import RecoverPassword from "./pages/RecoverPassword";
 import Profile from "./pages/Profile";
 
 interface Props {
-
   window?: () => Window;
   children: React.ReactElement;
 }
 
 function App(props: Props) {
- 
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: <Root {...props}/>,
+      path: "/",
+      element: <Root {...props} />,
       children: [
-        
         {
           path: "/",
-          element: <Home/>,
+          element: <Home />,
           errorElement: <ErrorPage />,
         },
         {
           path: "/locums",
-          element: <Locums/>,
-          errorElement: <ErrorPage />
+          element: <Locums />,
+          errorElement: <ErrorPage />,
         },
         {
           path: "/login",
           element: <Login />,
-          errorElement: <ErrorPage />
+          errorElement: <ErrorPage />,
         },
         {
           path: "/recover-password",
           element: <RecoverPassword />,
-          errorElement: <ErrorPage />
+          errorElement: <ErrorPage />,
         },
         {
           path: "/register",
           element: <Resigstration />,
-          errorElement: <ErrorPage />
+          errorElement: <ErrorPage />,
         },
         {
           path: "/profile",
-          element: <Profile/>,
-          errorElement: <ErrorPage />
+          element: <Profile />,
+          errorElement: <ErrorPage />,
         },
         {
           path: "/about",
-          element: <About/>,
-          errorElement: <ErrorPage />
+          element: <About />,
+          errorElement: <ErrorPage />,
         },
-      ]
+      ],
     },
   ]);
   useEffect(() => {
@@ -70,7 +66,7 @@ function App(props: Props) {
   }, []);
   return (
     <>
-        <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
   );
 }

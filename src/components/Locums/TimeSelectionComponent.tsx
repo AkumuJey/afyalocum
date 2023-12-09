@@ -40,7 +40,7 @@ const TimeSelectionComponent = ({ handleDateChange, handleInputChange, rate,
         placeholder="e.g. Westlands Nairobi"
         inputProps={ariaLabel}
         required
-        className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
+        className="w-full bg-white px-3 py-1 rounded-md overflow-hidden"
         sx={{
           my: '0.5rem'
         }}
@@ -63,7 +63,8 @@ const TimeSelectionComponent = ({ handleDateChange, handleInputChange, rate,
         inputProps={{ min: 0, ...ariaLabel }}
         required
         sx={{
-          my: '0.5rem'
+          my: '0.3rem',
+          py: `0.25rem`
         }}
         className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
       />
@@ -73,14 +74,14 @@ const TimeSelectionComponent = ({ handleDateChange, handleInputChange, rate,
         sx={{
           display: "flex",
           flexDirection: "column",
-          paddingBottom: 2,
-          paddingTop: 2,
+          paddingBottom: 1,
+          paddingTop: 1,
         }}
       >
         <DateTimePicker
           label="Start date and time"
           defaultValue={start}
-          sx={{ backgroundColor: "white", borderRadius: 1 }}
+          sx={{ backgroundColor: "white", borderRadius: 1, }}
           disablePast
           onChange={(newValue) => handleDateChange(newValue)}
         />

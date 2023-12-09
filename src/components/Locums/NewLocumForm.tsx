@@ -37,7 +37,7 @@ const NewLocumForm = () => {
     console.log(job);
   };
 
-  const [step, setStep] = useState<number>(2);
+  const [step, setStep] = useState<number>(1);
   const handleNextStep = () => {
     setStep(step + 1);
   };
@@ -70,7 +70,8 @@ const NewLocumForm = () => {
           marginRight: "auto",
         },
         backgroundColor: "lightgray",
-        padding: 3,
+        px: 3,
+        py: "1rem"
       }}
     >
       <Box
@@ -82,7 +83,7 @@ const NewLocumForm = () => {
         <LinearProgress
           value={(step / 2) * 100}
           variant="determinate"
-          sx={{ height: "0.5rem", borderRadius: "0.5rem", mb: "1rem" }}
+          sx={{ height: "0.5rem", borderRadius: "0.5rem", mb: "0.5rem" }}
         />
         {step === 1 && (
           <NewJobInputs
@@ -103,7 +104,7 @@ const NewLocumForm = () => {
           />
         )}
         {step === 1 && (
-          <Grid container justifyContent={`end`} px={4}>
+          <Grid container justifyContent={`end`} px={3}>
             <Grid item>
               <Button
                 variant="contained"

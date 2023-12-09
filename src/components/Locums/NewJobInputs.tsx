@@ -33,10 +33,11 @@ const NewJobInputs = ({
         id="title"
         value={title}
         onChange={handleInputChange}
+        autoComplete="off"
         placeholder="Doctor, Dentist, Pharmacist etc"
         inputProps={ariaLabel}
         required
-        className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
+        className="w-full bg-white px-3 py-1 rounded-md overflow-hidden"
       />
       <InputLabel
         htmlFor="requirements"
@@ -52,10 +53,11 @@ const NewJobInputs = ({
         id="requirements"
         value={requirements}
         onChange={handleInputChange}
+        autoComplete="off"
         placeholder="e.g. MBCHB, 2 years experience"
         inputProps={ariaLabel}
         required
-        className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
+        className="w-full bg-white px-3 py-1 rounded-md overflow-hidden"
       />
       <InputLabel
         htmlFor="description"
@@ -75,7 +77,7 @@ const NewJobInputs = ({
         onChange={handleInputChange}
         required
         placeholder=" Roles are ..."
-        className="max-h-[200px] min-h-[150px] p-3 w-full rounded-md bg-white overflow-hidden"
+        className="max-h-[200px] min-h-[150px] px-3 py-1 w-full rounded-md bg-white overflow-hidden"
       />
     </>
   );

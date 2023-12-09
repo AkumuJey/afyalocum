@@ -1,4 +1,4 @@
-import { useState, useContext, FormEvent } from "react";
+import { useState, FormEvent, useContext } from "react";
 import {
   Container,
   Grid,
@@ -12,11 +12,12 @@ import {
 } from "@mui/material";
 
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { LoadingButton } from "@mui/lab";
 import { AuthContext } from "../contexts/AuthContext";
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -41,11 +42,11 @@ const Login = () => {
       setLoading(false); // Set loading to false after the process completes
     }
   };
-const { currentUser } = useContext(AuthContext)
-if (currentUser) {
-  navigate(-1)
-  return
-}
+
+  const  { currentUser } = useContext(AuthContext)
+  if (currentUser) {
+    return <Navigate to={`/`} replace={true}/>
+  }
   return (
     <>
       <Paper
