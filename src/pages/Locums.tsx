@@ -1,6 +1,15 @@
 import { useState, SyntheticEvent, useEffect } from "react";
 import { TabContext, TabList } from "@mui/lab";
-import { Badge, Box, Button, Tab } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Badge,
+  Box,
+  Button,
+  Tab,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import CompletedLocum from "../components/Locums/CompletedLocum";
 import CreateNewLocum from "../components/Locums/CreateNewLocum";
@@ -54,6 +63,11 @@ const Locums = () => {
 
     fetchActiveLocumData();
   }, []);
+
+  const [expanded, setExpanded] = useState<string | null>(null)
+  const handleExpanded = (str: string) => {
+    setExpanded(expanded ? null : str)
+  }
   return (
     <ProtectedRoute>
       <div className="flex flex-col items-center valid-height w-full">
@@ -107,6 +121,52 @@ const Locums = () => {
         <Button color="primary" variant="outlined">
           Create new locum
         </Button>
+        <Accordion expanded={expanded === "1"}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+            onChange={() => handleExpanded("1")}
+          >
+            Option 1
+          </AccordionSummary>
+          <AccordionDetails>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
+            eaque quas doloremque nulla beatae non itaque, impedit qui quos at
+            numquam sapiente, fugiat doloribus molestias vero reiciendis ad
+            architecto magnam!
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            Option 2
+          </AccordionSummary>
+          <AccordionDetails>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
+            eaque quas doloremque nulla beatae non itaque, impedit qui quos at
+            numquam sapiente, fugiat doloribus molestias vero reiciendis ad
+            architecto magnam!
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            Option 3
+          </AccordionSummary>
+          <AccordionDetails>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
+            eaque quas doloremque nulla beatae non itaque, impedit qui quos at
+            numquam sapiente, fugiat doloribus molestias vero reiciendis ad
+            architecto magnam!
+          </AccordionDetails>
+        </Accordion>
       </div>
     </ProtectedRoute>
   );
