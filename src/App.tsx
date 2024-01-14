@@ -1,16 +1,28 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useEffect } from "react";
+import { lazy, useEffect } from "react";
 
-import Home from "./pages/Home";
-import ErrorPage from "./pages/ErrorPage";
+// import Home from "./pages/Home";
+// import ErrorPage from "./pages/ErrorPage";
 
 import Locums from "./pages/Locums";
-import Resigstration from "./pages/Registration";
-import About from "./pages/About";
-import Root from "./pages/Root";
-import Login from "./pages/Login";
-import RecoverPassword from "./pages/RecoverPassword";
-import Profile from "./pages/Profile";
+// import Registration from "./pages/Registration";
+// import About from "./pages/About";
+// import Root from "./pages/Root";
+// import Login from "./pages/Login";
+// import RecoverPassword from "./pages/RecoverPassword";
+// import Profile from "./pages/Profile";
+
+const About = lazy(() => import("./pages/About"))
+const Profile = lazy(() => import("./pages/Profile"))
+const Registration = lazy(() => import("./pages/Registration"))
+const Root = lazy(() => import("./pages/Root"))
+const Login = lazy(() => import("./pages/Login"))
+const RecoverPassword = lazy(() => import("./pages/RecoverPassword"))
+const Home = lazy(() => import("./pages/Home"))
+// const Locums = lazy(() => import("./pages/Locums"))
+const ErrorPage = lazy(() => import("./pages/ErrorPage"))
+
+
 
 interface Props {
   window?: () => Window;
@@ -45,7 +57,7 @@ function App(props: Props) {
         },
         {
           path: "/register",
-          element: <Resigstration />,
+          element: <Registration />,
           errorElement: <ErrorPage />,
         },
         {

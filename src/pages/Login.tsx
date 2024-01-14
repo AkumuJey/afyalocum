@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { LoadingButton } from "@mui/lab";
@@ -27,6 +27,10 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
   const navigate = useNavigate();
+  const  { currentUser } = useContext(AuthContext)
+const location = useLocation()
+const {state} = location
+console.log(state)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -35,7 +39,9 @@ const Login = () => {
     const password = formData.get("password") as string;
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/"); // Navigate upon successful sign-in
+      if (state) {
+        navigate(state)
+      } else {navigate("/")}
     } catch (error) {
       console.error(error);
     } finally {
@@ -43,7 +49,8 @@ const Login = () => {
     }
   };
 
-  const  { currentUser } = useContext(AuthContext)
+  
+
   if (currentUser) {
     return <Navigate to={`/`} replace={true}/>
   }
