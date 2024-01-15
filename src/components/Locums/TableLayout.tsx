@@ -40,9 +40,9 @@ const TableLayout = ({ onClick, data }: Props) => {
     },
     {
       field: "age",
-      headerName: "Rate KSh/Hr",
+      headerName: "Rate: KSh/Hr",
       type: "number",
-      width: 90,
+      width: 100,
       editable: true,
     },
   ];
@@ -58,10 +58,9 @@ const TableLayout = ({ onClick, data }: Props) => {
           overflow: "auto",
           width: {
             xs: "100%",
-            md: "60%",
-            marginLeft: "auto",
-            marginRight: "auto",
+            md: "70%",
           },
+          mx: "auto"
         }}
       >
         {!data ? (
@@ -98,7 +97,7 @@ const TableLayout = ({ onClick, data }: Props) => {
                 },
               },
             }}
-            pageSizeOptions={[10]}
+            pageSizeOptions={[5, 10, 20]}
             checkboxSelection
             disableRowSelectionOnClick
             onRowClick={onClick}

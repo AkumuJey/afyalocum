@@ -1,20 +1,15 @@
-import { useState, SyntheticEvent, useEffect } from "react";
-import { TabContext, TabList } from "@mui/lab";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Badge,
-  Box,
   Button,
-  Tab,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useEffect, useState } from "react";
 
-import CompletedLocum from "../components/Locums/CompletedLocum";
-import CreateNewLocum from "../components/Locums/CreateNewLocum";
+import { Outlet, useNavigate } from "react-router-dom";
+import TableLayout from "../components/Locums/TableLayout";
 import { generateRandomData } from "../components/Locums/dummyData";
-import ActiveLocum from "../components/Locums/ActiveLocum";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 interface Locum {
@@ -23,14 +18,7 @@ interface Locum {
   firstName: string;
   age: number | null;
 }
-const Locums = () => {
-  const [value, setValue] = useState("1");
-  const handleTabChange = (_e: SyntheticEvent, newValue: string) => {
-    if (newValue === "3") {
-      getCompletedLocumData();
-    }
-    setValue(newValue);
-  };
+const Locums = () => {  
   const [completedLocumData, setCompletedLocumData] = useState<Locum[] | null>(
     null
   );
@@ -52,7 +40,6 @@ const Locums = () => {
     const fetchActiveLocumData = async () => {
       try {
         const data = await generateRandomData();
-        // Simulating API call delay
         setTimeout(() => {
           setActiveLocumData(data);
         }, 5000);
@@ -64,109 +51,82 @@ const Locums = () => {
     fetchActiveLocumData();
   }, []);
 
-  const [expanded, setExpanded] = useState<string | null>(null)
-  const handleExpanded = (str: string) => {
-    setExpanded(expanded ? null : str)
-  }
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const toggleExapnded = (str: string) => {
+    if (expanded && expanded === str) {
+      setExpanded(null);
+    } else {
+      setExpanded(str);
+      if (str === '3') {
+        getCompletedLocumData()
+      }
+    }
+  };
+
+  const navigate = useNavigate();
+  const [register, setRegister] = useState<boolean>(false);
+  const handleRegister = () => {
+    if (register) {
+      setRegister(false);
+      navigate("/locums");
+    } else {
+      setRegister(true);
+      navigate("/locums/create-new");
+    }
+  };
+
   return (
     <ProtectedRoute>
-      <div className="flex flex-col items-center valid-height w-full">
-        <TabContext value={value}>
-          <Box
-            component="div"
-            sx={{
-              marginLeft: "auto",
-              marginRight: "auto",
-              transition: "all 500ms ease",
-            }}
-          >
-            <TabList
-              aria-label="Locums"
-              onChange={handleTabChange}
-              className="w-full flex flex-row justify-around"
+      <div className="flex flex-col items-center valid-height w-full py-[4rem]">
+        <div className="w-[80%] mx-auto py-[0.8rem]">
+          {register ? (
+            <Button variant="contained" color="info" onClick={handleRegister}>
+              View Locums
+            </Button>
+          ) : (
+            <Button color="primary" variant="outlined" onClick={handleRegister}>
+              Create new locum
+            </Button>
+          )}
+        </div>
+        {register ? (
+          <Outlet />
+        ) : (
+          <>
+            <Accordion
+              expanded={expanded === "2"}
+              sx={{ width: "80%", mx: "auto" }}
             >
-              <Tab
-                label={
-                  <span style={{ display: "flex", alignItems: "center" }}>
-                    <span>Active Locums</span>
-                    <Badge
-                      badgeContent={2}
-                      color="warning"
-                      sx={{ marginLeft: 2 }} // Adjust the margin as per your preference
-                    />
-                  </span>
-                }
-                value="1"
-              />
-              <Tab label="Create New Locum" value="2" />
-              <Tab
-                label={
-                  <span style={{ display: "flex", alignItems: "center" }}>
-                    <span>Completed Locums</span>
-                    <Badge
-                      badgeContent={2}
-                      color="success"
-                      sx={{ marginLeft: 2 }} // Adjust the margin as per your preference
-                    />
-                  </span>
-                }
-                value="3"
-              />
-            </TabList>
-          </Box>
-          <ActiveLocum value="1" data={activeLocumData} />
-          <CreateNewLocum value="2" />
-          <CompletedLocum value="3" data={completedLocumData} />
-        </TabContext>
-        <Button color="primary" variant="outlined">
-          Create new locum
-        </Button>
-        <Accordion expanded={expanded === "1"}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-            onChange={() => handleExpanded("1")}
-          >
-            Option 1
-          </AccordionSummary>
-          <AccordionDetails>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
-            eaque quas doloremque nulla beatae non itaque, impedit qui quos at
-            numquam sapiente, fugiat doloribus molestias vero reiciendis ad
-            architecto magnam!
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            Option 2
-          </AccordionSummary>
-          <AccordionDetails>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
-            eaque quas doloremque nulla beatae non itaque, impedit qui quos at
-            numquam sapiente, fugiat doloribus molestias vero reiciendis ad
-            architecto magnam!
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            Option 3
-          </AccordionSummary>
-          <AccordionDetails>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
-            eaque quas doloremque nulla beatae non itaque, impedit qui quos at
-            numquam sapiente, fugiat doloribus molestias vero reiciendis ad
-            architecto magnam!
-          </AccordionDetails>
-        </Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+                onClick={() => toggleExapnded("2")}
+              >
+                Pending Locums
+              </AccordionSummary>
+              <AccordionDetails>
+                <TableLayout onClick={() => null} data={activeLocumData} />
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "3"}
+              sx={{ width: "80%", mx: "auto" }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+                onClick={() => toggleExapnded("3")}
+              >
+                Completed Locums
+              </AccordionSummary>
+              <AccordionDetails>
+                <TableLayout data={completedLocumData} onClick={() => null} />
+              </AccordionDetails>
+            </Accordion>
+          </>
+        )}
       </div>
     </ProtectedRoute>
   );

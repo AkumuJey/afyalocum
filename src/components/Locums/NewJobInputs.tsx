@@ -70,14 +70,14 @@ const NewJobInputs = ({
         Job Description:
       </InputLabel>
       <TextareaAutosize
-        maxRows={5}
+        maxRows={3}
         maxLength={150}
         id="description"
         value={description}
         onChange={handleInputChange}
         required
         placeholder=" Roles are ..."
-        className="max-h-[200px] min-h-[150px] px-3 py-1 w-full rounded-md bg-white overflow-hidden"
+        className="max-h-[100px] min-h-[80px] px-3 py-1 w-full rounded-md bg-white overflow-hidden"
       />
     </>
   );
