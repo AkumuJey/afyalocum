@@ -8,8 +8,10 @@ import PlaceIcon from "@mui/icons-material/Place";
 
 
 
+
 interface Props {
-  handleDateChange: (newValue: unknown ) => void
+  updateStartTime: (newValue: unknown) => void
+  updateStopTime: (newValue: unknown) => void
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -18,7 +20,7 @@ interface Props {
   stop: unknown
   rate: number | null;
 }
-const TimeSelectionComponent = ({ handleDateChange, handleInputChange, rate,
+const TimeSelectionComponent = ({ updateStartTime, updateStopTime, handleInputChange, rate,
   location, start, stop }: Props) => {
   const ariaLabel = { "aria-label": "description" };
   return (
@@ -83,14 +85,14 @@ const TimeSelectionComponent = ({ handleDateChange, handleInputChange, rate,
           defaultValue={start}
           sx={{ backgroundColor: "white", borderRadius: 1, }}
           disablePast
-          onChange={(newValue) => handleDateChange(newValue)}
+          onChange={(newValue) => updateStartTime(newValue)}
         />
         <DateTimePicker
           label="End date and time"
           defaultValue={stop}
           sx={{ backgroundColor: "white", borderRadius: 1 }}
           disablePast
-          onChange={(newValue) => handleDateChange(newValue)}
+          onChange={(newValue) => updateStopTime(newValue)}
         />
       </DemoContainer>
     </LocalizationProvider>

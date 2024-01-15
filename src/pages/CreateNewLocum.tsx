@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 
 import NewJobInputs from "../components/Locums/NewJobInputs";
 import TimeSelectionComponent from "../components/Locums/TimeSelectionComponent";
+import dayjs, { Dayjs } from "dayjs";
 
 interface Job {
   title: "";
@@ -30,12 +31,6 @@ const CreateNew = () => {
     const { id, value } = e.target;
     setJob({ ...job, [id]: value });
   };
-  const handleDateChange = (newValue: unknown) => {
-    const start = newValue;
-    const stop = newValue;
-    setJob({ ...job, start, stop });
-    console.log(job);
-  };
 
   const [step, setStep] = useState<number>(1);
   const handleNextStep = () => {
@@ -60,7 +55,20 @@ const CreateNew = () => {
     location.replace(/\s/g, "") !== "" &&
     rate !== null;
 
- 
+  const updateStartTime = (newValue: unknown | Dayjs) => {
+    if (dayjs.isDayjs(newValue)) {
+      const start = newValue.toDate().toLocaleDateString();
+      setJob({ ...job, start, stop });
+    }
+    console.log(job)
+  };
+  const updateStopTime = (newValue: unknown | Dayjs) => {
+    if (dayjs.isDayjs(newValue)) {
+      const stop = newValue.toDate().toLocaleDateString();
+      setJob({ ...job, stop });
+    }
+    console.log(job)
+  };
   return (
     <>
       <Paper
@@ -68,9 +76,7 @@ const CreateNew = () => {
         sx={{
           width: {
             xs: "95%",
-            md: "60%",
-            marginLeft: "auto",
-            marginRight: "auto",
+            md: "70%",
           },
           backgroundColor: "lightgray",
           px: 3,
@@ -98,7 +104,8 @@ const CreateNew = () => {
           )}
           {step === 2 && (
             <TimeSelectionComponent
-              handleDateChange={handleDateChange}
+              updateStartTime={updateStartTime}
+              updateStopTime={updateStopTime}
               handleInputChange={handleInputChange}
               location={location}
               rate={rate}
