@@ -64,6 +64,7 @@ const Locums = () => {
   };
 
   const navigate = useNavigate();
+  
   const [register, setRegister] = useState<boolean>(false);
   const handleRegister = () => {
     if (register) {

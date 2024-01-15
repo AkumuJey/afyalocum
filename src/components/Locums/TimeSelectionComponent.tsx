@@ -5,27 +5,33 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { ChangeEvent } from "react";
 import { Input, InputLabel } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
-
-
-
+import { Dayjs } from "dayjs";
 
 interface Props {
-  updateStartTime: (newValue: unknown) => void
-  updateStopTime: (newValue: unknown) => void
+  handleDateTimeChange: (newValue: unknown, start: string) => void;
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   location: string;
-  start: unknown,
-  stop: unknown
+  start: unknown;
+  stop: unknown;
   rate: number | null;
+  minDateTime: Dayjs
 }
-const TimeSelectionComponent = ({ updateStartTime, updateStopTime, handleInputChange, rate,
-  location, start, stop }: Props) => {
+const TimeSelectionComponent = ({
+  handleDateTimeChange,
+  handleInputChange,
+  rate,
+  location,
+  start,
+  stop,
+  minDateTime
+}: Props) => {
   const ariaLabel = { "aria-label": "description" };
+  
   return (
     <>
-    <InputLabel
+      <InputLabel
         htmlFor="location"
         sx={{
           fontWeight: "bold",
@@ -44,7 +50,7 @@ const TimeSelectionComponent = ({ updateStartTime, updateStopTime, handleInputCh
         required
         className="w-full bg-white px-3 py-1 rounded-md overflow-hidden"
         sx={{
-          my: '0.5rem'
+          my: "0.5rem",
         }}
       />
       <InputLabel
@@ -65,37 +71,39 @@ const TimeSelectionComponent = ({ updateStartTime, updateStopTime, handleInputCh
         inputProps={{ min: 0, ...ariaLabel }}
         required
         sx={{
-          my: '0.3rem',
-          py: `0.25rem`
+          my: "0.3rem",
+          py: `0.25rem`,
         }}
         className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
       />
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer
-        components={["DateTimePicker"]}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          paddingBottom: 1,
-          paddingTop: 1,
-        }}
-      >
-        <DateTimePicker
-          label="Start date and time"
-          defaultValue={start}
-          sx={{ backgroundColor: "white", borderRadius: 1, }}
-          disablePast
-          onChange={(newValue) => updateStartTime(newValue)}
-        />
-        <DateTimePicker
-          label="End date and time"
-          defaultValue={stop}
-          sx={{ backgroundColor: "white", borderRadius: 1 }}
-          disablePast
-          onChange={(newValue) => updateStopTime(newValue)}
-        />
-      </DemoContainer>
-    </LocalizationProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer
+          components={["DateTimePicker"]}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            paddingBottom: 1,
+            paddingTop: 1,
+          }}
+        >
+          <DateTimePicker
+            label="Start date and time"
+            defaultValue={start}
+            sx={{ backgroundColor: "white", borderRadius: 1 }}
+            disablePast
+            onChange={(newValue) => handleDateTimeChange(newValue, "start")}
+          />
+          <DateTimePicker
+            label="End date and time"
+            defaultValue={stop}
+            sx={{ backgroundColor: "white", borderRadius: 1 }}
+            disablePast
+            value={stop}
+            minDateTime={minDateTime}
+            onChange={(newValue) => handleDateTimeChange(newValue, "stop")}
+          />
+        </DemoContainer>
+      </LocalizationProvider>
     </>
   );
 };

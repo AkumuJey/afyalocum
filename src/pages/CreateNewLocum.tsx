@@ -1,9 +1,21 @@
-import { Box, Button, Grid, LinearProgress, Paper } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Grid,
+  LinearProgress,
+  Paper,
+  Slide,
+  SlideProps,
+  Snackbar,
+} from "@mui/material";
+import React, { ChangeEvent, useState } from "react";
 
+import dayjs, { Dayjs } from "dayjs";
+import { useNavigate } from "react-router-dom";
 import NewJobInputs from "../components/Locums/NewJobInputs";
 import TimeSelectionComponent from "../components/Locums/TimeSelectionComponent";
-import dayjs, { Dayjs } from "dayjs";
 
 interface Job {
   title: "";
@@ -11,8 +23,9 @@ interface Job {
   description: "";
   location: "";
   rate: null | number;
-  start: null | unknown;
-  stop: null | unknown;
+  start: null | Date;
+  stop: null | Date;
+  completed: boolean;
 }
 const CreateNew = () => {
   const [job, setJob] = useState<Job>({
@@ -23,6 +36,7 @@ const CreateNew = () => {
     rate: null,
     start: null,
     stop: null,
+    completed: false,
   });
   const { title, requirements, description, location, rate, start, stop } = job;
   const handleInputChange = (
@@ -55,22 +69,50 @@ const CreateNew = () => {
     location.replace(/\s/g, "") !== "" &&
     rate !== null;
 
-  const updateStartTime = (newValue: unknown | Dayjs) => {
+  const handleDateTimeChange = (newValue: unknown | Dayjs, type: string) => {
     if (dayjs.isDayjs(newValue)) {
-      const start = newValue.toDate().toLocaleDateString();
-      setJob({ ...job, start, stop });
+      const value = newValue.toDate();
+      setJob({ ...job, [type]: value });
+      if (type === "start") {
+        setMinDateTime(newValue.add(1, "hour"));
+      }
     }
-    console.log(job)
+    console.log(job);
   };
-  const updateStopTime = (newValue: unknown | Dayjs) => {
-    if (dayjs.isDayjs(newValue)) {
-      const stop = newValue.toDate().toLocaleDateString();
-      setJob({ ...job, stop });
+
+  const [minDateTime, setMinDateTime] = useState<Dayjs>(dayjs().add(1, "hour"));
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validSubmission) {
+      console.log(job);
+      setSuccess(true);
+      navigate("/locums");
     }
-    console.log(job)
   };
+  // window. location. reload()
+  const [success, setSuccess] = useState<boolean>(false);
+
+  type transitionProps = Omit<SlideProps, "direction">;
+  function transitionTop(props: transitionProps) {
+    return <Slide {...props} direction="right" />;
+  }
   return (
     <>
+      <Button onClick={() => setSuccess(true)}>Open</Button>
+      <Snackbar
+        autoHideDuration={3000}
+        open={success}
+        onClose={() => setSuccess(false)}
+        TransitionComponent={transitionTop}
+        transitionDuration={1000}
+        
+      >
+        <Alert variant="filled" severity="success" sx={{width: "100%"}}>
+          Locum listed Successlly
+        </Alert>
+      </Snackbar>
       <Paper
         elevation={3}
         sx={{
@@ -88,6 +130,7 @@ const CreateNew = () => {
           sx={{
             width: "100%",
           }}
+          onSubmit={handleSubmit}
         >
           <LinearProgress
             value={(step / 2) * 100}
@@ -104,9 +147,9 @@ const CreateNew = () => {
           )}
           {step === 2 && (
             <TimeSelectionComponent
-              updateStartTime={updateStartTime}
-              updateStopTime={updateStopTime}
+              handleDateTimeChange={handleDateTimeChange}
               handleInputChange={handleInputChange}
+              minDateTime={minDateTime}
               location={location}
               rate={rate}
               start={start}
