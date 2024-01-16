@@ -1,6 +1,5 @@
 import {
   Alert,
-  AlertTitle,
   Box,
   Button,
   Grid,
@@ -8,7 +7,7 @@ import {
   Paper,
   Slide,
   SlideProps,
-  Snackbar,
+  Snackbar
 } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 
@@ -89,25 +88,39 @@ const CreateNew = () => {
       console.log(job);
       setSuccess(true);
       navigate("/locums");
+      window.location.reload
     }
   };
   // window. location. reload()
   const [success, setSuccess] = useState<boolean>(false);
 
-  type transitionProps = Omit<SlideProps, "direction">;
-  function transitionTop(props: transitionProps) {
+  type TransitionProps = Omit<SlideProps, "direction">;
+  function transitionTop(props: TransitionProps) {
     return <Slide {...props} direction="right" />;
+  }
+
+  const [transition, setTransition] = React.useState<
+    React.ComponentType<TransitionProps> | undefined
+  >(undefined);
+
+  const handleChange = () => {
+    if(transition) {
+      setTransition(undefined);
+      setSuccess(false)
+    }else{
+      setTransition(transitionTop)
+      setSuccess(true)
+    }
   }
   return (
     <>
-      <Button onClick={() => setSuccess(true)}>Open</Button>
+      <Button onClick={handleChange}>Open</Button>
       <Snackbar
         autoHideDuration={3000}
         open={success}
         onClose={() => setSuccess(false)}
         TransitionComponent={transitionTop}
-        transitionDuration={1000}
-        
+        transitionDuration={500}
       >
         <Alert variant="filled" severity="success" sx={{width: "100%"}}>
           Locum listed Successlly

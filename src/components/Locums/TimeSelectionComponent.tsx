@@ -89,6 +89,7 @@ const TimeSelectionComponent = ({
           <DateTimePicker
             label="Start date and time"
             defaultValue={start}
+            value={start}
             sx={{ backgroundColor: "white", borderRadius: 1 }}
             disablePast
             onChange={(newValue) => handleDateTimeChange(newValue, "start")}

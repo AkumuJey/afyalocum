@@ -14,10 +14,12 @@ export const AuthContext = createContext<AuthContextProps>({
 
 export const AuthContextProvider = ({ children }: { children?: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
         setCurrentUser(user);
+        setLoading(false);
     });
 
     return () => unsubscribe();
@@ -27,7 +29,7 @@ export const AuthContextProvider = ({ children }: { children?: ReactNode }) => {
     currentUser,
   };
 
-  return (
+  return loading ? null :  (
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 };
