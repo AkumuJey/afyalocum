@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import TableLayout from "../components/Locums/TableLayout";
 import { generateRandomData } from "../components/Locums/dummyData";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -18,7 +18,7 @@ interface Locum {
   firstName: string;
   age: number | null;
 }
-const Locums = () => {  
+const Locums = () => {
   const [completedLocumData, setCompletedLocumData] = useState<Locum[] | null>(
     null
   );
@@ -57,42 +57,31 @@ const Locums = () => {
       setExpanded(null);
     } else {
       setExpanded(str);
-      if (str === '3') {
-        getCompletedLocumData()
+      if (str === "3") {
+        getCompletedLocumData();
       }
     }
   };
-
-  const navigate = useNavigate();
-  
-  const [register, setRegister] = useState<boolean>(false);
-  const handleRegister = () => {
-    if (register) {
-      setRegister(false);
-      navigate("/locums");
-    } else {
-      setRegister(true);
-      navigate("/locums/create-new");
-    }
-  };
+  const location = useLocation();
+  const hideRegister = location.pathname === "/locums";
 
   return (
     <ProtectedRoute>
       <div className="flex flex-col items-center valid-height w-full py-[4rem]">
         <div className="w-[80%] mx-auto py-[0.8rem]">
-          {register ? (
-            <Button variant="contained" color="info" onClick={handleRegister}>
-              View Locums
-            </Button>
+          {hideRegister ? (
+            <>
+              <Button color="primary" variant="outlined">
+                <Link to={`/locums/create-new`}>Create new locum</Link>
+              </Button>
+            </>
           ) : (
-            <Button color="primary" variant="outlined" onClick={handleRegister}>
-              Create new locum
+            <Button variant="contained" color="info">
+              <Link to={`/locums`}>View Locums</Link>
             </Button>
           )}
         </div>
-        {register ? (
-          <Outlet />
-        ) : (
+        {hideRegister ? (
           <>
             <Accordion
               expanded={expanded === "2"}
@@ -127,6 +116,8 @@ const Locums = () => {
               </AccordionDetails>
             </Accordion>
           </>
+        ) : (
+          <Outlet />
         )}
       </div>
     </ProtectedRoute>

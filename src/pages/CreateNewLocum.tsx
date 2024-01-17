@@ -81,14 +81,12 @@ const CreateNew = () => {
 
   const [minDateTime, setMinDateTime] = useState<Dayjs>(dayjs().add(1, "hour"));
   const navigate = useNavigate();
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validSubmission) {
       console.log(job);
       setSuccess(true);
       navigate("/locums");
-      window.location.reload
     }
   };
   // window. location. reload()
