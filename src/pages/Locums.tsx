@@ -3,11 +3,14 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Breadcrumbs,
   Button,
+  Link
 } from "@mui/material";
+
 import { useEffect, useState } from "react";
 
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
 import TableLayout from "../components/Locums/TableLayout";
 import { generateRandomData } from "../components/Locums/dummyData";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -69,15 +72,23 @@ const Locums = () => {
     <ProtectedRoute>
       <div className="flex flex-col items-center valid-height w-full py-[4rem]">
         <div className="w-[80%] mx-auto py-[0.8rem]">
+          <Breadcrumbs separator=">">
+          <Link>
+          <RouterLink to={`/locums/create-new`}>Create new locum</RouterLink>
+          </Link>
+          <Link>
+          <RouterLink to={`/locums/create-new`}>Create</RouterLink>
+          </Link>
+          </Breadcrumbs>
           {hideRegister ? (
             <>
               <Button color="primary" variant="outlined">
-                <Link to={`/locums/create-new`}>Create new locum</Link>
+                <RouterLink to={`/locums/create-new`}>Create new locum</RouterLink>
               </Button>
             </>
           ) : (
             <Button variant="contained" color="info">
-              <Link to={`/locums`}>View Locums</Link>
+              <RouterLink to={`/locums`}>View Locums</RouterLink>
             </Button>
           )}
         </div>

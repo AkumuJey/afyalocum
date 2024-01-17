@@ -93,31 +93,23 @@ const CreateNew = () => {
   const [success, setSuccess] = useState<boolean>(false);
 
   type TransitionProps = Omit<SlideProps, "direction">;
-  function transitionTop(props: TransitionProps) {
+  function transitionRight(props: TransitionProps) {
     return <Slide {...props} direction="right" />;
   }
 
-  const [transition, setTransition] = React.useState<
-    React.ComponentType<TransitionProps> | undefined
-  >(undefined);
+  // const [transition, setTransition] = React.useState<
+  //   React.ComponentType<TransitionProps> | undefined
+  // >(undefined);
 
-  const handleChange = () => {
-    if(transition) {
-      setTransition(undefined);
-      setSuccess(false)
-    }else{
-      setTransition(transitionTop)
-      setSuccess(true)
-    }
-  }
+  
   return (
     <>
-      <Button onClick={handleChange}>Open</Button>
+      <Button onClick={() => setSuccess(!success)} color="secondary">Open</Button>
       <Snackbar
         autoHideDuration={3000}
         open={success}
         onClose={() => setSuccess(false)}
-        TransitionComponent={transitionTop}
+        TransitionComponent={transitionRight}
         transitionDuration={500}
       >
         <Alert variant="filled" severity="success" sx={{width: "100%"}}>
