@@ -5,7 +5,8 @@ import {
   AccordionSummary,
   Breadcrumbs,
   Button,
-  Link
+  Link,
+  LinkProps,
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
@@ -21,6 +22,16 @@ interface Locum {
   firstName: string;
   age: number | null;
 }
+
+interface LinkRouterProps extends LinkProps {
+  to: string;
+  replace?: boolean;
+}
+
+function LinkRouter(props: LinkRouterProps) {
+  return <Link {...props} component={RouterLink as any} />;
+}
+
 const Locums = () => {
   const [completedLocumData, setCompletedLocumData] = useState<Locum[] | null>(
     null
@@ -73,17 +84,29 @@ const Locums = () => {
       <div className="flex flex-col items-center valid-height w-full py-[4rem]">
         <div className="w-[80%] mx-auto py-[0.8rem]">
           <Breadcrumbs separator=">">
-          <Link>
-          <RouterLink to={`/locums/create-new`}>Create new locum</RouterLink>
-          </Link>
-          <Link>
-          <RouterLink to={`/locums/create-new`}>Create</RouterLink>
-          </Link>
+            <LinkRouter
+              to={`/locums`}
+              underline="hover"
+              color={hideRegister ? "purple" : "black"}
+              sx={{ fontSize: "1.3rem" }}
+            >
+              Locums
+            </LinkRouter>
+            <LinkRouter
+              to={`/locums/create-new`}
+              underline="hover"
+              color={!hideRegister ? "purple" : "black"}
+              sx={{ fontSize: "1.3rem" }}
+            >
+              New Locum
+            </LinkRouter>
           </Breadcrumbs>
           {hideRegister ? (
             <>
               <Button color="primary" variant="outlined">
-                <RouterLink to={`/locums/create-new`}>Create new locum</RouterLink>
+                <RouterLink to={`/locums/create-new`}>
+                  Create new locum
+                </RouterLink>
               </Button>
             </>
           ) : (
