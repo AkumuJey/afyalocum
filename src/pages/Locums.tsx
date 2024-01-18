@@ -5,6 +5,7 @@ import {
   AccordionSummary,
   Breadcrumbs,
   Button,
+  Collapse,
   Link,
   LinkProps,
 } from "@mui/material";
@@ -129,9 +130,11 @@ const Locums = () => {
               >
                 Pending Locums
               </AccordionSummary>
-              <AccordionDetails>
-                <TableLayout onClick={() => null} data={activeLocumData} />
-              </AccordionDetails>
+              <Collapse in={expanded === "2"} timeout={800} unmountOnExit>
+                <AccordionDetails>
+                  <TableLayout onClick={() => null} data={activeLocumData} />
+                </AccordionDetails>
+              </Collapse>
             </Accordion>
             <Accordion
               expanded={expanded === "3"}
@@ -145,9 +148,11 @@ const Locums = () => {
               >
                 Completed Locums
               </AccordionSummary>
+              <Collapse in={expanded === "3"} timeout={800} unmountOnExit>
               <AccordionDetails>
                 <TableLayout data={completedLocumData} onClick={() => null} />
               </AccordionDetails>
+              </Collapse>
             </Accordion>
           </>
         ) : (
