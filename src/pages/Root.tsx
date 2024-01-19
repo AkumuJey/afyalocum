@@ -5,6 +5,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import Navbar from "../components/Navbar/Navbar";
 import { AuthContextProvider } from "../contexts/AuthContext";
 import { Suspense } from "react";
+import LoadingPage from "../components/LoadingPage";
 interface Props {
   window?: () => Window;
   children: React.ReactElement;
@@ -12,7 +13,7 @@ interface Props {
 
 const Root = (props: Props) => {
   return (
-    <Suspense fallback={<div>Loading....</div>}>
+    <Suspense fallback={<LoadingPage />}>
       <AuthContextProvider>
         <div className="bg-transparent min-h-[100dvh] min-w-full box-border text-[1rem] font-sans z-0 pt-[5rem]">
           <Navbar {...props} />
