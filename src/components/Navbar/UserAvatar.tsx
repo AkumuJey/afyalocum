@@ -72,7 +72,7 @@ const UserAvatar = ({currentUser} : Props) => {
   
   return (
     <>
-      <Grid>
+      <Grid sx={{mr: "1.5rem"}}>
         <Button
           ref={anchorRef}
           id="composition-button"

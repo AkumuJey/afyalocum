@@ -89,7 +89,7 @@ const Locums = () => {
               to={`/locums`}
               underline="hover"
               color={hideRegister ? "purple" : "black"}
-              sx={{ fontSize: "1.3rem" }}
+              sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
             >
               Locums
             </LinkRouter>
@@ -97,24 +97,11 @@ const Locums = () => {
               to={`/locums/create-new`}
               underline="hover"
               color={!hideRegister ? "purple" : "black"}
-              sx={{ fontSize: "1.3rem" }}
+              sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
             >
               New Locum
             </LinkRouter>
           </Breadcrumbs>
-          {hideRegister ? (
-            <>
-              <Button color="primary" variant="outlined">
-                <RouterLink to={`/locums/create-new`}>
-                  Create new locum
-                </RouterLink>
-              </Button>
-            </>
-          ) : (
-            <Button variant="contained" color="info">
-              <RouterLink to={`/locums`}>View Locums</RouterLink>
-            </Button>
-          )}
         </div>
         {hideRegister ? (
           <>
@@ -158,6 +145,21 @@ const Locums = () => {
         ) : (
           <Outlet />
         )}
+        <div className="w-[80%] mx-auto py-[0.8rem]">
+          {hideRegister ? (
+            <>
+              <Button color="primary" variant="outlined">
+                <RouterLink to={`/locums/create-new`}>
+                  Create new locum
+                </RouterLink>
+              </Button>
+            </>
+          ) : (
+            <Button color="info" variant="outlined">
+              <RouterLink to={`/locums`}>Back to locums</RouterLink>
+            </Button>
+          )}
+        </div>
       </div>
     </ProtectedRoute>
   );
