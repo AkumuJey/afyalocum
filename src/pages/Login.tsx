@@ -22,6 +22,7 @@ import { AuthContext } from "../contexts/AuthContext";
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -29,8 +30,8 @@ const Login = () => {
   const navigate = useNavigate();
   const  { currentUser } = useContext(AuthContext)
 const location = useLocation()
-const {state} = location
-console.log(state)
+const { state } = location
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -42,10 +43,10 @@ console.log(state)
       if (state) {
         navigate(state)
       } else {navigate("/")}
-    } catch (error) {
-      console.error(error);
+    } catch (_error) {
+      setError("Incorrect password or email! Try again.")
     } finally {
-      setLoading(false); // Set loading to false after the process completes
+      setLoading(false);
     }
   };
 
@@ -160,6 +161,7 @@ console.log(state)
             Login
           </LoadingButton>
         </Container>
+        <Container className="min-w-full text-center text-red-600 font-semibold">{error}</Container>
         <Container
           sx={{
             width: "100%",
