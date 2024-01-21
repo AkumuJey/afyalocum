@@ -1,5 +1,5 @@
 import { Paper, Typography } from "@mui/material";
-
+import { motion } from "framer-motion";
 
 const About = () => {
   const aboutContent = [
@@ -20,39 +20,54 @@ const About = () => {
     },
   ];
 
-  
   return (
-    <div className="flex flex-col gap-3 py-3 md:py-[4rem] justify-around valid-height items-center w-full">
-      
-      {
-        aboutContent.map((content) => (
-      <Paper
-        component="div"
-        elevation={3}
-        sx={{
-          width: {
-            xs: "100%",
-            md: "80%",
-          },
-          backgroundColor: "lightgray",
-          padding: 3,
-        }}
-        key={content.id}
-      >
-        <h1 className="text-center font-bold text-3xl">{content.title}</h1>
-        <Typography
-        paragraph={true}
-          component="p"
+    <motion.div
+      className="flex flex-col gap-3 py-3 md:py-[4rem] justify-around items-center w-full"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{opacity: 0}}
+      transition={{ duration: .5}}
+    >
+      {aboutContent.map((content) => (
+        <Paper
+          component="div"
+          elevation={3}
           sx={{
-            width: "100%",
+            width: {
+              xs: "100%",
+              md: "80%",
+            },
+            backgroundColor: "#F9F9F9", // Adjust the background color
+            padding: 3,
+            borderRadius: 10, // Add border-radius for a softer look
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Add a subtle shadow
           }}
+          key={content.id}
         >
-          {content.body}
-        </Typography>
-      </Paper>
-        ))
-      }
-    </div>
+          <Typography
+            variant="h4"
+            align="center"
+            sx={{
+              fontWeight: 700, // Increase font weight for emphasis
+              marginBottom: 2, // Add spacing between title and body
+            }}
+          >
+            {content.title}
+          </Typography>
+          <Typography
+            paragraph
+            component="p"
+            sx={{
+              width: "100%",
+              fontSize: "1rem", // Adjust the font size
+              lineHeight: 1.6, // Improve readability with increased line height
+            }}
+          >
+            {content.body}
+          </Typography>
+        </Paper>
+      ))}
+    </motion.div>
   );
 };
 

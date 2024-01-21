@@ -3,7 +3,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
-import LoadingPage from "../components/LoadingPage";
 
 interface AuthContextProps {
   currentUser: User | null;
