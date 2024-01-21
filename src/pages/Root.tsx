@@ -15,7 +15,7 @@ const Root = (props: Props) => {
   return (
     <Suspense fallback={<LoadingPage/>}>
       <AuthContextProvider>
-        <div className="bg-transparent min-h-[100dvh] min-w-full box-border text-[1rem] font-sans z-0 pt-[5rem]">
+        <div className="bg-transparent min-h-[100dvh] w-full box-border text-[1rem] font-sans z-0 pt-[5rem]">
           <Navbar {...props} />
           <div className="valid-height flex justify-center items-center">
             <Outlet />

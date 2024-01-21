@@ -23,8 +23,8 @@ const About = () => {
   return (
     <motion.div
       className="flex flex-col gap-3 py-3 md:py-[4rem] justify-around items-center w-full"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y:0 }}
       exit={{opacity: 0}}
       transition={{ duration: .5}}
     >
@@ -37,10 +37,11 @@ const About = () => {
               xs: "100%",
               md: "80%",
             },
-            backgroundColor: "#F9F9F9", // Adjust the background color
+            backgroundColor: "#F9F9F9",
             padding: 3,
-            borderRadius: 10, // Add border-radius for a softer look
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Add a subtle shadow
+            my: "0.6rem",
+            borderRadius: 8, 
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           }}
           key={content.id}
         >
