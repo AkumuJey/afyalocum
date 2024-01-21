@@ -13,7 +13,7 @@ interface Props {
 
 const Root = (props: Props) => {
   return (
-    <Suspense fallback={<LoadingPage />}>
+    <Suspense fallback={<LoadingPage/>}>
       <AuthContextProvider>
         <div className="bg-transparent min-h-[100dvh] min-w-full box-border text-[1rem] font-sans z-0 pt-[5rem]">
           <Navbar {...props} />

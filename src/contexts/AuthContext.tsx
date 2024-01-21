@@ -3,6 +3,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
+import LoadingPage from "../components/LoadingPage";
 
 interface AuthContextProps {
   currentUser: User | null;
@@ -29,7 +30,7 @@ export const AuthContextProvider = ({ children }: { children?: ReactNode }) => {
     currentUser,
   };
 
-  return loading ? null :  (
+  return loading ? null:  (
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 };
