@@ -15,12 +15,21 @@ const About = () => {
       body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque molestias est reiciendis et. Tempora, non officia ipsam quam iste animi architecto corrupti est fugit! Aliquid, alias voluptas. Corporis totam eligendi perferendis error, eaque quam fugiat beatae vero laudantium a ut facere! Facere officia ad, accusamus repudiandae et nesciunt natus ab deserunt accusantium itaque voluptatum",
     },
   ];
-
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.2 } },
+  };
+  const iconVariants = {
+    hidden: { opacity: 0, rotate: -180 },
+    visible: { opacity: 1, rotate: 0 },
+  };
   return (
     <div className="flex flex-col items-center py-[2rem]">
       {aboutContent.map((content, index, array) => (
         <motion.div
-          className={` w-full md:w-4/5 ${index !== array.length -1 ? "mb-[1rem]" : ""}`}
+          className={` w-full md:w-4/5 ${
+            index !== array.length - 1 ? "mb-[1rem]" : ""
+          }`}
           initial={{ y: 30 }}
           animate={{ y: 0 }}
           exit={{ opacity: 0 }}
@@ -51,17 +60,33 @@ const About = () => {
         </motion.div>
       ))}
       <motion.div
-          className={`w-fit my-2 p-2 flex justify-center items-center gap-5 `}
-          initial={{ y: 30 }}
-          animate={{ y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: (aboutContent.length + 1) * 0.5 || 0.5 }}
-        >
-          <IconButton><Facebook sx={{color: "blue", fontSize: "2rem"}}/></IconButton>
-          <IconButton><Twitter sx={{color: "black", fontSize: "2rem"}}/></IconButton>
-          <IconButton><Instagram sx={{color: "red", fontSize: "2rem"}}/></IconButton>
-          <IconButton><LinkedIn sx={{color: "blue", fontSize: "2rem"}}/></IconButton>
+        className={`w-fit my-2 p-2 flex justify-center items-center gap-5 `}
+        initial="hidden"
+        animate="visible"
+        exit={{ opacity: 0 }}
+        variants={containerVariants}
+      >
+        <motion.div variants={iconVariants}>
+          <IconButton>
+            <Facebook sx={{ color: "blue", fontSize: "2rem" }} />
+          </IconButton>
         </motion.div>
+        <motion.div variants={iconVariants}>
+          <IconButton>
+            <Twitter sx={{ color: "black", fontSize: "2rem" }} />
+          </IconButton>
+        </motion.div>
+        <motion.div variants={iconVariants}>
+          <IconButton>
+            <Instagram sx={{ color: "red", fontSize: "2rem" }} />
+          </IconButton>
+        </motion.div>
+        <motion.div variants={iconVariants}>
+          <IconButton>
+            <LinkedIn sx={{ color: "blue", fontSize: "2rem" }} />
+          </IconButton>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
