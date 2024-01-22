@@ -27,7 +27,41 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
   };
   return (
     <>
-      {isMd ? (
+      {!isMd ? (
+        // Desktop version
+        <List
+          sx={{
+            fontSize: "1.25rem",
+            fontWeight: "bold",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            gap: "4rem",
+          }}
+        >
+          {linkData.map((link, index) => {
+            if (currentUser && link.path === "/login") {
+              return null;
+            }
+            return (
+              <ListItem key={index}>
+                <NavLink
+                  onClick={scrollToTop}
+                  to={link.path}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-purple-800 transition-all duration-500 ease-in h-[3rem] flex items-center"
+                      : "h-[3rem] flex items-center"
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              </ListItem>
+            );
+          })}
+          {currentUser && <UserAvatar currentUser={currentUser} />}
+        </List>
+      ) : (
         //mobile version
         <Drawer
           open={open}
@@ -109,40 +143,6 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
             )}
           </List>
         </Drawer>
-      ) : (
-        // Desktop version
-        <List
-          sx={{
-            fontSize: "1.25rem",
-            fontWeight: "bold",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            gap: "4rem",
-          }}
-        >
-          {linkData.map((link, index) => {
-            if (currentUser && link.path === "/login") {
-              return null;
-            }
-            return (
-              <ListItem key={index}>
-                <NavLink
-                  onClick={scrollToTop}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-purple-800 transition-all duration-500 ease-in h-[3rem] flex items-center"
-                      : "h-[3rem] flex items-center"
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              </ListItem>
-            );
-          })}
-          {currentUser && <UserAvatar currentUser={currentUser} />}
-        </List>
       )}
     </>
   );

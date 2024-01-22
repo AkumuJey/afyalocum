@@ -22,7 +22,7 @@ const Hero = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handleClick(`register`)}
+              onClick={() => handleClick(`/register`)}
             >
               Get Started
             </Button>
