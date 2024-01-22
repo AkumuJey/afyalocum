@@ -20,8 +20,11 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
     { path: "/login", label: "Login" },
   ];
   const handleSignout = () => {
-    auth.signOut()
-  }
+    auth.signOut();
+  };
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <>
       {isMd ? (
@@ -82,7 +85,10 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
                     className={({ isActive }) =>
                       isActive ? "text-purple-800" : ""
                     }
-                    onClick={handleClose}
+                    onClick={() => {
+                      handleClose();
+                      scrollToTop();
+                    }}
                   >
                     {link.label}
                   </NavLink>
@@ -122,6 +128,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
             return (
               <ListItem key={index}>
                 <NavLink
+                  onClick={scrollToTop}
                   to={link.path}
                   className={({ isActive }) =>
                     isActive
