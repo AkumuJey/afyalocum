@@ -21,7 +21,7 @@ const About = () => {
   };
   const iconVariants = {
     hidden: { opacity: 0, rotate: -180, y: 20 },
-    visible: { opacity: 1, rotate: 0, y: 0 },
+    visible: { opacity: 1, rotate: 0, y: 0},
   };
   return (
     <div className="flex flex-col items-center py-[2rem]">
