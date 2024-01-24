@@ -2,6 +2,7 @@ import { Button, Container, Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   const { currentUser } = useContext(AuthContext);
@@ -11,7 +12,8 @@ const Hero = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ paddingTop: "2rem" }}>
+    <motion.div className="py-[2rem] max-w-2xl mx-auto bg-blue-300" initial={{y: 30}} whileInView={{y:0}} transition={{duration: 0.5}}>
+    {/* <Container maxWidth="md" sx={{ paddingTop: "2rem" }}> */}
       <Typography variant="h3" component="h1" gutterBottom textAlign={`center`}>
         Connect with Healthcare Anytime, Anywhere
       </Typography>
@@ -48,7 +50,8 @@ const Hero = () => {
           </Grid>
         </Grid>
       </Container>
-    </Container>
+    {/* </Container> */}
+    </motion.div>
   );
 };
 
