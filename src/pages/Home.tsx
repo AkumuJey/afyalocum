@@ -4,6 +4,7 @@ import Hero from "../components/Home/Hero/Hero";
 
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import Testimonials from "../components/Home/Testimonials";
+import RouterAnimation from "./RouterAnimation";
 
 const Home = () => {
   const testimonies = [
@@ -24,6 +25,7 @@ const Home = () => {
     },
   ];
   return (
+    <RouterAnimation>
     <>
       <Box component={`div`}>
         <Hero />
@@ -109,6 +111,7 @@ const Home = () => {
         </Container>
       </Box>
     </>
+    </RouterAnimation>
   );
 };
 

@@ -16,6 +16,7 @@ import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
 import TableLayout from "../components/Locums/TableLayout";
 import { generateRandomData } from "../components/Locums/dummyData";
 import ProtectedRoute from "../components/ProtectedRoute";
+import RouterAnimation from "./RouterAnimation";
 
 interface Locum {
   id: number;
@@ -82,7 +83,8 @@ const Locums = () => {
 
   return (
     <ProtectedRoute>
-      <div className="flex flex-col items-center valid-height w-full py-[4rem]">
+      <RouterAnimation>
+      <div className="flex flex-col items-center h-full w-full py-[4rem]">
         <div className="w-[80%] mx-auto py-[0.8rem]">
           <Breadcrumbs separator=">">
             <LinkRouter
@@ -161,6 +163,7 @@ const Locums = () => {
           )}
         </div>
       </div>
+      </RouterAnimation>
     </ProtectedRoute>
   );
 };

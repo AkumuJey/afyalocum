@@ -6,9 +6,9 @@ interface PropTypes{
 const RouterAnimation = ({ children }: PropTypes) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 100, x: 0 }}
+      initial={{ opacity: 0, y: 20, x: 0 }}
       animate={{ opacity: 1, y: 0, x: 0 }}
-      exit={{ opacity: 0, y: 0 }}
+      exit={{ opacity: 0, y: 0, x: "-100%" }}
       transition={{ duration: 0.5 }}
       className="valid-height flex justify-center items-center bg-green-500"
     >

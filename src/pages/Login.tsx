@@ -17,6 +17,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { LoadingButton } from "@mui/lab";
 import { AuthContext } from "../contexts/AuthContext";
+import RouterAnimation from "./RouterAnimation";
 
 
 const Login = () => {
@@ -57,6 +58,7 @@ const { state } = location
   }
   return (
     <>
+    <RouterAnimation>
       <Paper
         elevation={3}
         component={`div`}
@@ -185,6 +187,7 @@ const { state } = location
           </Button>
         </Container>
       </Paper>
+      </RouterAnimation>
     </>
   );
 };

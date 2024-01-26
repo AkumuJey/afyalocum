@@ -13,6 +13,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { ref, uploadBytes } from "firebase/storage";
 import { getDownloadURL } from "firebase/storage";
 import { AuthContext } from "../contexts/AuthContext";
+import RouterAnimation from "./RouterAnimation";
 
 interface organizationInfo {
   name: string;
@@ -101,73 +102,77 @@ const Resigstration = () => {
     return ""; // Return an empty string if no image is present
   };
 
-  const {currentUser} = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
   if (currentUser) {
-    return <Navigate to={`/`} replace={true}/>
+    return <Navigate to={`/`} replace={true} />;
   }
   return (
-    <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
-      <Paper
-        elevation={3}
-        sx={{
-          width: {
-            xs: "100%",
-            md: "60%",
-          },
-          backgroundColor: "lightgray",
-          padding: 3,
-        }}
-      >
-        <Box
-          component="form"
-          name="registration"
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "start",
-            gap: "1.5rem",
-          }}
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <ImageUpload
-            image={createTemporaryURL(organizationInfo.image)}
-            disabled={loading}
-            handleImageChange={handleImageChange}
-            handleRetake={handleRetake}
-            take={take}
-          />
-          <NameRegistration
-            ariaLabel={ariaLabel}
-            handleInputChange={handleInputChange}
-            name={organizationInfo.name}
-            disabled={loading}
-          />
-          <DescriptionInput
-            description={organizationInfo.hospitalDescription}
-            handleInputChange={handleInputChange}
-            disabled={loading}
-          />
-          <EmailAndPasswordInput
-            email={organizationInfo.email}
-            password={organizationInfo.password}
-            disabled={loading}
-            ariaLabel={ariaLabel}
-            handleInputChange={handleInputChange}
-          />
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            color="primary"
-            loading={loading}
+    <>
+      <RouterAnimation>
+        <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
+          <Paper
+            elevation={3}
+            sx={{
+              width: {
+                xs: "100%",
+                md: "60%",
+              },
+              backgroundColor: "lightgray",
+              padding: 3,
+            }}
           >
-            Create Account
-          </LoadingButton>
-        </Box>
-      </Paper>
-    </div>
+            <Box
+              component="form"
+              name="registration"
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "start",
+                gap: "1.5rem",
+              }}
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <ImageUpload
+                image={createTemporaryURL(organizationInfo.image)}
+                disabled={loading}
+                handleImageChange={handleImageChange}
+                handleRetake={handleRetake}
+                take={take}
+              />
+              <NameRegistration
+                ariaLabel={ariaLabel}
+                handleInputChange={handleInputChange}
+                name={organizationInfo.name}
+                disabled={loading}
+              />
+              <DescriptionInput
+                description={organizationInfo.hospitalDescription}
+                handleInputChange={handleInputChange}
+                disabled={loading}
+              />
+              <EmailAndPasswordInput
+                email={organizationInfo.email}
+                password={organizationInfo.password}
+                disabled={loading}
+                ariaLabel={ariaLabel}
+                handleInputChange={handleInputChange}
+              />
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                loading={loading}
+              >
+                Create Account
+              </LoadingButton>
+            </Box>
+          </Paper>
+        </div>
+      </RouterAnimation>
+    </>
   );
 };
 
