@@ -14,6 +14,18 @@ const HeroHeader = () => {
   );
 };
 
+const HeroContent = () => {
+  return (
+    <>
+      <Typography variant="h6" paragraph textAlign={`center`}>
+        Access quality healthcare from the comfort of your home. Our
+        telemedicine app provides secure and convenient video consultations with
+        licensed professionals.
+      </Typography>
+    </>
+  );
+};
+
 const Hero = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -29,11 +41,7 @@ const Hero = () => {
       transition={{ duration: 0.8 }}
     >
       <HeroHeader />
-      <Typography variant="h6" paragraph textAlign={`center`}>
-        Access quality healthcare from the comfort of your home. Our
-        telemedicine app provides secure and convenient video consultations with
-        licensed professionals.
-      </Typography>
+      <HeroContent />
       <Container maxWidth="xs">
         <Grid container justifyContent={`space-around`}>
           <Grid item>
