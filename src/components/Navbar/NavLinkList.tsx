@@ -13,18 +13,32 @@ interface PropTypes {
 
 const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
   const { currentUser } = useContext(AuthContext);
-  const linkData = [
+  interface Link {
+    path: string;
+    label: string;
+  }
+  const linkData: Link[] = [
     { path: "/", label: "Home" },
     { path: "/locums", label: "Locums" },
     { path: "/about", label: "About" },
+    { path: "/register", label: "Sign Up" },
     { path: "/login", label: "Login" },
   ];
+  const isNavigationLinkVisible = (link: Link) => {
+    return (
+      (currentUser && link.path === "/login") ||
+      (!currentUser && link.path === "/locums") ||
+      (currentUser && link.path === "/register")
+    );
+  };
   const handleSignout = () => {
     auth.signOut();
   };
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+ 
   return (
     <>
       {!isMd ? (
@@ -40,7 +54,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
           }}
         >
           {linkData.map((link, index) => {
-            if (currentUser && link.path === "/login") {
+            if (isNavigationLinkVisible(link)) {
               return null;
             }
             return (
@@ -50,8 +64,8 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
                   to={link.path}
                   className={({ isActive }) =>
                     isActive
-                      ? "text-purple-800 transition-all duration-500 ease-in h-[3rem] flex items-center"
-                      : "h-[3rem] flex items-center"
+                      ? "text-purple-800 transition-all duration-500 ease-in h-[3rem] flex items-center whitespace-nowrap"
+                      : "h-[3rem] flex items-center whitespace-nowrap"
                   }
                 >
                   {link.label}
@@ -109,7 +123,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
               </Typography>
             </Typography>
             {linkData.map((link, index) => {
-              if (currentUser && link.path === "/login") {
+              if (isNavigationLinkVisible(link)) {
                 return null;
               }
               return (

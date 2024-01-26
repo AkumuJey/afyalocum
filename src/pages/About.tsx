@@ -36,7 +36,7 @@ const About = () => {
             initial={{ y: 30 }}
             animate={{ y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: (index + 1) * 0.5 }}
+            transition={{ duration: (index + 1),  }}
             key={content.id}
           >
             <Typography
