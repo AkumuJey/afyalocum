@@ -18,7 +18,7 @@ const About = () => {
   ];
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2,} },
   };
   const iconVariants = {
     hidden: { opacity: 0, rotate: -180, y: 20 },
@@ -66,7 +66,6 @@ const About = () => {
           className={`w-fit my-2 p-2 flex justify-center items-center gap-5 `}
           initial="hidden"
           animate="visible"
-          exit={{ opacity: 0 }}
           variants={containerVariants}
         >
           <motion.div variants={iconVariants}>
