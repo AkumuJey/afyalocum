@@ -1,33 +1,15 @@
-import { Grid } from "@mui/material";
-import { HeroButton as Button } from "./HeroButton";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
+import LoggedinDisplayButtons from "./LoggedinDisplayButtons";
+import LoggedoutDisplayButtons from "./LoggedoutDisplayButtons";
 
 const ButtonsContainer = () => {
   const { currentUser } = useContext(AuthContext);
   return (
-    <Grid container justifyContent={`space-around`}>
-      {currentUser ? (
-        <>
-          <Button>
-            <Link to={`/locums/create-new`}>Create New Locum</Link>
-          </Button>
-          <Button>
-            <Link to={`/locums`}>View Listed Locums</Link>
-          </Button>
-        </>
-      ) : (
-        <>
-          <Button>
-            <Link to={`/register`}>Get Started</Link>
-          </Button>
-          <Button>
-            <Link to={`/about`}>Learn More</Link>
-          </Button>
-        </>
-      )}
-    </Grid>
+      <motion.div className="w-full flex justify-around max-w-xl mx-auto">
+        {currentUser ? <LoggedinDisplayButtons /> : <LoggedoutDisplayButtons />}
+      </motion.div>
   );
 };
 
