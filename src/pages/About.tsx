@@ -25,7 +25,7 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col items-center py-[2rem]">
+    <div className="flex flex-col items-center valid-height py-[2rem]">
       {aboutContent.map((content, index, array) => (
         <motion.div
           className={` w-full md:w-4/5 ${

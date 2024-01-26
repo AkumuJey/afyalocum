@@ -1,11 +1,11 @@
+import { AnimatePresence } from "framer-motion";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
-import ScrollToTop from "../components/ScrollToTop";
-
-import Navbar from "../components/Navbar/Navbar";
-import { AuthContextProvider } from "../contexts/AuthContext";
-import { Suspense } from "react";
 import LoadingPage from "../components/LoadingPage";
+import Navbar from "../components/Navbar/Navbar";
+import ScrollToTop from "../components/ScrollToTop";
+import { AuthContextProvider } from "../contexts/AuthContext";
 interface Props {
   window?: () => Window;
   children: React.ReactElement;
@@ -13,13 +13,13 @@ interface Props {
 
 const Root = (props: Props) => {
   return (
-    <Suspense fallback={<LoadingPage/>}>
+    <Suspense fallback={<LoadingPage />}>
       <AuthContextProvider>
         <div className="bg-transparent min-h-[100dvh] w-full box-border text-[1rem] font-sans z-0 pt-[5rem]">
           <Navbar {...props} />
-          <div className="valid-height flex justify-center items-center">
+          <AnimatePresence>
             <Outlet />
-          </div>
+          </AnimatePresence>
           <Footer />
           <ScrollToTop />
         </div>
