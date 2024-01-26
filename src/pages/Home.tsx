@@ -1,5 +1,5 @@
 // import Adverts from "../components/Home/Adverts";
-import Hero from "../components/Home/Hero";
+import Hero from "../components/Home/Hero/Hero";
 // import TopJobs from "../components/Home/NewJobs";
 
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";

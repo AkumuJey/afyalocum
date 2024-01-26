@@ -1,30 +1,10 @@
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../../contexts/AuthContext";
 import { motion } from "framer-motion";
-
-const HeroHeader = () => {
-  return (
-    <>
-      <Typography variant="h3" component="h1" gutterBottom textAlign={`center`}>
-        Connect with Healthcare Anytime, Anywhere
-      </Typography>
-    </>
-  );
-};
-
-const HeroContent = () => {
-  return (
-    <>
-      <Typography variant="h6" paragraph textAlign={`center`}>
-        Access quality healthcare from the comfort of your home. Our
-        telemedicine app provides secure and convenient video consultations with
-        licensed professionals.
-      </Typography>
-    </>
-  );
-};
+import Header from "./Header";
+import Content from "./Content";
 
 const Hero = () => {
   const { currentUser } = useContext(AuthContext);
@@ -40,8 +20,8 @@ const Hero = () => {
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      <HeroHeader />
-      <HeroContent />
+      <Header />
+      <Content />
       <Container maxWidth="xs">
         <Grid container justifyContent={`space-around`}>
           <Grid item>
