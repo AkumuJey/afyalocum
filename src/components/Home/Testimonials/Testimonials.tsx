@@ -12,10 +12,17 @@ interface Props {
 
 const Testimonials = ({ testimony }: Props) => {
   return (
-    <motion.div className="w-fit">
-      <Paper elevation={3} sx={{width: '100%', maxWidth: 350}}>
+    <motion.div
+      className="w-fit"
+      initial={{ scale: 0.5, opacity: 0 }}
+      whileInView={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <Paper elevation={3} sx={{ width: "100%", maxWidth: 350 }}>
         <Box p={2}>
-          <Typography component={`h4`} fontWeight={`bold`}>{testimony.title}</Typography>
+          <Typography component={`h4`} fontWeight={`bold`}>
+            {testimony.title}
+          </Typography>
           <Typography component={`p`}>{testimony.body}</Typography>
         </Box>
       </Paper>

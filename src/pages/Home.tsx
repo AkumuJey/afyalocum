@@ -3,7 +3,7 @@ import Hero from "../components/Home/Hero/Hero";
 // import TopJobs from "../components/Home/NewJobs";
 
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
-import Testimonials from "../components/Home/Testimonials";
+import Testimonials from "../components/Home/Testimonials/Testimonials";
 import RouterAnimation from "./RouterAnimation";
 
 const Home = () => {
@@ -26,91 +26,96 @@ const Home = () => {
   ];
   return (
     <RouterAnimation>
-    <>
-      <Box component={`div`}>
-        <Hero />
-        <Container
-          sx={{
-            display: "flex",
-            flexDirection: {
-              xs: `column`,
-              md: `row`,
-            },
-            justifyContent: 'center',
-            alignItems: "center",
-            flexWrap: 'wrap',
-            gap: "2rem",
-            padding: "2rem",
-            textAlign: "center",
-          }}
-        >
-          <Typography variant="h4" component={`h2`} minWidth={`100%`} fontWeight={`bold`}>Testimonials</Typography>
-          {testimonies.map((testimony) => {
-            return (
-              <Testimonials testimony={testimony} key={testimony.id}/>
-            );
-          })}
-        </Container>
-        <Container
-          sx={{
-            width: {
-              xs: "100%",
-              sm: "100%",
-              md: "100%",
-              lg: "100%",
-              xl: "85%",
-            },
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            justifyItems: "center",
-          }}
-        >
-          <Typography
-            component={`h4`}
-            textAlign={`center`}
-            gutterBottom
-            variant="h4"
-            fontWeight={`bold`}
-          >
-            We are approved by:
-          </Typography>
-          <Grid
-            container
-            justifyContent={`space-around`}
+      <>
+        <Box component={`div`}>
+          <Hero />
+          <Container
             sx={{
-              marginTop: "2rem",
-              marginBottom: "2rem",
+              display: "flex",
+              flexDirection: {
+                xs: `column`,
+                md: `row`,
+              },
+              justifyContent: "center",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "2rem",
+              padding: "2rem",
+              textAlign: "center",
             }}
           >
-            <Grid item>
-              <Typography variant="h6">KMPDC</Typography>
-              <Avatar
-                alt="Logo"
-                src={``}
-                sx={{ width: "5rem", height: "5rem" }}
-              />
+            <Typography
+              variant="h4"
+              component={`h2`}
+              minWidth={`100%`}
+              fontWeight={`bold`}
+            >
+              Testimonials
+            </Typography>
+            {testimonies.map((testimony) => {
+              return <Testimonials testimony={testimony} key={testimony.id} />;
+            })}
+          </Container>
+          <Container
+            sx={{
+              width: {
+                xs: "100%",
+                sm: "100%",
+                md: "100%",
+                lg: "100%",
+                xl: "85%",
+              },
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+            }}
+          >
+            <Typography
+              component={`h4`}
+              textAlign={`center`}
+              gutterBottom
+              variant="h4"
+              fontWeight={`bold`}
+            >
+              We are approved by:
+            </Typography>
+            <Grid
+              container
+              justifyContent={`space-around`}
+              sx={{
+                marginTop: "2rem",
+                marginBottom: "2rem",
+              }}
+            >
+              <Grid item>
+                <Typography variant="h6">KMPDC</Typography>
+                <Avatar
+                  alt="Logo"
+                  src={``}
+                  sx={{ width: "5rem", height: "5rem" }}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">KMPDC</Typography>
+                <Avatar
+                  alt="Logo"
+                  src={``}
+                  sx={{ width: "5rem", height: "5rem" }}
+                />
+              </Grid>
+              <Grid item width={100}>
+                <Typography variant="h6">KMPDC</Typography>
+                <Avatar
+                  alt="Logo"
+                  src={``}
+                  sx={{ width: "5rem", height: "5rem" }}
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography variant="h6">KMPDC</Typography>
-              <Avatar
-                alt="Logo"
-                src={``}
-                sx={{ width: "5rem", height: "5rem" }}
-              />
-            </Grid>
-            <Grid item width={100}>
-              <Typography variant="h6">KMPDC</Typography>
-              <Avatar
-                alt="Logo"
-                src={``}
-                sx={{ width: "5rem", height: "5rem" }}
-              />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-    </>
+          </Container>
+        </Box>
+      </>
     </RouterAnimation>
   );
 };
