@@ -1,10 +1,9 @@
-import { Container, Typography } from "@mui/material";
-import Testimonials from ".//Testimonial";
-import useTestimoniesHook from "./useTestimoniesHook";
-
+import { Container } from "@mui/material";
+import TEstimonialsHeader from "./TEstimonialsHeader";
+import TestimonialsArrayDisplay from "./TestimonialsArrayDisplay";
 
 const TestimonialsContainer = () => {
-    const testimonies = useTestimoniesHook()
+  
   return (
     <>
       <Container
@@ -22,17 +21,8 @@ const TestimonialsContainer = () => {
           textAlign: "center",
         }}
       >
-        <Typography
-          variant="h4"
-          component={`h2`}
-          minWidth={`100%`}
-          fontWeight={`bold`}
-        >
-          Testimonials
-        </Typography>
-        {testimonies.map((testimony) => {
-          return <Testimonials testimony={testimony} key={testimony.id} />;
-        })}
+        <TEstimonialsHeader/>
+        <TestimonialsArrayDisplay/>
       </Container>
     </>
   );

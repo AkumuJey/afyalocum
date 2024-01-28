@@ -1,16 +1,12 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import { Testimony } from "./useTestimoniesHook";
 
-interface testimony {
-  title: string;
-  body: string;
-  id: number;
-}
 interface Props {
-  testimony: testimony;
+  testimony: Testimony;
 }
 
-const Testimonials = ({ testimony }: Props) => {
+const Testimonial = ({ testimony }: Props) => {
   return (
     <motion.div
       className="w-fit"
@@ -30,4 +26,4 @@ const Testimonials = ({ testimony }: Props) => {
   );
 };
 
-export default Testimonials;
+export default Testimonial;
