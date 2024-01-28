@@ -19,7 +19,6 @@ import { LoadingButton } from "@mui/lab";
 import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
 
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,9 +28,9 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
   const navigate = useNavigate();
-  const  { currentUser } = useContext(AuthContext)
-const location = useLocation()
-const { state } = location
+  const { currentUser } = useContext(AuthContext);
+  const location = useLocation();
+  const { state } = location;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,151 +41,153 @@ const { state } = location
     try {
       await signInWithEmailAndPassword(auth, email, password);
       if (state) {
-        navigate(state)
-      } else {navigate("/")}
+        navigate(state);
+      } else {
+        navigate("/");
+      }
     } catch (_error) {
-      setError("Incorrect password or email! Try again.")
+      setError("Incorrect password or email! Try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  
-
   if (currentUser) {
-    return <Navigate to={`/`} replace={true}/>
+    return <Navigate to={`/`} replace={true} />;
   }
   return (
     <>
-    <RouterAnimation>
-      <Paper
-        elevation={3}
-        component={`div`}
-        sx={{
-          width: "95%",
-          maxWidth: "400px",
-          mx: "auto",
-          my: "auto",
-          padding: "1rem",
-          backgroundColor: "white",
-        }}
-      >
-        <Container
-          component={`form`}
-          aria-required
-          sx={{ width: "100%" }}
-          name="login"
-          onSubmit={handleSubmit}
-        >
-          <Typography
-            variant="h4"
-            fontWeight={`bold`}
-            textAlign={`center`}
-            color="secondary"
-          >
-            Login
-          </Typography>
-          <Grid
-            container
-            justifyContent={`center`}
-            justifyItems={`center`}
-            direction={`column`}
-            my={2}
-          >
-            <Grid item>
-              <InputLabel
-                htmlFor="email"
-                sx={{
-                  fontWeight: "bold",
-                  color: "black",
-                  width: "100%",
-                }}
-              >
-                Email
-              </InputLabel>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="off"
-                required
-                disabled={loading}
-                sx={{
-                  width: "100%",
-                  backgroundColor: "white",
-                  px: "0.5rem",
-                  py: "0.2rem",
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <InputLabel
-                htmlFor="password"
-                sx={{
-                  fontWeight: "bold",
-                  color: "black",
-                  width: "100%",
-                }}
-              >
-                Password
-              </InputLabel>
-              <Input
-                id="password"
-                name="password"
-                autoComplete="off"
-                required
-                disabled={loading}
-                type={showPassword ? "text" : "password"}
-                sx={{
-                  width: "100%",
-                  backgroundColor: "white",
-                  px: "0.5rem",
-                  py: "0.2rem",
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton onClick={toggleShowPassword} edge="end">
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </Grid>
-          </Grid>
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            sx={{ width: "100%" }}
-            color="secondary"
-            loading={loading}
-          >
-            Login
-          </LoadingButton>
-        </Container>
-        <Container className="min-w-full text-center text-red-600 font-semibold">{error}</Container>
-        <Container
+      <RouterAnimation>
+        <Paper
+          elevation={3}
+          component={`div`}
           sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
+            width: "95%",
+            maxWidth: "400px",
+            mx: "auto",
+            my: "auto",
+            padding: "1rem",
+            backgroundColor: "white",
           }}
         >
-          <Button
-            style={{ textTransform: "none" }}
-            type="button"
-            onClick={() => navigate("/register")}
+          <Container
+            component={`form`}
+            aria-required
+            sx={{ width: "100%" }}
+            name="login"
+            onSubmit={handleSubmit}
           >
-            Create Account
-          </Button>
-          <Button
-            style={{ textTransform: "none" }}
-            type="button"
-            onClick={() => navigate("/recover-password")}
+            <Typography
+              variant="h4"
+              fontWeight={`bold`}
+              textAlign={`center`}
+              color="secondary"
+            >
+              Login
+            </Typography>
+            <Grid
+              container
+              justifyContent={`center`}
+              justifyItems={`center`}
+              direction={`column`}
+              my={2}
+            >
+              <Grid item>
+                <InputLabel
+                  htmlFor="email"
+                  sx={{
+                    fontWeight: "bold",
+                    color: "black",
+                    width: "100%",
+                  }}
+                >
+                  Email
+                </InputLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="off"
+                  required
+                  disabled={loading}
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "white",
+                    px: "0.5rem",
+                    py: "0.2rem",
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <InputLabel
+                  htmlFor="password"
+                  sx={{
+                    fontWeight: "bold",
+                    color: "black",
+                    width: "100%",
+                  }}
+                >
+                  Password
+                </InputLabel>
+                <Input
+                  id="password"
+                  name="password"
+                  autoComplete="off"
+                  required
+                  disabled={loading}
+                  type={showPassword ? "text" : "password"}
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "white",
+                    px: "0.5rem",
+                    py: "0.2rem",
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton onClick={toggleShowPassword} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </Grid>
+            </Grid>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              sx={{ width: "100%" }}
+              color="secondary"
+              loading={loading}
+            >
+              Login
+            </LoadingButton>
+          </Container>
+          <Container className="min-w-full text-center text-red-600 font-semibold">
+            {error}
+          </Container>
+          <Container
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
           >
-            Forgot Password
-          </Button>
-        </Container>
-      </Paper>
+            <Button
+              style={{ textTransform: "none" }}
+              type="button"
+              onClick={() => navigate("/register")}
+            >
+              Create Account
+            </Button>
+            <Button
+              style={{ textTransform: "none" }}
+              type="button"
+              onClick={() => navigate("/recover-password")}
+            >
+              Forgot Password
+            </Button>
+          </Container>
+        </Paper>
       </RouterAnimation>
     </>
   );
