@@ -1,7 +1,7 @@
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { motion } from "framer-motion";
-import MissionVisionArrayContainer from "../components/About/MissionVisionArrayContainer";
+import AboutContentsArrayDisplay from "../components/About/AboutContentsArrayDisplay";
 import RouterAnimation from "./RouterAnimation";
 
 const About = () => {
@@ -18,7 +18,7 @@ const About = () => {
   return (
     <RouterAnimation>
       <div className="flex flex-col items-center valid-height py-[2rem]">
-        <MissionVisionArrayContainer />
+        <AboutContentsArrayDisplay />
         <motion.div
           className={`w-fit my-2 p-2 flex justify-center items-center gap-5 `}
           initial="hidden"

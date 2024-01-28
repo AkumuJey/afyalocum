@@ -1,8 +1,16 @@
-import MIssionOrVisionCoponent from "./MIssionOrVisionComponent";
+import { useEffect, useState } from "react";
 
+export interface Content {
+    id: number;
+    title: string;
+    body: string;
+  }
 
-const MissionVisionArrayContainer = () => {
-    const aboutContent = [
+const useAboutContents = (): Content[] => {
+  const [aboutContents, setAboutContents] = useState<Content[] >([]);
+  useEffect(() => {
+    const fetchData = () => {
+      const data = [
         {
           id: 1,
           title: "Mission",
@@ -14,13 +22,11 @@ const MissionVisionArrayContainer = () => {
           body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque molestias est reiciendis et. Tempora, non officia ipsam quam iste animi architecto corrupti est fugit! Aliquid, alias voluptas. Corporis totam eligendi perferendis error, eaque quam fugiat beatae vero laudantium a ut facere! Facere officia ad, accusamus repudiandae et nesciunt natus ab deserunt accusantium itaque voluptatum",
         },
       ];
-  return (
-    <>
-    {aboutContent.map((content, index, array) => (
-          <MIssionOrVisionCoponent content={content} index={index} array={array} key={content.id}/>
-        ))}
-    </>
-  )
-}
+      setAboutContents(data);
+    };
+    fetchData();
+  }, []);
+  return aboutContents;
+};
 
-export default MissionVisionArrayContainer
+export default useAboutContents;
