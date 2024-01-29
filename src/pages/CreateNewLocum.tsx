@@ -1,18 +1,15 @@
 import {
-  Alert,
   Box,
   Button,
   Grid,
   LinearProgress,
-  Paper,
-  Slide,
-  SlideProps,
-  Snackbar
+  Paper
 } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 
 import dayjs, { Dayjs } from "dayjs";
 import { useNavigate } from "react-router-dom";
+import CreatedLocumNotification from "../components/Locums/CreateLocums/CreatedLocumNotification";
 import NewJobInputs from "../components/Locums/NewJobInputs";
 import TimeSelectionComponent from "../components/Locums/TimeSelectionComponent";
 
@@ -92,30 +89,10 @@ const CreateNew = () => {
   // window. location. reload()
   const [success, setSuccess] = useState<boolean>(false);
 
-  type TransitionProps = Omit<SlideProps, "direction">;
-  function transitionRight(props: TransitionProps) {
-    return <Slide {...props} direction="right" />;
-  }
-
-  // const [transition, setTransition] = React.useState<
-  //   React.ComponentType<TransitionProps> | undefined
-  // >(undefined);
-
-  
   return (
     <>
       <Button onClick={() => setSuccess(!success)} color="secondary">Open</Button>
-      <Snackbar
-        autoHideDuration={3000}
-        open={success}
-        onClose={() => setSuccess(false)}
-        TransitionComponent={transitionRight}
-        transitionDuration={500}
-      >
-        <Alert variant="filled" severity="success" sx={{width: "100%"}}>
-          Locum listed Successlly
-        </Alert>
-      </Snackbar>
+      <CreatedLocumNotification open={success} handleClose={() => setSuccess(!success)}/>
       <Paper
         elevation={3}
         sx={{
