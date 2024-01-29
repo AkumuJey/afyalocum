@@ -1,11 +1,12 @@
-import { Box, Button, Grid, Paper } from "@mui/material";
-import React, { ChangeEvent, useState } from "react";
-
+import { Box, Paper } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
+import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NewJobInputs from "./NewJobInputs";
 import ProgressMonitor from "./ProgressMonitor";
 import TimeSelectionComponent from "./TimeSelectionComponent";
+import ControlButtons from "./ControlButtons";
+
 interface Job {
   title: "";
   requirements: "";
@@ -98,7 +99,7 @@ const NewLocumFormLayout = () => {
         }}
         onSubmit={handleSubmit}
       >
-        <ProgressMonitor step={step}/>
+        <ProgressMonitor step={step} />
         {step === 1 && (
           <NewJobInputs
             handleInputChange={handleInputChange}
@@ -118,42 +119,13 @@ const NewLocumFormLayout = () => {
             stop={stop}
           />
         )}
-        {step === 1 && (
-          <Grid container justifyContent={`end`} px={3}>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={handleNextStep}
-                disabled={!next}
-              >
-                Next
-              </Button>
-            </Grid>
-          </Grid>
-        )}
-
-        {step === 2 && (
-          <Grid container justifyContent={`space-between`} px={4}>
-            <Grid item>
-              <Button
-                variant="contained"
-                type="button"
-                onClick={handlePreviousStep}
-              >
-                Back
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                type="submit"
-                disabled={!validSubmission}
-              >
-                Save Vacancy
-              </Button>
-            </Grid>
-          </Grid>
-        )}
+        <ControlButtons
+          next={next}
+          validSubmission={validSubmission}
+          step={step}
+          handleNextStep={handleNextStep}
+          handlePreviousStep={handlePreviousStep}
+        />
       </Box>
     </Paper>
   );
