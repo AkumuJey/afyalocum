@@ -3,13 +3,20 @@ import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import LoggedinDisplayButtons from "./LoggedinDisplayButtons";
 import LoggedoutDisplayButtons from "./LoggedoutDisplayButtons";
+import useHeroChildrenAnimation from "./useHeroChildrenAnimation";
 
 const ButtonsContainer = () => {
   const { currentUser } = useContext(AuthContext);
+  const childrenVariants = useHeroChildrenAnimation()
   return (
-      <motion.div className="w-full flex justify-around max-w-xl mx-auto">
-        {currentUser ? <LoggedinDisplayButtons /> : <LoggedoutDisplayButtons />}
-      </motion.div>
+    <motion.div
+      className="w-full flex justify-around max-w-xl mx-auto"
+      initial="hidden"
+      whileInView="visible"
+      variants={childrenVariants}
+    >
+      {currentUser ? <LoggedinDisplayButtons /> : <LoggedoutDisplayButtons />}
+    </motion.div>
   );
 };
 
