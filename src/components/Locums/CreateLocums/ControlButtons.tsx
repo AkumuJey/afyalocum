@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 
 import { motion } from "framer-motion";
+import ForwardButton from "./ForwardButton";
 
 interface PropTypes {
   step: number;
@@ -21,18 +22,7 @@ const ControlButtons = ({
   return (
     <>
       <motion.div className={`w-full bg-black flex justify-${justifyDirection} p-2`}>
-        {step === 1 && (
-          <>
-            <Button
-              variant="contained"
-              onClick={handleNextStep}
-              disabled={!next}
-            >
-              Next
-            </Button>
-          </>
-        )}
-
+        {step === 1 && <ForwardButton next={next} handleNextStep={handleNextStep}/>}
         {step === 2 && (
           <>
             <Button
