@@ -10,8 +10,8 @@ interface PropTypes {
 }
 const AboutContentComponent = ({ content, index, array }: PropTypes) => {
   const containerVariants = {
-    hidden: { y: 30 },
-    visible: { opacity: 1, transition: { duration: index + 1 } },
+    hidden: { y: "4rem", opacity: 0 },
+    visible: { opacity: 1, y: 0, transition: { duration: (index + 1) * 0.5} },
   };
 
   return (
