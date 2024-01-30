@@ -1,7 +1,7 @@
-import { Button } from "@mui/material";
-
 import { motion } from "framer-motion";
 import ForwardButton from "./ForwardButton";
+import BackwardButton from "./BackwardButton";
+import SubmissionButton from "./SubmissionButton";
 
 interface PropTypes {
   step: number;
@@ -17,29 +17,22 @@ const ControlButtons = ({
   handleNextStep,
   handlePreviousStep,
 }: PropTypes) => {
-  
-  const justifyDirection = validSubmission ? "between" : (step === 1 ? "end" : "start")
+  const justifyDirection = validSubmission
+    ? "between"
+    : step === 1 && validSubmission || step === 1
+    ? "end"
+    : "start";
   return (
     <>
-      <motion.div className={`w-full bg-black flex justify-${justifyDirection} p-2`}>
-        {step === 1 && <ForwardButton next={next} handleNextStep={handleNextStep}/>}
-        {step === 2 && (
-          <>
-            <Button
-              variant="contained"
-              type="button"
-              onClick={handlePreviousStep}
-            >
-              Back
-            </Button>
-            <Button
-              variant="contained"
-              type="submit"
-              disabled={!validSubmission}
-            >
-              Save Vacancy
-            </Button>
-          </>
+      <motion.div className={`w-full flex justify-${justifyDirection} p-2`}>
+        {step === 1 && (
+          <ForwardButton next={next} handleNextStep={handleNextStep} />
+        )}
+        {step !== 1 && (
+          <BackwardButton handlePreviousStep={handlePreviousStep} />
+        )}
+        {validSubmission && step === 2 && (
+          <SubmissionButton validSubmission={validSubmission} />
         )}
       </motion.div>
     </>
