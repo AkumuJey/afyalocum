@@ -34,7 +34,7 @@ function LinkRouter(props: LinkRouterProps) {
   return <Link {...props} component={RouterLink} />;
 }
 
-const Locums = () => {
+const Dashboard = () => {
   const [completedLocumData, setCompletedLocumData] = useState<Locum[] | null>(
     null
   );
@@ -79,7 +79,7 @@ const Locums = () => {
     }
   };
   const location = useLocation();
-  const hideRegister = location.pathname === "/locums";
+  const hideRegister = location.pathname === "/dashboard";
 
   return (
     <ProtectedRoute>
@@ -88,7 +88,7 @@ const Locums = () => {
         <div className="w-[80%] mx-auto py-[0.8rem]">
           <Breadcrumbs separator=">">
             <LinkRouter
-              to={`/locums`}
+              to={`/dashboard`}
               underline="hover"
               color={hideRegister ? "purple" : "black"}
               sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
@@ -96,7 +96,7 @@ const Locums = () => {
               Locums
             </LinkRouter>
             <LinkRouter
-              to={`/locums/create-new`}
+              to={`/dashboard/create-new-locum`}
               underline="hover"
               color={!hideRegister ? "purple" : "black"}
               sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
@@ -151,7 +151,7 @@ const Locums = () => {
           {hideRegister ? (
             <>
               <Button color="primary" variant="outlined">
-                <RouterLink to={`/locums/create-new`}>
+                <RouterLink to={`/dashboard/create-new-locum`}>
                   Create new locum
                 </RouterLink>
               </Button>
@@ -168,4 +168,4 @@ const Locums = () => {
   );
 };
 
-export default Locums;
+export default Dashboard;

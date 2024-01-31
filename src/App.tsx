@@ -4,7 +4,7 @@ import { lazy, useEffect } from "react";
 // import Home from "./pages/Home";
 // import ErrorPage from "./pages/ErrorPage";
 
-import Locums from "./pages/Locums";
+import Dashboard from "./pages/Dashboard";
 // import CreateNew from "./pages/CreateNew";
 const About = lazy(() => import("./pages/About"))
 const Profile = lazy(() => import("./pages/Profile"))
@@ -14,7 +14,7 @@ const Login = lazy(() => import("./pages/Login"))
 const RecoverPassword = lazy(() => import("./pages/RecoverPassword"))
 const Home = lazy(() => import("./pages/Home"))
 const CreateNew = lazy(() => import("./pages/CreateNewLocum"))
-// const Locums = lazy(() => import("./pages/Locums"))
+// const Dashboard = lazy(() => import("./pages/Dashboard"))
 const ErrorPage = lazy(() => import("./pages/ErrorPage"))
 
 
@@ -37,12 +37,12 @@ function App(props: Props) {
           errorElement: <ErrorPage />,
         },
         {
-          path: "/locums",
-          element: <Locums />,
+          path: "/dashboard",
+          element: <Dashboard />,
           errorElement: <ErrorPage />,
           children: [
             {
-              path: "/locums/create-new",
+              path: "/dashboard/create-new-locum",
               element: <CreateNew />,
               errorElement: <ErrorPage />,
             },

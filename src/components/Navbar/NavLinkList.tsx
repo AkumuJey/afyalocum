@@ -19,7 +19,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
   }
   const linkData: Link[] = [
     { path: "/", label: "Home" },
-    { path: "/locums", label: "Locums" },
+    { path: "/dashboard", label: "Dashboard" },
     { path: "/about", label: "About" },
     { path: "/register", label: "Sign Up" },
     { path: "/login", label: "Login" },
