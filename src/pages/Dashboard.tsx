@@ -158,7 +158,7 @@ const Dashboard = () => {
             </>
           ) : (
             <Button color="info" variant="outlined">
-              <RouterLink to={`/locums`}>Back to locums</RouterLink>
+              <RouterLink to={`/dashboard`}>Back to locums</RouterLink>
             </Button>
           )}
         </div>
