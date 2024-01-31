@@ -1,16 +1,19 @@
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { ChangeEvent } from "react";
-import { Input, InputLabel } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
-import { Dayjs } from "dayjs";
+import { Input, InputLabel } from "@mui/material";
+import { ChangeEvent } from "react";
 
-const PageTwo = ({}) => {
+interface PropTypes {
+  location: string;
+  handleInputChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  rate: number | null;
+}
+const ariaLabel = { "aria-label": "description" };
+const PageTwo = ({ location, handleInputChange, rate }: PropTypes) => {
   return (
     <>
-    <InputLabel
+      <InputLabel
         htmlFor="location"
         sx={{
           fontWeight: "bold",
@@ -56,7 +59,7 @@ const PageTwo = ({}) => {
         className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
       />
     </>
-  )
-}
+  );
+};
 
-export default PageTwo
+export default PageTwo;

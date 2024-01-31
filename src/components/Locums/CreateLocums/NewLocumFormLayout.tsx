@@ -8,10 +8,10 @@ import TimeSelectionComponent from "./TimeSelectionComponent";
 import ControlButtons from "./ControlButtons";
 
 interface Job {
-  title: "";
-  requirements: "";
-  description: "";
-  location: "";
+  title: string;
+  requirements: string;
+  description: string;
+  location: string;
   rate: null | number;
   start: null | Date;
   stop: null | Date;
