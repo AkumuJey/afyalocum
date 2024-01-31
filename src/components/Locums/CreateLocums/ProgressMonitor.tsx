@@ -1,4 +1,4 @@
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, Typography } from "@mui/material";
 interface PropTypes {
   step: number;
 }
@@ -6,12 +6,16 @@ interface PropTypes {
 const ProgressMonitor = ({ step }: PropTypes) => {
   return (
     <>
-    <div>Step {step + "/" + 2}</div>
+    <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+    <Typography variant="body1" gutterBottom>
+        Step {step} / 3
+      </Typography>
       <LinearProgress
-        value={(step / 2) * 100}
+        value={(step / 3) * 100}
         variant="determinate"
         sx={{ height: "0.5rem", borderRadius: "0.5rem", mb: "0.5rem" }}
       />
+      </div>
     </>
   );
 };

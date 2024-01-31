@@ -84,85 +84,88 @@ const Dashboard = () => {
   return (
     <ProtectedRoute>
       <RouterAnimation>
-      <div className="flex flex-col items-center h-full w-full py-[4rem]">
-        <div className="w-[80%] mx-auto py-[0.8rem]">
-          <Breadcrumbs separator=">">
-            <LinkRouter
-              to={`/dashboard`}
-              underline="hover"
-              color={hideRegister ? "purple" : "black"}
-              sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
-            >
-              Locums
-            </LinkRouter>
-            <LinkRouter
-              to={`/dashboard/create-new-locum`}
-              underline="hover"
-              color={!hideRegister ? "purple" : "black"}
-              sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
-            >
-              New Locum
-            </LinkRouter>
-          </Breadcrumbs>
-        </div>
-        {hideRegister ? (
-          <>
-            <Accordion
-              expanded={expanded === "2"}
-              sx={{ width: "80%", mx: "auto" }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-                onClick={() => toggleExapnded("2")}
+        <div className="flex flex-col justify-start items-center h-full w-full py-[1rem]">
+          <div className="w-[80%] mx-auto">
+            <Breadcrumbs separator=">">
+              <LinkRouter
+                to={`/dashboard`}
+                underline="hover"
+                color={hideRegister ? "purple" : "black"}
+                sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
               >
-                Pending Locums
-              </AccordionSummary>
-              <Collapse in={expanded === "2"} timeout={800} unmountOnExit>
-                <AccordionDetails>
-                  <TableLayout onClick={() => null} data={activeLocumData} />
-                </AccordionDetails>
-              </Collapse>
-            </Accordion>
-            <Accordion
-              expanded={expanded === "3"}
-              sx={{ width: "80%", mx: "auto" }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-                onClick={() => toggleExapnded("3")}
+                Locums
+              </LinkRouter>
+              <LinkRouter
+                to={`/dashboard/create-new-locum`}
+                underline="hover"
+                color={!hideRegister ? "purple" : "black"}
+                sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
               >
-                Completed Locums
-              </AccordionSummary>
-              <Collapse in={expanded === "3"} timeout={800} unmountOnExit>
-              <AccordionDetails>
-                <TableLayout data={completedLocumData} onClick={() => null} />
-              </AccordionDetails>
-              </Collapse>
-            </Accordion>
-          </>
-        ) : (
-          <Outlet />
-        )}
-        <div className="w-[80%] mx-auto py-[0.8rem]">
+                New Locum
+              </LinkRouter>
+            </Breadcrumbs>
+          </div>
           {hideRegister ? (
             <>
-              <Button color="primary" variant="outlined">
-                <RouterLink to={`/dashboard/create-new-locum`}>
-                  Create new locum
-                </RouterLink>
-              </Button>
+              <Accordion
+                expanded={expanded === "2"}
+                sx={{ width: "80%", mx: "auto" }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                  onClick={() => toggleExapnded("2")}
+                >
+                  Pending Locums
+                </AccordionSummary>
+                <Collapse in={expanded === "2"} timeout={800} unmountOnExit>
+                  <AccordionDetails>
+                    <TableLayout onClick={() => null} data={activeLocumData} />
+                  </AccordionDetails>
+                </Collapse>
+              </Accordion>
+              <Accordion
+                expanded={expanded === "3"}
+                sx={{ width: "80%", mx: "auto" }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                  onClick={() => toggleExapnded("3")}
+                >
+                  Completed Locums
+                </AccordionSummary>
+                <Collapse in={expanded === "3"} timeout={800} unmountOnExit>
+                  <AccordionDetails>
+                    <TableLayout
+                      data={completedLocumData}
+                      onClick={() => null}
+                    />
+                  </AccordionDetails>
+                </Collapse>
+              </Accordion>
             </>
           ) : (
-            <Button color="info" variant="outlined">
-              <RouterLink to={`/dashboard`}>Back to locums</RouterLink>
-            </Button>
+            <Outlet />
           )}
+          <div className="w-[80%] mx-auto py-[0.4rem]">
+            {hideRegister ? (
+              <>
+                <Button color="primary" variant="outlined">
+                  <RouterLink to={`/dashboard/create-new-locum`}>
+                    Create new locum
+                  </RouterLink>
+                </Button>
+              </>
+            ) : (
+              <Button color="info" variant="outlined">
+                <RouterLink to={`/dashboard`}>Back to locums</RouterLink>
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
       </RouterAnimation>
     </ProtectedRoute>
   );

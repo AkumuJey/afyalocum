@@ -2,10 +2,11 @@ import { Box, Paper } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NewJobInputs from "./NewJobInputs";
-import ProgressMonitor from "./ProgressMonitor";
-import TimeSelectionComponent from "./TimeSelectionComponent";
 import ControlButtons from "./ControlButtons";
+import PageOne from "./PageOne";
+import PageThree from "./PageThree";
+import PageTwo from "./PageTwo";
+import ProgressMonitor from "./ProgressMonitor";
 
 interface Job {
   title: string;
@@ -76,7 +77,7 @@ const NewLocumFormLayout = () => {
     e.preventDefault();
     if (validSubmission) {
       console.log(job);
-      navigate("/locums");
+      navigate("/dashboard");
     }
   };
   return (
@@ -89,7 +90,7 @@ const NewLocumFormLayout = () => {
         },
         backgroundColor: "lightgray",
         px: 3,
-        py: "1rem",
+        mt: 0
       }}
     >
       <Box
@@ -101,7 +102,7 @@ const NewLocumFormLayout = () => {
       >
         <ProgressMonitor step={step} />
         {step === 1 && (
-          <NewJobInputs
+          <PageOne
             handleInputChange={handleInputChange}
             title={title}
             description={description}
@@ -109,16 +110,9 @@ const NewLocumFormLayout = () => {
           />
         )}
         {step === 2 && (
-          <TimeSelectionComponent
-            handleDateTimeChange={handleDateTimeChange}
-            handleInputChange={handleInputChange}
-            minDateTime={minDateTime}
-            location={location}
-            rate={rate}
-            start={start}
-            stop={stop}
-          />
+          <PageTwo handleInputChange={handleInputChange} location={location} rate={rate}/>
         )}
+        {step === 3 && <PageThree handleDateTimeChange={handleDateTimeChange} start={start} stop={stop} minDateTime={minDateTime}/>}
         <ControlButtons
           next={next}
           validSubmission={validSubmission}

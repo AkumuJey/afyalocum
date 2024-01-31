@@ -30,14 +30,12 @@ const PageThree = ({handleDateTimeChange,
         label="Start date and time"
         defaultValue={start}
         value={start}
-        sx={{ backgroundColor: "white", borderRadius: 1 }}
         disablePast
         onChange={(newValue) => handleDateTimeChange(newValue, "start")}
       />
       <DateTimePicker
         label="End date and time"
         defaultValue={stop}
-        sx={{ backgroundColor: "white", borderRadius: 1 }}
         disablePast
         value={stop}
         minDateTime={minDateTime}

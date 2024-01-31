@@ -17,21 +17,17 @@ const ControlButtons = ({
   handleNextStep,
   handlePreviousStep,
 }: PropTypes) => {
-  const justifyDirection = validSubmission
-    ? "between"
-    : step === 1 && validSubmission || step === 1
-    ? "end"
-    : "start";
+
   return (
     <>
-      <motion.div className={`w-full flex justify-${justifyDirection} p-2`}>
-        {step === 1 && (
-          <ForwardButton next={next} handleNextStep={handleNextStep} />
-        )}
+      <motion.div className={`w-full flex p-2 ${step === 1 ? "justify-end" : "justify-between"}`}>
         {step !== 1 && (
           <BackwardButton handlePreviousStep={handlePreviousStep} />
         )}
-        {validSubmission && step === 2 && (
+        {step !== 3 && (
+          <ForwardButton next={next} handleNextStep={handleNextStep} />
+        )}
+        {validSubmission && step === 3 && (
           <SubmissionButton validSubmission={validSubmission} />
         )}
       </motion.div>

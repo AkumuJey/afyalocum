@@ -10,7 +10,7 @@ interface Props {
   requirements: string;
   description: string;
 }
-const NewJobInputs = ({
+const PageOne = ({
   title,
   description,
   requirements,
@@ -83,4 +83,4 @@ const NewJobInputs = ({
   );
 };
 
-export default NewJobInputs;
+export default PageOne;
