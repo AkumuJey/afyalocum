@@ -1,5 +1,4 @@
 import { Box, Paper } from "@mui/material";
-import dayjs, { Dayjs } from "dayjs";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ControlButtons from "./ControlButtons";
@@ -10,7 +9,7 @@ import ProgressMonitor from "./ProgressMonitor";
 import { Job, submitToFirebase } from "./hooks/useJobForm";
 
 const NewLocumFormLayout = () => {
-  const [job, setJob] = useState<Job>({
+  const [job] = useState<Job>({
     title: "",
     requirements: "",
     description: "",
@@ -30,19 +29,6 @@ const NewLocumFormLayout = () => {
     location.length > 0 &&
     location.replace(/\s/g, "") !== "" &&
     rate !== null;
-
-  const handleDateTimeChange = (newValue: unknown | Dayjs, type: string) => {
-    if (dayjs.isDayjs(newValue)) {
-      const value = newValue.toDate();
-      setJob({ ...job, [type]: value });
-      if (type === "start") {
-        setMinDateTime(newValue.add(1, "hour"));
-      }
-    }
-    console.log(job);
-  };
-
-  const [minDateTime, setMinDateTime] = useState<Dayjs>(dayjs().add(1, "hour"));
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,14 +54,7 @@ const NewLocumFormLayout = () => {
         <ProgressMonitor step={step} />
         {step === 1 && <PageOne />}
         {step === 2 && <PageTwo />}
-        {step === 3 && (
-          <PageThree
-            handleDateTimeChange={handleDateTimeChange}
-            start={start}
-            stop={stop}
-            minDateTime={minDateTime}
-          />
-        )}
+        {step === 3 && <PageThree />}
         <ControlButtons
           next={true}
           validSubmission={validSubmission}
