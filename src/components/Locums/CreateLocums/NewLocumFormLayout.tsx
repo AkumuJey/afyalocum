@@ -7,17 +7,8 @@ import PageOne from "./PageOne";
 import PageThree from "./PageThree";
 import PageTwo from "./PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
+import { Job, submitToFirebase } from "./hooks/useJobForm";
 
-interface Job {
-  title: string;
-  requirements: string;
-  description: string;
-  location: string;
-  rate: null | number;
-  start: null | Date;
-  stop: null | Date;
-  completed: boolean;
-}
 const NewLocumFormLayout = () => {
   const [job, setJob] = useState<Job>({
     title: "",
@@ -29,7 +20,7 @@ const NewLocumFormLayout = () => {
     stop: null,
     completed: false,
   });
-  const { title, requirements, description, location, rate, start, stop } = job;
+  const { location, rate, start, stop } = job;
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -38,22 +29,8 @@ const NewLocumFormLayout = () => {
   };
 
   const [step, setStep] = useState<number>(1);
-  const handleNextStep = () => {
-    setStep(step + 1);
-  };
-  const handlePreviousStep = () => {
-    setStep(step - 1);
-  };
-  const next =
-    title.length > 0 &&
-    title.replace(/\s/g, "") !== "" &&
-    requirements.length > 0 &&
-    requirements.replace(/\s/g, "") !== "" &&
-    description.length > 0 &&
-    description.replace(/\s/g, "") !== "";
 
   const validSubmission =
-    next &&
     start !== null &&
     stop !== null &&
     location.length > 0 &&
@@ -76,7 +53,7 @@ const NewLocumFormLayout = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validSubmission) {
-      console.log(job);
+      submitToFirebase(job);
       navigate("/dashboard");
     }
   };
@@ -86,39 +63,41 @@ const NewLocumFormLayout = () => {
       sx={{
         width: {
           xs: "95%",
-          md: "70%",
+          md: "60%",
         },
         backgroundColor: "lightgray",
         px: 3,
-        mt: 0
+        mt: 0,
       }}
     >
-      <Box
-        component="form"
-        sx={{
-          width: "100%",
-        }}
-        onSubmit={handleSubmit}
-      >
+      <Box component="form" onSubmit={handleSubmit}>
         <ProgressMonitor step={step} />
-        {step === 1 && (
-          <PageOne
+        {step === 1 && <PageOne />}
+        {step === 2 && (
+          <PageTwo
             handleInputChange={handleInputChange}
-            title={title}
-            description={description}
-            requirements={requirements}
+            location={location}
+            rate={rate}
           />
         )}
-        {step === 2 && (
-          <PageTwo handleInputChange={handleInputChange} location={location} rate={rate}/>
+        {step === 3 && (
+          <PageThree
+            handleDateTimeChange={handleDateTimeChange}
+            start={start}
+            stop={stop}
+            minDateTime={minDateTime}
+          />
         )}
-        {step === 3 && <PageThree handleDateTimeChange={handleDateTimeChange} start={start} stop={stop} minDateTime={minDateTime}/>}
         <ControlButtons
-          next={next}
+          next={true}
           validSubmission={validSubmission}
           step={step}
-          handleNextStep={handleNextStep}
-          handlePreviousStep={handlePreviousStep}
+          handleNextStep={() => {
+            setStep(step + 1);
+          }}
+          handlePreviousStep={() => {
+            setStep(step - 1);
+          }}
         />
       </Box>
     </Paper>

@@ -1,22 +1,16 @@
 import { Input, InputLabel, TextareaAutosize } from "@mui/material";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 
-interface Props {
-  handleInputChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  title: string;
-  requirements: string;
-  description: string;
-}
-const PageOne = ({
-  title,
-  description,
-  requirements,
-  handleInputChange,
-}: Props) => {
+const PageOne = () => {
   const ariaLabel = { "aria-label": "description" };
+  const [partOne, setPartOne] = useState({title: "", requirements: "", description: ""})
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setPartOne({ ...partOne, [id]: value });
+  };
   return (
     <>
       <InputLabel
@@ -31,7 +25,7 @@ const PageOne = ({
       </InputLabel>
       <Input
         id="title"
-        value={title}
+        value={partOne.title}
         onChange={handleInputChange}
         autoComplete="off"
         placeholder="Doctor, Dentist, Pharmacist etc"
@@ -51,7 +45,7 @@ const PageOne = ({
       </InputLabel>
       <Input
         id="requirements"
-        value={requirements}
+        value={partOne.requirements}
         onChange={handleInputChange}
         autoComplete="off"
         placeholder="e.g. MBCHB, 2 years experience"
@@ -73,7 +67,7 @@ const PageOne = ({
         maxRows={3}
         maxLength={150}
         id="description"
-        value={description}
+        value={partOne.description}
         onChange={handleInputChange}
         required
         placeholder=" Roles are ..."
