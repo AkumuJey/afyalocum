@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 
-import CreatedLocumNotification from "../components/Locums/CreateLocums/CreatedLocumNotification";
-import NewLocumFormLayout from "../components/Locums/CreateLocums/NewLocumFormLayout";
+import CreatedLocumNotification from "../components/Dashboard/CreateLocums/CreatedLocumNotification";
+import NewLocumFormLayout from "../components/Dashboard/CreateLocums/NewLocumFormLayout";
 
 const CreateNew = () => {
   const [success, setSuccess] = useState<boolean>(false);
