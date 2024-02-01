@@ -1,13 +1,10 @@
 import {
-  FormControl,
   Input,
   InputLabel,
   MenuItem,
-  NativeSelect,
-  Select,
-  SelectChangeEvent,
+  Select
 } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import useInputManagement from "../PageThree/useInputManagement";
 
 interface PartOne {
   title: string;
@@ -20,15 +17,6 @@ interface PropTypes extends PartOne {
 
 const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
   const ariaLabel = { "aria-label": "description" };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<SelectChangeEvent>) => {
-    if ('name' in e.target) {
-      const { name, value } = e.target;
-      let goal = { [name]: value };
-      handlePartOne(goal);
-    }
-  };
-
   const professions = [
     "Select Desired Profession",
     "Doctor",
@@ -38,6 +26,8 @@ const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
     "Laboratory Technologist",
     "Physiotherapist"
   ];
+
+  const { handleInputChange, handleSelectChange } = useInputManagement()
 
   return (
     <>
@@ -56,7 +46,7 @@ const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
         labelId="title"
         id="title"
         name="title"
-        onChange={handleInputChange}
+        onChange={(e) => handleSelectChange(e, handlePartOne)}
         value={title}
       >
         {professions.map((profession) => (
@@ -79,7 +69,7 @@ const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
         id="requirements"
         name="requirements"
         value={requirements}
-        onChange={handleInputChange}
+        onChange={(e) => handleInputChange(e, handlePartOne)}
         autoComplete="off"
         placeholder="e.g. MBCHB, 2 years experience"
         inputProps={ariaLabel}

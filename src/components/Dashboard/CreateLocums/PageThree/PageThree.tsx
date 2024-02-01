@@ -1,6 +1,6 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import { Input, InputLabel } from "@mui/material";
-import { ChangeEvent } from "react";
+import useInputManagement from "./useInputManagement";
 
 interface PartThree {
   location: string;
@@ -12,11 +12,7 @@ interface PropTypes extends PartThree {
 
 const ariaLabel = { "aria-label": "description" };
 const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    let goal = { [name]: value };
-    handlePartThree(goal);
-  };
+  const { handleInputChange } = useInputManagement();
   return (
     <>
       <InputLabel
@@ -33,7 +29,7 @@ const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
         id="location"
         name="location"
         value={location}
-        onChange={handleInputChange}
+        onChange={(e) => handleInputChange(e, handlePartThree)}
         placeholder="e.g. Westlands Nairobi"
         inputProps={ariaLabel}
         required
@@ -54,7 +50,7 @@ const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
         name="rate"
         defaultValue={rate}
         type="number"
-        onChange={handleInputChange}
+        onChange={(e) => handleInputChange(e, handlePartThree)}
         inputProps={{ min: 0, ...ariaLabel }}
         required
         className="w-full overflow-hidden"

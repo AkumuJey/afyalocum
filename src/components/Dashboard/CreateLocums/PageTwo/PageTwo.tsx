@@ -1,6 +1,6 @@
 import { InputLabel, TextareaAutosize } from "@mui/material";
 
-import { ChangeEvent } from "react";
+import useInputManagement from "../PageThree/useInputManagement";
 
 interface PartTwo {
   description: string;
@@ -10,12 +10,7 @@ interface PropTypes extends PartTwo {
 }
 
 const PageTwo = ({ description, handlePartTwo }: PropTypes) => {
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e)
-    const { name, value } = e.target;
-    let goal = { [name]: value };
-    handlePartTwo(goal);
-  };
+  const {handleInputChange} = useInputManagement()
   return (
     <>
       <InputLabel
@@ -34,7 +29,7 @@ const PageTwo = ({ description, handlePartTwo }: PropTypes) => {
         id="description"
         name="description"
         value={description}
-        onChange={handleInputChange}
+        onChange={(e) => handleInputChange(e, handlePartTwo)}
         required
         placeholder=" Roles are ..."
         className="max-h-[100px] min-h-[80px] px-3 py-1 w-full bg-slate-100 overflow-hidden rounded-lg"
