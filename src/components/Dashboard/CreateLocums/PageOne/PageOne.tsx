@@ -1,15 +1,24 @@
 import { Input, InputLabel } from "@mui/material";
+import { ChangeEvent } from "react";
 
-import { ChangeEvent, useState } from "react";
+interface PartOne {
+  title: string;
+  requirements: string;
+}
 
-const PageOne = () => {
+interface PropTypes extends PartOne {
+  handlePartOne: (partThree: PartOne) => void;
+}
+
+const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
   const ariaLabel = { "aria-label": "description" };
-  const [partOne, setPartOne] = useState({ title: "", requirements: "" });
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setPartOne({ ...partOne, [id]: value });
+    let goal = { [id]: value };
+    handlePartOne(goal);
   };
- 
+
   return (
     <>
       <InputLabel
@@ -24,7 +33,7 @@ const PageOne = () => {
       </InputLabel>
       <Input
         id="title"
-        value={partOne.title}
+        value={title}
         onChange={handleInputChange}
         autoComplete="off"
         placeholder="Doctor, Dentist, Pharmacist etc"
@@ -44,7 +53,7 @@ const PageOne = () => {
       </InputLabel>
       <Input
         id="requirements"
-        value={partOne.requirements}
+        value={requirements}
         onChange={handleInputChange}
         autoComplete="off"
         placeholder="e.g. MBCHB, 2 years experience"

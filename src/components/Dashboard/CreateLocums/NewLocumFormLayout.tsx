@@ -20,7 +20,7 @@ const NewLocumFormLayout = () => {
     stop: null,
     completed: false,
   });
-  const {  location, rate, start, stop } = job;
+  const { title, requirements, description, location, rate, start, stop } = job;
 
   const [step, setStep] = useState<number>(1);
 
@@ -64,10 +64,10 @@ const NewLocumFormLayout = () => {
       onSubmit={handleSubmit}
     >
       <ProgressMonitor step={step} />
-      {step === 1 && <PageOne />}
-      {step === 2 && <PageTwo />}
-      {step === 3 && <PageThree handlePartThree={trial}/>}
-      {step === 4 && <PageFour />}
+      {step === 1 && <PageOne handlePartOne={trial} requirements={requirements} title={title}/>}
+      {step === 2 && <PageTwo handlePartTwo={trial} description={description}/>}
+      {step === 3 && <PageThree handlePartThree={trial} location={location} rate={rate}/>}
+      {step === 4 && <PageFour handlePartFour={trial} start={start} stop={stop}/>}
       <ControlButtons
         next={true}
         validSubmission={validSubmission}

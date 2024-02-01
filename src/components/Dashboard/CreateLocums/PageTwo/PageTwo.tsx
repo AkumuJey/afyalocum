@@ -1,16 +1,19 @@
 import { InputLabel, TextareaAutosize } from "@mui/material";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 
-const PageTwo = () => {
-  const [partTwo, setPartTwo] = useState({
-    description: "",
-  });
-  const handleInputChange = (
-    e: ChangeEvent<HTMLTextAreaElement>
-  ) => {
+interface PartThree {
+  description: string;
+}
+interface PropTypes extends PartThree {
+  handlePartTwo: (partThree: PartThree) => void;
+}
+
+const PageTwo = ({ description, handlePartTwo }: PropTypes) => {
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-    setPartTwo({ ...partTwo, [id]: value });
+    let goal = { [id]: value };
+    handlePartTwo(goal);
   };
   return (
     <>
@@ -28,7 +31,7 @@ const PageTwo = () => {
         maxRows={3}
         maxLength={150}
         id="description"
-        value={partTwo.description}
+        value={description}
         onChange={handleInputChange}
         required
         placeholder=" Roles are ..."

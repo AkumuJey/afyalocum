@@ -1,25 +1,21 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import { Input, InputLabel } from "@mui/material";
-import { ChangeEvent, useState } from "react";
-
-interface PropTypes {
-  handlePartThree: (partThree: PartThree) => void
-}
+import { ChangeEvent } from "react";
 
 interface PartThree {
   location: string;
   rate: number | null;
 }
+interface PropTypes extends PartThree {
+  handlePartThree: (partThree: PartThree) => void;
+}
+
 const ariaLabel = { "aria-label": "description" };
-const PageThree = ({handlePartThree} : PropTypes) => {
-  const [partThree, setPartThree] = useState<PartThree>({ location: "", rate: null });
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setPartThree({ ...partThree, [id]: value });
-    console.log(partThree)
-    handlePartThree({[id]: value})
+    let goal = { [id]: value };
+    handlePartThree(goal);
   };
   return (
     <>
@@ -35,7 +31,7 @@ const PageThree = ({handlePartThree} : PropTypes) => {
       </InputLabel>
       <Input
         id="location"
-        value={partThree.location}
+        value={location}
         onChange={handleInputChange}
         placeholder="e.g. Westlands Nairobi"
         inputProps={ariaLabel}
@@ -54,7 +50,7 @@ const PageThree = ({handlePartThree} : PropTypes) => {
       </InputLabel>
       <Input
         id="rate"
-        defaultValue={partThree.rate}
+        defaultValue={rate}
         type="number"
         onChange={handleInputChange}
         inputProps={{ min: 0, ...ariaLabel }}

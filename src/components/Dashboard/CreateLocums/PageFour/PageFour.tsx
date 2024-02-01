@@ -9,23 +9,25 @@ interface PartThree {
   start: unknown;
   stop: unknown;
 }
+interface PropTypes extends PartThree {
+  handlePartFour: (partThree: PartThree) => void;
+}
 
-const PageFour = () => {
-  const [partThree, setPartThree] = useState<PartThree>({
-    start: null,
-    stop: null,
-  });
+const PageFour = ({ start, stop, handlePartFour }: PropTypes) => {
   const [minDateTime, setMinDateTime] = useState<Dayjs>(dayjs().add(1, "hour"));
+  const [minStart, setMinStart] = useState<Dayjs>(dayjs());
 
   const handleDateTimeChange = (newValue: unknown | Dayjs, type: string) => {
     if (dayjs.isDayjs(newValue)) {
-      const value = newValue.toDate();
-      setPartThree({ ...partThree, [type]: value });
+      let goal = { [type]: newValue };
+      handlePartFour(goal);
       if (type === "start") {
         setMinDateTime(newValue.add(1, "hour"));
       }
+      if (type === "stop") {
+        setMinStart(newValue);
+      }
     }
-    console.log(partThree);
   };
   return (
     <>
@@ -41,16 +43,17 @@ const PageFour = () => {
         >
           <DateTimePicker
             label="Start date and time"
-            defaultValue={partThree.start}
-            value={partThree.start}
+            defaultValue={start}
+            value={start}
             disablePast
+            minDateTime={minStart}
             onChange={(newValue) => handleDateTimeChange(newValue, "start")}
           />
           <DateTimePicker
             label="End date and time"
-            defaultValue={partThree.stop}
+            defaultValue={stop}
             disablePast
-            value={partThree.stop}
+            value={stop}
             minDateTime={minDateTime}
             onChange={(newValue) => handleDateTimeChange(newValue, "stop")}
           />
