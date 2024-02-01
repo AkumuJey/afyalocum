@@ -14,19 +14,22 @@ interface PropTypes extends PartThree {
 }
 
 const PageFour = ({ start, stop, handlePartFour }: PropTypes) => {
-  const [minDateTime, setMinDateTime] = useState<Dayjs>(dayjs().add(1, "hour"));
+  const [minStop, setMinStop] = useState<Dayjs>(dayjs().add(1, "hour"));
   const [minStart, setMinStart] = useState<Dayjs>(dayjs());
 
+  const handleMinStartStop = (type: string, newValue: Dayjs) => {
+    if (type === "start") {
+      setMinStop(newValue.add(1, "hour"));
+    }
+    if (type === "stop") {
+      setMinStart(newValue);
+    }
+  }
   const handleDateTimeChange = (newValue: unknown | Dayjs, type: string) => {
     if (dayjs.isDayjs(newValue)) {
       let goal = { [type]: newValue };
       handlePartFour(goal);
-      if (type === "start") {
-        setMinDateTime(newValue.add(1, "hour"));
-      }
-      if (type === "stop") {
-        setMinStart(newValue);
-      }
+      handleMinStartStop(type, newValue)
     }
   };
   return (
@@ -54,7 +57,7 @@ const PageFour = ({ start, stop, handlePartFour }: PropTypes) => {
             defaultValue={stop}
             disablePast
             value={stop}
-            minDateTime={minDateTime}
+            minDateTime={minStop}
             onChange={(newValue) => handleDateTimeChange(newValue, "stop")}
           />
         </DemoContainer>
