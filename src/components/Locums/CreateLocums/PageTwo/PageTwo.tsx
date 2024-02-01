@@ -32,7 +32,7 @@ const PageTwo = () => {
         onChange={handleInputChange}
         required
         placeholder=" Roles are ..."
-        className="max-h-[100px] min-h-[80px] px-3 w-full bg-slate-100 overflow-hidden"
+        className="max-h-[100px] min-h-[80px] px-3 py-1 w-full bg-slate-100 overflow-hidden rounded-lg"
       />
     </>
   );

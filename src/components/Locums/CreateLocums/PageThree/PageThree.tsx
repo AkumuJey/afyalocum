@@ -2,18 +2,24 @@ import PlaceIcon from "@mui/icons-material/Place";
 import { Input, InputLabel } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 
-interface PartTwo {
+interface PropTypes {
+  handlePartThree: (partThree: PartThree) => void
+}
+
+interface PartThree {
   location: string;
   rate: number | null;
 }
 const ariaLabel = { "aria-label": "description" };
-const PageThree = () => {
-  const [partTwo, setPartTwo] = useState<PartTwo>({ location: "", rate: null });
+const PageThree = ({handlePartThree} : PropTypes) => {
+  const [partThree, setPartThree] = useState<PartThree>({ location: "", rate: null });
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
-    setPartTwo({ ...partTwo, [id]: value });
+    setPartThree({ ...partThree, [id]: value });
+    console.log(partThree)
+    handlePartThree({[id]: value})
   };
   return (
     <>
@@ -29,7 +35,7 @@ const PageThree = () => {
       </InputLabel>
       <Input
         id="location"
-        value={partTwo.location}
+        value={partThree.location}
         onChange={handleInputChange}
         placeholder="e.g. Westlands Nairobi"
         inputProps={ariaLabel}
@@ -48,12 +54,12 @@ const PageThree = () => {
       </InputLabel>
       <Input
         id="rate"
-        defaultValue={partTwo.rate}
+        defaultValue={partThree.rate}
         type="number"
         onChange={handleInputChange}
         inputProps={{ min: 0, ...ariaLabel }}
         required
-        className="w-full rounded-md overflow-hidden"
+        className="w-full overflow-hidden"
       />
     </>
   );

@@ -13,8 +13,8 @@ import {
 import { useEffect, useState } from "react";
 
 import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
-import TableLayout from "../components/Locums/TableLayout";
-import { generateRandomData } from "../components/Locums/dummyData";
+import TableLayout from "../components/Locums/Locums/TableLayout";
+import { generateRandomData } from "../components/Locums/Locums/dummyData";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RouterAnimation from "./RouterAnimation";
 

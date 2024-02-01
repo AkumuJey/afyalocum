@@ -9,6 +9,7 @@ const PageOne = () => {
     const { id, value } = e.target;
     setPartOne({ ...partOne, [id]: value });
   };
+ 
   return (
     <>
       <InputLabel

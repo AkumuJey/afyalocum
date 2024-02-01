@@ -1,16 +1,16 @@
 import { Paper } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ControlButtons from "./ControlButtons";
-import PageFour from "./PageFour";
-import PageOne from "./PageOne";
-import PageThree from "./PageThree";
-import PageTwo from "./PageTwo";
+import ControlButtons from "./ButonsFolder/ControlButtons";
+import PageFour from "./PageFour/PageFour";
+import PageOne from "./PageOne/PageOne";
+import PageThree from "./PageThree/PageThree";
+import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
 import { Job, submitToFirebase } from "./hooks/useJobForm";
 
 const NewLocumFormLayout = () => {
-  const [job] = useState<Job>({
+  const [job, setJob] = useState<Job>({
     title: "",
     requirements: "",
     description: "",
@@ -20,7 +20,7 @@ const NewLocumFormLayout = () => {
     stop: null,
     completed: false,
   });
-  const { location, rate, start, stop } = job;
+  const {  location, rate, start, stop } = job;
 
   const [step, setStep] = useState<number>(1);
 
@@ -38,6 +38,11 @@ const NewLocumFormLayout = () => {
       navigate("/dashboard");
     }
   };
+
+  const trial = (name: unknown) => {
+    setJob({...job, ...name})
+    console.log(job)
+  }
   return (
     <Paper
       elevation={3}
@@ -61,7 +66,7 @@ const NewLocumFormLayout = () => {
       <ProgressMonitor step={step} />
       {step === 1 && <PageOne />}
       {step === 2 && <PageTwo />}
-      {step === 3 && <PageThree />}
+      {step === 3 && <PageThree handlePartThree={trial}/>}
       {step === 4 && <PageFour />}
       <ControlButtons
         next={true}

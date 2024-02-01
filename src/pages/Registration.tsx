@@ -2,10 +2,10 @@ import { useState, ChangeEvent, FormEvent, useContext } from "react";
 import { Box, Paper } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
-import ImageUpload from "../components/registration/ImageUpload";
-import NameRegistration from "../components/registration/NameRegistration";
-import DescriptionInput from "../components/registration/DescriptionInput";
-import EmailAndPasswordInput from "../components/registration/EmailAndPasswordInput";
+import ImageUpload from "../components/Registration/ImageUpload";
+import NameRegistration from "../components/Registration/NameRegistration";
+import DescriptionInput from "../components/Registration/DescriptionInput";
+import EmailAndPasswordInput from "../components/Registration/EmailAndPasswordInput";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
