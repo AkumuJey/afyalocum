@@ -1,16 +1,21 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import { Input, InputLabel } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 
-interface PropTypes {
+interface PartTwo {
   location: string;
-  handleInputChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
   rate: number | null;
 }
 const ariaLabel = { "aria-label": "description" };
-const PageTwo = ({ location, handleInputChange, rate }: PropTypes) => {
+const PageTwo = () => {
+
+  const [partTwo, setPartTwo] = useState<PartTwo>({location: "", rate: null})
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setPartTwo({ ...partTwo, [id]: value });
+  };
   return (
     <>
       <InputLabel
@@ -25,7 +30,7 @@ const PageTwo = ({ location, handleInputChange, rate }: PropTypes) => {
       </InputLabel>
       <Input
         id="location"
-        value={location}
+        value={partTwo.location}
         onChange={handleInputChange}
         placeholder="e.g. Westlands Nairobi"
         inputProps={ariaLabel}
@@ -47,7 +52,7 @@ const PageTwo = ({ location, handleInputChange, rate }: PropTypes) => {
       </InputLabel>
       <Input
         id="rate"
-        defaultValue={rate}
+        defaultValue={partTwo.rate}
         type="number"
         onChange={handleInputChange}
         inputProps={{ min: 0, ...ariaLabel }}

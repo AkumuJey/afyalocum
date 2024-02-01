@@ -1,6 +1,6 @@
 import { Box, Paper } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ControlButtons from "./ControlButtons";
 import PageOne from "./PageOne";
@@ -21,12 +21,6 @@ const NewLocumFormLayout = () => {
     completed: false,
   });
   const { location, rate, start, stop } = job;
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { id, value } = e.target;
-    setJob({ ...job, [id]: value });
-  };
 
   const [step, setStep] = useState<number>(1);
 
@@ -73,13 +67,7 @@ const NewLocumFormLayout = () => {
       <Box component="form" onSubmit={handleSubmit}>
         <ProgressMonitor step={step} />
         {step === 1 && <PageOne />}
-        {step === 2 && (
-          <PageTwo
-            handleInputChange={handleInputChange}
-            location={location}
-            rate={rate}
-          />
-        )}
+        {step === 2 && <PageTwo />}
         {step === 3 && (
           <PageThree
             handleDateTimeChange={handleDateTimeChange}
