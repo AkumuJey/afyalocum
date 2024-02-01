@@ -13,8 +13,8 @@ interface PropTypes extends PartThree {
 const ariaLabel = { "aria-label": "description" };
 const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    let goal = { [id]: value };
+    const { name, value } = e.target;
+    let goal = { [name]: value };
     handlePartThree(goal);
   };
   return (
@@ -31,6 +31,7 @@ const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
       </InputLabel>
       <Input
         id="location"
+        name="location"
         value={location}
         onChange={handleInputChange}
         placeholder="e.g. Westlands Nairobi"
@@ -50,6 +51,7 @@ const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
       </InputLabel>
       <Input
         id="rate"
+        name="rate"
         defaultValue={rate}
         type="number"
         onChange={handleInputChange}

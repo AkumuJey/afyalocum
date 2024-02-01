@@ -1,5 +1,13 @@
-import { Input, InputLabel } from "@mui/material";
-import { ChangeEvent } from "react";
+import {
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  NativeSelect,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
+import { ChangeEvent, useState } from "react";
 
 interface PartOne {
   title: string;
@@ -13,11 +21,23 @@ interface PropTypes extends PartOne {
 const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
   const ariaLabel = { "aria-label": "description" };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    let goal = { [id]: value };
-    handlePartOne(goal);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<SelectChangeEvent>) => {
+    if ('name' in e.target) {
+      const { name, value } = e.target;
+      let goal = { [name]: value };
+      handlePartOne(goal);
+    }
   };
+
+  const professions = [
+    "Select Desired Profession",
+    "Doctor",
+    "Pharmacist",
+    "Dentist",
+    "Nurse",
+    "Laboratory Technologist",
+    "Physiotherapist"
+  ];
 
   return (
     <>
@@ -31,16 +51,20 @@ const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
       >
         Job Title:
       </InputLabel>
-      <Input
+      <Select
+        sx={{ minWidth: "150px", m: 1 }}
+        labelId="title"
         id="title"
-        value={title}
+        name="title"
         onChange={handleInputChange}
-        autoComplete="off"
-        placeholder="Doctor, Dentist, Pharmacist etc"
-        inputProps={ariaLabel}
-        required
-        className="w-full px-3"
-      />
+        value={title}
+      >
+        {professions.map((profession) => (
+          <MenuItem value={profession} key={profession}>
+            {profession}
+          </MenuItem>
+        ))}
+      </Select>
       <InputLabel
         htmlFor="requirements"
         sx={{
@@ -53,6 +77,7 @@ const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
       </InputLabel>
       <Input
         id="requirements"
+        name="requirements"
         value={requirements}
         onChange={handleInputChange}
         autoComplete="off"

@@ -2,17 +2,18 @@ import { InputLabel, TextareaAutosize } from "@mui/material";
 
 import { ChangeEvent } from "react";
 
-interface PartThree {
+interface PartTwo {
   description: string;
 }
-interface PropTypes extends PartThree {
-  handlePartTwo: (partThree: PartThree) => void;
+interface PropTypes extends PartTwo {
+  handlePartTwo: (partThree: PartTwo) => void;
 }
 
 const PageTwo = ({ description, handlePartTwo }: PropTypes) => {
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    let goal = { [id]: value };
+    console.log(e)
+    const { name, value } = e.target;
+    let goal = { [name]: value };
     handlePartTwo(goal);
   };
   return (
@@ -31,6 +32,7 @@ const PageTwo = ({ description, handlePartTwo }: PropTypes) => {
         maxRows={3}
         maxLength={150}
         id="description"
+        name="description"
         value={description}
         onChange={handleInputChange}
         required
