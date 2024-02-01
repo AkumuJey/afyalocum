@@ -1,17 +1,13 @@
-import PlaceIcon from "@mui/icons-material/Place";
-import { Input, InputLabel } from "@mui/material";
+import { InputLabel, TextareaAutosize } from "@mui/material";
+
 import { ChangeEvent, useState } from "react";
 
-interface PartTwo {
-  location: string;
-  rate: number | null;
-}
-const ariaLabel = { "aria-label": "description" };
 const PageTwo = () => {
-
-  const [partTwo, setPartTwo] = useState<PartTwo>({location: "", rate: null})
+  const [partTwo, setPartTwo] = useState({
+    description: "",
+  });
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
     setPartTwo({ ...partTwo, [id]: value });
@@ -19,49 +15,24 @@ const PageTwo = () => {
   return (
     <>
       <InputLabel
-        htmlFor="location"
+        htmlFor="description"
         sx={{
           fontWeight: "bold",
           color: "black",
           width: "100%",
         }}
       >
-        <PlaceIcon /> Location:
+        Job Description:
       </InputLabel>
-      <Input
-        id="location"
-        value={partTwo.location}
+      <TextareaAutosize
+        maxRows={3}
+        maxLength={150}
+        id="description"
+        value={partTwo.description}
         onChange={handleInputChange}
-        placeholder="e.g. Westlands Nairobi"
-        inputProps={ariaLabel}
         required
-        className="w-full bg-white px-3 py-1 rounded-md overflow-hidden"
-        sx={{
-          my: "0.5rem",
-        }}
-      />
-      <InputLabel
-        htmlFor="rate"
-        sx={{
-          fontWeight: "bold",
-          color: "black",
-          width: "100%",
-        }}
-      >
-        Hourly Rate (KSh):
-      </InputLabel>
-      <Input
-        id="rate"
-        defaultValue={partTwo.rate}
-        type="number"
-        onChange={handleInputChange}
-        inputProps={{ min: 0, ...ariaLabel }}
-        required
-        sx={{
-          my: "0.3rem",
-          py: `0.25rem`,
-        }}
-        className="w-full bg-white px-3 py-2 rounded-md overflow-hidden"
+        placeholder=" Roles are ..."
+        className="max-h-[100px] min-h-[80px] px-3 w-full bg-slate-100 overflow-hidden"
       />
     </>
   );

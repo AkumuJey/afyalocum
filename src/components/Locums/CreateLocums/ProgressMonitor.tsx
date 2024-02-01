@@ -8,10 +8,10 @@ const ProgressMonitor = ({ step }: PropTypes) => {
     <>
     <div style={{ textAlign: 'center', marginTop: '1rem' }}>
     <Typography variant="body1" gutterBottom>
-        Step {step} / 3
+        Step {step} / 4
       </Typography>
       <LinearProgress
-        value={(step / 3) * 100}
+        value={(step / 4) * 100}
         variant="determinate"
         sx={{ height: "0.5rem", borderRadius: "0.5rem", mb: "0.5rem" }}
       />

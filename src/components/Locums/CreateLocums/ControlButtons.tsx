@@ -24,10 +24,10 @@ const ControlButtons = ({
         {step !== 1 && (
           <BackwardButton handlePreviousStep={handlePreviousStep} />
         )}
-        {step !== 3 && (
+        {step !== 4 && (
           <ForwardButton next={next} handleNextStep={handleNextStep} />
         )}
-        {validSubmission && step === 3 && (
+        {validSubmission && step === 4 && (
           <SubmissionButton validSubmission={validSubmission} />
         )}
       </motion.div>

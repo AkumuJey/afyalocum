@@ -1,13 +1,11 @@
-import { Input, InputLabel, TextareaAutosize } from "@mui/material";
+import { Input, InputLabel } from "@mui/material";
 
 import { ChangeEvent, useState } from "react";
 
 const PageOne = () => {
   const ariaLabel = { "aria-label": "description" };
-  const [partOne, setPartOne] = useState({title: "", requirements: "", description: ""})
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const [partOne, setPartOne] = useState({ title: "", requirements: "" });
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setPartOne({ ...partOne, [id]: value });
   };
@@ -31,7 +29,7 @@ const PageOne = () => {
         placeholder="Doctor, Dentist, Pharmacist etc"
         inputProps={ariaLabel}
         required
-        className="w-full bg-white px-3 py-1 rounded-md overflow-hidden"
+        className="w-full px-3"
       />
       <InputLabel
         htmlFor="requirements"
@@ -51,27 +49,7 @@ const PageOne = () => {
         placeholder="e.g. MBCHB, 2 years experience"
         inputProps={ariaLabel}
         required
-        className="w-full bg-white px-3 py-1 rounded-md overflow-hidden"
-      />
-      <InputLabel
-        htmlFor="description"
-        sx={{
-          fontWeight: "bold",
-          color: "black",
-          width: "100%",
-        }}
-      >
-        Job Description:
-      </InputLabel>
-      <TextareaAutosize
-        maxRows={3}
-        maxLength={150}
-        id="description"
-        value={partOne.description}
-        onChange={handleInputChange}
-        required
-        placeholder=" Roles are ..."
-        className="max-h-[100px] min-h-[80px] px-3 py-1 w-full rounded-md bg-white overflow-hidden"
+        className="w-full px-3"
       />
     </>
   );
