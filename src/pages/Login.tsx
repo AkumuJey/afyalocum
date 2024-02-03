@@ -1,5 +1,4 @@
 import {
-  Button,
   Container,
   Grid,
   IconButton,
@@ -11,18 +10,21 @@ import {
 import { FormEvent, useContext, useState } from "react";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import LoginLayout from "../components/Login/LoginLayout";
+import RecoverAndCreateAccount from "../components/Login/RecoverAndCreateAccount";
+import SubmitAndLoadButton from "../components/Login/SubmitAndLoadButton";
 import { AuthContext } from "../contexts/AuthContext";
 import { auth } from "../firebase/firebase";
 import RouterAnimation from "./RouterAnimation";
+import LoginError from "../components/Login/LoginError";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<boolean>(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -46,7 +48,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (_error) {
-      setError("Incorrect password or email! Try again.");
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -141,41 +143,10 @@ const Login = () => {
                 />
               </Grid>
             </Grid>
-            <LoadingButton
-              type="submit"
-              variant="contained"
-              sx={{ width: "100%" }}
-              color="secondary"
-              loading={loading}
-            >
-              Login
-            </LoadingButton>
+            <SubmitAndLoadButton loading={loading} />
           </Container>
-          <Container className="min-w-full text-center text-red-600 font-semibold">
-            {error}
-          </Container>
-          <Container
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Button
-              style={{ textTransform: "none" }}
-              type="button"
-              onClick={() => navigate("/register")}
-            >
-              Create Account
-            </Button>
-            <Button
-              style={{ textTransform: "none" }}
-              type="button"
-              onClick={() => navigate("/recover-password")}
-            >
-              Forgot Password
-            </Button>
-          </Container>
+          {error && <LoginError />}
+          <RecoverAndCreateAccount />
         </LoginLayout>
       </RouterAnimation>
     </>

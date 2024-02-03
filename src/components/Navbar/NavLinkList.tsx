@@ -27,7 +27,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
   const isNavigationLinkVisible = (link: Link) => {
     return (
       (currentUser && link.path === "/login") ||
-      (!currentUser && link.path === "/locums") ||
+      (!currentUser && link.path === "/dashboard") ||
       (currentUser && link.path === "/register")
     );
   };
