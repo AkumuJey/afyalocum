@@ -10,6 +10,7 @@ import { useState } from "react";
 
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RouterAnimation from "./RouterAnimation";
+import RecoverPasswordLayout from "../components/RecoverPassword/RecoverPasswordLayout";
 const RecoverPassword = () => {
   const [verificationSent, setVerificationSent] = useState(false);
   const sendLink = () => {
@@ -18,18 +19,7 @@ const RecoverPassword = () => {
   return (
     <>
       <RouterAnimation>
-        <Paper
-          elevation={3}
-          component={`div`}
-          sx={{
-            width: "95%",
-            maxWidth: "400px",
-            mx: "auto",
-            my: "auto",
-            padding: "1rem",
-            backgroundColor: verificationSent ? "teal" : "white",
-          }}
-        >
+        <RecoverPasswordLayout verificationSent={verificationSent}>
           {!verificationSent && (
             <Container component={`form`} onSubmit={sendLink}>
               <InputLabel
@@ -89,7 +79,7 @@ const RecoverPassword = () => {
               />
             </Container>
           )}
-        </Paper>
+        </RecoverPasswordLayout>
       </RouterAnimation>
     </>
   );
