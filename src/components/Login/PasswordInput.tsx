@@ -1,6 +1,6 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
+import { Input, InputLabel } from "@mui/material";
 import { useState } from "react";
+import HideShowPasswordIcon from "./HideShowPasswordIcon";
 interface PropTypes {
   loading: boolean;
 }
@@ -36,11 +36,7 @@ const PasswordInput = ({ loading }: PropTypes) => {
           py: "0.2rem",
         }}
         endAdornment={
-          <InputAdornment position="end">
-            <IconButton onClick={toggleShowPassword} edge="end">
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
+          <HideShowPasswordIcon showPassword={showPassword} toggleShowPassword={toggleShowPassword}/>
         }
       />
     </>
