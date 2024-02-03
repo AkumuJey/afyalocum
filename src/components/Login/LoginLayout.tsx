@@ -7,6 +7,7 @@ interface PropTypes {
 const layoutStyles = {
   width: "95%",
   maxWidth: "400px",
+  minHeight: "300px",
   mx: "auto",
   my: "auto",
   padding: "1rem",
