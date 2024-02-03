@@ -10,7 +10,7 @@ const SubmitAndLoadButton = ({ loading }: PropTypes) => {
       <LoadingButton
         type="submit"
         variant="contained"
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", }}
         color="secondary"
         loading={loading}
       >

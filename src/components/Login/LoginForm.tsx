@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -40,25 +40,13 @@ const LoginForm = ({ handleError }: PropTypes) => {
       <Container
         component={`form`}
         aria-required
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", display: "flex", flexDirection: "column", gap: 1 }}
         name="login"
         onSubmit={handleSubmit}
       >
         <FormHeader />
-        <Grid
-          container
-          justifyContent={`center`}
-          justifyItems={`center`}
-          direction={`column`}
-          my={2}
-        >
-          <Grid item>
-            <EmailInput loading={loading} />
-          </Grid>
-          <Grid item>
-            <PasswordInput loading={loading} />
-          </Grid>
-        </Grid>
+        <EmailInput loading={loading} />
+        <PasswordInput loading={loading} />
         <SubmitAndLoadButton loading={loading} />
       </Container>
     </>
