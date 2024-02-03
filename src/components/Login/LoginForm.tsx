@@ -1,29 +1,18 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Container,
-  Grid,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  Typography,
-} from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
-import SubmitAndLoadButton from "./SubmitAndLoadButton";
-import FormHeader from "./FormHeader";
 import EmailInput from "./EmailInput";
-interface PropTypes{
-    handleError: () => void
+import FormHeader from "./FormHeader";
+import PasswordInput from "./PasswordInput";
+import SubmitAndLoadButton from "./SubmitAndLoadButton";
+interface PropTypes {
+  handleError: () => void;
 }
-const LoginForm = ({handleError}: PropTypes) => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+const LoginForm = ({ handleError }: PropTypes) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
@@ -41,7 +30,7 @@ const LoginForm = ({handleError}: PropTypes) => {
         navigate("/");
       }
     } catch (_error) {
-      handleError()
+      handleError();
     } finally {
       setLoading(false);
     }
@@ -55,7 +44,7 @@ const LoginForm = ({handleError}: PropTypes) => {
         name="login"
         onSubmit={handleSubmit}
       >
-        <FormHeader/>
+        <FormHeader />
         <Grid
           container
           justifyContent={`center`}
@@ -64,10 +53,10 @@ const LoginForm = ({handleError}: PropTypes) => {
           my={2}
         >
           <Grid item>
-            <EmailInput loading={loading}/>
+            <EmailInput loading={loading} />
           </Grid>
           <Grid item>
-            
+            <PasswordInput loading={loading} />
           </Grid>
         </Grid>
         <SubmitAndLoadButton loading={loading} />
