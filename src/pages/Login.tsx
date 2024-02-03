@@ -1,22 +1,22 @@
-import { useState, FormEvent, useContext } from "react";
 import {
+  Button,
   Container,
   Grid,
-  Input,
-  InputLabel,
-  Paper,
-  Typography,
-  Button,
-  InputAdornment,
   IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  Typography
 } from "@mui/material";
+import { FormEvent, useContext, useState } from "react";
 
-import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import LoginLayout from "../components/Login/LoginLayout";
 import { AuthContext } from "../contexts/AuthContext";
+import { auth } from "../firebase/firebase";
 import RouterAnimation from "./RouterAnimation";
 
 const Login = () => {
@@ -58,18 +58,7 @@ const Login = () => {
   return (
     <>
       <RouterAnimation>
-        <Paper
-          elevation={3}
-          component={`div`}
-          sx={{
-            width: "95%",
-            maxWidth: "400px",
-            mx: "auto",
-            my: "auto",
-            padding: "1rem",
-            backgroundColor: "white",
-          }}
-        >
+        <LoginLayout>
           <Container
             component={`form`}
             aria-required
@@ -187,7 +176,7 @@ const Login = () => {
               Forgot Password
             </Button>
           </Container>
-        </Paper>
+        </LoginLayout>
       </RouterAnimation>
     </>
   );
