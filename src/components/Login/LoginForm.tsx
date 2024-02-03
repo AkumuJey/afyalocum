@@ -13,6 +13,8 @@ import { FormEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import SubmitAndLoadButton from "./SubmitAndLoadButton";
+import FormHeader from "./FormHeader";
+import EmailInput from "./EmailInput";
 interface PropTypes{
     handleError: () => void
 }
@@ -53,14 +55,7 @@ const LoginForm = ({handleError}: PropTypes) => {
         name="login"
         onSubmit={handleSubmit}
       >
-        <Typography
-          variant="h4"
-          fontWeight={`bold`}
-          textAlign={`center`}
-          color="secondary"
-        >
-          Login
-        </Typography>
+        <FormHeader/>
         <Grid
           container
           justifyContent={`center`}
@@ -69,63 +64,10 @@ const LoginForm = ({handleError}: PropTypes) => {
           my={2}
         >
           <Grid item>
-            <InputLabel
-              htmlFor="email"
-              sx={{
-                fontWeight: "bold",
-                color: "black",
-                width: "100%",
-              }}
-            >
-              Email
-            </InputLabel>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="off"
-              required
-              disabled={loading}
-              sx={{
-                width: "100%",
-                backgroundColor: "white",
-                px: "0.5rem",
-                py: "0.2rem",
-              }}
-            />
+            <EmailInput loading={loading}/>
           </Grid>
           <Grid item>
-            <InputLabel
-              htmlFor="password"
-              sx={{
-                fontWeight: "bold",
-                color: "black",
-                width: "100%",
-              }}
-            >
-              Password
-            </InputLabel>
-            <Input
-              id="password"
-              name="password"
-              autoComplete="off"
-              required
-              disabled={loading}
-              type={showPassword ? "text" : "password"}
-              sx={{
-                width: "100%",
-                backgroundColor: "white",
-                px: "0.5rem",
-                py: "0.2rem",
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton onClick={toggleShowPassword} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
+            
           </Grid>
         </Grid>
         <SubmitAndLoadButton loading={loading} />
