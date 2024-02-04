@@ -1,9 +1,11 @@
-const LoginError = () => {
+import { Alert } from "@mui/material";
+interface PropTypes{
+  handleClose: () => void
+}
+const LoginError = ({handleClose}: PropTypes) => {
   return (
     <>
-      <div className="min-w-full text-center text-red-600 font-semibold">
-        Incorrect password or email! Try again.
-      </div>
+    <Alert severity="error" onClose={handleClose}>Incorrect password or email! Try again.</Alert>
     </>
   );
 };

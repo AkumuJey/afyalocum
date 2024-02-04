@@ -6,7 +6,7 @@ interface PropTypes {
 const LoginLayout = ({ children }: PropTypes) => {
   return (
     <>
-      <div className="flex flex-col w-full h-full">{children}</div>
+      <div className="flex flex-col w-full h-full py-[3rem]">{children}</div>
     </>
   );
 };

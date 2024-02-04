@@ -71,7 +71,7 @@ const RegularLoginForm = () => {
           <PasswordInput loading={loading} />
           <SubmitAndLoadButton loading={loading} />
         </Container>
-        {error && <LoginError />}
+        {error && <LoginError handleClose={() => setError(false)}/>}
         <RecoverAndCreateAccount />
       </Paper>
     </>
