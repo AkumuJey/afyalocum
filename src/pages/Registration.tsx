@@ -1,18 +1,17 @@
-import { useState, ChangeEvent, FormEvent, useContext } from "react";
-import { Box, Paper } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import { Paper } from "@mui/material";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 
-import ImageUpload from "../components/Registration/ImageUpload";
-import NameRegistration from "../components/Registration/NameRegistration";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { Navigate, useNavigate } from "react-router-dom";
 import DescriptionInput from "../components/Registration/DescriptionInput";
 import EmailAndPasswordInput from "../components/Registration/EmailAndPasswordInput";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db, storage } from "../firebase/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { Navigate, useNavigate } from "react-router-dom";
-import { ref, uploadBytes } from "firebase/storage";
-import { getDownloadURL } from "firebase/storage";
+import ImageUpload from "../components/Registration/ImageUpload";
+import NameRegistration from "../components/Registration/NameRegistration";
 import { AuthContext } from "../contexts/AuthContext";
+import { auth, db, storage } from "../firebase/firebase";
 import RouterAnimation from "./RouterAnimation";
 
 interface organizationInfo {
@@ -22,6 +21,21 @@ interface organizationInfo {
   hospitalDescription: string;
   image: File | null;
 }
+
+const containerStyles = {
+  width: {
+    xs: "100%",
+    md: "60%",
+  },
+  backgroundColor: "lightgray",
+  padding: 3,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "start",
+  gap: "1.5rem",
+};
+
 const Resigstration = () => {
   const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>({
     name: "",
@@ -112,63 +126,46 @@ const Resigstration = () => {
         <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
           <Paper
             elevation={3}
-            sx={{
-              width: {
-                xs: "100%",
-                md: "60%",
-              },
-              backgroundColor: "lightgray",
-              padding: 3,
-            }}
+            sx={containerStyles}
+            component="form"
+            name="registration"
+            autoComplete="off"
+            onSubmit={handleSubmit}
           >
-            <Box
-              component="form"
-              name="registration"
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                gap: "1.5rem",
-              }}
-              autoComplete="off"
-              onSubmit={handleSubmit}
+            <ImageUpload
+              image={createTemporaryURL(organizationInfo.image)}
+              disabled={loading}
+              handleImageChange={handleImageChange}
+              handleRetake={handleRetake}
+              take={take}
+            />
+            <NameRegistration
+              ariaLabel={ariaLabel}
+              handleInputChange={handleInputChange}
+              name={organizationInfo.name}
+              disabled={loading}
+            />
+            <DescriptionInput
+              description={organizationInfo.hospitalDescription}
+              handleInputChange={handleInputChange}
+              disabled={loading}
+            />
+            <EmailAndPasswordInput
+              email={organizationInfo.email}
+              password={organizationInfo.password}
+              disabled={loading}
+              ariaLabel={ariaLabel}
+              handleInputChange={handleInputChange}
+            />
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              loading={loading}
+              disabled={loading}
             >
-              <ImageUpload
-                image={createTemporaryURL(organizationInfo.image)}
-                disabled={loading}
-                handleImageChange={handleImageChange}
-                handleRetake={handleRetake}
-                take={take}
-              />
-              <NameRegistration
-                ariaLabel={ariaLabel}
-                handleInputChange={handleInputChange}
-                name={organizationInfo.name}
-                disabled={loading}
-              />
-              <DescriptionInput
-                description={organizationInfo.hospitalDescription}
-                handleInputChange={handleInputChange}
-                disabled={loading}
-              />
-              <EmailAndPasswordInput
-                email={organizationInfo.email}
-                password={organizationInfo.password}
-                disabled={loading}
-                ariaLabel={ariaLabel}
-                handleInputChange={handleInputChange}
-              />
-              <LoadingButton
-                type="submit"
-                variant="contained"
-                color="primary"
-                loading={loading}
-              >
-                Create Account
-              </LoadingButton>
-            </Box>
+              Create Account
+            </LoadingButton>
           </Paper>
         </div>
       </RouterAnimation>
