@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Paper } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,12 +7,30 @@ import EmailInput from "./EmailInput";
 import FormHeader from "./FormHeader";
 import PasswordInput from "./PasswordInput";
 import SubmitAndLoadButton from "./SubmitAndLoadButton";
-interface PropTypes {
-  handleError: () => void;
-}
-const LoginForm = ({ handleError }: PropTypes) => {
-  const [loading, setLoading] = useState<boolean>(false);
+import LoginError from "./LoginError";
+import RecoverAndCreateAccount from "./RecoverAndCreateAccount";
 
+
+const containerStyles = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 1,
+  width: "95%",
+  maxWidth: "400px",
+  minHeight: "300px",
+  padding: "0.5rem",
+  mx: "auto",
+  my: "auto",
+}
+const formStyles = {
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  gap: 1,
+}
+const RegularLoginForm = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
@@ -30,27 +48,34 @@ const LoginForm = ({ handleError }: PropTypes) => {
         navigate("/");
       }
     } catch (_error) {
-      handleError();
+      setError(true);
     } finally {
       setLoading(false);
     }
   };
   return (
     <>
-      <Container
-        component={`form`}
+      <Paper
+        component={`div`}
         aria-required
-        sx={{ width: "100%", display: "flex", flexDirection: "column", gap: 1 }}
-        name="login"
-        onSubmit={handleSubmit}
+        sx={containerStyles}
       >
-        <FormHeader />
-        <EmailInput loading={loading} />
-        <PasswordInput loading={loading} />
-        <SubmitAndLoadButton loading={loading} />
-      </Container>
+        <Container
+          component={`form`}
+          sx={formStyles}
+          name="login"
+          onSubmit={handleSubmit}
+        >
+          <FormHeader />
+          <EmailInput loading={loading} />
+          <PasswordInput loading={loading} />
+          <SubmitAndLoadButton loading={loading} />
+        </Container>
+        {error && <LoginError />}
+        <RecoverAndCreateAccount />
+      </Paper>
     </>
   );
 };
 
-export default LoginForm;
+export default RegularLoginForm;

@@ -1,16 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
-
+import { Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
-import LoginError from "../components/Login/LoginError";
-import LoginForm from "../components/Login/LoginForm";
+import GoogleSignInButton from "../components/Login/GoogleSignInButton";
+import RegularLoginForm from "../components/Login/RegularLoginForm";
 import LoginLayout from "../components/Login/LoginLayout";
-import RecoverAndCreateAccount from "../components/Login/RecoverAndCreateAccount";
 import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
 
 const Login = () => {
-  const [error, setError] = useState<boolean>(false);
   const { currentUser } = useContext(AuthContext);
   if (currentUser) {
     return <Navigate to={`/`} replace={true} />;
@@ -19,9 +17,11 @@ const Login = () => {
     <>
       <RouterAnimation>
         <LoginLayout>
-          <LoginForm handleError={() => setError(true)} />
-          {error && <LoginError />}
-          <RecoverAndCreateAccount />
+          <RegularLoginForm />
+          <Typography fontWeight={`bold`} textAlign={`center`} py={1}>
+            Or
+          </Typography>
+          <GoogleSignInButton />
         </LoginLayout>
       </RouterAnimation>
     </>
