@@ -72,6 +72,7 @@ const Resigstration = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    console.log(e.target)
     console.log("Submitted", organizationInfo);
     const { email, password, name, hospitalDescription, image } =
       organizationInfo;
@@ -113,7 +114,7 @@ const Resigstration = () => {
     if (image) {
       return URL.createObjectURL(image);
     }
-    return ""; // Return an empty string if no image is present
+    return "";
   };
 
   const { currentUser } = useContext(AuthContext);
