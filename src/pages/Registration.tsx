@@ -1,18 +1,19 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import useRegistrationHooks from "../components/Registration/useRegistrationHooks";
+import { AuthContext } from "../contexts/AuthContext";
+import { auth } from "../firebase/firebase";
+import RouterAnimation from "./RouterAnimation";
+
+//component imports
 import { LoadingButton } from "@mui/lab";
 import { Paper } from "@mui/material";
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
-
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { Navigate, useNavigate } from "react-router-dom";
 import DescriptionInput from "../components/Registration/DescriptionInput";
 import EmailAndPasswordInput from "../components/Registration/EmailAndPasswordInput";
 import ImageUpload from "../components/Registration/ImageUpload";
 import NameRegistration from "../components/Registration/NameRegistration";
-import { AuthContext } from "../contexts/AuthContext";
-import { auth, db, storage } from "../firebase/firebase";
-import RouterAnimation from "./RouterAnimation";
+import RegistrationError from "../components/Registration/RegistrationError";
 
 interface organizationInfo {
   name: string;
@@ -37,6 +38,8 @@ const containerStyles = {
 };
 
 const Resigstration = () => {
+  const { createTemporaryURL, updateHospitalsCollection, updateImageAndName } =
+    useRegistrationHooks();
   const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>({
     name: "",
     password: "",
@@ -48,6 +51,7 @@ const Resigstration = () => {
   const ariaLabel = { "aria-label": "description" };
   const [take, setTake] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -72,8 +76,6 @@ const Resigstration = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    console.log(e.target)
-    console.log("Submitted", organizationInfo);
     const { email, password, name, hospitalDescription, image } =
       organizationInfo;
     try {
@@ -84,37 +86,15 @@ const Resigstration = () => {
       );
       const user = userCredential.user;
       if (user && image) {
-        // Upload image to Firebase Storage
-        const storageRef = ref(storage, `images/${user.uid}`);
-        await uploadBytes(storageRef, image);
-
-        // Get image download URL
-        const downloadUrl = await getDownloadURL(storageRef);
-
-        // Update user profile with name and photoURL
-        await updateProfile(user, {
-          displayName: name,
-          photoURL: downloadUrl,
-        });
-
-        const userRef = doc(db, "hospitals", user.uid);
-        await setDoc(userRef, {
-          hospitalDescription,
-        });
+        await updateImageAndName(user, image, name);
+        await updateHospitalsCollection(user, hospitalDescription);
         navigate("/login");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (_err) {
+      setError(true)
     } finally {
       setLoading(false);
     }
-  };
-
-  const createTemporaryURL = (image: File | null) => {
-    if (image) {
-      return URL.createObjectURL(image);
-    }
-    return "";
   };
 
   const { currentUser } = useContext(AuthContext);
@@ -133,6 +113,7 @@ const Resigstration = () => {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
+            {error && <RegistrationError handleClose={() => setError(false)}/>}
             <ImageUpload
               image={createTemporaryURL(organizationInfo.image)}
               disabled={loading}
@@ -158,6 +139,7 @@ const Resigstration = () => {
               ariaLabel={ariaLabel}
               handleInputChange={handleInputChange}
             />
+            {error && <RegistrationError handleClose={() => setError(false)}/>}
             <LoadingButton
               type="submit"
               variant="contained"
