@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import useRegistrationHooks from "../components/Registration/useRegistrationHooks";
@@ -88,6 +88,7 @@ const Resigstration = () => {
       if (user && image) {
         await updateImageAndName(user, image, name);
         await updateHospitalsCollection(user, hospitalDescription);
+        await sendEmailVerification(user)
         navigate("/login");
       }
     } catch (_err) {
