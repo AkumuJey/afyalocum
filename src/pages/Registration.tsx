@@ -12,6 +12,7 @@ import EmailAndPasswordInput from "../components/Registration/EmailAndPasswordIn
 import ImageUpload from "../components/Registration/ImageUpload";
 import NameRegistration from "../components/Registration/NameRegistration";
 import RegistrationError from "../components/Registration/RegistrationError";
+import SuccessfulRegistrationModal from "../components/Registration/SuccessfulRegistrationModal";
 
 
 
@@ -77,7 +78,8 @@ const Resigstration = () => {
     e.preventDefault();
     setLoading(true);
     try{
-      handleRegistrationAndVerificationLink(organizationInfo)
+      await handleRegistrationAndVerificationLink(organizationInfo)
+      setSuccess(true)
     } catch (_err) {
       setError(true)
     } finally {
@@ -93,6 +95,7 @@ const Resigstration = () => {
   return (
     <>
       <RouterAnimation>
+        <SuccessfulRegistrationModal open={success} handleClose={()=>setSuccess(true)}/>
         <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
           <Paper
             elevation={3}
@@ -134,7 +137,7 @@ const Resigstration = () => {
               variant="contained"
               color="primary"
               loading={loading}
-              disabled={loading}
+              disabled={loading || success}
             >
               Create Account
             </LoadingButton>
