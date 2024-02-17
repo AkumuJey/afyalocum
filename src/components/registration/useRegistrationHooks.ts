@@ -1,20 +1,21 @@
-
 import {
+  Auth,
   User,
-  updateProfile
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../../firebase/firebase";
+import { auth, db, storage } from "../../firebase/firebase";
 
-
-
-const createTemporaryURL = (image: File | null) => {
-  if (image) {
-    return URL.createObjectURL(image);
-  }
-  return "";
-};
+export interface organizationInfo {
+  name: string;
+  password: string;
+  email: string;
+  hospitalDescription: string;
+  image: File | null;
+}
 
 const updateHospitalsCollection = async (
   user: User,
@@ -26,7 +27,6 @@ const updateHospitalsCollection = async (
   });
 };
 
-
 const updateImageAndName = async (user: User, image: File, name: string) => {
   const storageRef = ref(storage, `images/${user.uid}`);
   await uploadBytes(storageRef, image);
@@ -37,9 +37,34 @@ const updateImageAndName = async (user: User, image: File, name: string) => {
   });
 };
 
+const createUser = async (auth: Auth, email: string, password: string) => {
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  return userCredential;
+};
+const handleRegistrationAndVerificationLink = async (
+  organizationInfo: organizationInfo
+) => {
+  const { email, password, name, hospitalDescription, image } =
+    organizationInfo;
+  try {
+    const userCredential = await createUser(auth, email, password);
+    const user = userCredential.user;
+    if (user && image) {
+      await updateImageAndName(user, image, name);
+      await updateHospitalsCollection(user, hospitalDescription);
+      await sendEmailVerification(user);
+    }
+  } catch (err) {
+    throw new Error("Failed Try Again");
+  }
+};
 
 const useRegistrationHooks = () => {
-  return {createTemporaryURL, updateHospitalsCollection, updateImageAndName }
-}
+  return { handleRegistrationAndVerificationLink };
+};
 
-export default useRegistrationHooks
+export default useRegistrationHooks;

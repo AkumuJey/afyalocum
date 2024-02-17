@@ -1,9 +1,7 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import useRegistrationHooks from "../components/Registration/useRegistrationHooks";
+import { Navigate } from "react-router-dom";
+import useRegistrationHooks, { organizationInfo } from "../components/Registration/useRegistrationHooks";
 import { AuthContext } from "../contexts/AuthContext";
-import { auth } from "../firebase/firebase";
 import RouterAnimation from "./RouterAnimation";
 
 //component imports
@@ -15,13 +13,7 @@ import ImageUpload from "../components/Registration/ImageUpload";
 import NameRegistration from "../components/Registration/NameRegistration";
 import RegistrationError from "../components/Registration/RegistrationError";
 
-interface organizationInfo {
-  name: string;
-  password: string;
-  email: string;
-  hospitalDescription: string;
-  image: File | null;
-}
+
 
 const containerStyles = {
   width: {
@@ -38,7 +30,7 @@ const containerStyles = {
 };
 
 const Resigstration = () => {
-  const { createTemporaryURL, updateHospitalsCollection, updateImageAndName } =
+  const { handleRegistrationAndVerificationLink } =
     useRegistrationHooks();
   const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>({
     name: "",
@@ -52,12 +44,20 @@ const Resigstration = () => {
   const [take, setTake] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
     setOrganizationInfo({ ...organizationInfo, [id]: value });
+  };
+
+  const createTemporaryURL = (image: File | null) => {
+    if (image) {
+      return URL.createObjectURL(image);
+    }
+    return "";
   };
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) return;
@@ -71,26 +71,13 @@ const Resigstration = () => {
   const handleRetake = () => {
     setTake(!take);
   };
-  const navigate = useNavigate();
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const { email, password, name, hospitalDescription, image } =
-      organizationInfo;
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      if (user && image) {
-        await updateImageAndName(user, image, name);
-        await updateHospitalsCollection(user, hospitalDescription);
-        await sendEmailVerification(user)
-        navigate("/login");
-      }
+    try{
+      handleRegistrationAndVerificationLink(organizationInfo)
     } catch (_err) {
       setError(true)
     } finally {
@@ -98,6 +85,7 @@ const Resigstration = () => {
     }
   };
 
+ 
   const { currentUser } = useContext(AuthContext);
   if (currentUser) {
     return <Navigate to={`/`} replace={true} />;
