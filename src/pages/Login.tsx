@@ -9,7 +9,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
 
 const Login = () => {
-  const [commonDisable, setCommonDisable] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const { currentUser } = useContext(AuthContext);
   if (currentUser) {
     return <Navigate to={`/`} replace={true} />;
@@ -19,15 +19,15 @@ const Login = () => {
       <RouterAnimation>
         <LoginLayout>
           <RegularLoginForm
-            commonDisable={commonDisable}
-            preventDoubleSubmission={(value) => setCommonDisable(value)}
+            loading={loading}
+            handleLoading={(value) => setLoading(value)}
           />
           <Typography fontWeight={`bold`} textAlign={`center`} py={1}>
             Or
           </Typography>
           <GoogleSignInButton
-            commonDisable={commonDisable}
-            preventDoubleSubmission={(value) => setCommonDisable(value)}
+            loading={loading}
+            handleLoading={(value) => setLoading(value)}
           />
         </LoginLayout>
       </RouterAnimation>

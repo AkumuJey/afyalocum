@@ -23,18 +23,16 @@ const errorStyles = {
   mx: "auto",
   my: "auto",
 };
-interface PropTypes{
-  preventDoubleSubmission: (decide: boolean) => void
-  commonDisable: boolean
+interface PropTypes {
+  handleLoading: (decide: boolean) => void;
+  loading: boolean;
 }
 
-const GoogleSignInButton = ({commonDisable, preventDoubleSubmission}: PropTypes) => {
-  const [loading, setLoading] = useState<boolean>(false);
+const GoogleSignInButton = ({ loading, handleLoading }: PropTypes) => {
   const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleSignIn = () => {
-    setLoading(true);
-    preventDoubleSubmission(true)
+    handleLoading(true);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((data) => {
@@ -42,12 +40,12 @@ const GoogleSignInButton = ({commonDisable, preventDoubleSubmission}: PropTypes)
         navigate("/");
       })
       .catch((problem) => {
-        console.log(problem)
+        console.log(problem);
         setError(true);
       })
       .finally(() => {
-        setLoading(false)
-        preventDoubleSubmission(false)});
+        handleLoading(false);
+      });
   };
   return (
     <>
@@ -59,7 +57,7 @@ const GoogleSignInButton = ({commonDisable, preventDoubleSubmission}: PropTypes)
           startIcon={<Google />}
           type="button"
           onClick={handleSignIn}
-          disabled={loading || commonDisable}
+          disabled={loading}
         >
           Sign in with Google
         </Button>

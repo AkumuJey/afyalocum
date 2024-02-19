@@ -30,19 +30,17 @@ const formStyles = {
 }
 
 interface PropTypes{
-  preventDoubleSubmission: (decide: boolean) => void
-  commonDisable: boolean
+  handleLoading: (decide: boolean) => void
+  loading: boolean
 }
-const RegularLoginForm = ({preventDoubleSubmission, commonDisable}: PropTypes) => {
-  const [loading, setLoading] = useState<boolean>(false);
+const RegularLoginForm = ({handleLoading, loading}: PropTypes) => {
   const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    preventDoubleSubmission(true)
+    handleLoading(true)
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -56,8 +54,7 @@ const RegularLoginForm = ({preventDoubleSubmission, commonDisable}: PropTypes) =
     } catch (_error) {
       setError(true);
     } finally {
-      setLoading(false);
-      preventDoubleSubmission(false)
+      handleLoading(false)
     }
   };
   return (
@@ -76,7 +73,7 @@ const RegularLoginForm = ({preventDoubleSubmission, commonDisable}: PropTypes) =
           <FormHeader />
           <EmailInput loading={loading} />
           <PasswordInput loading={loading} />
-          <SubmitAndLoadButton loading={loading} commonDisable={commonDisable}/>
+          <SubmitAndLoadButton loading={loading}/>
         </Container>
         {error && <LoginError handleClose={() => setError(false)}/>}
         <RecoverAndCreateAccount />
