@@ -28,7 +28,12 @@ const formStyles = {
   flexDirection: "column",
   gap: 1,
 }
-const RegularLoginForm = () => {
+
+interface PropTypes{
+  preventDoubleSubmission: (decide: boolean) => void
+  commonDisable: boolean
+}
+const RegularLoginForm = ({preventDoubleSubmission, commonDisable}: PropTypes) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -37,6 +42,7 @@ const RegularLoginForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    preventDoubleSubmission(true)
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -51,6 +57,7 @@ const RegularLoginForm = () => {
       setError(true);
     } finally {
       setLoading(false);
+      preventDoubleSubmission(false)
     }
   };
   return (
@@ -69,7 +76,7 @@ const RegularLoginForm = () => {
           <FormHeader />
           <EmailInput loading={loading} />
           <PasswordInput loading={loading} />
-          <SubmitAndLoadButton loading={loading} />
+          <SubmitAndLoadButton loading={loading} commonDisable={commonDisable}/>
         </Container>
         {error && <LoginError handleClose={() => setError(false)}/>}
         <RecoverAndCreateAccount />

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
 
 const Login = () => {
+  const [commonDisable, setCommonDisable] = useState(false);
   const { currentUser } = useContext(AuthContext);
   if (currentUser) {
     return <Navigate to={`/`} replace={true} />;
@@ -17,11 +18,17 @@ const Login = () => {
     <>
       <RouterAnimation>
         <LoginLayout>
-          <RegularLoginForm />
+          <RegularLoginForm
+            commonDisable={commonDisable}
+            preventDoubleSubmission={(value) => setCommonDisable(value)}
+          />
           <Typography fontWeight={`bold`} textAlign={`center`} py={1}>
             Or
           </Typography>
-          <GoogleSignInButton />
+          <GoogleSignInButton
+            commonDisable={commonDisable}
+            preventDoubleSubmission={(value) => setCommonDisable(value)}
+          />
         </LoginLayout>
       </RouterAnimation>
     </>
