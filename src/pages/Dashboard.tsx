@@ -7,19 +7,17 @@ import {
   Button,
   Collapse,
   Link,
-  LinkProps,
-  Paper,
-  Typography,
+  LinkProps
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
 
-import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
+import { Outlet, Link as RouterLink, useLocation } from "react-router-dom";
+import LocumCard from "../components/Dashboard/LocumCard";
 import TableLayout from "../components/Dashboard/Locums/TableLayout";
 import { generateRandomData } from "../components/Dashboard/Locums/dummyData";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RouterAnimation from "./RouterAnimation";
-import { Place } from "@mui/icons-material";
 
 interface Locum {
   id: number;
@@ -88,24 +86,14 @@ const Dashboard = () => {
     <ProtectedRoute>
       <RouterAnimation>
         <div className="flex flex-col justify-start items-center h-full w-full py-[1rem]">
-          <Paper elevation={2} sx={{ p: "0.5rem", bgcolor: "#009999" }}>
-            <div className="flex items-center gap-1 mb-1">
-              <Place />
-              <Typography variant="h6" fontWeight={`bold`}>
-                North East, Northumberland
-              </Typography>
-            </div>
-            <div className="flex flex-col justify-center gap-1 mb-1 p-1">
-              <Typography>
-                {" "}
-                <span className="font-bold">Urology Consultant</span> –
-                Northumberland
-              </Typography>
-              <Typography>Speciality</Typography>
-              <Typography>Hourly Rate: Consultant</Typography>
-              <Typography>Start - Stop</Typography>
-            </div>
-          </Paper>
+          <div className="flex gap-[1.5rem] flex-wrap px-[1.5rem] justify-around">
+          {Array(5)
+            .fill(null)
+            .map(() => (
+              <LocumCard />
+            ))}
+          </div>
+
           <div className="w-[80%] mx-auto">
             <Breadcrumbs separator=">">
               <LinkRouter
