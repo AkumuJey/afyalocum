@@ -41,7 +41,7 @@ const NewLocumFormLayout = () => {
 
   const trial = (name: unknown) => {
     setJob({...job, ...name})
-    console.log(job)
+    console.log(job, "trial")
   }
   return (
     <Paper

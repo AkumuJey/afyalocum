@@ -32,6 +32,7 @@ const CopletedLocum = ({value, data} : Props) => {
         ) : (
           <TableLayout onClick={() => setDetailsOpen(true)} data={data}/>
         )}
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium delectus in similique numquam, sequi qui reiciendis debitis temporibus atque dolore iste provident natus earum exercitationem facere incidunt sint dolorum praesentium.</div>
       </TabPanel>
     </>
   );

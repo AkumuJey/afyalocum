@@ -2,9 +2,10 @@ import { LoadingButton } from "@mui/lab";
 
 interface PropTypes {
   loading: boolean;
+  spinner: boolean;
 }
 
-const SubmitAndLoadButton = ({ loading }: PropTypes) => {
+const SubmitAndLoadButton = ({ loading, spinner }: PropTypes) => {
   return (
     <>
       <LoadingButton
@@ -12,7 +13,7 @@ const SubmitAndLoadButton = ({ loading }: PropTypes) => {
         variant="contained"
         sx={{ width: "100%" }}
         color="secondary"
-        loading={loading}
+        loading={loading && spinner}
         disabled={loading}
       >
         Login

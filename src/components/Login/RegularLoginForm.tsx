@@ -35,12 +35,14 @@ interface PropTypes{
 }
 const RegularLoginForm = ({handleLoading, loading}: PropTypes) => {
   const [error, setError] = useState<boolean>(false);
+  const [spinner, setSpinner] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleLoading(true)
+    setSpinner(true)
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -55,6 +57,7 @@ const RegularLoginForm = ({handleLoading, loading}: PropTypes) => {
       setError(true);
     } finally {
       handleLoading(false)
+      setSpinner(false)
     }
   };
   return (
@@ -73,7 +76,7 @@ const RegularLoginForm = ({handleLoading, loading}: PropTypes) => {
           <FormHeader />
           <EmailInput loading={loading} />
           <PasswordInput loading={loading} />
-          <SubmitAndLoadButton loading={loading}/>
+          <SubmitAndLoadButton loading={loading} spinner={spinner}/>
         </Container>
         {error && <LoginError handleClose={() => setError(false)}/>}
         <RecoverAndCreateAccount />

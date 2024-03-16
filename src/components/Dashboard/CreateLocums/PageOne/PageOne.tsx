@@ -18,7 +18,6 @@ interface PropTypes extends PartOne {
 const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
   const ariaLabel = { "aria-label": "description" };
   const professions = [
-    "Select Desired Profession",
     "Doctor",
     "Pharmacist",
     "Dentist",
@@ -39,7 +38,7 @@ const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
           width: "100%",
         }}
       >
-        Job Title:
+        Select Job Title:
       </InputLabel>
       <Select
         sx={{ minWidth: "150px", m: 1 }}
