@@ -5,7 +5,7 @@ import { Paper, Typography } from '@mui/material'
 import { motion } from "framer-motion";
 const LocumCard = () => {
   return (
-    <motion.div whileHover={{ scale: 1.10 }} transition={{ duration: 0.3,}} className='w-80'>
+    <motion.div whileHover={{ scale: 1.10 }} transition={{ duration: 0.3,}} className='w-full md:w-[30%]'>
       <Paper elevation={2} sx={{ p: "0.5rem", bgcolor: "#009999", width: "100%" }}>
             <div className="flex items-center gap-1 mb-1">
               <Place />
