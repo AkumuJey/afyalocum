@@ -1,11 +1,17 @@
 import { Place } from '@mui/icons-material'
-import { Paper, Typography } from '@mui/material'
+import { Paper, PropTypes, Typography } from '@mui/material'
 
 
 import { motion } from "framer-motion";
-const LocumCard = () => {
+import { Link } from 'react-router-dom';
+
+interface PropTypes{
+  index: number
+}
+const LocumCard = ({index} : PropTypes) => {
   return (
     <motion.div whileHover={{ scale: 1.10 }} transition={{ duration: 0.3,}} className='w-full md:w-[30%]'>
+      <Link to={`${index}`} className='w-full h-full'>
       <Paper elevation={2} sx={{ p: "0.5rem", bgcolor: "#009999", width: "100%" }}>
             <div className="flex items-center gap-1 mb-1">
               <Place />
@@ -23,7 +29,8 @@ const LocumCard = () => {
               <Typography>Hourly Rate: Consultant</Typography>
               <Typography>Start - Stop</Typography>
             </div>
-          </Paper>
+      </Paper>
+      </Link>
     </motion.div>
   )
 }
