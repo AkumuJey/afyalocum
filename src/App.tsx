@@ -54,6 +54,26 @@ function App(props: Props) {
               errorElement: <ErrorPage />,
             },
             {
+              path: "/dashboard/booked-locums",
+              element: <OpenLocums />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: "/dashboard/booked-locums/:id",
+              element: <SingleLocumPage />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: "/dashboard/settled-locums",
+              element: <OpenLocums />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: "/dashboard/settled-locums/:id",
+              element: <SingleLocumPage />,
+              errorElement: <ErrorPage />,
+            },
+            {
               path: "/dashboard/create-new-locum",
               element: <CreateNew />,
               errorElement: <ErrorPage />,
