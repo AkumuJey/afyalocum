@@ -69,7 +69,7 @@ const Navbar = (props: Props) => {
                 locum
               </Typography>
             </Typography>
-            <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
+             <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
           </Grid>
           <NavLinkList
             open={open}

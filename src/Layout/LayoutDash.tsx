@@ -54,23 +54,23 @@ const LayoutDash = () => {
             >
               Back
             </Button>
-            <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-start gap-[1rem]">
-              <Button color="primary" variant="outlined" sx={{width: "20%"}}>
+            <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1rem]">
+              <Button color="primary" variant="outlined">
                 <RouterLink to={`/dashboard/create-new-locum`}>
                   Create new locum
                 </RouterLink>
               </Button>
-              <Button color="primary" variant="outlined" sx={{width: "20%"}}>
+              <Button color="primary" variant="outlined">
                 <RouterLink to={`/dashboard/open-locums`}>
                   Open Locums
                 </RouterLink>
               </Button>
-              <Button color="primary" variant="outlined" sx={{width: "20%"}}>
+              <Button color="primary" variant="outlined">
                 <RouterLink to={`/dashboard/booked-locums`}>
                   Booked Locums
                 </RouterLink>
               </Button>
-              <Button color="primary" variant="outlined" sx={{width: "20%"}}>
+              <Button color="primary" variant="outlined">
                 <RouterLink to={`/dashboard/settled-locums`}>
                   Booked Locums
                 </RouterLink>
