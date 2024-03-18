@@ -47,21 +47,6 @@ const LayoutDash = () => {
             </Breadcrumbs>
           </div>
           <div className="w-[80%] mx-auto py-[0.4rem]">
-            <Button color="primary" variant="outlined">
-              <RouterLink to={`/dashboard/create-new-locum`}>
-                Create new locum
-              </RouterLink>
-            </Button>
-            <Button color="primary" variant="outlined">
-              <RouterLink to={`/dashboard/create-new-locum`}>
-                Open Locums
-              </RouterLink>
-            </Button>
-            <Button color="primary" variant="outlined">
-              <RouterLink to={`/dashboard/create-new-locum`}>
-                Booked Locums
-              </RouterLink>
-            </Button>
             <Button
               color="info"
               variant="outlined"
@@ -69,6 +54,28 @@ const LayoutDash = () => {
             >
               Back
             </Button>
+            <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-start gap-[1rem]">
+              <Button color="primary" variant="outlined" sx={{width: "40%"}}>
+                <RouterLink to={`/dashboard/create-new-locum`}>
+                  Create new locum
+                </RouterLink>
+              </Button>
+              <Button color="primary" variant="outlined" sx={{width: "40%"}}>
+                <RouterLink to={`/dashboard/open-locums`}>
+                  Open Locums
+                </RouterLink>
+              </Button>
+              <Button color="primary" variant="outlined" sx={{width: "40%"}}>
+                <RouterLink to={`/dashboard/booked-locums`}>
+                  Booked Locums
+                </RouterLink>
+              </Button>
+              <Button color="primary" variant="outlined" sx={{width: "40%"}}>
+                <RouterLink to={`/dashboard/settled-locums`}>
+                  Booked Locums
+                </RouterLink>
+              </Button>
+            </div>
           </div>
           <Outlet />
         </div>

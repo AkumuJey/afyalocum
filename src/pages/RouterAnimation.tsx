@@ -10,7 +10,7 @@ const RouterAnimation = ({ children }: PropTypes) => {
       animate={{ opacity: 1, y: 0, x: 0 }}
       exit={{ opacity: 0, y: 0, x: "-100%" }}
       transition={{ duration: 0.5, type:"spring", stiffness: 150, }}
-      className="valid-height flex justify-center items-center"
+      className="valid-height flex justify-center "
     >
         {children}
     </motion.div>
