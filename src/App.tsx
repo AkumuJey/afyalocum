@@ -4,7 +4,9 @@ import { lazy, useEffect } from "react";
 // import Home from "./pages/Home";
 // import ErrorPage from "./pages/ErrorPage";
 
-import Dashboard from "./pages/Dashboard";
+import LayoutDash from "./Layout/LayoutDash";
+import OpenLocums from "./pages/OpenLocums";
+import SingleLocumPage from "./pages/SingleLocumPage";
 // import CreateNew from "./pages/CreateNew";
 const About = lazy(() => import("./pages/About"))
 const Profile = lazy(() => import("./pages/Profile"))
@@ -38,9 +40,19 @@ function App(props: Props) {
         },
         {
           path: "/dashboard",
-          element: <Dashboard />,
+          element: <LayoutDash />,
           errorElement: <ErrorPage />,
           children: [
+            {
+              path: "/dashboard/open-locums",
+              element: <OpenLocums />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: "/dashboard/open-locums/:id",
+              element: <SingleLocumPage />,
+              errorElement: <ErrorPage />,
+            },
             {
               path: "/dashboard/create-new-locum",
               element: <CreateNew />,

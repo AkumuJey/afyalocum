@@ -8,7 +8,8 @@ import {
   Collapse,
   Link,
   LinkProps,
-  Typography
+  Paper,
+  Typography,
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
@@ -87,35 +88,42 @@ const Dashboard = () => {
     <ProtectedRoute>
       <RouterAnimation>
         <div className="flex flex-col justify-start items-center h-full w-full py-[1rem]">
-
-          <div className="w-full md:w-[40%] p-[1.5rem]">
-          <Typography variant="h5" fontWeight={`bold`}>Location</Typography>
+          <div className="w-full md:w-[40%] m-[1.5rem]">
+            <Paper elevation={2} sx={{width: "100%", p: "1.5rem", bgcolor: "blueviolet"}}>
+            <Typography variant="h5" fontWeight={`bold`}>
+              Location
+            </Typography>
             <Typography>Doctor</Typography>
             <div>
-            <Typography fontWeight={`bold`}>Requirements: </Typography>
-            <p>diavclfsd vasj</p>
+              <Typography fontWeight={`bold`}>Requirements: </Typography>
+              <p>diavclfsd vasj</p>
             </div>
             <div>
-            <Typography fontWeight={`bold`}>Job Description: </Typography>
-            <p>diavclfsd vasj</p>
+              <Typography fontWeight={`bold`}>Job Description: </Typography>
+              <p>diavclfsd vasj</p>
             </div>
             <div>
-            <Typography fontWeight={`bold`}>Hourly Rate</Typography>
+              <Typography fontWeight={`bold`}>Hourly Rate</Typography>
             </div>
             <div>
-            <Typography>Start - Stop</Typography>
+              <Typography>Start - Stop</Typography>
             </div>
             <div className="flex justify-between">
-            <Button variant="contained" color="error">Back</Button>
-            <Button variant="contained" color="success">Accept</Button>
+              <Button variant="contained" color="error">
+                Back
+              </Button>
+              <Button variant="contained" color="success">
+                Accept
+              </Button>
             </div>
+            </Paper>
           </div>
           <div className="flex gap-[1.5rem] flex-wrap px-[1.5rem] justify-start w-[95%] md:w-4/4">
-          {Array(5)
-            .fill(null)
-            .map(() => (
-              <LocumCard />
-            ))}
+            {Array(5)
+              .fill(null)
+              .map(() => (
+                <LocumCard />
+              ))}
           </div>
 
           <div className="w-[80%] mx-auto">
