@@ -14,53 +14,57 @@ interface LinkRouterProps extends LinkProps {
   replace?: boolean;
 }
 const RouteDisplay = {
-   "/dashboard/open-locums" : "Open Locums",
-   "/dashboard/booked-locums" : "Booked Locums",
-   "/dashboard/settled-locums" :  "Settled Locums",
-   "/dashboard/create-new-locum" : "Create New Locum"
-}
+  "/dashboard/open-locums": "Open Locums",
+  "/dashboard/booked-locums": "Booked Locums",
+  "/dashboard/settled-locums": "Settled Locums",
+  "/dashboard/create-new-locum": "Create New Locum",
+};
 function LinkRouter(props: LinkRouterProps) {
   return <Link {...props} component={RouterLink} />;
 }
 
 const LayoutDash = () => {
   const location = useLocation();
-  const pathname  = location.pathname
+  const pathname = location.pathname;
   const hideRegister = pathname === "/dashboard";
   const navigate = useNavigate();
   return (
     <ProtectedRoute>
       <RouterAnimation>
         <div className="flex flex-col justify-start items-center h-full w-full py-[1rem]">
-          <div className="w-[80%] mx-auto">
-            <Breadcrumbs separator=">">
-              <LinkRouter
-                to={`/dashboard`}
-                underline="hover"
-                color={hideRegister ? "purple" : "black"}
-                sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
-              >
-                Locums
-              </LinkRouter>
-              <LinkRouter
-                to={`/dashboard/create-new-locum`}
-                underline="hover"
-                color={!hideRegister ? "purple" : "black"}
-                sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
-              >
-                {RouteDisplay[pathname]}
-              </LinkRouter>
-            </Breadcrumbs>
-          </div>
-          <div className="w-[80%] mx-auto py-[0.4rem]">
-            <Button
-              color="info"
-              variant="outlined"
-              onClick={() => navigate(-1)}
-            >
-              Back
-            </Button>
-          </div>
+          {!hideRegister && (
+            <>
+              <div className="w-[80%] mx-auto">
+                <Breadcrumbs separator=">">
+                  <LinkRouter
+                    to={`/dashboard`}
+                    underline="hover"
+                    color={hideRegister ? "purple" : "black"}
+                    sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
+                  >
+                    Locums
+                  </LinkRouter>
+                  <LinkRouter
+                    to={`/dashboard/create-new-locum`}
+                    underline="hover"
+                    color={!hideRegister ? "purple" : "black"}
+                    sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
+                  >
+                    {RouteDisplay[pathname]}
+                  </LinkRouter>
+                </Breadcrumbs>
+              </div>
+              <div className="w-[80%] mx-auto py-[0.4rem]">
+                <Button
+                  color="info"
+                  variant="outlined"
+                  onClick={() => navigate(-1)}
+                >
+                  Back
+                </Button>
+              </div>
+            </>
+          )}
           <Outlet />
         </div>
       </RouterAnimation>
