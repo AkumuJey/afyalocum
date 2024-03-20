@@ -1,8 +1,13 @@
 import { Button, Paper, Typography } from "@mui/material";
-import { Outlet, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const SingleLocumPage = () => {
   const { id } = useParams();
+  const { pathname } = useLocation()
+
+  const handleDeletion = () => {
+    console.log(id)
+  }
   return (
     <>
       <div className="w-full md:w-[40%] m-[1.5rem]">
@@ -30,16 +35,15 @@ const SingleLocumPage = () => {
             <Typography>Start - Stop</Typography>
           </div>
           <div className="flex justify-between py-[0.5rem]">
-            <Button variant="contained" color="error">
+            <Button variant="contained" color="error" onClick={handleDeletion}>
               Delete
             </Button>
-            <Button variant="contained" color="primary">
-              Edit
+            <Button variant="contained" color="primary" disabled={pathname !== `/dashboard/open-locums/${id}`}>
+              <Link to={`${pathname}/edit`}>Edit</Link>
             </Button>
           </div>
         </Paper>
       </div>
-      <Outlet />
     </>
   );
 };

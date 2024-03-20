@@ -56,7 +56,7 @@ function App(props: Props) {
             },
             {
               path: "/dashboard/open-locums/:id",
-              element: <SingleLocumPage />,
+              element: <SingleLocumLayout />,
               errorElement: <ErrorPage />,
               children: [
                 {
