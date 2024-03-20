@@ -13,14 +13,20 @@ interface LinkRouterProps extends LinkProps {
   to: string;
   replace?: boolean;
 }
-
+const RouteDisplay = {
+   "/dashboard/open-locums" : "Open Locums",
+   "/dashboard/booked-locums" : "Booked Locums",
+   "/dashboard/settled-locums" :  "Settled Locums",
+   "/dashboard/create-new-locum" : "Create New Locum"
+}
 function LinkRouter(props: LinkRouterProps) {
   return <Link {...props} component={RouterLink} />;
 }
 
 const LayoutDash = () => {
   const location = useLocation();
-  const hideRegister = location.pathname === "/dashboard";
+  const pathname  = location.pathname
+  const hideRegister = pathname === "/dashboard";
   const navigate = useNavigate();
   return (
     <ProtectedRoute>
@@ -42,7 +48,7 @@ const LayoutDash = () => {
                 color={!hideRegister ? "purple" : "black"}
                 sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
               >
-                New Locum
+                {RouteDisplay[pathname]}
               </LinkRouter>
             </Breadcrumbs>
           </div>
@@ -54,28 +60,6 @@ const LayoutDash = () => {
             >
               Back
             </Button>
-            <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1rem]">
-              <Button color="primary" variant="outlined">
-                <RouterLink to={`/dashboard/create-new-locum`}>
-                  Create new locum
-                </RouterLink>
-              </Button>
-              <Button color="primary" variant="outlined">
-                <RouterLink to={`/dashboard/open-locums`}>
-                  Open Locums
-                </RouterLink>
-              </Button>
-              <Button color="primary" variant="outlined">
-                <RouterLink to={`/dashboard/booked-locums`}>
-                  Booked Locums
-                </RouterLink>
-              </Button>
-              <Button color="primary" variant="outlined">
-                <RouterLink to={`/dashboard/settled-locums`}>
-                  Booked Locums
-                </RouterLink>
-              </Button>
-            </div>
           </div>
           <Outlet />
         </div>
