@@ -9,6 +9,7 @@ import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
 import { Job, submitToFirebase } from "./hooks/useJobForm";
 
+
 const NewLocumFormLayout = () => {
   const [job, setJob] = useState<Job>({
     title: "",

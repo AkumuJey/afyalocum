@@ -1,5 +1,5 @@
 import { Button, Paper, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 const SingleLocumPage = () => {
   const { id } = useParams();
@@ -39,6 +39,7 @@ const SingleLocumPage = () => {
           </div>
         </Paper>
       </div>
+      <Outlet />
     </>
   );
 };

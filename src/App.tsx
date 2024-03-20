@@ -8,19 +8,19 @@ import LayoutDash from "./Layout/LayoutDash";
 import OpenLocums from "./pages/OpenLocums";
 import SingleLocumPage from "./pages/SingleLocumPage";
 import DashIndex from "./Layout/DashIndex";
+import LocumEdit from "./pages/LocumEdit";
+import SingleLocumLayout from "./Layout/SingleLocumLayout";
 // import CreateNew from "./pages/CreateNew";
-const About = lazy(() => import("./pages/About"))
-const Profile = lazy(() => import("./pages/Profile"))
-const Registration = lazy(() => import("./pages/Registration"))
-const Root = lazy(() => import("./pages/Root"))
-const Login = lazy(() => import("./pages/Login"))
-const RecoverPassword = lazy(() => import("./pages/RecoverPassword"))
-const Home = lazy(() => import("./pages/Home"))
-const CreateNew = lazy(() => import("./pages/CreateNewLocum"))
+const About = lazy(() => import("./pages/About"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Registration = lazy(() => import("./pages/Registration"));
+const Root = lazy(() => import("./pages/Root"));
+const Login = lazy(() => import("./pages/Login"));
+const RecoverPassword = lazy(() => import("./pages/RecoverPassword"));
+const Home = lazy(() => import("./pages/Home"));
+const CreateNew = lazy(() => import("./pages/CreateNewLocum"));
 // const Dashboard = lazy(() => import("./pages/Dashboard"))
-const ErrorPage = lazy(() => import("./pages/ErrorPage"))
-
-
+const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 
 interface Props {
   window?: () => Window;
@@ -58,6 +58,18 @@ function App(props: Props) {
               path: "/dashboard/open-locums/:id",
               element: <SingleLocumPage />,
               errorElement: <ErrorPage />,
+              children: [
+                {
+                  path: "/dashboard/open-locums/:id",
+                  element: <SingleLocumPage />,
+                  errorElement: <ErrorPage />,
+                },
+                {
+                  path: "/dashboard/open-locums/:id/edit",
+                  element: <LocumEdit />,
+                  errorElement: <ErrorPage />,
+                },
+              ],
             },
             {
               path: "/dashboard/booked-locums",
@@ -84,7 +96,7 @@ function App(props: Props) {
               element: <CreateNew />,
               errorElement: <ErrorPage />,
             },
-          ]
+          ],
         },
         {
           path: "/login",
