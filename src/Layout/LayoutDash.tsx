@@ -13,7 +13,11 @@ interface LinkRouterProps extends LinkProps {
   to: string;
   replace?: boolean;
 }
-const RouteDisplay = {
+interface RouteDisplay {
+  [key: string]: string
+}
+
+const RouteDisplay: RouteDisplay = {
   "/dashboard/open-locums": "Open Locums",
   "/dashboard/booked-locums": "Booked Locums",
   "/dashboard/settled-locums": "Settled Locums",
@@ -50,7 +54,7 @@ const LayoutDash = () => {
                     color={!hideRegister ? "purple" : "black"}
                     sx={{ fontSize: "1.3rem", fontWeight: "bold" }}
                   >
-                    {RouteDisplay[pathname]}
+                    {RouteDisplay[pathname as keyof RouteDisplay]}
                   </LinkRouter>
                 </Breadcrumbs>
               </div>
