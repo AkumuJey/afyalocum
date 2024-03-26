@@ -24,13 +24,11 @@ const DashIndex = () => {
     <>
       <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">
         {locumRoutes.map((locumRoute) => (
-          <>
             <LocumRouteCard
               routeDirection={locumRoute.routeDirection}
               title={locumRoute.title}
               key={locumRoute.title}
             />
-          </>
         ))}
       </div>
     </>

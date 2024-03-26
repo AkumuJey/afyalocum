@@ -5,7 +5,7 @@ interface PropTypes {
   title: string;
 }
 
-const LocumRouteCard = ({ routeDirection, title }: PropTypes) => {
+const LocumRouteCard = ({ routeDirection, title, }: PropTypes) => {
   return (
     <>
       <motion.div

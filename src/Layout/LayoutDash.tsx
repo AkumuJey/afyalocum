@@ -17,6 +17,7 @@ interface RouteDisplay {
   [key: string]: string
 }
 
+
 const RouteDisplay: RouteDisplay = {
   "/dashboard/open-locums": "Open Locums",
   "/dashboard/booked-locums": "Booked Locums",
