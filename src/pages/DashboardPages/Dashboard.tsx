@@ -15,11 +15,11 @@ import {
 import { useEffect, useState } from "react";
 
 import { Outlet, Link as RouterLink, useLocation } from "react-router-dom";
-import LocumCard from "../components/Dashboard/LocumCard";
-import TableLayout from "../components/Dashboard/Locums/TableLayout";
-import { generateRandomData } from "../components/Dashboard/Locums/dummyData";
-import ProtectedRoute from "../components/ProtectedRoute";
-import RouterAnimation from "./RouterAnimation";
+import LocumCard from "../../components/Dashboard/LocumCard";
+import TableLayout from "../../components/Dashboard/Locums/TableLayout";
+import { generateRandomData } from "../../components/Dashboard/Locums/dummyData";
+import ProtectedRoute from "../../components/ProtectedRoute";
+import RouterAnimation from "../RouterAnimation";
 
 interface Locum {
   id: number;

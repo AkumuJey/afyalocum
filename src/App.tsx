@@ -5,13 +5,13 @@ import { lazy, useEffect } from "react";
 // import ErrorPage from "./pages/ErrorPage";
 
 import LayoutDash from "./Layout/LayoutDash";
-import OpenLocums from "./pages/OpenLocums";
-import SingleLocumPage from "./pages/SingleLocumPage";
+import OpenLocums from "./pages/DashboardPages/OpenLocums";
+import SingleLocumPage from "./pages/DashboardPages/SingleLocumPage";
 import DashIndex from "./Layout/DashIndex";
-import LocumEdit from "./pages/LocumEdit";
+import LocumEdit from "./pages/DashboardPages/LocumEdit";
 import SingleLocumLayout from "./Layout/SingleLocumLayout";
-import BookedLocums from "./pages/BookedLocums";
-import SettledLocums from "./pages/SettledLocums";
+import BookedLocums from "./pages/DashboardPages/BookedLocums";
+import SettledLocums from "./pages/DashboardPages/SettledLocums";
 // import CreateNew from "./pages/CreateNew";
 const About = lazy(() => import("./pages/About"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -20,7 +20,7 @@ const Root = lazy(() => import("./pages/Root"));
 const Login = lazy(() => import("./pages/Login"));
 const RecoverPassword = lazy(() => import("./pages/RecoverPassword"));
 const Home = lazy(() => import("./pages/Home"));
-const CreateNew = lazy(() => import("./pages/CreateNewLocum"));
+const CreateNew = lazy(() => import("./pages/DashboardPages/CreateNewLocum"));
 // const Dashboard = lazy(() => import("./pages/Dashboard"))
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 

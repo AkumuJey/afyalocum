@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import NewLocumFormLayout from "../components/Dashboard/CreateLocums/NewLocumFormLayout";
+import NewLocumFormLayout from "../../components/Dashboard/CreateLocums/NewLocumFormLayout";
 
 const LocumEdit = () => {
     const {id} = useParams()

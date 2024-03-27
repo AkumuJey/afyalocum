@@ -1,4 +1,4 @@
-import LocumCard from "../components/Dashboard/LocumCard";
+import LocumCard from "../../components/Dashboard/LocumCard";
 
 const BookedLocums = () => {
   return (
