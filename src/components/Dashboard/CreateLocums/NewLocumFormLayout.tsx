@@ -8,6 +8,7 @@ import PageThree from "./PageThree/PageThree";
 import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
 import { Job, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
+import dayjs from "dayjs";
 
 interface PropTypes{
   handleNotification: () => void;
@@ -19,12 +20,15 @@ const NewLocumFormLayout = ({handleNotification}: PropTypes) => {
     description: "",
     location: "",
     rate: null,
-    start: null,
-    stop: null,
+    // start: null,
+    // stop: null,
+    start: dayjs("Wed, 27 Mar 2024 21:00:00 GMT"),
+    stop: dayjs ("Fri, 29 Mar 2024 21:00:00 GMT"),
     completed: false,
   });
+  
   const { title, requirements, description, location, rate, start, stop } = job;
-
+console.log(job)
   const [step, setStep] = useState<number>(1);
 
   const validSubmission =

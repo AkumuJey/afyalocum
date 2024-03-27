@@ -10,6 +10,8 @@ import SingleLocumPage from "./pages/SingleLocumPage";
 import DashIndex from "./Layout/DashIndex";
 import LocumEdit from "./pages/LocumEdit";
 import SingleLocumLayout from "./Layout/SingleLocumLayout";
+import BookedLocums from "./pages/BookedLocums";
+import SettledLocums from "./pages/SettledLocums";
 // import CreateNew from "./pages/CreateNew";
 const About = lazy(() => import("./pages/About"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -73,7 +75,7 @@ function App(props: Props) {
             },
             {
               path: "/dashboard/booked-locums",
-              element: <OpenLocums />,
+              element: <BookedLocums />,
               errorElement: <ErrorPage />,
             },
             {
@@ -83,7 +85,7 @@ function App(props: Props) {
             },
             {
               path: "/dashboard/settled-locums",
-              element: <OpenLocums />,
+              element: <SettledLocums />,
               errorElement: <ErrorPage />,
             },
             {
@@ -124,6 +126,7 @@ function App(props: Props) {
           errorElement: <ErrorPage />,
         },
       ],
+      errorElement: <ErrorPage />
     },
   ]);
   useEffect(() => {
