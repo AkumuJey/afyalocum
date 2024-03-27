@@ -8,24 +8,14 @@ import PageThree from "./PageThree/PageThree";
 import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
 import { Job, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
-import dayjs from "dayjs";
+
 
 interface PropTypes{
   handleNotification: () => void;
+  existingJob: Job
 }
-const NewLocumFormLayout = ({handleNotification}: PropTypes) => {
-  const [job, setJob] = useState<Job>({
-    title: "",
-    requirements: "",
-    description: "",
-    location: "",
-    rate: null,
-    // start: null,
-    // stop: null,
-    start: dayjs("Wed, 27 Mar 2024 21:00:00 GMT"),
-    stop: dayjs ("Fri, 29 Mar 2024 21:00:00 GMT"),
-    completed: false,
-  });
+const NewLocumFormLayout = ({handleNotification, existingJob}: PropTypes) => {
+  const [job, setJob] = useState<Job>(existingJob);
   
   const { title, requirements, description, location, rate, start, stop } = job;
 console.log(job)
@@ -51,7 +41,7 @@ console.log(job)
         console.log(jobFormat);
         await submitToFirebase(jobFormat as SubmittedLocum);
         handleNotification()
-        navigate("/dashboard");
+        setTimeout(() => navigate("/dashboard"), 2000)
       } catch (error) {
         console.log(error);
       }
