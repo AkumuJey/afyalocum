@@ -7,9 +7,12 @@ import PageOne from "./PageOne/PageOne";
 import PageThree from "./PageThree/PageThree";
 import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
-import { Job, submitToFirebase } from "./hooks/useJobForm";
+import { Job, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
 
-const NewLocumFormLayout = () => {
+interface PropTypes{
+  handleNotification: () => void;
+}
+const NewLocumFormLayout = ({handleNotification}: PropTypes) => {
   const [job, setJob] = useState<Job>({
     title: "",
     requirements: "",
@@ -42,7 +45,8 @@ const NewLocumFormLayout = () => {
           stop: stop.toString(),
         });
         console.log(jobFormat);
-        await submitToFirebase(jobFormat);
+        await submitToFirebase(jobFormat as SubmittedLocum);
+        handleNotification()
         navigate("/dashboard");
       } catch (error) {
         console.log(error);
