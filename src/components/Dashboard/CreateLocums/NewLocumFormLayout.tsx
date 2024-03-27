@@ -9,7 +9,6 @@ import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
 import { Job, submitToFirebase } from "./hooks/useJobForm";
 
-
 const NewLocumFormLayout = () => {
   const [job, setJob] = useState<Job>({
     title: "",
@@ -32,18 +31,29 @@ const NewLocumFormLayout = () => {
     location.replace(/\s/g, "") !== "" &&
     rate !== null;
   const navigate = useNavigate();
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validSubmission) {
-      submitToFirebase(job);
-      navigate("/dashboard");
+      try {
+        const jobFormat = {};
+        Object.assign(jobFormat, {
+          ...job,
+          start: start.toString(),
+          stop: stop.toString(),
+        });
+        console.log(jobFormat);
+        await submitToFirebase(jobFormat);
+        navigate("/dashboard");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const trial = (name: unknown) => {
-    setJob({...job, ...name})
-    console.log(job, "trial")
-  }
+    setJob({ ...job, ...name });
+    console.log(job, "trial");
+  };
   return (
     <Paper
       elevation={3}
@@ -65,10 +75,22 @@ const NewLocumFormLayout = () => {
       onSubmit={handleSubmit}
     >
       <ProgressMonitor step={step} />
-      {step === 1 && <PageOne handlePartOne={trial} requirements={requirements} title={title}/>}
-      {step === 2 && <PageTwo handlePartTwo={trial} description={description}/>}
-      {step === 3 && <PageThree handlePartThree={trial} location={location} rate={rate}/>}
-      {step === 4 && <PageFour handlePartFour={trial} start={start} stop={stop}/>}
+      {step === 1 && (
+        <PageOne
+          handlePartOne={trial}
+          requirements={requirements}
+          title={title}
+        />
+      )}
+      {step === 2 && (
+        <PageTwo handlePartTwo={trial} description={description} />
+      )}
+      {step === 3 && (
+        <PageThree handlePartThree={trial} location={location} rate={rate} />
+      )}
+      {step === 4 && (
+        <PageFour handlePartFour={trial} start={start} stop={stop} />
+      )}
       <ControlButtons
         next={true}
         validSubmission={validSubmission}
