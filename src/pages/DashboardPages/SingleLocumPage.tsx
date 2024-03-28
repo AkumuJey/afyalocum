@@ -1,5 +1,5 @@
 import { Button, Paper, Typography } from "@mui/material";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 
 const SingleLocumPage = () => {
@@ -15,8 +15,8 @@ const SingleLocumPage = () => {
   };
   const navigate = useNavigate();
   const handleEdit = () => {
-    console.log(`${pathname}/${locum.id}/edit`);
-    navigate(`${pathname}/${locum.id}`, { state: { locum } });
+    console.log(`${pathname}/edit`);
+    navigate(`${pathname}/edit`, { state: { locum } });
   };
   return (
     <>
