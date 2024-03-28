@@ -13,10 +13,10 @@ const LocumCard = ({ locum }: PropTypes) => {
   const startTime = new Date(start).toLocaleTimeString();
   const stopTime = new Date(stop).toLocaleString();
   const navigate = useNavigate();
-  const path = useLocation().pathname;
+  const {pathname} = useLocation();
   const handleClick = () => {
-    console.log(`${path}/${locum.id}`);
-    navigate(`${path}/${locum.id}`, {state: {locum}});
+    console.log(`${pathname}/${locum.id}`);
+    navigate(`${pathname}/${locum.id}`, {state: {locum}});
   };
   return (
     <motion.div
