@@ -1,9 +1,14 @@
 import { Button, Paper, Typography } from "@mui/material";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 
 const SingleLocumPage = () => {
   const { id } = useParams();
-  const { pathname } = useLocation()
+  const { pathname, state } = useLocation()
+  const locum: SubmittedLocum = state.locum;
+  const { start, stop } = locum;
+  const startTime = new Date(start).toLocaleTimeString();
+  const stopTime = new Date(stop).toLocaleString();
 
   const handleDeletion = () => {
     console.log(id)
@@ -17,22 +22,23 @@ const SingleLocumPage = () => {
           sx={{ width: "100%", px: "1.5rem", py: "1rem", bgcolor: "blueviolet" }}
         >
           <Typography variant="h5" fontWeight={`bold`}>
-            Location
+            {locum.location}
           </Typography>
-          <Typography>Doctor</Typography>
+          <Typography>{locum.title}</Typography>
           <div>
             <Typography fontWeight={`bold`}>Requirements: </Typography>
-            <p>diavclfsd vasj</p>
+            <p>{locum.requirements}</p>
           </div>
           <div>
             <Typography fontWeight={`bold`}>Job Description: </Typography>
-            <p>diavclfsd vasj</p>
+            <p>{locum.description}</p>
           </div>
           <div>
-            <Typography fontWeight={`bold`}>Hourly Rate</Typography>
+            <Typography fontWeight={`bold`}>Hourly Rate: {locum.rate}</Typography>
           </div>
           <div>
-            <Typography>Start - Stop</Typography>
+          <Typography fontWeight={`bold`}> {startTime}</Typography>
+          <Typography fontWeight={`bold`}> {stopTime}</Typography>
           </div>
           <div className="flex justify-between py-[0.5rem]">
             <Button variant="contained" color="error" onClick={handleDeletion}>

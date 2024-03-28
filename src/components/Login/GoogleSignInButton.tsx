@@ -3,7 +3,7 @@ import { Alert, Button, Paper } from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../firebase/firebase";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const containerStyles = {
   display: "flex",
@@ -31,13 +31,18 @@ interface PropTypes {
 const GoogleSignInButton = ({ loading, handleLoading }: PropTypes) => {
   const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { state } = useLocation();
   const handleSignIn = () => {
     handleLoading(true);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((data) => {
         console.log(data);
-        navigate("/");
+        if (state) {
+          navigate(state);
+        } else {
+          navigate("/");
+        }
       })
       .catch((problem) => {
         console.log(problem);
