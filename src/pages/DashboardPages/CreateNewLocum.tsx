@@ -12,6 +12,7 @@ const CreateNew = () => {
     rate: null,
     start: null,
     stop: null,
+    booked:  false,
     completed: false,
   }
   return (

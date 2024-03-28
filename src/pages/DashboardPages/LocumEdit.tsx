@@ -9,13 +9,14 @@ const LocumEdit = () => {
     const {id} = useParams()
 
     const job: Job = {
-      title: "Joseph",
+      title: "Dentist",
       requirements: "Jjdwfvlae",
       description: "scsc",
       location: "dscsdc",
       rate: 66,
       start: dayjs("Wed, 27 Mar 2024 21:00:00 GMT"),
       stop: dayjs ("Fri, 29 Mar 2024 21:00:00 GMT"),
+      booked: false,
       completed: false,
     }
     const [success, setSuccess] = useState(false)

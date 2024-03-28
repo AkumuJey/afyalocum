@@ -9,7 +9,9 @@ export interface Job {
     rate: null | number;
     start: null | Date | Dayjs;
     stop: null | Date | Dayjs;
+    booked: boolean;
     completed: boolean;
+    id?: string;
   }
 export interface SubmittedLocum {
     title: string;
@@ -20,6 +22,8 @@ export interface SubmittedLocum {
     start: string;
     stop: string;
     completed: boolean;
+    booked: boolean;
+    id?: string;
   }
   export const submitToFirebase = async (job: SubmittedLocum) => {
     try {
