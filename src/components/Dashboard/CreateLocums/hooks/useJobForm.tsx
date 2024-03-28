@@ -1,6 +1,6 @@
+import { Dayjs } from "dayjs";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../../firebase/firebase";
-import { Dayjs } from "dayjs";
 export interface Job {
     title: string;
     requirements: string;
@@ -34,3 +34,24 @@ export interface SubmittedLocum {
       return error
     }
 }
+
+
+// const locumLoader = (filter: QueryFieldFilterConstraint, setLocums: SetStateAction<SubmittedLocum[]>, setLoading, setError)=> {
+//   const locumsCollection = collection(db, "locums");
+//   const openLocumsCollection = query(locumsCollection, filter)
+//   const unsubscribe = onSnapshot(openLocumsCollection, (snapshot) => {
+//     const locumsArray: SubmittedLocum[] = []
+//     snapshot.docs.forEach((doc) => {
+//       if(!doc.data().completed && !doc.data().booked){
+//         const data = doc.data() as SubmittedLocum;
+//         data.id = doc.id;
+//         if (!doc.data().closed) {
+//             locumsArray.push(data);
+//         }
+//       }
+//   });
+//   setLocums([...locumsArray]);
+//     console.log(locumsArray)
+//   })
+//   return () => unsubscribe();
+// }
