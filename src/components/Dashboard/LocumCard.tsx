@@ -16,7 +16,7 @@ const LocumCard = ({ locum }: PropTypes) => {
   const path = useLocation().pathname;
   const handleClick = () => {
     console.log(`${path}/${locum.id}`);
-    navigate(`${path}/${locum.id}`, {state: locum});
+    navigate(`${path}/${locum.id}`, {state: {locum}});
   };
   return (
     <motion.div
