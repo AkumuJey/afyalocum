@@ -36,7 +36,10 @@ const NewLocumFormLayout = ({ handleNotification, existingJob }: PropTypes) => {
           ...job,
           start: start.toString(),
           stop: stop.toString(),
+          completed: true,
+          booked: true
         });
+        console.log(jobFormat);
         await submitToFirebase(jobFormat as SubmittedLocum);
         handleNotification();
         setTimeout(() => navigate("/dashboard"), 2000);

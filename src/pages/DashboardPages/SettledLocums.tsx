@@ -13,17 +13,16 @@ const SettledLocums = () => {
     setLoading(true);
     const locumsCollection = collection(db, "locums");
     const openLocumsFilter = where("completed", "==", true);
-    const openLocumsCollection = query(locumsCollection, openLocumsFilter);
+    const bookedLocumsFilter = where("booked", "==", true);
+    const openLocumsCollection = query(locumsCollection, bookedLocumsFilter, openLocumsFilter);
     const unsubscribe = onSnapshot(openLocumsCollection, (snapshot) => {
       const locumsArray: SubmittedLocum[] = [];
       snapshot.docs.forEach((doc) => {
-        if (!doc.data().completed && !doc.data().booked) {
           const data = doc.data() as SubmittedLocum;
           data.id = doc.id;
           if (!doc.data().closed) {
             locumsArray.push(data);
           }
-        }
       });
       setLoading(false);
       setLocums([...locumsArray]);

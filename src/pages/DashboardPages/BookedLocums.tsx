@@ -22,13 +22,11 @@ const BookedLocums = () => {
     const unsubscribe = onSnapshot(openLocumsCollection, (snapshot) => {
       const locumsArray: SubmittedLocum[] = [];
       snapshot.docs.forEach((doc) => {
-        if (!doc.data().completed && !doc.data().booked) {
           const data = doc.data() as SubmittedLocum;
           data.id = doc.id;
           if (!doc.data().closed) {
             locumsArray.push(data);
           }
-        }
       });
       setLoading(false);
       setLocums([...locumsArray]);

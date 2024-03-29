@@ -25,11 +25,11 @@ const LocumCard = ({ locum }: PropTypes) => {
       className="w-full md:w-[30%]"
       onClick={handleClick}
     >
-      {/* <Link to={`${locum.id}`} className="w-full h-full"> */}
       <Paper
         elevation={2}
         sx={{ p: "0.5rem", bgcolor: "#009999", width: "100%" }}
       >
+        {locum.id}
         <div className="flex items-center gap-1 mb-1">
           <Place />
           <Typography variant="h6" fontWeight={`bold`}>
@@ -48,7 +48,6 @@ const LocumCard = ({ locum }: PropTypes) => {
           <Typography fontWeight={`bold`}> {stopTime}</Typography>
         </div>
       </Paper>
-      {/* </Link> */}
     </motion.div>
   );
 };
