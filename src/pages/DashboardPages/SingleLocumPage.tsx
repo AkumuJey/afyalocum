@@ -1,9 +1,13 @@
 import { Button, Paper, Typography } from "@mui/material";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { deleteLocum, SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
+import {
+  deleteLocum,
+  SubmittedLocum,
+} from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 
 const SingleLocumPage = () => {
   const { id } = useParams();
+
   const { pathname, state } = useLocation();
   const locum: SubmittedLocum = state.locum;
   const { start, stop } = locum;
@@ -12,7 +16,9 @@ const SingleLocumPage = () => {
 
   const handleDeletion = async () => {
     await deleteLocum(id as string);
-    navigate("/dashboard")
+    const idString = id as string;
+    const idLength = idString.length;
+    navigate(pathname.slice(idLength));
   };
   const navigate = useNavigate();
   const directToEdit = () => {
