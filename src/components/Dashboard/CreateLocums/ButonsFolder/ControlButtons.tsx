@@ -4,6 +4,7 @@ import BackwardButton from "./BackwardButton";
 import SubmissionButton from "./SubmissionButton";
 
 interface PropTypes {
+  loading: boolean;
   step: number;
   validSubmission: boolean;
   next: boolean;
@@ -11,6 +12,7 @@ interface PropTypes {
   handlePreviousStep: () => void;
 }
 const ControlButtons = ({
+  loading,
   step,
   next,
   validSubmission,
@@ -28,7 +30,7 @@ const ControlButtons = ({
           <ForwardButton next={next} handleNextStep={handleNextStep} />
         )}
         {validSubmission && step === 4 && (
-          <SubmissionButton validSubmission={validSubmission} />
+          <SubmissionButton validSubmission={validSubmission} loading={loading}/>
         )}
       </motion.div>
     </>

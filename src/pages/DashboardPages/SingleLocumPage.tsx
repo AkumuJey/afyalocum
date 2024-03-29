@@ -4,10 +4,11 @@ import {
   deleteLocum,
   SubmittedLocum,
 } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
+import { useState } from "react";
 
 const SingleLocumPage = () => {
   const { id } = useParams();
-
+  const [loading, setLoading] = useState(false);
   const { pathname, state } = useLocation();
   const locum: SubmittedLocum = state.locum;
   const { start, stop } = locum;
@@ -15,10 +16,15 @@ const SingleLocumPage = () => {
   const stopTime = new Date(stop).toLocaleString();
 
   const handleDeletion = async () => {
-    await deleteLocum(id as string);
-    const idString = id as string;
-    const idLength = idString.length;
-    navigate(pathname.slice(idLength));
+    setLoading(true)
+    try {
+      await deleteLocum(id as string);
+      navigate(-1);
+    } catch (error) {
+      console.log(error);
+    } finally{
+      setLoading(false)
+    }
   };
   const navigate = useNavigate();
   const directToEdit = () => {
@@ -27,7 +33,7 @@ const SingleLocumPage = () => {
   };
   return (
     <>
-      <div className="w-full md:w-[40%] m-[1.5rem]">
+      <div className={`w-full md:w-[40%] m-[1.5rem] ${loading ?  'opacity-90' : ''}`}>
         {id}
         <Paper
           elevation={2}
@@ -60,13 +66,13 @@ const SingleLocumPage = () => {
             <Typography fontWeight={`bold`}> {stopTime}</Typography>
           </div>
           <div className="flex justify-between py-[0.5rem]">
-            <Button variant="contained" color="error" onClick={handleDeletion}>
+            <Button variant="contained" color="error" onClick={handleDeletion} disabled={loading}>
               Delete
             </Button>
             <Button
               variant="contained"
               color="primary"
-              disabled={locum.completed || locum.booked}
+              disabled={locum.completed || locum.booked || loading}
               onClick={directToEdit}
             >
               Edit

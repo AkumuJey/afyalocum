@@ -1,12 +1,13 @@
 import { Button } from "@mui/material";
 interface PropTypes {
   validSubmission: boolean;
+  loading: boolean
 }
 
-const SubmissionButton = ({ validSubmission }: PropTypes) => {
+const SubmissionButton = ({ validSubmission, loading }: PropTypes) => {
   return (
     <>
-      <Button variant="contained" type="submit" disabled={!validSubmission}>
+      <Button variant="contained" type="submit" disabled={!validSubmission || loading}>
         Save Vacancy
       </Button>
     </>

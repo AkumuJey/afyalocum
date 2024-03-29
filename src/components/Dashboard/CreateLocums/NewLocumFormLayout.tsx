@@ -9,18 +9,16 @@ import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
 import { Job, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
 
-
-interface PropTypes{
+interface PropTypes {
   handleNotification: () => void;
-  existingJob: Job
+  existingJob: Job;
 }
-const NewLocumFormLayout = ({handleNotification, existingJob}: PropTypes) => {
+const NewLocumFormLayout = ({ handleNotification, existingJob }: PropTypes) => {
   const [job, setJob] = useState<Job>(existingJob);
-  
+  const [loading, setLoading] = useState(false);
   const { title, requirements, description, location, rate, start, stop } = job;
-console.log(job)
-  const [step, setStep] = useState<number>(1);
 
+  const [step, setStep] = useState<number>(1);
   const validSubmission =
     start !== null &&
     stop !== null &&
@@ -30,6 +28,7 @@ console.log(job)
   const navigate = useNavigate();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     if (validSubmission) {
       try {
         const jobFormat = {};
@@ -39,10 +38,12 @@ console.log(job)
           stop: stop.toString(),
         });
         await submitToFirebase(jobFormat as SubmittedLocum);
-        handleNotification()
-        setTimeout(() => navigate("/dashboard"), 2000)
+        handleNotification();
+        setTimeout(() => navigate("/dashboard"), 2000);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -91,6 +92,7 @@ console.log(job)
       <ControlButtons
         next={true}
         validSubmission={validSubmission}
+        loading={loading}
         step={step}
         handleNextStep={() => {
           setStep(step + 1);

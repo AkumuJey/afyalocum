@@ -12,8 +12,13 @@ const BookedLocums = () => {
   useEffect(() => {
     setLoading(true);
     const locumsCollection = collection(db, "locums");
-    const openLocumsFilter = where("completed", "==", false);
-    const openLocumsCollection = query(locumsCollection, openLocumsFilter);
+    const bookedFilter = where("booked", "==", true);
+    const completedFilter = where("completed", "==", false);
+    const openLocumsCollection = query(
+      locumsCollection,
+      bookedFilter,
+      completedFilter
+    );
     const unsubscribe = onSnapshot(openLocumsCollection, (snapshot) => {
       const locumsArray: SubmittedLocum[] = [];
       snapshot.docs.forEach((doc) => {
@@ -27,33 +32,38 @@ const BookedLocums = () => {
       });
       setLoading(false);
       setLocums([...locumsArray]);
-      console.log(locums.length)
+      console.log(locums.length);
     });
     return () => unsubscribe();
   }, []);
-  
+
   return (
     <>
       <div className="flex gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
-        {loading
-          ? Array(3)
-              .fill(null)
-              .map((_item, index) => (
-                <>
-                  <Skeleton
-                    variant="rectangular"
-                    sx={{ width: { xs: "100%", md: "30%" }, height: 180, borderRadius: 3 }}
-                    key={index}
-                  />
-                </>
-              ))
-          : locums.length === 0 ? (
-            <p>No locums available</p>
-          ) : (
-            locums.map((locum) => <LocumCard key={locum.id} locum={locum} />))}
+        {loading ? (
+          Array(3)
+            .fill(null)
+            .map((_item, index) => (
+              <>
+                <Skeleton
+                  variant="rectangular"
+                  sx={{
+                    width: { xs: "100%", md: "30%" },
+                    height: 180,
+                    borderRadius: 3,
+                  }}
+                  key={index}
+                />
+              </>
+            ))
+        ) : locums.length === 0 ? (
+          <p>No locums available</p>
+        ) : (
+          locums.map((locum) => <LocumCard key={locum.id} locum={locum} />)
+        )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default BookedLocums
+export default BookedLocums;

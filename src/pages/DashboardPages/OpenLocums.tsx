@@ -12,8 +12,8 @@ const OpenLocums = () => {
   useEffect(() => {
     setLoading(true);
     const locumsCollection = collection(db, "locums");
-    const openLocumsFilter = where("completed", "==", false);
-    const openLocumsCollection = query(locumsCollection, openLocumsFilter);
+    const additionalFilter = where("booked", "==", false);
+    const openLocumsCollection = query(locumsCollection, additionalFilter);
     const unsubscribe = onSnapshot(openLocumsCollection, (snapshot) => {
       const locumsArray: SubmittedLocum[] = [];
       snapshot.docs.forEach((doc) => {

@@ -12,7 +12,7 @@ const SettledLocums = () => {
   useEffect(() => {
     setLoading(true);
     const locumsCollection = collection(db, "locums");
-    const openLocumsFilter = where("completed", "==", false);
+    const openLocumsFilter = where("completed", "==", true);
     const openLocumsCollection = query(locumsCollection, openLocumsFilter);
     const unsubscribe = onSnapshot(openLocumsCollection, (snapshot) => {
       const locumsArray: SubmittedLocum[] = [];
