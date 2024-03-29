@@ -1,7 +1,10 @@
 import { Paper } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackwardButton from "./ButonsFolder/BackwardButton";
 import ControlButtons from "./ButonsFolder/ControlButtons";
+import ForwardButton from "./ButonsFolder/ForwardButton";
+import SubmissionButton from "./ButonsFolder/SubmissionButton";
 import PageFour from "./PageFour/PageFour";
 import PageOne from "./PageOne/PageOne";
 import PageThree from "./PageThree/PageThree";
@@ -13,6 +16,7 @@ interface PropTypes {
   handleNotification: () => void;
   existingJob: Job;
 }
+
 const NewLocumFormLayout = ({ handleNotification, existingJob }: PropTypes) => {
   const [job, setJob] = useState<Job>(existingJob);
   const [loading, setLoading] = useState(false);
@@ -37,7 +41,7 @@ const NewLocumFormLayout = ({ handleNotification, existingJob }: PropTypes) => {
           start: start.toString(),
           stop: stop.toString(),
           completed: true,
-          booked: true
+          booked: true,
         });
         console.log(jobFormat);
         await submitToFirebase(jobFormat as SubmittedLocum);
@@ -92,18 +96,29 @@ const NewLocumFormLayout = ({ handleNotification, existingJob }: PropTypes) => {
       {step === 4 && (
         <PageFour handlePartFour={trial} start={start} stop={stop} />
       )}
-      <ControlButtons
-        next={true}
-        validSubmission={validSubmission}
-        loading={loading}
-        step={step}
-        handleNextStep={() => {
-          setStep(step + 1);
-        }}
-        handlePreviousStep={() => {
-          setStep(step - 1);
-        }}
-      />
+      <ControlButtons step={step}>
+        {step !== 1 && (
+          <BackwardButton
+            handlePreviousStep={() => {
+              setStep(step - 1);
+            }}
+          />
+        )}
+        {step !== 4 && (
+          <ForwardButton
+            next={true}
+            handleNextStep={() => {
+              setStep(step + 1);
+            }}
+          />
+        )}
+        {validSubmission && step === 4 && (
+          <SubmissionButton
+            validSubmission={validSubmission}
+            loading={loading}
+          />
+        )}
+      </ControlButtons>
     </Paper>
   );
 };
