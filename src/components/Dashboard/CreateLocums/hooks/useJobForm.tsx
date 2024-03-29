@@ -35,7 +35,7 @@ export const submitToFirebase = async (job: SubmittedLocum) => {
   }
 };
 
-export const updateLocum = async (id: string, updatedJob: SubmittedLocum) => {
+export const updateLocumDetails = async (id: string, updatedJob: SubmittedLocum) => {
   try {
     const docRef = doc(db, "locums", id);
     await updateDoc(docRef, { ...updatedJob });

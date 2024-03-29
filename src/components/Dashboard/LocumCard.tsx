@@ -37,11 +37,6 @@ const LocumCard = ({ locum }: PropTypes) => {
           </Typography>
         </div>
         <div className="flex flex-col justify-center gap-1 mb-1 p-1">
-          <Typography>
-            {" "}
-            <span className="font-bold">{locum.description}</span> –
-            Northumberland
-          </Typography>
           <Typography>{locum.title}</Typography>
           <Typography>Hourly Rate: {locum.rate}</Typography>
           <Typography fontWeight={`bold`}> {startTime}</Typography>

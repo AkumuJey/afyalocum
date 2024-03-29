@@ -14,10 +14,11 @@ import { Job, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
 
 interface PropTypes {
   handleNotification: () => void;
+  handleUpdate?: (updatedLocum : SubmittedLocum) => void;
   existingJob: Job;
 }
 
-const NewLocumFormLayout = ({ handleNotification, existingJob }: PropTypes) => {
+const NewLocumFormLayout = ({ handleNotification, handleUpdate,existingJob }: PropTypes) => {
   const [job, setJob] = useState<Job>(existingJob);
   const [loading, setLoading] = useState(false);
   const { title, requirements, description, location, rate, start, stop } = job;
@@ -40,11 +41,12 @@ const NewLocumFormLayout = ({ handleNotification, existingJob }: PropTypes) => {
           ...job,
           start: start.toString(),
           stop: stop.toString(),
-          completed: true,
-          booked: true,
         });
-        console.log(jobFormat);
-        await submitToFirebase(jobFormat as SubmittedLocum);
+        if(!handleUpdate){
+          await submitToFirebase(jobFormat as SubmittedLocum);
+        } else{
+          handleUpdate(jobFormat as SubmittedLocum)
+        }
         handleNotification();
         setTimeout(() => navigate("/dashboard"), 2000);
       } catch (error) {
