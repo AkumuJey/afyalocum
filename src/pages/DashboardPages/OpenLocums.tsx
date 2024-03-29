@@ -1,19 +1,14 @@
+import { Skeleton } from "@mui/material";
+import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import LocumCard from "../../components/Dashboard/LocumCard";
-import { collection, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
-import { Button, Skeleton } from "@mui/material";
+import LocumCard from "../../components/Dashboard/LocumCard";
+import { db } from "../../firebase/firebase";
 
 const OpenLocums = () => {
   const [locums, setLocums] = useState<SubmittedLocum[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const handleDoc = async(id:string)=>{
-    const docRef = doc(db,"locums", id);
-    const docLocum = await getDoc(docRef);
-    console.log(docLocum.data());
-  }
   useEffect(() => {
     setLoading(true);
     const locumsCollection = collection(db, "locums");
@@ -30,8 +25,6 @@ const OpenLocums = () => {
       });
       setLoading(false);
       setLocums([...locumsArray]);
-      console.log(locumsArray);
-      console.log(locums);
     });
     return () => unsubscribe();
   }, []);
@@ -40,9 +33,9 @@ const OpenLocums = () => {
   return (
     <>
       <div className="flex gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
-        <div className="w-full">
-        <Button onClick={() => handleDoc("vDHl6LhKz14Ce1d25QQA")} color="success">Get me</Button>
-        </div>
+        {error ? (
+          <div>Error fetching locums</div>
+        ) : (<>
         {loading ? (
           Array(3)
             .fill(null)
@@ -64,6 +57,8 @@ const OpenLocums = () => {
         ) : (
           locums.map((locum) => <LocumCard key={locum.id} locum={locum} />)
         )}
+        </>)}
+        
       </div>
     </>
   );

@@ -5,12 +5,15 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 
-interface PartThree {
-  start: unknown;
-  stop: unknown;
+
+interface StartStopTime {
+  [key: string]:  Date | Dayjs | null
 }
-interface PropTypes extends PartThree {
-  handlePartFour: (partThree: PartThree) => void;
+
+interface PropTypes {
+  handlePartFour: (partThree: StartStopTime) => void;
+  start: Date | Dayjs | null;
+  stop: Date | Dayjs | null;
 }
 
 const PageFour = ({ start, stop, handlePartFour }: PropTypes) => {
@@ -27,7 +30,7 @@ const PageFour = ({ start, stop, handlePartFour }: PropTypes) => {
   }
   const handleDateTimeChange = (newValue: unknown | Dayjs, type: string) => {
     if (dayjs.isDayjs(newValue)) {
-      let goal = { [type]: newValue };
+      const goal: StartStopTime = { [type]: newValue as Dayjs };
       handlePartFour(goal);
       handleMinStartStop(type, newValue)
     }

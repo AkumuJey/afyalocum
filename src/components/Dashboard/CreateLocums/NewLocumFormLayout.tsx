@@ -10,7 +10,7 @@ import PageOne from "./PageOne/PageOne";
 import PageThree from "./PageThree/PageThree";
 import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
-import { Job, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
+import { Job, PartOne, PartThree, PartTwo, StartStopTime, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
 
 interface PropTypes {
   handleNotification: () => void;
@@ -57,9 +57,9 @@ const NewLocumFormLayout = ({ handleNotification, handleUpdate,existingJob }: Pr
     }
   };
 
-  const trial = (name: unknown) => {
+  type JobProps = PartOne | PartTwo | PartThree | StartStopTime;
+  const updatingJobState = (name: JobProps) => {
     setJob({ ...job, ...name });
-    console.log(job, "trial");
   };
   return (
     <Paper
@@ -84,19 +84,19 @@ const NewLocumFormLayout = ({ handleNotification, handleUpdate,existingJob }: Pr
       <ProgressMonitor step={step} />
       {step === 1 && (
         <PageOne
-          handlePartOne={trial}
+          handlePartOne={updatingJobState}
           requirements={requirements}
           title={title}
         />
       )}
       {step === 2 && (
-        <PageTwo handlePartTwo={trial} description={description} />
+        <PageTwo handlePartTwo={updatingJobState} description={description} />
       )}
       {step === 3 && (
-        <PageThree handlePartThree={trial} location={location} rate={rate} />
+        <PageThree handlePartThree={updatingJobState} location={location} rate={rate} />
       )}
       {step === 4 && (
-        <PageFour handlePartFour={trial} start={start} stop={stop} />
+        <PageFour handlePartFour={updatingJobState} start={start} stop={stop} />
       )}
       <ControlButtons step={step}>
         {step !== 1 && (

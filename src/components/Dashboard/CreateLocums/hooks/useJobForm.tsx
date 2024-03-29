@@ -25,6 +25,26 @@ export interface SubmittedLocum {
   booked: boolean;
   id?: string;
 }
+
+// export interface PartOne {
+//   [key: string]: string
+// }
+export interface PartOne {
+  title: string;
+  requirements: string;
+}
+
+export interface StartStopTime {
+  [key: string]:  Date | Dayjs | null
+}
+export interface PartThree {
+  location: string;
+  rate: number | null;
+}
+export interface PartTwo {
+  description: string;
+}
+
 export const submitToFirebase = async (job: SubmittedLocum) => {
   try {
     const locumsCollection = collection(db, "locums");
@@ -52,23 +72,3 @@ export const deleteLocum = async (id: string) => {
     console.log(error)
   }
 }
-
-// const locumLoader = (filter: QueryFieldFilterConstraint, setLocums: SetStateAction<SubmittedLocum[]>, setLoading, setError)=> {
-//   const locumsCollection = collection(db, "locums");
-//   const openLocumsCollection = query(locumsCollection, filter)
-//   const unsubscribe = onSnapshot(openLocumsCollection, (snapshot) => {
-//     const locumsArray: SubmittedLocum[] = []
-//     snapshot.docs.forEach((doc) => {
-//       if(!doc.data().completed && !doc.data().booked){
-//         const data = doc.data() as SubmittedLocum;
-//         data.id = doc.id;
-//         if (!doc.data().closed) {
-//             locumsArray.push(data);
-//         }
-//       }
-//   });
-//   setLocums([...locumsArray]);
-//     console.log(locumsArray)
-//   })
-//   return () => unsubscribe();
-// }
