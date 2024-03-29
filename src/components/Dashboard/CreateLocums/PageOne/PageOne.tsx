@@ -5,11 +5,7 @@ import {
   Select
 } from "@mui/material";
 import useInputManagement from "../PageThree/useInputManagement";
-
-interface PartOne {
-  title: string;
-  requirements: string;
-}
+import { PartOne } from "../hooks/useJobForm";
 
 interface PropTypes extends PartOne {
   handlePartOne: (partThree: PartOne) => void;

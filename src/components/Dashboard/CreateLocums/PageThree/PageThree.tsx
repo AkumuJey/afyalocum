@@ -1,11 +1,7 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import { Input, InputLabel } from "@mui/material";
 import useInputManagement from "./useInputManagement";
-
-interface PartThree {
-  location: string;
-  rate: number | null;
-}
+import { PartThree } from "../hooks/useJobForm";
 interface PropTypes extends PartThree {
   handlePartThree: (partThree: PartThree) => void;
 }

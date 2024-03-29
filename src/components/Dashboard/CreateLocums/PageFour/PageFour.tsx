@@ -4,11 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
-
-
-interface StartStopTime {
-  [key: string]:  Date | Dayjs | null
-}
+import { StartStopTime } from "../hooks/useJobForm";
 
 interface PropTypes {
   handlePartFour: (partThree: StartStopTime) => void;
@@ -27,12 +23,12 @@ const PageFour = ({ start, stop, handlePartFour }: PropTypes) => {
     if (type === "stop") {
       setMinStart(newValue);
     }
-  }
+  };
   const handleDateTimeChange = (newValue: unknown | Dayjs, type: string) => {
     if (dayjs.isDayjs(newValue)) {
       const goal: StartStopTime = { [type]: newValue as Dayjs };
       handlePartFour(goal);
-      handleMinStartStop(type, newValue)
+      handleMinStartStop(type, newValue);
     }
   };
   return (
