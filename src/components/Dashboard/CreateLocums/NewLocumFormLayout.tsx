@@ -38,7 +38,6 @@ console.log(job)
           start: start.toString(),
           stop: stop.toString(),
         });
-        console.log(jobFormat);
         await submitToFirebase(jobFormat as SubmittedLocum);
         handleNotification()
         setTimeout(() => navigate("/dashboard"), 2000)
