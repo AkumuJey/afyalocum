@@ -16,14 +16,14 @@ const SingleLocumPage = () => {
   const stopTime = new Date(stop).toLocaleString();
 
   const handleDeletion = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       await deleteLocum(id as string);
       navigate(-1);
     } catch (error) {
       console.log(error);
-    } finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
   const navigate = useNavigate();
@@ -33,8 +33,11 @@ const SingleLocumPage = () => {
   };
   return (
     <>
-      <div className={`w-full md:w-[40%] m-[1.5rem] ${loading ?  'opacity-90' : ''}`}>
-        {id}
+      <div
+        className={`w-full md:w-[40%] m-[1.5rem] ${
+          loading ? "opacity-90" : ""
+        }`}
+      >
         <Paper
           elevation={2}
           sx={{
@@ -66,7 +69,12 @@ const SingleLocumPage = () => {
             <Typography fontWeight={`bold`}> {stopTime}</Typography>
           </div>
           <div className="flex justify-between py-[0.5rem]">
-            <Button variant="contained" color="error" onClick={handleDeletion} disabled={loading}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDeletion}
+              disabled={loading || (locum.booked && !locum.completed)}
+            >
               Delete
             </Button>
             <Button

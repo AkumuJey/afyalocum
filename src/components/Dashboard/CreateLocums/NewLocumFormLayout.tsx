@@ -48,7 +48,7 @@ const NewLocumFormLayout = ({ handleNotification, handleUpdate,existingJob }: Pr
           handleUpdate(jobFormat as SubmittedLocum)
         }
         handleNotification();
-        setTimeout(() => navigate("/dashboard"), 2000);
+        setTimeout(() => navigate("/dashboard/open-locums"), 2000);
       } catch (error) {
         console.log(error);
       } finally {

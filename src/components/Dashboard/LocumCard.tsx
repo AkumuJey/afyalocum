@@ -29,7 +29,6 @@ const LocumCard = ({ locum }: PropTypes) => {
         elevation={2}
         sx={{ p: "0.5rem", bgcolor: "#009999", width: "100%" }}
       >
-        {locum.id}
         <div className="flex items-center gap-1 mb-1">
           <Place />
           <Typography variant="h6" fontWeight={`bold`}>
