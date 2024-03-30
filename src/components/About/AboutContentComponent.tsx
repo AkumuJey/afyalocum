@@ -16,7 +16,7 @@ const AboutContentComponent = ({ content, index, array }: PropTypes) => {
 
   return (
     <motion.div
-      className={` w-full md:w-4/5 ${
+      className={` w-full md:w-4/5 px-[1.5rem] text-center ${
         index !== array.length - 1 ? "mb-[1rem]" : ""
       }`}
       initial="hidden"

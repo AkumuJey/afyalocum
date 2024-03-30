@@ -1,14 +1,8 @@
-// import Logo from "../assets/locum-people-logo.svg";
 import { useState } from "react";
 
 const LogoDiv = () => {
   return (
     <div className="logo">
-      {/* <img
-          src={Logo}
-          alt="locumpeople logo"
-          className=" h-full object-fill"
-        /> */}
       <h2 className="font-bold text-[2.5rem]">
         <span className="text-[#21573e]">locum</span>
         <span className="text-[#6c757d]">people</span>

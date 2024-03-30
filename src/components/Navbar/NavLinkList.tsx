@@ -38,7 +38,10 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
- 
+ const handleClick = () => {
+  scrollToTop()
+  handleClose()
+ }
   return (
     <>
       {!isMd ? (
@@ -58,9 +61,9 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
               return null;
             }
             return (
-              <ListItem key={index}>
+              <ListItem key={index} onClick={handleClick}>
                 <NavLink
-                  onClick={scrollToTop}
+                  onClick={handleClick}
                   to={link.path}
                   className={({ isActive }) =>
                     isActive
@@ -79,7 +82,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
         //mobile version
         <Drawer
           open={open}
-          onClose={handleClose}
+          onClick={handleClick}
           sx={{
             display: "flex",
             gap: 2,
@@ -133,10 +136,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
                     className={({ isActive }) =>
                       isActive ? "text-purple-800" : ""
                     }
-                    onClick={() => {
-                      handleClose();
-                      scrollToTop();
-                    }}
+                    onClick={handleClick}
                   >
                     {link.label}
                   </NavLink>

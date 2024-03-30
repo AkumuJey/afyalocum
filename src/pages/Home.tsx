@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <RouterAnimation>
       <>
-        <Box component={`div`}>
+        <Box component={`div`} sx={{width: "100%"}}>
           <Hero />
           <TestimonialsContainer />
           <SponsorsAndApprovalsContainer />
