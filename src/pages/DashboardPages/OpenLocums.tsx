@@ -38,8 +38,8 @@ const OpenLocums = () => {
         ) : (<>
         {loading ? (
           Array(3)
-            .fill(null)
-            .map((_item, index) => (
+            .fill("key")
+            .map((item, index) => (
               <>
                 <Skeleton
                   variant="rectangular"
@@ -48,7 +48,7 @@ const OpenLocums = () => {
                     height: 180,
                     borderRadius: 3,
                   }}
-                  key={index}
+                  key={`${item + index}`}
                 />
               </>
             ))
@@ -58,7 +58,6 @@ const OpenLocums = () => {
           locums.map((locum) => <LocumCard key={locum.id} locum={locum} />)
         )}
         </>)}
-        
       </div>
     </>
   );

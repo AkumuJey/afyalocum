@@ -30,7 +30,6 @@ const BookedLocums = () => {
       });
       setLoading(false);
       setLocums([...locumsArray]);
-      console.log(locums.length);
     });
     return () => unsubscribe();
   }, []);
@@ -40,20 +39,20 @@ const BookedLocums = () => {
       <div className="flex gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
         {loading ? (
           Array(3)
-            .fill(null)
-            .map((_item, index) => (
-              <>
-                <Skeleton
-                  variant="rectangular"
-                  sx={{
-                    width: { xs: "100%", md: "30%" },
-                    height: 180,
-                    borderRadius: 3,
-                  }}
-                  key={index}
-                />
-              </>
-            ))
+          .fill("key")
+          .map((item, index) => (
+            <>
+              <Skeleton
+                variant="rectangular"
+                sx={{
+                  width: { xs: "100%", md: "30%" },
+                  height: 180,
+                  borderRadius: 3,
+                }}
+                key={`${item + index}`}
+              />
+            </>
+          ))
         ) : locums.length === 0 ? (
           <p>No locums available</p>
         ) : (

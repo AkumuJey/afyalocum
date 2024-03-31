@@ -32,16 +32,18 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
     );
   };
   const handleSignout = () => {
+    handleClose();
     auth.signOut();
   };
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
- const handleClick = () => {
-  scrollToTop()
-  handleClose()
- }
+  const handleClick = () => {
+    console.log("Hello handleClick");
+    scrollToTop();
+    handleClose();
+  };
   return (
     <>
       {!isMd ? (
@@ -82,22 +84,51 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
         //mobile version
         <Drawer
           open={open}
-          onClick={handleClick}
+          onClose={handleClose}
           sx={{
             display: "flex",
             gap: 2,
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              maxWidth: 240,
+              maxWidth: 200,
               width: "100%",
             },
           }}
         >
-          <List
+          <NavLink to={`/dashboard`} onClick={handleClick}>
+            Dashboard
+          </NavLink>
+          <List>
+            {linkData.map((link) => {
+              if (isNavigationLinkVisible(link)) {
+                return null;
+              }
+              return (
+                <ListItem key={link.label}>
+                  <Button variant="outlined" onClick={handleClick}>
+                    <NavLink
+                      to={link.path}
+                      className={({ isActive }) =>
+                        isActive ? "text-purple-800 w-full" : " w-full"
+                      }
+                    >
+                      {link.label}
+                    </NavLink>
+                  </Button>
+                </ListItem>
+              );
+            })}
+          </List>
+          {/* <List
             sx={{
               fontSize: "1.25rem",
               fontWeight: "bold",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem",
+              padding: "0.5rem",
             }}
+            onClick={handleClick}
           >
             <Typography
               component={`div`}
@@ -130,32 +161,29 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
                 return null;
               }
               return (
-                <ListItem key={index}>
+                <Button variant="outlined" onClick={handleClick} key={index}>
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      isActive ? "text-purple-800" : ""
+                      isActive ? "text-purple-800 w-full" : " w-full"
                     }
-                    onClick={handleClick}
                   >
                     {link.label}
                   </NavLink>
-                </ListItem>
+                </Button>
               );
             })}
             {currentUser && (
-              <ListItem>
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  sx={{ fontWeight: "bold" }}
-                  onClick={handleSignout}
-                >
-                  Logout
-                </Button>
-              </ListItem>
+              <Button
+                color="primary"
+                variant="outlined"
+                sx={{ fontWeight: "bold" }}
+                onClick={handleSignout}
+              >
+                Logout
+              </Button>
             )}
-          </List>
+          </List> */}
         </Drawer>
       )}
     </>
