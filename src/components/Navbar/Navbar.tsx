@@ -1,15 +1,15 @@
-import { useState } from "react";
-import NavLinkList from "./NavLinkList";
-import MenuButton from "./MenuButton";
 import {
   AppBar,
-  Typography,
   Grid,
   Slide,
-  useScrollTrigger,
+  Typography,
   useMediaQuery,
+  useScrollTrigger,
   useTheme,
 } from "@mui/material";
+import { useState } from "react";
+import MenuButton from "./MenuButton";
+import NavLinkList from "./NavLinkList";
 
 interface Props {
   window?: () => Window;
@@ -31,7 +31,7 @@ const Navbar = (props: Props) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down("md"));
-
+ 
   return (
     <>
       <HideOnScroll {...props}>
@@ -66,7 +66,7 @@ const Navbar = (props: Props) => {
                 className="text-[#6c757d]"
                 sx={{ fontWeight: "bold", fontSize: "2.5rem" }}
               >
-                locum
+                Locum
               </Typography>
             </Typography>
              <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
@@ -76,6 +76,7 @@ const Navbar = (props: Props) => {
             isMd={isMd}
             handleClose={() => setOpen(false)}
           />
+          {/* {!isMd && <MobileViewNavlist handleClick={handleClick} open={open} handleClose={() => setOpen(false)}/>} */}
         </AppBar>
       </HideOnScroll>
     </>
