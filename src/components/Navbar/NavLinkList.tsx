@@ -98,27 +98,6 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
           <NavLink to={`/dashboard`} onClick={handleClick}>
             Dashboard
           </NavLink>
-          <List>
-            {linkData.map((link) => {
-              if (isNavigationLinkVisible(link)) {
-                return null;
-              }
-              return (
-                <ListItem key={link.label}>
-                  <Button variant="outlined" onClick={handleClick}>
-                    <NavLink
-                      to={link.path}
-                      className={({ isActive }) =>
-                        isActive ? "text-purple-800 w-full" : " w-full"
-                      }
-                    >
-                      {link.label}
-                    </NavLink>
-                  </Button>
-                </ListItem>
-              );
-            })}
-          </List>
           {/* <List
             sx={{
               fontSize: "1.25rem",
@@ -184,6 +163,16 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
               </Button>
             )}
           </List> */}
+          <Button variant="outlined" onClick={handleClick}>
+            <NavLink
+              to={"/"}
+              className={({ isActive }) =>
+                isActive ? "text-purple-800 w-full" : " w-full"
+              }
+            >
+              Home
+            </NavLink>
+          </Button>
         </Drawer>
       )}
     </>
