@@ -49,7 +49,7 @@ const BookedLocums = () => {
                   height: 180,
                   borderRadius: 3,
                 }}
-                key={`${item + index}`}
+                key={item + index}
               />
             </>
           ))

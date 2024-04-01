@@ -47,7 +47,6 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
   return (
     <>
       {!isMd ? (
-        // Desktop version
         <List
           sx={{
             fontSize: "1.25rem",
@@ -81,7 +80,6 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
           {currentUser && <UserAvatar currentUser={currentUser} />}
         </List>
       ) : (
-        //mobile version
         <Drawer
           open={open}
           onClose={handleClose}
@@ -95,10 +93,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
             },
           }}
         >
-          <NavLink to={`/dashboard`} onClick={handleClick}>
-            Dashboard
-          </NavLink>
-          {/* <List
+          <List
             sx={{
               fontSize: "1.25rem",
               fontWeight: "bold",
@@ -135,17 +130,22 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
                 locum
               </Typography>
             </Typography>
-            {linkData.map((link, index) => {
+            {linkData.map((link) => {
               if (isNavigationLinkVisible(link)) {
                 return null;
               }
               return (
-                <Button variant="outlined" onClick={handleClick} key={index}>
+                <Button
+                  variant="outlined"
+                  key={link.label}
+                  onClick={handleClose}
+                >
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
                       isActive ? "text-purple-800 w-full" : " w-full"
                     }
+                    onClick={handleClose}
                   >
                     {link.label}
                   </NavLink>
@@ -162,17 +162,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
                 Logout
               </Button>
             )}
-          </List> */}
-          <Button variant="outlined" onClick={handleClick}>
-            <NavLink
-              to={"/"}
-              className={({ isActive }) =>
-                isActive ? "text-purple-800 w-full" : " w-full"
-              }
-            >
-              Home
-            </NavLink>
-          </Button>
+          </List>
         </Drawer>
       )}
     </>

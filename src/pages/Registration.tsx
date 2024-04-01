@@ -96,7 +96,7 @@ const Resigstration = () => {
     <>
       <RouterAnimation>
         <SuccessfulRegistrationModal open={success} handleClose={()=>setSuccess(true)}/>
-        <div className="flex justify-center items-center w-full h-full py-0 md:py-[2rem]">
+        <div className="flex justify-center items-center w-full h-full ">
           <Paper
             elevation={3}
             sx={containerStyles}
