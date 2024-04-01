@@ -57,14 +57,13 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
             gap: "4rem",
           }}
         >
-          {linkData.map((link, index) => {
+          {linkData.map((link) => {
             if (isNavigationLinkVisible(link)) {
               return null;
             }
             return (
-              <ListItem key={index} onClick={handleClick}>
+              <ListItem key={link.label} onClick={scrollToTop}>
                 <NavLink
-                  onClick={handleClick}
                   to={link.path}
                   className={({ isActive }) =>
                     isActive
