@@ -1,12 +1,12 @@
 import { Button, Drawer, List, Typography } from "@mui/material";
-import { useContext } from "react";
-import {  NavLink } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import { User } from "firebase/auth";
+import { NavLink } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import UserAvatar from "./UserAvatar";
 
 interface PropTypes {
     open: boolean;
+    currentUser: User  | null;
     handleClose: () => void;
     handleClick: () => void;
   }
@@ -15,8 +15,7 @@ interface PropTypes {
     label: string;
   }
   
-const MobileViewNavlist = ({handleClose, handleClick, open}: PropTypes) => {
-    const { currentUser } = useContext(AuthContext);
+const MobileViewNavlist = ({handleClose, handleClick, open, currentUser}: PropTypes) => {
     const linkData: Link[] = [
         { path: "/", label: "Home" },
         { path: "/dashboard", label: "Dashboard" },
