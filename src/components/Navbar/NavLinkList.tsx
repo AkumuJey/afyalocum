@@ -1,9 +1,9 @@
-import { Button, Drawer, List, ListItem, Typography } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import MobileViewNavlist from "./MobileViewNavlist";
 import UserAvatar from "./UserAvatar";
-import { auth } from "../../firebase/firebase";
 
 interface PropTypes {
   open: boolean;
@@ -31,10 +31,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
       (currentUser && link.path === "/register")
     );
   };
-  const handleSignout = () => {
-    handleClose();
-    auth.signOut();
-  };
+  
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -78,94 +75,7 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
           {currentUser && <UserAvatar currentUser={currentUser} />}
         </List>
       ) : (
-        <Drawer
-          open={open}
-          onClose={handleClose}
-          sx={{
-            display: "flex",
-            gap: 2,
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              maxWidth: 200,
-              width: "100%",
-            },
-          }}
-        >
-          <List
-            sx={{
-              fontSize: "1.25rem",
-              fontWeight: "bold",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.5rem",
-              padding: "0.5rem",
-            }}
-            onClick={handleClick}
-          >
-            <Typography
-              component={`div`}
-              sx={{
-                textAlign: "center",
-              
-                flexGrow: 1,
-                display: "block",
-                borderBottom: "solid 0.05rem",
-              }}
-              variant="h6"
-            >
-              <Typography
-                component={`span`}
-                className="text-[`#21573e`]"
-                sx={{ fontWeight: "bold", fontSize: "2rem" }}
-              >
-                afya
-              </Typography>
-              <Typography
-                component={`span`}
-                className="text-[#6c757d]"
-                sx={{ fontWeight: "bold", fontSize: "2rem" }}
-              >
-                locum
-              </Typography>
-            </Typography>
-            {currentUser && <div className="mx-auto"><UserAvatar currentUser={currentUser} /></div>}
-            {linkData.map((link) => {
-              if (isNavigationLinkVisible(link)) {
-                return null;
-              }
-              return (
-                <Button
-                  variant="outlined"
-                  key={link.label}
-                  onClick={handleClose}
-                >
-                  <NavLink
-                    to={link.path}
-                    className={({ isActive }) =>
-                      isActive ? "text-purple-800 w-full" : " w-full"
-                    }
-                    onClick={handleClose}
-                  >
-                    {link.label}
-                  </NavLink>
-                </Button>
-              );
-            })}
-            {currentUser && (
-              <>
-                <Button
-                  color="primary"
-                  variant="outlined"
-                  sx={{ fontWeight: "bold" }}
-                  onClick={handleSignout}
-                >
-                  Logout
-                </Button>
-               
-              </>
-            )}
-          </List>
-        </Drawer>
+        <MobileViewNavlist handleClick={handleClick} handleClose={handleClose} open={open}/>
       )}
     </>
   );
