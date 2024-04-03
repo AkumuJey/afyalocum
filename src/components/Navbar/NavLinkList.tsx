@@ -8,7 +8,6 @@ interface PropTypes {
   isMd: boolean;
   handleClose: () => void;
 }
-
 const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
   const { currentUser } = useContext(AuthContext);
   const scrollToTop = () => {
@@ -21,7 +20,12 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
   };
   return (
     <>
-      {!isMd && <LargeScreenViewNavlist scrollToTop={scrollToTop} currentUser={currentUser}/>}
+      {!isMd && (
+        <LargeScreenViewNavlist
+          scrollToTop={scrollToTop}
+          currentUser={currentUser}
+        />
+      )}
       {isMd && (
         <MobileViewNavlist
           handleClick={handleClick}
