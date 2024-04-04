@@ -18,7 +18,6 @@ const locumRoutes = [
   },
 ];
 const DashIndex = () => {
-  
   return (
     <>
       <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">

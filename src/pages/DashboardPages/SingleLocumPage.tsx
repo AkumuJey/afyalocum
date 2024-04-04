@@ -28,7 +28,6 @@ const SingleLocumPage = () => {
   };
   const navigate = useNavigate();
   const directToEdit = () => {
-    console.log(`${pathname}/edit`);
     navigate(`${pathname}/edit`, { state: { locum } });
   };
   return (
