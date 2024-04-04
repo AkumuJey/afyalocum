@@ -1,6 +1,4 @@
-
 import LocumRouteCard from "./LocumRouteCard";
-
 const locumRoutes = [
   {
     title: "Create new locum",
@@ -20,15 +18,16 @@ const locumRoutes = [
   },
 ];
 const DashIndex = () => {
+  
   return (
     <>
       <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">
         {locumRoutes.map((locumRoute) => (
-            <LocumRouteCard
-              routeDirection={locumRoute.routeDirection}
-              title={locumRoute.title}
-              key={locumRoute.title}
-            />
+          <LocumRouteCard
+            routeDirection={locumRoute.routeDirection}
+            title={locumRoute.title}
+            key={locumRoute.title}
+          />
         ))}
       </div>
     </>
