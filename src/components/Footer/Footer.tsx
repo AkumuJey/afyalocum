@@ -4,13 +4,13 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="bg-teal-600 px-[4rem]">
+    <div className="bg-teal-600 flex flex-col md:flex-row justify-evenly">
       <div className="flex flex-col md:flex-row md: justify-between">
         <Typography variant="h3">Afya Locum</Typography>
-        <div className="flex gap-3">
-          <NavLink to={`/login`}>Login</NavLink>
-          <NavLink to={`/About`}>Login</NavLink>
-        </div>
+      </div>
+      <div className="flex gap-3">
+        <NavLink to={`/login`}>Login</NavLink>
+        <NavLink to={`/About`}>Login</NavLink>
       </div>
       <div className="flex flex-col md:flex-row md: justify-between">
         <div id="social">
