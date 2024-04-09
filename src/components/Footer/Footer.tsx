@@ -1,12 +1,12 @@
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div>
+    <div className="bg-teal-600 px-[4rem]">
       <div className="flex flex-col md:flex-row md: justify-between">
-        <div>Afya Locum</div>
+        <Typography variant="h3">Afya Locum</Typography>
         <div className="flex gap-3">
           <NavLink to={`/login`}>Login</NavLink>
           <NavLink to={`/About`}>Login</NavLink>
