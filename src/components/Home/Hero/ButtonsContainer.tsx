@@ -10,7 +10,7 @@ const ButtonsContainer = () => {
   const childrenVariants = useHeroChildrenAnimation()
   return (
     <motion.div
-      className="w-full flex justify-around max-w-xl mx-auto"
+      className="w-full flex flex-col sm:flex-row items-center gap-2 justify-around max-w-xl mx-auto"
       initial="hidden"
       whileInView="visible"
       variants={childrenVariants}
