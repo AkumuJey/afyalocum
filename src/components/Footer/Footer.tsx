@@ -1,25 +1,72 @@
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
-import { IconButton, Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
 
 const Footer = () => {
   const { currentUser } = useContext(AuthContext);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const navigate = useNavigate();
+  const handleClick = (direction: string) => {
+    scrollToTop()
+    navigate(direction);
+  };
+  const handleLogout = () => {
+    scrollToTop()
+    auth.signOut();
+  };
   return (
-    <div className="bg-teal-600">
-    <div className="flex flex-col md:flex-row justify-between px-[1.5rem]">
-      <div className="text-center">
-        <Typography variant="h3">Afya Locum</Typography>
-      </div>
-      <div className="flex gap-3 justify-evenly">
-        <NavLink to={`/login`}>Login</NavLink>
-        <NavLink to={`/dashboard`}>Dashboard</NavLink>
-        <NavLink to={`/`}>Home</NavLink>
-        <NavLink to={`/logout`}>Log out</NavLink>
-        <NavLink to={`/profile`}>Dashboard</NavLink>
-      </div>
-      <div className="flex justify-evenly" id="social">
+    <div className="bg-teal-200 min-w-full py-[1rem]">
+      <div className="flex flex-col md:flex-row justify-between px-[1.5rem]">
+        <div className="flex justify-between md:justify-evenly items-center w-full md:w-[50%] md:text-[1.5rem]">
+          <Button
+            variant="outlined"
+            onClick={() => handleClick("/")}
+            color="inherit"
+          >
+            Home
+          </Button>
+          {currentUser ? (
+            <>
+              <Button
+                variant="outlined"
+                onClick={() => handleClick("/dashboard")}
+                color="inherit"
+              >
+                Dashboard
+              </Button>
+              <Button variant="outlined" onClick={handleLogout} color="inherit">
+                Log Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outlined"
+                onClick={() => handleClick("/register")}
+                color="inherit"
+              >
+                Sign Up
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => handleClick("/login")}
+                color="inherit"
+              >
+                Login
+              </Button>
+            </>
+          )}
+        </div>
+        <div
+          className="flex justify-between md:justify-evenly items-center w-full md:w-[50%]"
+          id="social"
+        >
           <IconButton>
             <Facebook sx={{ color: "blue", fontSize: "2rem" }} />
           </IconButton>
@@ -32,9 +79,13 @@ const Footer = () => {
           <IconButton>
             <LinkedIn sx={{ color: "blue", fontSize: "2rem" }} />
           </IconButton>
+        </div>
       </div>
-    </div>
-    <div className="w-full text-center">Website Developed by Dr Akumu J</div>
+      <div className="w-full text-center">
+        <Typography variant="h6">
+          &#169; 2024 Copyright: <span className="font-bold">AfyaLocum</span>
+        </Typography>
+      </div>
     </div>
   );
 };

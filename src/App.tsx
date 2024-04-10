@@ -28,6 +28,7 @@ function App(props: Props) {
     {
       path: "/",
       element: <Root {...props} />,
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "/",
@@ -120,7 +121,6 @@ function App(props: Props) {
           errorElement: <ErrorPage />,
         },
       ],
-      errorElement: <ErrorPage />
     },
   ]);
   return (
