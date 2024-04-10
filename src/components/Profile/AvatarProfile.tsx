@@ -45,6 +45,10 @@ const AvatarProfile = ({imageUrl} : Props) => {
     });
     setTake(false);
   };
+
+  const updateProfile = (part: string) => {
+    
+  }
   return (
     <Box>
       {!isEditable && (
@@ -82,7 +86,7 @@ const AvatarProfile = ({imageUrl} : Props) => {
               width: "100%",
             }}
           >
-            {take ? "Upload Image" : "Hospital's Image"}
+            {take ? "Upload Image" : "Hospital's Profile Photo"}
           </InputLabel>
           {take && (
             <Button
@@ -93,7 +97,7 @@ const AvatarProfile = ({imageUrl} : Props) => {
                 backgroundColor: "blue",
               }}
             >
-              Update profile image
+              Update new profile photo
               <VisuallyHiddenInput
                 type="file"
                 id="image"
