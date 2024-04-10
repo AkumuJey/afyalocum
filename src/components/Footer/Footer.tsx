@@ -1,5 +1,5 @@
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
-import { Button, IconButton, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -13,11 +13,11 @@ const Footer = () => {
   };
   const navigate = useNavigate();
   const handleClick = (direction: string) => {
-    scrollToTop()
+    scrollToTop();
     navigate(direction);
   };
   const handleLogout = () => {
-    scrollToTop()
+    scrollToTop();
     auth.signOut();
   };
   return (
@@ -67,10 +67,10 @@ const Footer = () => {
           className="flex justify-between md:justify-evenly items-center w-full md:w-[50%]"
           id="social"
         >
-            <Facebook sx={{ color: "blue", fontSize: "2rem" }} />
-            <Twitter sx={{ color: "black", fontSize: "2rem" }} />
-            <Instagram sx={{ color: "red", fontSize: "2rem" }} />
-            <LinkedIn sx={{ color: "blue", fontSize: "2rem" }} />
+          <a href="http://localhost:5173/dashboard" target="_blank"><Facebook sx={{ color: "blue", fontSize: "2rem" }} /></a>
+          <a href="http://" target="_blank"><Twitter sx={{ color: "black", fontSize: "2rem" }} /></a>
+          <a href="http://" target="_blank"><Instagram sx={{ color: "red", fontSize: "2rem" }} /></a>
+          <a href="http://" target="_blank"><LinkedIn sx={{ color: "blue", fontSize: "2rem" }} /></a>
         </div>
       </div>
       <div className="w-full text-center">
