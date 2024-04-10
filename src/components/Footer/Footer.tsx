@@ -67,10 +67,18 @@ const Footer = () => {
           className="flex justify-between md:justify-evenly items-center w-full md:w-[50%]"
           id="social"
         >
-          <a href="http://localhost:5173/dashboard" target="_blank"><Facebook sx={{ color: "blue", fontSize: "2rem" }} /></a>
-          <a href="http://" target="_blank"><Twitter sx={{ color: "black", fontSize: "2rem" }} /></a>
-          <a href="http://" target="_blank"><Instagram sx={{ color: "red", fontSize: "2rem" }} /></a>
-          <a href="http://" target="_blank"><LinkedIn sx={{ color: "blue", fontSize: "2rem" }} /></a>
+          <a href="http://localhost:5173/dashboard" target="_blank">
+            <Facebook sx={{ color: "blue", fontSize: "2rem" }} />
+          </a>
+          <a href="http://" target="_blank">
+            <Twitter sx={{ color: "black", fontSize: "2rem" }} />
+          </a>
+          <a href="http://" target="_blank">
+            <Instagram sx={{ color: "red", fontSize: "2rem" }} />
+          </a>
+          <a href="http://" target="_blank">
+            <LinkedIn sx={{ color: "blue", fontSize: "2rem" }} />
+          </a>
         </div>
       </div>
       <div className="w-full text-center">
