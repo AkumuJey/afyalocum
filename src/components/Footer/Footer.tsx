@@ -1,8 +1,8 @@
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import { Button, IconButton, Typography } from "@mui/material";
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 import { auth } from "../../firebase/firebase";
 
 const Footer = () => {
@@ -22,8 +22,8 @@ const Footer = () => {
   };
   return (
     <div className="bg-teal-200 min-w-full py-[1rem]">
-      <div className="flex flex-col md:flex-row justify-between px-[1.5rem]">
-        <div className="flex justify-between md:justify-evenly items-center w-full md:w-[50%] md:text-[1.5rem]">
+      <div className="flex flex-col md:flex-row justify-between px-[1.5rem] mb-[1rem]">
+        <div className="flex justify-between md:justify-evenly items-center w-full md:w-[50%] md:text-[1.5rem] mb-[1rem] md:mb-0">
           <Button
             variant="outlined"
             onClick={() => handleClick("/")}
@@ -67,18 +67,10 @@ const Footer = () => {
           className="flex justify-between md:justify-evenly items-center w-full md:w-[50%]"
           id="social"
         >
-          <IconButton>
             <Facebook sx={{ color: "blue", fontSize: "2rem" }} />
-          </IconButton>
-          <IconButton>
             <Twitter sx={{ color: "black", fontSize: "2rem" }} />
-          </IconButton>
-          <IconButton>
             <Instagram sx={{ color: "red", fontSize: "2rem" }} />
-          </IconButton>
-          <IconButton>
             <LinkedIn sx={{ color: "blue", fontSize: "2rem" }} />
-          </IconButton>
         </div>
       </div>
       <div className="w-full text-center">
