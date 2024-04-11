@@ -1,15 +1,13 @@
 import { Box, Paper, Typography } from "@mui/material";
-import NameProfile from "../components/Profile/NameProfile";
-import DescriptionProfile from "../components/Profile/DescriptionProfile";
+import { User } from "firebase/auth";
+import { useContext } from "react";
 import AvatarProfile from "../components/Profile/AvatarProfile";
 import ChangePassword from "../components/Profile/ChangePassword";
-import { AuthContext } from "../contexts/AuthContext";
-import { useContext } from "react";
+import DescriptionProfile from "../components/Profile/DescriptionProfile";
+import NameProfile from "../components/Profile/NameProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
+import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
-import { updateProfile, User } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);

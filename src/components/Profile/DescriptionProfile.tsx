@@ -10,12 +10,14 @@ import { User } from "firebase/auth";
 import { doc, DocumentData, getDoc, updateDoc } from "firebase/firestore";
 import { useState, FormEvent, useEffect } from "react";
 import { db } from "../../firebase/firebase";
+import { LoadingButton } from "@mui/lab";
 
 interface PropTypes {
   currentUser: User;
 }
 const DescriptionProfile = ({ currentUser }: PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const updateUserDescription = async (description: string) => {
     if (currentUser) {
@@ -27,13 +29,14 @@ const DescriptionProfile = ({ currentUser }: PropTypes) => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  setLoading(true)
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
     const { description } = data
     await updateUserDescription(description as string);
+    setLoading(false)
     setIsEditable(false);
-    console.log(data);
   };
 
   const [description, setDescription] = useState<string | null>(null);
@@ -107,9 +110,15 @@ const DescriptionProfile = ({ currentUser }: PropTypes) => {
               width: "100%",
             }}
           >
-            <Button type="submit" color="primary" variant="contained">
-              Save
-            </Button>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              color="secondary"
+              loading={loading}
+              disabled={loading}
+            >
+              Update Name
+            </LoadingButton>
             <Button
               type="button"
               color="secondary"
