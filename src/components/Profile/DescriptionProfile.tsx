@@ -49,7 +49,7 @@ const DescriptionProfile = ({ currentUser }: PropTypes) => {
       setDescription(hospitalDescription as string);
     };
     fetchDescription();
-  }, []);
+  });
   return (
     <>
       {!isEditable && (

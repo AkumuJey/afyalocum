@@ -103,7 +103,7 @@ const Name = ({ currentUser }: PropTypes) => {
               loading={loading}
               disabled={loading}
             >
-              Update Name
+              Update Description
             </LoadingButton>
             <Button
               type="button"
