@@ -7,7 +7,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { User } from "firebase/auth";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, DocumentData, getDoc, updateDoc } from "firebase/firestore";
 import { useState, FormEvent, useEffect } from "react";
 import { db } from "../../firebase/firebase";
 
@@ -17,35 +17,43 @@ interface PropTypes {
 const DescriptionProfile = ({ currentUser }: PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    setIsEditable(false);
-    console.log(data);
-  };
-  const para = "dfdfjjdf";
-
-  const updateUserDescription = async (part: string) => {
+  const updateUserDescription = async (description: string) => {
     if (currentUser) {
       const userRef = doc(db, "hospitals", currentUser.uid);
       await updateDoc(userRef, {
-        hospitalDescription: part,
+        hospitalDescription: description,
       });
     }
   };
-const [des, setDes] = useState('')
-  useEffect(() => {
 
-    getDoc()
-  }, [])
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    const { description } = data
+    await updateUserDescription(description as string);
+    setIsEditable(false);
+    console.log(data);
+  };
+
+  const [description, setDescription] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchDescription = async () => {
+      const userRef = doc(db, "hospitals", currentUser.uid);
+      const userDescription = await getDoc(userRef);
+      const descriptionData = userDescription.data()
+      const { hospitalDescription } = descriptionData as DocumentData
+      setDescription(hospitalDescription as string);
+    };
+    fetchDescription();
+  }, []);
   return (
     <>
       {!isEditable && (
         <Grid container justifyContent={`space-between`} spacing={2}>
           <Grid item>
             <Typography fontWeight={`bold`}>Description: </Typography>
-            <Typography>{para}</Typography>
+            <Typography>{description}</Typography>
           </Grid>
           <Grid item>
             <Button onClick={() => setIsEditable(true)} variant="contained">
@@ -87,6 +95,7 @@ const [des, setDes] = useState('')
               required
               placeholder="Describe Your Hospital"
               className="max-h-[200px] min-h-[150px] p-3 w-full overflow-hidden"
+              defaultValue={description as string}
             />
           </Box>
           <Box
