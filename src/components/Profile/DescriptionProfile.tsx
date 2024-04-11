@@ -7,12 +7,14 @@ import {
   InputLabel,
 } from "@mui/material";
 import { User } from "firebase/auth";
-import { useState, FormEvent } from "react";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useState, FormEvent, useEffect } from "react";
+import { db } from "../../firebase/firebase";
 
 interface PropTypes {
-  currentUser: User
+  currentUser: User;
 }
-const DescriptionProfile = ({currentUser} : PropTypes) => {
+const DescriptionProfile = ({ currentUser }: PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -22,7 +24,21 @@ const DescriptionProfile = ({currentUser} : PropTypes) => {
     setIsEditable(false);
     console.log(data);
   };
-const para = "dfdfjjdf"
+  const para = "dfdfjjdf";
+
+  const updateUserDescription = async (part: string) => {
+    if (currentUser) {
+      const userRef = doc(db, "hospitals", currentUser.uid);
+      await updateDoc(userRef, {
+        hospitalDescription: part,
+      });
+    }
+  };
+const [des, setDes] = useState('')
+  useEffect(() => {
+
+    getDoc()
+  }, [])
   return (
     <>
       {!isEditable && (

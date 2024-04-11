@@ -10,12 +10,13 @@ import {
 import { CloudUpload } from "@mui/icons-material";
 
 import { styled } from "@mui/material/styles";
+import { User } from "firebase/auth";
 
 
-interface Props{
-  imageUrl: string
+interface PropsTypes{
+  currentUser: User
 }
-const AvatarProfile = ({imageUrl} : Props) => {
+const AvatarProfile = ({ currentUser } : PropsTypes) => {
   const [take, setTake] = useState(true);
   const [organizationInfo, setOrganizationInfo] = useState({
     image: "",
@@ -46,7 +47,7 @@ const AvatarProfile = ({imageUrl} : Props) => {
     setTake(false);
   };
 
- 
+ const { photoURL } = currentUser
   return (
     <Box>
       {!isEditable && (
@@ -60,7 +61,7 @@ const AvatarProfile = ({imageUrl} : Props) => {
             <Typography fontWeight={`bold`}>Profile Photo: </Typography>
             <Avatar
               alt="Profile Image"
-              src={imageUrl}
+              src={photoURL as string}
               sx={{ width: "5rem", height: "5rem" }}
             />
           </Grid>

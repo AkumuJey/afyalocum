@@ -1,3 +1,4 @@
+import { LoadingButton } from "@mui/lab";
 import {
   Grid,
   Typography,
@@ -6,24 +7,37 @@ import {
   Box,
   InputLabel,
 } from "@mui/material";
+import { updateProfile, User } from "firebase/auth";
 import { useState, FormEvent } from "react";
-interface Props{
-  displayName: string
+interface PropTypes {
+  currentUser: User;
 }
-const Name = ({displayName} : Props) => {
+const Name = ({ currentUser }: PropTypes) => {
   // State to manage the editable status of the component
   const [isEditable, setIsEditable] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // Function to handle form submission
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const updateUserName = async (name: string) => {
+    if (currentUser) {
+      await updateProfile(currentUser, {
+        displayName: name,
+      });
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    const { name } = data;
+    await updateUserName(name as string);
+    setLoading(false);
     setIsEditable(false);
-    console.log(data);
   };
 
-  // Render the component based on the editable status
+  const { displayName } = currentUser;
+
   return (
     <>
       {/* If the component is not editable, display the name and an edit button */}
@@ -82,9 +96,15 @@ const Name = ({displayName} : Props) => {
               width: "100%",
             }}
           >
-            <Button type="submit" color="primary" variant="contained">
-              Save
-            </Button>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              color="secondary"
+              loading={loading}
+              disabled={loading}
+            >
+              Update Name
+            </LoadingButton>
             <Button
               type="button"
               color="secondary"

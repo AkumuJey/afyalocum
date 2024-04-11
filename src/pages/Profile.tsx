@@ -13,24 +13,7 @@ import { db } from "../firebase/firebase";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
-  const updateUserName = async (part: string) => {
-    if(currentUser) {
-      // const userRef = doc(db, "hospitals", currentUser.uid);
-      // await updateDoc(userRef, {part})
-      await updateProfile(currentUser,{
-        displayName : part,
-      })
-    }
-  }
 
-  const updateUserDescription = async (part: string) => {
-    if (currentUser) {
-      const userRef = doc(db, "hospitals", currentUser.uid);
-      await updateDoc(userRef, {
-        hospitalDescription:  part,
-      })
-    }
-  }
   return (
     <>
       <RouterAnimation>
@@ -51,8 +34,8 @@ const Profile = () => {
                 gap: "2rem",
               }}
             >
-              <AvatarProfile imageUrl={currentUser?.photoURL as string} />
-              <NameProfile displayName={currentUser?.displayName as string} />
+              <AvatarProfile currentUser={currentUser as User} />
+              <NameProfile currentUser={currentUser as User} />
               <DescriptionProfile currentUser={currentUser as User}/>
             </Paper>
             <ChangePassword />
