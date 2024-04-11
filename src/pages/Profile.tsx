@@ -7,9 +7,30 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RouterAnimation from "./RouterAnimation";
+import { updateProfile, User } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
+  const updateUserName = async (part: string) => {
+    if(currentUser) {
+      // const userRef = doc(db, "hospitals", currentUser.uid);
+      // await updateDoc(userRef, {part})
+      await updateProfile(currentUser,{
+        displayName : part,
+      })
+    }
+  }
+
+  const updateUserDescription = async (part: string) => {
+    if (currentUser) {
+      const userRef = doc(db, "hospitals", currentUser.uid);
+      await updateDoc(userRef, {
+        hospitalDescription:  part,
+      })
+    }
+  }
   return (
     <>
       <RouterAnimation>
@@ -32,7 +53,7 @@ const Profile = () => {
             >
               <AvatarProfile imageUrl={currentUser?.photoURL as string} />
               <NameProfile displayName={currentUser?.displayName as string} />
-              <DescriptionProfile />
+              <DescriptionProfile currentUser={currentUser as User}/>
             </Paper>
             <ChangePassword />
           </Box>

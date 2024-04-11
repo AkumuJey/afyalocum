@@ -46,9 +46,7 @@ const AvatarProfile = ({imageUrl} : Props) => {
     setTake(false);
   };
 
-  const updateProfile = (part: string) => {
-    
-  }
+ 
   return (
     <Box>
       {!isEditable && (

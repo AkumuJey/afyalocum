@@ -6,9 +6,13 @@ import {
   Box,
   InputLabel,
 } from "@mui/material";
+import { User } from "firebase/auth";
 import { useState, FormEvent } from "react";
 
-const DescriptionProfile = () => {
+interface PropTypes {
+  currentUser: User
+}
+const DescriptionProfile = ({currentUser} : PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -18,8 +22,7 @@ const DescriptionProfile = () => {
     setIsEditable(false);
     console.log(data);
   };
-  const para =
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit adipisci asperiores porro, accusamus ipsa vitae enim impedit provident dolorem eveniet praesentium quaerat ad inventore libero cupiditate consequatur nostrum quisquam eligendi!";
+const para = "dfdfjjdf"
   return (
     <>
       {!isEditable && (
