@@ -1,8 +1,7 @@
-
-
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
+
 
 interface AuthContextProps {
   currentUser: User | null;
@@ -12,7 +11,10 @@ export const AuthContext = createContext<AuthContextProps>({
   currentUser: null,
 });
 
-export const AuthContextProvider = ({ children }: { children?: ReactNode }) => {
+interface PropTypes{
+  children :ReactNode;
+}
+export const AuthContextProvider = ({ children }: PropTypes) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 

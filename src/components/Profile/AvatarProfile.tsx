@@ -134,6 +134,8 @@ const AvatarProfile = ({ currentUser }: PropsTypes) => {
                 required
                 accept="image/png, image/jpeg"
                 onChange={handleImageChange}
+                contentEditable
+                
               />
             </Button>
           )}

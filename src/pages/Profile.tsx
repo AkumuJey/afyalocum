@@ -16,6 +16,7 @@ console.log(currentUser?.photoURL)
     <>
       <RouterAnimation>
         <ProtectedRoute>
+          
           <Box
             component={`div`}
             className="w-[95%] max-w-lg valid-height flex flex-col justify-start gap-[4rem] py-5"
