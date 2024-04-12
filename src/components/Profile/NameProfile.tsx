@@ -11,29 +11,37 @@ import { updateProfile, User } from "firebase/auth";
 import { useState, FormEvent } from "react";
 interface PropTypes {
   currentUser: User;
+  handleSuccess: (message: string) => void;
+  handleError: (message: string) => void;
 }
-const Name = ({ currentUser }: PropTypes) => {
-  // State to manage the editable status of the component
+const Name = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const updateUserName = async (name: string) => {
-    if (currentUser) {
-      await updateProfile(currentUser, {
-        displayName: name,
-      });
+    if (!currentUser) {
+      return;
     }
+    await updateProfile(currentUser, {
+      displayName: name,
+    });
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    const { name } = data;
-    await updateUserName(name as string);
-    setLoading(false);
-    setIsEditable(false);
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = Object.fromEntries(formData.entries());
+      const { name } = data;
+      await updateUserName(name as string);
+      handleSuccess("Successfully Updated Hospital Name")
+    } catch (_error) {
+      handleError("Error updating name");
+    } finally{
+      setLoading(false);
+      setIsEditable(false);
+    }
   };
 
   const { displayName } = currentUser;
