@@ -1,9 +1,15 @@
-import { Alert, Snackbar } from "@mui/material";
-import { transitionRight } from "./TransitionRight";
+import { Alert, Snackbar, Slide, SlideProps } from "@mui/material";
 interface PropTypes {
   open: boolean;
   handleClose: () => void;
 }
+
+type TransitionProps = Omit<SlideProps, "direction">;
+
+function transitionRight(props: TransitionProps) {
+    return <Slide {...props} direction="right" />;
+  }
+
 
 const CreatedLocumNotification = ({ open, handleClose }: PropTypes) => {
   return (

@@ -1,14 +1,15 @@
-import { useState, ChangeEvent } from "react";
-import {
-  InputLabel,
-  Button,
-  Avatar,
-  Grid,
-  Typography,
-  Box,
-} from "@mui/material";
 import { CloudUpload } from "@mui/icons-material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  InputLabel,
+  Typography,
+} from "@mui/material";
+import { ChangeEvent, useState } from "react";
 
+import { LoadingButton } from "@mui/lab";
 import { styled } from "@mui/material/styles";
 import { updateProfile, User } from "firebase/auth";
 import {
@@ -18,7 +19,6 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
-import { LoadingButton } from "@mui/lab";
 
 interface PropsTypes {
   currentUser: User;
@@ -135,7 +135,7 @@ const AvatarProfile = ({ currentUser }: PropsTypes) => {
                 accept="image/png, image/jpeg"
                 onChange={handleImageChange}
                 contentEditable
-                
+
               />
             </Button>
           )}

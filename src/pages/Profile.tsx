@@ -1,6 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { User } from "firebase/auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AvatarProfile from "../components/Profile/AvatarProfile";
 import ChangePassword from "../components/Profile/ChangePassword";
 import DescriptionProfile from "../components/Profile/DescriptionProfile";
@@ -8,19 +8,32 @@ import NameProfile from "../components/Profile/NameProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
+import Notification from "../components/Profile/Notification";
 
+type Severity = "success" | "info" | "warning" | "error";
+interface Notification {
+  severity: Severity;
+  message: string;
+  open: boolean;
+  handleClose: () => void;
+}
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
-console.log(currentUser?.photoURL)
+  const [open, setOpen] = useState(true);
   return (
     <>
       <RouterAnimation>
         <ProtectedRoute>
-          
           <Box
             component={`div`}
             className="w-[95%] max-w-lg valid-height flex flex-col justify-start gap-[4rem] py-5"
           >
+            <Notification
+              open={open}
+              handleClose={() => setOpen(!open)}
+              message="Updated"
+              severity="error"
+            />
             <Typography variant="h3" fontWeight={`bold`}>
               Profile
             </Typography>
@@ -35,7 +48,7 @@ console.log(currentUser?.photoURL)
             >
               <AvatarProfile currentUser={currentUser as User} />
               <NameProfile currentUser={currentUser as User} />
-              <DescriptionProfile currentUser={currentUser as User}/>
+              <DescriptionProfile currentUser={currentUser as User} />
             </Paper>
             <ChangePassword />
           </Box>
