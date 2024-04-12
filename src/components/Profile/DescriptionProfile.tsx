@@ -14,8 +14,10 @@ import { LoadingButton } from "@mui/lab";
 
 interface PropTypes {
   currentUser: User;
+  handleSuccess: (message: string) => void;
+  handleError: (message: string) => void;
 }
-const DescriptionProfile = ({ currentUser }: PropTypes) => {
+const DescriptionProfile = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -31,12 +33,18 @@ const DescriptionProfile = ({ currentUser }: PropTypes) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   setLoading(true)
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    try {
+      const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
     const { description } = data
     await updateUserDescription(description as string);
-    setLoading(false)
+    handleSuccess("Hospital description updated successfully");
+    } catch (_error) {
+      handleError("Error updating description")
+    } finally {
+      setLoading(false)
     setIsEditable(false);
+    }
   };
 
   const [description, setDescription] = useState<string | null>(null);

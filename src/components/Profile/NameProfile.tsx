@@ -35,7 +35,7 @@ const Name = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
       const data = Object.fromEntries(formData.entries());
       const { name } = data;
       await updateUserName(name as string);
-      handleSuccess("Successfully Updated Hospital Name")
+      handleSuccess("Hospital name updated successfully")
     } catch (_error) {
       handleError("Error updating name");
     } finally{

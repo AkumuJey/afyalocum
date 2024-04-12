@@ -70,7 +70,11 @@ const Profile = () => {
                 handleSuccess={(msg) => handleSuccess(msg)}
                 handleError={(msg) => handleError(msg)}
               />
-              <DescriptionProfile currentUser={currentUser as User} />
+              <DescriptionProfile
+                currentUser={currentUser as User}
+                handleSuccess={(msg) => handleSuccess(msg)}
+                handleError={(msg) => handleError(msg)}
+              />
             </Paper>
             <ChangePassword />
           </Box>
