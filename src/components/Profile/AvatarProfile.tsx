@@ -22,11 +22,12 @@ import { storage } from "../../firebase/firebase";
 
 interface PropsTypes {
   currentUser: User;
+  handleSuccess: (message: string) => void;
+  handleError:  (message: string) => void;
 }
-const AvatarProfile = ({ currentUser }: PropsTypes) => {
+const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) => {
   const [take, setTake] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
   const [isEditable, setIsEditable] = useState(false);
@@ -74,10 +75,9 @@ const AvatarProfile = ({ currentUser }: PropsTypes) => {
         await deleteObject(oldPhotoUrl);
       }
       await updateImage(image as File);
-      console.log("image: ", image)
+      handleSuccess("Profile Photo Updated Successfully")
     } catch (_error) {
-      console.log("Error: ", _error);
-      setError(true);
+      handleError("Error uploading image")
     } finally {
       setLoading(false);
     }

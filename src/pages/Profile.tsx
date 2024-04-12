@@ -10,16 +10,30 @@ import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
 import Notification from "../components/Profile/Notification";
 
-type Severity = "success" | "info" | "warning" | "error";
-interface Notification {
-  severity: Severity;
-  message: string;
-  open: boolean;
-  handleClose: () => void;
-}
+type Severity = "success" | "error";
+
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [severity, setSeverity] = useState<Severity>("success");
+  const handleClose = () => {
+    setSeverity("success");
+    setOpen(false);
+    setOpen(false);
+  };
+
+  const handleError = (msg: string) => {
+    setMessage(msg);
+    setOpen(true);
+    setSeverity("error");
+  };
+
+  const handleSuccess = (msg: string) => {
+    setMessage(msg);
+    setOpen(true);
+    setSeverity("success");
+  };
   return (
     <>
       <RouterAnimation>
@@ -30,9 +44,9 @@ const Profile = () => {
           >
             <Notification
               open={open}
-              handleClose={() => setOpen(!open)}
-              message="Updated"
-              severity="error"
+              handleClose={handleClose}
+              message={message as string}
+              severity={severity}
             />
             <Typography variant="h3" fontWeight={`bold`}>
               Profile
@@ -46,7 +60,11 @@ const Profile = () => {
                 gap: "2rem",
               }}
             >
-              <AvatarProfile currentUser={currentUser as User} />
+              <AvatarProfile
+                currentUser={currentUser as User}
+                handleSuccess={(msg) => handleSuccess(msg)}
+                handleError={(msg) => handleError(msg)}
+              />
               <NameProfile currentUser={currentUser as User} />
               <DescriptionProfile currentUser={currentUser as User} />
             </Paper>

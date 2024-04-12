@@ -1,6 +1,6 @@
 import { Alert, Slide, SlideProps, Snackbar } from "@mui/material";
 
-type Severity = "success" | "info" | "warning" | "error";
+type Severity = "success" | "error";
 interface PropTypes {
   severity: Severity;
   message: string;
@@ -32,12 +32,6 @@ const NotificationElement = ({ open, message, severity, handleClose }: PropTypes
           { message }
         </Alert>
       </Snackbar>
-      <button
-        onClick={handleClose}
-        className="bg-green-400 px-3 py-1 cursor-pointer rounded-sm"
-      >
-        Show
-      </button>
     </>
   );
 };
