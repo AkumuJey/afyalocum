@@ -35,10 +35,10 @@ const Name = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
       const data = Object.fromEntries(formData.entries());
       const { name } = data;
       await updateUserName(name as string);
-      handleSuccess("Hospital name updated successfully")
+      handleSuccess("Hospital name updated successfully");
     } catch (_error) {
       handleError("Error updating name");
-    } finally{
+    } finally {
       setLoading(false);
       setIsEditable(false);
     }
@@ -48,7 +48,6 @@ const Name = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
 
   return (
     <>
-      {/* If the component is not editable, display the name and an edit button */}
       {!isEditable && (
         <Grid container justifyContent={`space-between`} spacing={2}>
           <Grid item>
@@ -62,8 +61,6 @@ const Name = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
           </Grid>
         </Grid>
       )}
-
-      {/* If the component is editable, display a form to edit the name */}
       {isEditable && (
         <Box
           component={`form`}

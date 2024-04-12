@@ -17,7 +17,11 @@ interface PropTypes {
   handleSuccess: (message: string) => void;
   handleError: (message: string) => void;
 }
-const DescriptionProfile = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
+const DescriptionProfile = ({
+  currentUser,
+  handleSuccess,
+  handleError,
+}: PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -31,19 +35,19 @@ const DescriptionProfile = ({ currentUser, handleSuccess, handleError }: PropTyp
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  setLoading(true)
+    setLoading(true);
     e.preventDefault();
     try {
       const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    const { description } = data
-    await updateUserDescription(description as string);
-    handleSuccess("Hospital description updated successfully");
+      const data = Object.fromEntries(formData.entries());
+      const { description } = data;
+      await updateUserDescription(description as string);
+      handleSuccess("Hospital description updated successfully");
     } catch (_error) {
-      handleError("Error updating description")
+      handleError("Error updating description");
     } finally {
-      setLoading(false)
-    setIsEditable(false);
+      setLoading(false);
+      setIsEditable(false);
     }
   };
 
@@ -52,8 +56,8 @@ const DescriptionProfile = ({ currentUser, handleSuccess, handleError }: PropTyp
     const fetchDescription = async () => {
       const userRef = doc(db, "hospitals", currentUser.uid);
       const userDescription = await getDoc(userRef);
-      const descriptionData = userDescription.data()
-      const { hospitalDescription } = descriptionData as DocumentData
+      const descriptionData = userDescription.data();
+      const { hospitalDescription } = descriptionData as DocumentData;
       setDescription(hospitalDescription as string);
     };
     fetchDescription();
