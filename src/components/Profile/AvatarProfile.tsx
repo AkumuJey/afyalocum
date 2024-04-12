@@ -10,17 +10,25 @@ import {
 import { CloudUpload } from "@mui/icons-material";
 
 import { styled } from "@mui/material/styles";
-import { User } from "firebase/auth";
+import { updateProfile, User } from "firebase/auth";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import { storage } from "../../firebase/firebase";
+import { LoadingButton } from "@mui/lab";
 
-
-interface PropsTypes{
-  currentUser: User
+interface PropsTypes {
+  currentUser: User;
 }
-const AvatarProfile = ({ currentUser } : PropsTypes) => {
+const AvatarProfile = ({ currentUser }: PropsTypes) => {
   const [take, setTake] = useState(true);
-  const [organizationInfo, setOrganizationInfo] = useState({
-    image: "",
-  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [isEditable, setIsEditable] = useState(false);
   const handleRetake = () => {
     setTake(!take);
@@ -37,17 +45,43 @@ const AvatarProfile = ({ currentUser } : PropsTypes) => {
     whiteSpace: "nowrap",
     width: 1,
   });
-  const { image } = organizationInfo;
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) return;
-    setOrganizationInfo({
-      ...organizationInfo,
-      image: URL.createObjectURL(e.target.files[0]),
-    });
+    const imageHolder = e.target.files[0];
+    setImage(imageHolder);
+    setImageUrl(URL.createObjectURL(imageHolder));
     setTake(false);
   };
 
- const { photoURL } = currentUser
+  const { photoURL } = currentUser;
+
+  const updateImage = async (image: File) => {
+    const storageRef = ref(storage, `images/${currentUser.uid}`);
+    await uploadBytes(storageRef, image);
+    const downloadUrl = await getDownloadURL(storageRef);
+    console.log(downloadUrl)
+    await updateProfile(currentUser, {
+      photoURL: downloadUrl,
+    });
+  };
+  const handlePhotoUpdate = async () => {
+    setLoading(true);
+    try {
+      if (photoURL) {
+        const oldPhotoUrl = ref(storage, photoURL);
+        console.log(oldPhotoUrl)
+        await deleteObject(oldPhotoUrl);
+      }
+      await updateImage(image as File);
+      console.log("image: ", image)
+    } catch (_error) {
+      console.log("Error: ", _error);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <Box>
       {!isEditable && (
@@ -65,14 +99,11 @@ const AvatarProfile = ({ currentUser } : PropsTypes) => {
               sx={{ width: "5rem", height: "5rem" }}
             />
           </Grid>
-          {/* <Grid item  display="flex" justifyContent="center"> */}
           <div className="flex justify-center items-center">
-          <Button onClick={() => setIsEditable(true)} variant="contained">
+            <Button onClick={() => setIsEditable(true)} variant="contained">
               Edit
             </Button>
           </div>
-            
-          {/* </Grid> */}
         </Grid>
       )}
       {isEditable && (
@@ -106,11 +137,11 @@ const AvatarProfile = ({ currentUser } : PropsTypes) => {
               />
             </Button>
           )}
-          {image.length > 0 && (
+          {imageUrl && (
             <div className="flex flex-col justify-between gap-1 w-full">
               <Avatar
                 alt="Profile Image"
-                src={image}
+                src={imageUrl}
                 sx={{ width: "5rem", height: "5rem" }}
               />
               <div>
@@ -138,14 +169,16 @@ const AvatarProfile = ({ currentUser } : PropsTypes) => {
               width: "100%",
             }}
           >
-            <Button
+            <LoadingButton
               type="submit"
-              color="primary"
               variant="contained"
-              disabled={!image.length}
+              color="secondary"
+              loading={loading}
+              disabled={!imageUrl || loading}
+              onClick={handlePhotoUpdate}
             >
-              Save
-            </Button>
+              Update Profile Photo
+            </LoadingButton>
             <Button
               type="button"
               color="secondary"

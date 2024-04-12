@@ -11,7 +11,7 @@ import RouterAnimation from "./RouterAnimation";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
-
+console.log(currentUser?.photoURL)
   return (
     <>
       <RouterAnimation>
