@@ -25,15 +25,17 @@ const containerStyles = {
   gap: "1.5rem",
 };
 
-interface PropTypes{
-  existingProfile: organizationInfo
-}
-const RegistrationFormLayout = ({existingProfile}: PropTypes) => {
+const RegistrationFormLayout = () => {
   const { handleRegistrationAndVerificationLink } = useRegistrationHooks();
 
-  const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>(existingProfile);
-
-  const ariaLabel = { "aria-label": "description" };
+  // States involved
+  const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>({
+    name: "",
+    password: "",
+    email: "",
+    hospitalDescription: "",
+    image: null,
+  });
   const [take, setTake] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -84,7 +86,7 @@ const RegistrationFormLayout = ({existingProfile}: PropTypes) => {
         open={success}
         handleClose={() => setSuccess(true)}
       />
-      <div className="flex justify-center items-center w-full h-full ">
+      <div className="flex justify-center items-center w-full h-full my-[2rem]">
         <Paper
           elevation={3}
           sx={containerStyles}
@@ -102,7 +104,6 @@ const RegistrationFormLayout = ({existingProfile}: PropTypes) => {
             take={take}
           />
           <NameRegistration
-            ariaLabel={ariaLabel}
             handleInputChange={handleInputChange}
             name={organizationInfo.name}
             disabled={loading}
@@ -116,7 +117,6 @@ const RegistrationFormLayout = ({existingProfile}: PropTypes) => {
             email={organizationInfo.email}
             password={organizationInfo.password}
             disabled={loading}
-            ariaLabel={ariaLabel}
             handleInputChange={handleInputChange}
           />
           {error && <RegistrationError handleClose={() => setError(false)} />}

@@ -6,16 +6,12 @@ interface Props {
   password: string;
   disabled: boolean;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  ariaLabel: {
-    "aria-label": string;
-  };
 }
 const EmailAndPasswordInput = ({
   email,
   password,
   disabled,
   handleInputChange,
-  ariaLabel,
 }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -40,7 +36,6 @@ const EmailAndPasswordInput = ({
         onChange={handleInputChange}
         placeholder="example@email.com"
         required
-        inputProps={ariaLabel}
         className="w-full px-3 py-2 overflow-hidden"
       />
       <InputLabel
@@ -62,7 +57,6 @@ const EmailAndPasswordInput = ({
         onChange={handleInputChange}
         placeholder="password"
         required
-        inputProps={ariaLabel}
         className={`w-full px-3 py-2 overflow-hidden`}
         endAdornment={
           <InputAdornment position="end">

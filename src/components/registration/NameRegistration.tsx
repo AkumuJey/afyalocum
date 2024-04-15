@@ -5,11 +5,8 @@ interface Props {
   name: string;
   disabled: boolean;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  ariaLabel: {
-    "aria-label": string;
-  };
 }
-const NameRegistration = ({ name, disabled, handleInputChange, ariaLabel }: Props) => {
+const NameRegistration = ({ name, disabled, handleInputChange }: Props) => {
   return (
     <>
       <InputLabel
@@ -29,7 +26,6 @@ const NameRegistration = ({ name, disabled, handleInputChange, ariaLabel }: Prop
         disabled={disabled}
         onChange={handleInputChange}
         placeholder="Organization's Name"
-        inputProps={ariaLabel}
         required
         className="w-full px-3 py-2 overflow-hidden"
       />
