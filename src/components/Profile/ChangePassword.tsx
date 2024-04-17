@@ -12,7 +12,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Box, Typography, Paper, Button } from "@mui/material";
 import { auth } from "../../firebase/firebase";
-import { updatePassword } from "firebase/auth";
+import { AuthCredential, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 
 interface ShowPassword {
   showCurrentPassword: boolean;
@@ -39,12 +39,15 @@ const ChangePassword = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const user = await auth.currentUser;
+      const user = auth.currentUser;
       if (user) {
-        updatePassword(user, newPassword).then(() => console.log("done"));
+        const credential: AuthCredential = EmailAuthProvider.credential(user.email as string, oldPassword)
+        await reauthenticateWithCredential(user, credential)
+        await updatePassword(user, newPassword)
+        console.log("Success")
       }
     } catch (error) {
-      console.log(error);
+      console.log("Failed: ", error);
     }
   };
 
