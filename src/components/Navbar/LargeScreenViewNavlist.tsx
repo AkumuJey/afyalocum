@@ -54,6 +54,7 @@ const LargeScreenViewNavlist = ({ scrollToTop, currentUser }: PropTypes) => {
                     ? "text-purple-800 transition-all duration-500 ease-in h-[3rem] flex items-center whitespace-nowrap"
                     : "h-[3rem] flex items-center whitespace-nowrap"
                 }
+                rel="preload"
               >
                 {link.label}
               </NavLink>
