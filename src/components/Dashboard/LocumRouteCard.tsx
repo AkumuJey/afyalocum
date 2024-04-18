@@ -1,11 +1,16 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-interface PropTypes {
+
+interface LocumRoute {
   routeDirection: string;
   title: string;
 }
 
-const LocumRouteCard = ({ routeDirection, title, }: PropTypes) => {
+interface PropTypes {
+  locumRoute: LocumRoute;
+}
+
+const LocumRouteCard = ({ locumRoute }: PropTypes) => {
   return (
     <>
       <motion.div
@@ -14,10 +19,10 @@ const LocumRouteCard = ({ routeDirection, title, }: PropTypes) => {
         className="w-[95%] md:w-[40%] font-bold min-h-[5rem] md:h-[8rem] shadow-md overflow-hidden bg-teal-400 rounded-md text-xl"
       >
         <Link
-          to={routeDirection}
+          to={locumRoute.routeDirection}
           className="h-full w-full flex justify-center items-center"
         >
-          <p>{title}</p>
+          <p>{locumRoute.title}</p>
         </Link>
       </motion.div>
     </>

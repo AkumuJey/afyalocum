@@ -1,5 +1,11 @@
 import LocumRouteCard from "../components/Dashboard/LocumRouteCard";
-const locumRoutes = [
+interface LocumRoute {
+  routeDirection: string;
+  title: string;
+  state?: string;
+}
+
+const locumRoutes: LocumRoute[] = [
   {
     title: "Create new locum",
     routeDirection: "/dashboard/create-new-locum",
@@ -22,11 +28,7 @@ const DashboardHome = () => {
     <>
       <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">
         {locumRoutes.map((locumRoute) => (
-          <LocumRouteCard
-            routeDirection={locumRoute.routeDirection}
-            title={locumRoute.title}
-            key={locumRoute.title}
-          />
+          <LocumRouteCard locumRoute={locumRoute} key={locumRoute.title} />
         ))}
       </div>
     </>
