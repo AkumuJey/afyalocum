@@ -1,24 +1,28 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 
 import IconButton from "@mui/material/IconButton";
 
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
 import FormControl from "@mui/material/FormControl";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Box, Typography, Paper, Button } from "@mui/material";
-import { auth } from "../../firebase/firebase";
+import { LoadingButton } from "@mui/lab";
+import { Box, Paper, Typography } from "@mui/material";
 import { AuthCredential, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import NotificationElement from "./Notification";
 
 interface ShowPassword {
   showCurrentPassword: boolean;
   showNewPassword: boolean;
   showConfrimNewPassword: boolean;
 }
+
+type Severity = "success" | "error";
 
 const ChangePassword = () => {
   const [show, setShow] = useState<ShowPassword>({
@@ -33,10 +37,21 @@ const ChangePassword = () => {
     event.preventDefault();
   };
 
+  const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState("")
+  const [severity, setSeverity] = useState<Severity>("success")
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const clearPasswords = () => {
+    setNewPassword("")
+    setOldPassword('')
+    setConfirmPassword("")
+  }
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true)
     try {
       e.preventDefault();
       const user = auth.currentUser;
@@ -44,15 +59,22 @@ const ChangePassword = () => {
         const credential: AuthCredential = EmailAuthProvider.credential(user.email as string, oldPassword)
         await reauthenticateWithCredential(user, credential)
         await updatePassword(user, newPassword)
-        console.log("Success")
+        setSeverity("success")
+        setMessage("Password updated successfuly")
+        clearPasswords()
       }
     } catch (error) {
-      console.log("Failed: ", error);
+      setSeverity("error")
+      setMessage(error.message)
+    }finally{
+      setLoading(false)
+      setOpen(true)
     }
   };
 
   return (
     <>
+    <NotificationElement open={open} handleClose={() => setOpen(false)} message={message} severity={severity}/>
       <Paper elevation={3} sx={{ padding: 2 }}>
         <Box
           component={`form`}
@@ -70,6 +92,7 @@ const ChangePassword = () => {
           <FormControl
             sx={{ m: 1, maxWidth: "50ch", width: "100%" }}
             variant="outlined"
+            disabled={loading}
           >
             <InputLabel htmlFor="current-password">Current password</InputLabel>
             <OutlinedInput
@@ -105,6 +128,7 @@ const ChangePassword = () => {
           <FormControl
             sx={{ m: 1, maxWidth: "50ch", width: "100%" }}
             variant="outlined"
+            disabled={loading}
           >
             <InputLabel htmlFor="new-password">New password</InputLabel>
             <OutlinedInput
@@ -136,6 +160,7 @@ const ChangePassword = () => {
           <FormControl
             sx={{ m: 1, maxWidth: "50ch", width: "100%" }}
             variant="outlined"
+            disabled={loading}
           >
             <InputLabel htmlFor="confirm-new-password">
               Confrim new password
@@ -171,19 +196,15 @@ const ChangePassword = () => {
             />
           </FormControl>
           <Box component={`div`} sx={{ m: 1, maxWidth: "40ch", width: "100%" }}>
-            <Button
+            <LoadingButton
               type="submit"
               variant="contained"
-              sx={{
-                bgcolor: "success.main",
-                color: "white",
-                "&:hover": {
-                  bgcolor: "success.dark",
-                },
-              }}
+              color="secondary"
+              loading={loading}
+              disabled={loading}
             >
               Save new password
-            </Button>
+            </LoadingButton>
           </Box>
         </Box>
       </Paper>
