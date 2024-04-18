@@ -11,7 +11,7 @@ const LocumRouteCard = ({ routeDirection, title, }: PropTypes) => {
       <motion.div
         whileHover={{ scale: 1.1 }}
         transition={{ duration: 0.3 }}
-        className="w-[95%] md:w-[40%] font-bold md:h-[8rem] shadow-md overflow-hidden bg-teal-400 rounded-md text-xl"
+        className="w-[95%] md:w-[40%] font-bold min-h-[5rem] md:h-[8rem] shadow-md overflow-hidden bg-teal-400 rounded-md text-xl"
       >
         <Link
           to={routeDirection}

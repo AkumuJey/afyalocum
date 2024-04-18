@@ -18,6 +18,7 @@ const Home = lazy(() => import("./pages/Home"));
 const CreateNew = lazy(() => import("./pages/DashboardPages/CreateNewLocum"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 
+
 interface Props {
   window?: () => Window;
   children: React.ReactElement;

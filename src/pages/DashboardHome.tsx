@@ -1,4 +1,4 @@
-import LocumRouteCard from "../Layout/LocumRouteCard";
+import LocumRouteCard from "../components/Dashboard/LocumRouteCard";
 const locumRoutes = [
   {
     title: "Create new locum",
