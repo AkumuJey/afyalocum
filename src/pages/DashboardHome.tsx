@@ -1,4 +1,4 @@
-import LocumRouteCard from "./LocumRouteCard";
+import LocumRouteCard from "../Layout/LocumRouteCard";
 const locumRoutes = [
   {
     title: "Create new locum",
@@ -17,7 +17,7 @@ const locumRoutes = [
     routeDirection: "/dashboard/settled-locums",
   },
 ];
-const DashIndex = () => {
+const DashboardHome = () => {
   return (
     <>
       <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">
@@ -33,4 +33,4 @@ const DashIndex = () => {
   );
 };
 
-export default DashIndex;
+export default DashboardHome;

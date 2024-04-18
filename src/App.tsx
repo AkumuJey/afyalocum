@@ -3,7 +3,7 @@ import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-d
 const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
 const OpenLocums = lazy(() => import("./pages/DashboardPages/OpenLocums"));
 const SingleLocumPage = lazy(() => import("./pages/DashboardPages/SingleLocumPage"));
-const DashIndex= lazy(() => import("./Layout/DashIndex"));
+const DashboardHome= lazy(() => import("./pages/DashboardHome"));
 const LocumEdit = lazy(() => import("./pages/DashboardPages/LocumEdit"));
 const SingleLocumLayout = lazy(() => import("./Layout/SingleLocumLayout"));
 const BookedLocums = lazy(() => import("./pages/DashboardPages/BookedLocums"));
@@ -26,7 +26,7 @@ interface Props {
 const dashboardChilren: RouteObject[] = [
   {
     path: "/dashboard",
-    element: <DashIndex />,
+    element: <DashboardHome />,
     errorElement: <ErrorPage />,
   },
   {

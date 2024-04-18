@@ -4,7 +4,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RouterAnimation from "../pages/RouterAnimation";
 
-const LayoutDash = () => {
+const DashboardLayout = () => {
   const location = useLocation();
   const pathname = location.pathname;
   const hideRegister = pathname === "/dashboard";
@@ -32,4 +32,4 @@ const LayoutDash = () => {
   );
 };
 
-export default LayoutDash;
+export default DashboardLayout;
