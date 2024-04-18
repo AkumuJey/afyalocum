@@ -1,4 +1,4 @@
-import LocumRouteCard from "../components/Dashboard/LocumRouteCard";
+import LocumLinkCard from "../components/Dashboard/LocumLinkCard";
 interface LocumRoute {
   routeDirection: string;
   title: string;
@@ -28,7 +28,7 @@ const DashboardHome = () => {
     <>
       <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">
         {locumRoutes.map((locumRoute) => (
-          <LocumRouteCard locumRoute={locumRoute} key={locumRoute.title} />
+          <LocumLinkCard locumRoute={locumRoute} key={locumRoute.title} />
         ))}
       </div>
     </>
