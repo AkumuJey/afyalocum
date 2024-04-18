@@ -1,9 +1,9 @@
 import { lazy } from "react";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
-const LayoutDash = lazy(() => import("./Layout/LayoutDash"));
+const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
 const OpenLocums = lazy(() => import("./pages/DashboardPages/OpenLocums"));
 const SingleLocumPage = lazy(() => import("./pages/DashboardPages/SingleLocumPage"));
-const  DashIndex= lazy(() => import("./Layout/DashIndex"));
+const DashIndex= lazy(() => import("./Layout/DashIndex"));
 const LocumEdit = lazy(() => import("./pages/DashboardPages/LocumEdit"));
 const SingleLocumLayout = lazy(() => import("./Layout/SingleLocumLayout"));
 const BookedLocums = lazy(() => import("./pages/DashboardPages/BookedLocums"));
@@ -95,7 +95,7 @@ function App(props: Props) {
         },
         {
           path: "/dashboard",
-          element: <LayoutDash />,
+          element: <DashboardLayout />,
           errorElement: <ErrorPage />,
           children: dashboardChilren
         },
