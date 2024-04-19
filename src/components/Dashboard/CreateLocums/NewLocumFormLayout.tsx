@@ -72,15 +72,17 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
           await submitToFirebase(jobFormat as SubmittedLocum);
         } else {
           await updateLocumDetails(id as string, jobFormat as SubmittedLocum);
-          console.log(jobFormat);
         }
         setSeverity("success");
-        setMessage("Locum details have been successfully updated.");
+        setMessage(`${
+          update ? "Locum details updated successfully." : "New locum added successfully."
+        }`);
       } catch (_error) {
         setSeverity("error");
-        setMessage("An error occurred while updating the locum details.");
+        setMessage( `${update ? "Update of locum details unsuccessful." : "Addition of locum unsuccessful."}`);
       } finally {
         setLoading(false);
+        setOpen(true);
       }
     }
   };
