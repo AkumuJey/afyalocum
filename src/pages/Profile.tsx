@@ -8,7 +8,7 @@ import NameProfile from "../components/Profile/NameProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
-import Notification from "../components/Profile/Notification";
+import Notification from "../components/NotificationElement";
 
 type Severity = "success" | "error";
 

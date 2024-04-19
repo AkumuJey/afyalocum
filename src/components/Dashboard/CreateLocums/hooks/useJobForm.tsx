@@ -26,9 +26,6 @@ export interface SubmittedLocum {
   id?: string;
 }
 
-// export interface PartOne {
-//   [key: string]: string
-// }
 export interface PartOne {
   title: string;
   requirements: string;
@@ -48,10 +45,9 @@ export interface PartTwo {
 export const submitToFirebase = async (job: SubmittedLocum) => {
   try {
     const locumsCollection = collection(db, "locums");
-    const docRef = await addDoc(locumsCollection, job);
-    console.log(docRef.id);
+    await addDoc(locumsCollection, job);
   } catch (error) {
-    return error;
+    throw new Error("Faliled to  update the job details."); 
   }
 };
 
@@ -60,7 +56,7 @@ export const updateLocumDetails = async (id: string, updatedJob: SubmittedLocum)
     const docRef = doc(db, "locums", id);
     await updateDoc(docRef, { ...updatedJob });
   } catch (error) {
-    console.log(error);
+    throw new Error("Faliled to  update the job details."); 
   }
 };
 
@@ -69,6 +65,6 @@ export const deleteLocum = async (id: string) => {
     const docRef = doc(db, "locums", id);
     await deleteDoc(docRef);
   } catch (error) {
-    console.log(error)
+    throw new Error("Faliled to delete the locum.");
   }
 }

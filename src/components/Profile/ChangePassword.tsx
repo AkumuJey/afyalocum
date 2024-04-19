@@ -14,7 +14,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, Paper, Typography } from "@mui/material";
 import { AuthCredential, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import NotificationElement from "./Notification";
+import NotificationElement from "../NotificationElement";
 
 interface ShowPassword {
   showCurrentPassword: boolean;

@@ -1,6 +1,5 @@
 import { Paper } from "@mui/material";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import BackwardButton from "./ButonsFolder/BackwardButton";
 import ControlButtons from "./ButonsFolder/ControlButtons";
 import ForwardButton from "./ButonsFolder/ForwardButton";
@@ -13,12 +12,11 @@ import ProgressMonitor from "./ProgressMonitor";
 import { Job, PartOne, PartThree, PartTwo, StartStopTime, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
 
 interface PropTypes {
-  handleNotification: () => void;
   handleUpdate?: (updatedLocum : SubmittedLocum) => void;
   existingJob: Job;
 }
 
-const NewLocumFormLayout = ({ handleNotification, handleUpdate,existingJob }: PropTypes) => {
+const NewLocumFormLayout = ({ handleUpdate,existingJob }: PropTypes) => {
   const [job, setJob] = useState<Job>(existingJob);
   const [loading, setLoading] = useState(false);
   const { title, requirements, description, location, rate, start, stop } = job;
@@ -30,7 +28,6 @@ const NewLocumFormLayout = ({ handleNotification, handleUpdate,existingJob }: Pr
     location.length > 0 &&
     location.replace(/\s/g, "") !== "" &&
     rate !== null;
-  const navigate = useNavigate();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -47,10 +44,8 @@ const NewLocumFormLayout = ({ handleNotification, handleUpdate,existingJob }: Pr
         } else{
           handleUpdate(jobFormat as SubmittedLocum)
         }
-        handleNotification();
-        setTimeout(() => navigate("/dashboard/open-locums"), 2000);
-      } catch (error) {
-        console.log(error);
+      } catch (_error) {
+        throw new Error("Failed to update");
       } finally {
         setLoading(false);
       }
