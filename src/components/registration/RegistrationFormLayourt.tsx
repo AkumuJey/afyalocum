@@ -1,6 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-
-//component imports
 import { LoadingButton } from "@mui/lab";
 import { Paper } from "@mui/material";
 import DescriptionInput from "./DescriptionInput";
@@ -40,6 +38,8 @@ const RegistrationFormLayout = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const validPassword = organizationInfo.password.trim().length > 7
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -117,6 +117,7 @@ const RegistrationFormLayout = () => {
             email={organizationInfo.email}
             password={organizationInfo.password}
             disabled={loading}
+            validPassword={validPassword}
             handleInputChange={handleInputChange}
           />
           {error && <RegistrationError handleClose={() => setError(false)} />}
@@ -125,7 +126,7 @@ const RegistrationFormLayout = () => {
             variant="contained"
             color="primary"
             loading={loading}
-            disabled={loading || success}
+            disabled={loading || success || !validPassword}
           >
             Create Account
           </LoadingButton>

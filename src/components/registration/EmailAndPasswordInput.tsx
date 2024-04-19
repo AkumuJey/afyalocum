@@ -1,16 +1,18 @@
 import { useState, ChangeEvent } from "react";
-import { Input, InputLabel, InputAdornment, IconButton } from "@mui/material";
+import { Input, InputLabel, InputAdornment, IconButton, Typography } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 interface Props {
   email: string;
   password: string;
   disabled: boolean;
+  validPassword: boolean;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 const EmailAndPasswordInput = ({
   email,
   password,
   disabled,
+  validPassword,
   handleInputChange,
 }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -69,6 +71,7 @@ const EmailAndPasswordInput = ({
           </InputAdornment>
         }
       />
+      {!validPassword && <Typography color={`red`}>Password must have at least 8 characters</Typography>}
     </>
   );
 };
