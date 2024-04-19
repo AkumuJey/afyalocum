@@ -9,14 +9,43 @@ import PageOne from "./PageOne/PageOne";
 import PageThree from "./PageThree/PageThree";
 import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
-import { Job, PartOne, PartThree, PartTwo, StartStopTime, SubmittedLocum, submitToFirebase } from "./hooks/useJobForm";
+import {
+  Job,
+  PartOne,
+  PartThree,
+  PartTwo,
+  StartStopTime,
+  SubmittedLocum,
+  submitToFirebase,
+  updateLocumDetails,
+} from "./hooks/useJobForm";
+import NotificationElement from "../../NotificationElement";
+import { useParams } from "react-router-dom";
 
 interface PropTypes {
-  handleUpdate?: (updatedLocum : SubmittedLocum) => void;
+  update: boolean;
   existingJob: Job;
 }
+type Severity = "success" | "error";
 
-const NewLocumFormLayout = ({ handleUpdate,existingJob }: PropTypes) => {
+const formStyling = {
+  width: {
+    xs: "95%",
+    md: "60%",
+  },
+  backgroundColor: "lightgray",
+  px: 3,
+  mt: 0,
+  minHeight: "300px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+};
+const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
+  const { id } = useParams();
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState<Severity>("success");
+  const [message, setMessage] = useState<string | null>(null);
   const [job, setJob] = useState<Job>(existingJob);
   const [loading, setLoading] = useState(false);
   const { title, requirements, description, location, rate, start, stop } = job;
@@ -39,13 +68,17 @@ const NewLocumFormLayout = ({ handleUpdate,existingJob }: PropTypes) => {
           start: start.toString(),
           stop: stop.toString(),
         });
-        if(!handleUpdate){
+        if (!update) {
           await submitToFirebase(jobFormat as SubmittedLocum);
-        } else{
-          handleUpdate(jobFormat as SubmittedLocum)
+        } else {
+          await updateLocumDetails(id as string, jobFormat as SubmittedLocum);
+          console.log(jobFormat);
         }
+        setSeverity("success");
+        setMessage("Locum details have been successfully updated.");
       } catch (_error) {
-        throw new Error("Failed to update");
+        setSeverity("error");
+        setMessage("An error occurred while updating the locum details.");
       } finally {
         setLoading(false);
       }
@@ -57,66 +90,69 @@ const NewLocumFormLayout = ({ handleUpdate,existingJob }: PropTypes) => {
     setJob({ ...job, ...name });
   };
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        width: {
-          xs: "95%",
-          md: "60%",
-        },
-
-        backgroundColor: "lightgray",
-        px: 3,
-        mt: 0,
-        minHeight: "300px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-      component={`form`}
-      onSubmit={handleSubmit}
-    >
-      <ProgressMonitor step={step} />
-      {step === 1 && (
-        <PageOne
-          handlePartOne={updatingJobState}
-          requirements={requirements}
-          title={title}
-        />
-      )}
-      {step === 2 && (
-        <PageTwo handlePartTwo={updatingJobState} description={description} />
-      )}
-      {step === 3 && (
-        <PageThree handlePartThree={updatingJobState} location={location} rate={rate} />
-      )}
-      {step === 4 && (
-        <PageFour handlePartFour={updatingJobState} start={start} stop={stop} />
-      )}
-      <ControlButtons step={step}>
-        {step !== 1 && (
-          <BackwardButton
-            handlePreviousStep={() => {
-              setStep(step - 1);
-            }}
+    <>
+      <NotificationElement
+        handleClose={() => setOpen(false)}
+        open={open}
+        message={message as string}
+        severity={severity}
+      />
+      <Paper
+        elevation={3}
+        sx={formStyling}
+        component={`form`}
+        onSubmit={handleSubmit}
+      >
+        <ProgressMonitor step={step} />
+        {step === 1 && (
+          <PageOne
+            handlePartOne={updatingJobState}
+            requirements={requirements}
+            title={title}
           />
         )}
-        {step !== 4 && (
-          <ForwardButton
-            next={true}
-            handleNextStep={() => {
-              setStep(step + 1);
-            }}
+        {step === 2 && (
+          <PageTwo handlePartTwo={updatingJobState} description={description} />
+        )}
+        {step === 3 && (
+          <PageThree
+            handlePartThree={updatingJobState}
+            location={location}
+            rate={rate}
           />
         )}
-        {validSubmission && step === 4 && (
-          <SubmissionButton
-            validSubmission={validSubmission}
-            loading={loading}
+        {step === 4 && (
+          <PageFour
+            handlePartFour={updatingJobState}
+            start={start}
+            stop={stop}
           />
         )}
-      </ControlButtons>
-    </Paper>
+        <ControlButtons step={step}>
+          {step !== 1 && (
+            <BackwardButton
+              handlePreviousStep={() => {
+                setStep(step - 1);
+              }}
+            />
+          )}
+          {step !== 4 && (
+            <ForwardButton
+              next={true}
+              handleNextStep={() => {
+                setStep(step + 1);
+              }}
+            />
+          )}
+          {validSubmission && step === 4 && (
+            <SubmissionButton
+              validSubmission={validSubmission}
+              loading={loading}
+            />
+          )}
+        </ControlButtons>
+      </Paper>
+    </>
   );
 };
 
