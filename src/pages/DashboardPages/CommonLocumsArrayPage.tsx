@@ -13,13 +13,13 @@ interface Status {
 
 const SettledLocums = () => {
   const { state } = useLocation();
-  document.title = state.title;
-  const [locums, setLocums] = useState<SubmittedLocum[]>([]);
+  const [locums, setLocums] = useState<SubmittedLocum[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { completed, booked } = state.status as Status;
 
   useEffect(() => {
+    document.title = state.title;
     const generateQuery = () => {
       const locumsCollection = collection(db, "locums");
       const openLocumsFilter = where("completed", "==", completed);
@@ -41,14 +41,14 @@ const SettledLocums = () => {
         });
         setError(false);
         setLocums([...locumsArray]);
-      } catch (_error) {
+      } catch (error) {
         setError(true);
       } finally {
         setLoading(false);
       }
     });
     return () => unsubscribe();
-  }, [completed, booked]);
+  }, [completed, booked, state]);
   return (
     <>
       <div className="flex gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
@@ -57,7 +57,7 @@ const SettledLocums = () => {
             An error occurred while fetching the data.
           </Typography>
         )}
-        {loading ? (
+        {loading &&
           Array(3)
             .fill("key")
             .map((item, index) => (
@@ -72,13 +72,18 @@ const SettledLocums = () => {
                   key={`${item + index}`}
                 />
               </>
-            ))
-        ) : locums.length === 0 ? (
-          <Typography variant="h3" color="red">
-            No locums available
-          </Typography>
-        ) : (
-          locums.map((locum) => <LocumCard key={locum.id} locum={locum} />)
+            ))}
+
+        {locums && !loading && !error && (
+          <>
+            {locums.length === 0 ? (
+              <Typography variant="h3">
+                No locums available
+              </Typography>
+            ) : (
+              locums.map((locum) => <LocumCard key={locum.id} locum={locum} />)
+            )}
+          </>
         )}
       </div>
     </>
