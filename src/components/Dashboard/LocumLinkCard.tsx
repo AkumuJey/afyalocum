@@ -1,9 +1,15 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+interface Status {
+  booked: boolean;
+  completed: boolean;
+}
+
 interface LocumRoute {
   routeDirection: string;
   title: string;
+  status?: Status;
 }
 
 interface PropTypes {
@@ -11,6 +17,7 @@ interface PropTypes {
 }
 
 const LocumRouteCard = ({ locumRoute }: PropTypes) => {
+  const { status, title } =  locumRoute;
   return (
     <>
       <motion.div
@@ -21,8 +28,9 @@ const LocumRouteCard = ({ locumRoute }: PropTypes) => {
         <Link
           to={locumRoute.routeDirection}
           className="h-full w-full flex justify-center items-center"
+          state={{status: status, title: title}}
         >
-          <p>{locumRoute.title}</p>
+          <p>{title}</p>
         </Link>
       </motion.div>
     </>

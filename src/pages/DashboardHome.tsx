@@ -1,8 +1,12 @@
 import LocumLinkCard from "../components/Dashboard/LocumLinkCard";
+interface Status {
+  booked: boolean;
+  completed: boolean;
+}
 interface LocumRoute {
   routeDirection: string;
   title: string;
-  state?: string;
+  status?: Status;
 }
 
 const locumRoutes: LocumRoute[] = [
@@ -13,14 +17,17 @@ const locumRoutes: LocumRoute[] = [
   {
     title: "Open Locums",
     routeDirection: "/dashboard/open-locums",
+    status: {  booked: false, completed: false, },
   },
   {
     title: "Booked Locums",
     routeDirection: "/dashboard/booked-locums",
+    status: {  booked: true, completed: false, },
   },
   {
     title: "Settled locum",
     routeDirection: "/dashboard/settled-locums",
+    status: {  booked: true, completed: true, },
   },
 ];
 const DashboardHome = () => {
