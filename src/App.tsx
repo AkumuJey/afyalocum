@@ -1,13 +1,11 @@
 import { lazy } from "react";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
 const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
-const OpenLocums = lazy(() => import("./pages/DashboardPages/OpenLocums"));
 const SingleLocumPage = lazy(() => import("./pages/DashboardPages/SingleLocumPage"));
 const DashboardHome= lazy(() => import("./pages/DashboardHome"));
 const LocumEdit = lazy(() => import("./pages/DashboardPages/LocumEdit"));
 const SingleLocumLayout = lazy(() => import("./Layout/SingleLocumLayout"));
-const BookedLocums = lazy(() => import("./pages/DashboardPages/BookedLocums"));
-const SettledLocums = lazy(() => import("./pages/DashboardPages/SettledLocums"));
+const CommonLocumsArrayPage = lazy(() => import("./pages/DashboardPages/CommonLocumsArrayPage"));
 const About = lazy(() => import("./pages/About"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Registration = lazy(() => import("./pages/Registration"));
@@ -32,7 +30,7 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/open-locums",
-    element: <OpenLocums />,
+    element: <CommonLocumsArrayPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -54,7 +52,7 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/booked-locums",
-    element: <BookedLocums />,
+    element: <CommonLocumsArrayPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -64,7 +62,7 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/settled-locums",
-    element: <SettledLocums />,
+    element: <CommonLocumsArrayPage />,
     errorElement: <ErrorPage />,
   },
   {
