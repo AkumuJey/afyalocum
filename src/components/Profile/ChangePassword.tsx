@@ -60,9 +60,9 @@ const ChangePassword = () => {
         setMessage("Password updated successfuly")
         clearPasswords()
       }
-    } catch (error) {
+    } catch (_error) {
       setSeverity("error")
-      setMessage(error.message)
+      setMessage("Error  updating password")
     }finally{
       setLoading(false)
       setOpen(true)
