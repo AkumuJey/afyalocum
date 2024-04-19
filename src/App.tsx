@@ -1,11 +1,19 @@
 import { lazy } from "react";
-import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouteObject,
+  RouterProvider,
+} from "react-router-dom";
 const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
-const SingleLocumPage = lazy(() => import("./pages/DashboardPages/SingleLocumPage"));
-const DashboardHome= lazy(() => import("./pages/DashboardHome"));
+const SingleLocumPage = lazy(
+  () => import("./pages/DashboardPages/SingleLocumPage")
+);
+const DashboardHome = lazy(() => import("./pages/DashboardHome"));
 const LocumEdit = lazy(() => import("./pages/DashboardPages/LocumEdit"));
 const SingleLocumLayout = lazy(() => import("./Layout/SingleLocumLayout"));
-const CommonLocumsArrayPage = lazy(() => import("./pages/DashboardPages/CommonLocumsArrayPage"));
+const CommonLocumsArrayPage = lazy(
+  () => import("./pages/DashboardPages/CommonLocumsArrayPage")
+);
 const About = lazy(() => import("./pages/About"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Registration = lazy(() => import("./pages/Registration"));
@@ -15,7 +23,6 @@ const RecoverPassword = lazy(() => import("./pages/RecoverPassword"));
 const Home = lazy(() => import("./pages/Home"));
 const CreateNew = lazy(() => import("./pages/DashboardPages/CreateNewLocum"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
-
 
 interface Props {
   window?: () => Window;
@@ -75,11 +82,9 @@ const dashboardChilren: RouteObject[] = [
     element: <CreateNew />,
     errorElement: <ErrorPage />,
   },
-]
+];
 
 function App(props: Props) {
-
-  
   const router = createBrowserRouter([
     {
       path: "/",
@@ -96,7 +101,7 @@ function App(props: Props) {
           path: "/dashboard",
           element: <DashboardLayout />,
           errorElement: <ErrorPage />,
-          children: dashboardChilren
+          children: dashboardChilren,
         },
         {
           path: "/login",

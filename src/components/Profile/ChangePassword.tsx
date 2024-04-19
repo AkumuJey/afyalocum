@@ -19,7 +19,6 @@ import NotificationElement from "./Notification";
 interface ShowPassword {
   showCurrentPassword: boolean;
   showNewPassword: boolean;
-  showConfrimNewPassword: boolean;
 }
 
 type Severity = "success" | "error";
@@ -28,7 +27,6 @@ const ChangePassword = () => {
   const [show, setShow] = useState<ShowPassword>({
     showCurrentPassword: false,
     showNewPassword: false,
-    showConfrimNewPassword: false,
   });
 
   const handleMouseDownPassword = (
@@ -43,12 +41,11 @@ const ChangePassword = () => {
   const [severity, setSeverity] = useState<Severity>("success")
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
+  const emptyPassword =  oldPassword.trim().length < 8 || newPassword.trim().length < 8;
   const clearPasswords = () => {
     setNewPassword("")
     setOldPassword('')
-    setConfirmPassword("")
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true)
@@ -157,51 +154,13 @@ const ChangePassword = () => {
               label="New password"
             />
           </FormControl>
-          <FormControl
-            sx={{ m: 1, maxWidth: "50ch", width: "100%" }}
-            variant="outlined"
-            disabled={loading}
-          >
-            <InputLabel htmlFor="confirm-new-password">
-              Confrim new password
-            </InputLabel>
-            <OutlinedInput
-              id="confirm-new-password"
-              name="confirm-new-password"
-              type={show.showConfrimNewPassword ? "text" : "password"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() =>
-                      setShow({
-                        ...show,
-                        showConfrimNewPassword: !show.showConfrimNewPassword,
-                      })
-                    }
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {show.showConfrimNewPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Confrim new password"
-            />
-          </FormControl>
           <Box component={`div`} sx={{ m: 1, maxWidth: "40ch", width: "100%" }}>
             <LoadingButton
               type="submit"
               variant="contained"
               color="secondary"
               loading={loading}
-              disabled={loading}
+              disabled={loading || emptyPassword}
             >
               Save new password
             </LoadingButton>
