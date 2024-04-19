@@ -1,5 +1,7 @@
 import { Paper } from "@mui/material";
 import { FormEvent, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import NotificationElement from "../../NotificationElement";
 import BackwardButton from "./ButonsFolder/BackwardButton";
 import ControlButtons from "./ButonsFolder/ControlButtons";
 import ForwardButton from "./ButonsFolder/ForwardButton";
@@ -19,14 +21,13 @@ import {
   submitToFirebase,
   updateLocumDetails,
 } from "./hooks/useJobForm";
-import NotificationElement from "../../NotificationElement";
-import { useParams } from "react-router-dom";
 
 interface PropTypes {
   update: boolean;
   existingJob: Job;
 }
 type Severity = "success" | "error";
+type JobProps = PartOne | PartTwo | PartThree | StartStopTime;
 
 const formStyling = {
   width: {
@@ -57,6 +58,28 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
     location.length > 0 &&
     location.replace(/\s/g, "") !== "" &&
     rate !== null;
+
+  const notifySuccess = () => {
+    setSeverity("success");
+    setMessage(
+      `${
+        update
+          ? "Locum details updated successfully."
+          : "New locum added successfully."
+      }`
+    );
+  };
+  const notifyError = () => {
+    setSeverity("error");
+    setMessage(
+      `${
+        update
+          ? "Update of locum details unsuccessful."
+          : "Addition of locum unsuccessful."
+      }`
+    );
+  };
+  const navigate = useNavigate()
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -73,13 +96,12 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
         } else {
           await updateLocumDetails(id as string, jobFormat as SubmittedLocum);
         }
-        setSeverity("success");
-        setMessage(`${
-          update ? "Locum details updated successfully." : "New locum added successfully."
-        }`);
+        notifySuccess()
+        setTimeout(() => {
+          navigate(`/dashboard/`)
+        }, 2000)
       } catch (_error) {
-        setSeverity("error");
-        setMessage( `${update ? "Update of locum details unsuccessful." : "Addition of locum unsuccessful."}`);
+        notifyError()
       } finally {
         setLoading(false);
         setOpen(true);
@@ -87,7 +109,6 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
     }
   };
 
-  type JobProps = PartOne | PartTwo | PartThree | StartStopTime;
   const updatingJobState = (name: JobProps) => {
     setJob({ ...job, ...name });
   };
@@ -149,7 +170,7 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
           {validSubmission && step === 4 && (
             <SubmissionButton
               validSubmission={validSubmission}
-              loading={loading}
+              loading={loading || open}
             />
           )}
         </ControlButtons>
