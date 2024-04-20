@@ -19,7 +19,7 @@ const SettledLocums = () => {
   const { completed, booked } = state.status as Status;
 
   useEffect(() => {
-    document.title = state.title;
+    document.title = `AfyaLocum - ${state.title}`;
     const generateQuery = () => {
       const locumsCollection = collection(db, "locums");
       const openLocumsFilter = where("completed", "==", completed);
