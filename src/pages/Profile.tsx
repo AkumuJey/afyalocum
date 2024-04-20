@@ -14,6 +14,7 @@ type Severity = "success" | "error";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
+  document.title = (`${currentUser?.displayName} | AfyaLocum Profile`);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [severity, setSeverity] = useState<Severity>("success");

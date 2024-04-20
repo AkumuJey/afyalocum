@@ -6,7 +6,7 @@ import TestimonialsContainer from "../components/Home/Testimonials/TestimonialsC
 import RouterAnimation from "./RouterAnimation";
 
 const Home = () => {
-  
+  document.title = "AfyaLocum"
   return (
     <RouterAnimation>
       <>

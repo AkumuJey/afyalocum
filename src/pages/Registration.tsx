@@ -5,6 +5,7 @@ import RouterAnimation from "./RouterAnimation";
 import RegistrationFormLayout from "../components/Registration/RegistrationFormLayourt";
 
 const Resigstration = () => {
+  document.title = "AfyaLocum - Register";
   const { currentUser } = useContext(AuthContext);
   if (currentUser) {
     return <Navigate to={`/`} replace={true} />;

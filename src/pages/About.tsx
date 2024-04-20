@@ -3,6 +3,7 @@ import SocialMediaIconsContainer from "../components/About/SocialMediaIconsConta
 import RouterAnimation from "./RouterAnimation";
 
 const About = () => {
+  document.title = "AfyaLocum - About"
   return (
     <RouterAnimation>
       <div className="flex flex-col items-center valid-height py-[2rem]">
