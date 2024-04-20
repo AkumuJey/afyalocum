@@ -9,7 +9,10 @@ const ErrorPage = () => {
   console.log(error);
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-center valid-height p-[2rem] gap-[3rem]">
+    <div className="flex flex-col items-center justify-center min-h-screen min-w-full p-[2rem] gap-[3rem] bg-transparent">
+      <Typography variant="h5" fontWeight={` bold`} color={`red`}>
+        Page not  found!
+      </Typography>
       <Typography variant="h5" fontWeight={` bold`} color={`red`}>
         Error 404
       </Typography>
