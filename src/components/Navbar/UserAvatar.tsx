@@ -21,10 +21,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 
-interface Props{
-  currentUser: User
+interface Props {
+  currentUser: User;
 }
-const UserAvatar = ({currentUser} : Props) => {
+const UserAvatar = ({ currentUser }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
   const handleToggle = () => {
@@ -68,11 +68,9 @@ const UserAvatar = ({currentUser} : Props) => {
     setOpen(false);
   };
 
-
-  
   return (
     <>
-      <Grid sx={{mr: "1.5rem"}}>
+      <Grid sx={{ mr: "1.5rem" }}>
         <Button
           ref={anchorRef}
           id="composition-button"
@@ -88,7 +86,12 @@ const UserAvatar = ({currentUser} : Props) => {
               sx={{ width: "3rem", height: "3rem" }}
             />
           ) : (
-            <Skeleton variant="circular" width={`3rem`} height={`3rem`} animation="wave"/>
+            <Skeleton
+              variant="circular"
+              width={`3rem`}
+              height={`3rem`}
+              animation="wave"
+            />
           )}
         </Button>
         <Popper

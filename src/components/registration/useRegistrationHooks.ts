@@ -45,7 +45,7 @@ const createUser = async (auth: Auth, email: string, password: string) => {
   );
   return userCredential;
 };
-const handleRegistrationAndVerificationLink = async (
+const handleRegistration = async (
   organizationInfo: organizationInfo
 ) => {
   const { email, password, name, hospitalDescription, image } =
@@ -53,18 +53,22 @@ const handleRegistrationAndVerificationLink = async (
   try {
     const userCredential = await createUser(auth, email, password);
     const user = userCredential.user;
-    if (user && image) {
-      await updateImageAndName(user, image, name);
+    // if (user && image) {
+      await updateImageAndName(user, image as File, name);
       await updateHospitalsCollection(user, hospitalDescription);
       await sendEmailVerification(user);
-    }
+    // }
+    await auth.signOut()
+    // setTimeout(() => {
+      
+    // }, 2000)
   } catch (err) {
     throw new Error("Failed Try Again");
   }
 };
 
 const useRegistrationHooks = () => {
-  return { handleRegistrationAndVerificationLink };
+  return { handleRegistration };
 };
 
 export default useRegistrationHooks;

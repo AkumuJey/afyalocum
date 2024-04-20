@@ -1,14 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { Paper } from "@mui/material";
+import { ChangeEvent, FormEvent, useState } from "react";
+import NotificationElement from "../NotificationElement";
 import DescriptionInput from "./DescriptionInput";
 import EmailAndPasswordInput from "./EmailAndPasswordInput";
 import ImageUpload from "./ImageUpload";
 import NameRegistration from "./NameRegistration";
 import RegistrationError from "./RegistrationError";
-import SuccessfulRegistrationModal from "./SuccessfulRegistrationModal";
 import useRegistrationHooks, { organizationInfo } from "./useRegistrationHooks";
 
+type Severity = "success" | "error";
+
+interface PropTypes {
+  notifyVerificationSent: () => void
+}
 const containerStyles = {
   width: {
     xs: "100%",
@@ -23,8 +28,12 @@ const containerStyles = {
   gap: "1.5rem",
 };
 
-const RegistrationFormLayout = () => {
-  const { handleRegistrationAndVerificationLink } = useRegistrationHooks();
+const RegistrationFormLayout = ({ notifyVerificationSent } : PropTypes) => {
+  const { handleRegistration } = useRegistrationHooks();
+
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState<Severity>("success");
+  const [message, setMessage] = useState("");
 
   // States involved
   const [organizationInfo, setOrganizationInfo] = useState<organizationInfo>({
@@ -37,10 +46,10 @@ const RegistrationFormLayout = () => {
   const [take, setTake] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
 
-  const validPassword = organizationInfo.password.trim().length > 7
+  const validPassword = organizationInfo.password.trim().length > 7;
 
+  //Modifying hcnages in the input fields
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -48,12 +57,15 @@ const RegistrationFormLayout = () => {
     setOrganizationInfo({ ...organizationInfo, [id]: value });
   };
 
+  //creating url for uploaded image
   const createTemporaryURL = (image: File | null) => {
     if (image) {
       return URL.createObjectURL(image);
     }
     return "";
   };
+
+  //handling image change
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files[0]) return;
     setOrganizationInfo({
@@ -63,28 +75,38 @@ const RegistrationFormLayout = () => {
     setTake(false);
   };
 
+  //Trying different images
   const handleRetake = () => {
     setTake(!take);
   };
 
+  const notifySuccess = () => {
+    setMessage("Registration Successful.");
+    setSeverity("success");
+  };
+  //Registration function.
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await handleRegistrationAndVerificationLink(organizationInfo);
-      setSuccess(true);
+      await handleRegistration(organizationInfo);
+      notifyVerificationSent()
+      notifySuccess();
     } catch (_err) {
       setError(true);
     } finally {
       setLoading(false);
+      setOpen(true);
     }
   };
 
   return (
     <>
-      <SuccessfulRegistrationModal
-        open={success}
-        handleClose={() => setSuccess(true)}
+      <NotificationElement
+        handleClose={() => setOpen(false)}
+        open={open}
+        severity={severity}
+        message={message}
       />
       <div className="flex justify-center items-center w-full h-full my-[2rem]">
         <Paper
@@ -126,7 +148,7 @@ const RegistrationFormLayout = () => {
             variant="contained"
             color="primary"
             loading={loading}
-            disabled={loading || success || !validPassword}
+            disabled={loading || open || !validPassword}
           >
             Create Account
           </LoadingButton>
