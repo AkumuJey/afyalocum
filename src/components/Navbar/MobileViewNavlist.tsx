@@ -20,7 +20,7 @@ const MobileViewNavlist = ({handleClose, handleClick, open, currentUser}: PropTy
         { path: "/", label: "Home" },
         { path: "/dashboard", label: "Dashboard" },
         { path: "/about", label: "About" },
-        { path: "/register", label: "Sign Up" },
+        { path: "/register", label: "Signup" },
         { path: "/login", label: "Login" },
       ];
       const isNavigationLinkVisible = (link: Link) => {

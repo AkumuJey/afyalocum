@@ -16,7 +16,7 @@ const linkData: Link[] = [
   { path: "/", label: "Home" },
   { path: "/dashboard", label: "Dashboard" },
   { path: "/about", label: "About" },
-  { path: "/register", label: "Sign Up" },
+  { path: "/register", label: "Signup" },
   { path: "/login", label: "Login" },
 ];
 
