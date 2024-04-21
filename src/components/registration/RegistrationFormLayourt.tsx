@@ -83,6 +83,7 @@ const RegistrationFormLayout = ({ notifyVerificationSent } : PropTypes) => {
   const notifySuccess = () => {
     setMessage("Registration Successful.");
     setSeverity("success");
+    setOpen(true);
   };
   //Registration function.
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -90,13 +91,14 @@ const RegistrationFormLayout = ({ notifyVerificationSent } : PropTypes) => {
     setLoading(true);
     try {
       await handleRegistration(organizationInfo);
-      notifyVerificationSent()
       notifySuccess();
+      setTimeout(() => {
+        notifyVerificationSent()
+      }, 2000)
     } catch (_err) {
       setError(true);
     } finally {
       setLoading(false);
-      setOpen(true);
     }
   };
 

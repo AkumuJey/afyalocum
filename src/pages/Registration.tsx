@@ -16,7 +16,7 @@ const Resigstration = () => {
   return (
     <>
       <RouterAnimation>
-        {!sent && (
+        {sent && (
           <Paper elevation={3} sx={{ p: 2 , width: "100%", maxWidth: "500px", mx: "auto", background: "#DDD0C8"}}>
             <div className="text-center">
               <Typography variant="h6">Verification Link to Your email.</Typography>
@@ -28,7 +28,7 @@ const Resigstration = () => {
             </div>
           </Paper>
         )}
-        {sent && <RegistrationFormLayout notifyVerificationSent={() => setSent(true)} />}
+        {!sent && <RegistrationFormLayout notifyVerificationSent={() => setSent(true)} />}
       </RouterAnimation>
     </>
   );
