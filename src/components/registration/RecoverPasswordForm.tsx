@@ -1,10 +1,26 @@
 import { LoadingButton } from "@mui/lab";
-import { Input, InputLabel, Paper } from "@mui/material";
+import { Alert, Input, InputLabel, Paper } from "@mui/material";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { FormEvent, useState } from "react";
+import { auth } from "../../firebase/firebase";
 
 interface PropTypes {
-  sendLink: () => void;
+  notifyVerificationSent: () => void;
 }
-const AwaitingVerification = ({ sendLink }: PropTypes) => {
+const AwaitingVerification = ({ notifyVerificationSent }: PropTypes) => {
+  const [error, setError] = useState(false);
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const email = new FormData(e.currentTarget as HTMLFormElement).get(
+        "email"
+      );
+      await sendPasswordResetEmail(auth, email as string);
+      notifyVerificationSent();
+    } catch (error) {
+      setError(true);
+    }
+  };
   return (
     <>
       <Paper
@@ -17,7 +33,7 @@ const AwaitingVerification = ({ sendLink }: PropTypes) => {
           bgcolor: "ButtonFace",
         }}
         component={`form`}
-        onSubmit={sendLink}
+        onSubmit={handleSubmit}
       >
         <InputLabel
           htmlFor="email"
@@ -50,6 +66,15 @@ const AwaitingVerification = ({ sendLink }: PropTypes) => {
         >
           Recover Password
         </LoadingButton>
+        {error && (
+          <Alert
+            severity="error"
+            onClose={() => setError(false)}
+            sx={{ mx: "auto" }}
+          >
+            An Error Occured While Sending Email.
+          </Alert>
+        )}
       </Paper>
     </>
   );
