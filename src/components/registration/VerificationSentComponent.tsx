@@ -18,7 +18,7 @@ const VerificationSentComponent = ({ content }: PropTypes) => {
       >
         <div className="text-center">
           <Typography variant="h6">{
-            `${content} Link to Your email.`
+            `${content} Sent Link to Your email.`
           }</Typography>
           <Typography variant="h6">Please check your inbox.</Typography>
         </div>

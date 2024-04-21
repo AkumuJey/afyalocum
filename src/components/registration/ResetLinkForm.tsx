@@ -3,12 +3,19 @@ import { Alert, Input, InputLabel, Paper } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { auth } from "../../firebase/firebase";
+import { useLocation } from "react-router-dom";
 
 interface PropTypes {
   notifyVerificationSent: () => void;
 }
 const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
   const [error, setError] = useState(false);
+  const location = useLocation();
+  const buttonContent = `${
+    location?.state?.title
+      ? "Resend verification Email"
+      : "Send Password Reset Email"
+  }`;
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
@@ -21,6 +28,8 @@ const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
       setError(true);
     }
   };
+  console.log(location);
+
   return (
     <>
       <Paper
@@ -43,12 +52,13 @@ const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
             width: "100%",
           }}
         >
-          Email:
+          Enter email:
         </InputLabel>
         <Input
           id="email"
           name="email"
           autoComplete="off"
+          defaultValue={location?.state?.email || ""}
           required
           sx={{
             width: "100%",
@@ -64,7 +74,7 @@ const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
           sx={{ width: "100%" }}
           style={{ textTransform: "none" }}
         >
-          Recover Password
+          {buttonContent}
         </LoadingButton>
         {error && (
           <Alert
