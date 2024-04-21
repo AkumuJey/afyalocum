@@ -7,7 +7,7 @@ import { auth } from "../../firebase/firebase";
 interface PropTypes {
   notifyVerificationSent: () => void;
 }
-const AwaitingVerification = ({ notifyVerificationSent }: PropTypes) => {
+const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
   const [error, setError] = useState(false);
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -80,4 +80,4 @@ const AwaitingVerification = ({ notifyVerificationSent }: PropTypes) => {
   );
 };
 
-export default AwaitingVerification;
+export default ResetLinkForm;

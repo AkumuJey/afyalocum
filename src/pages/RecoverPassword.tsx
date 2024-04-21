@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RecoverPasswordForm from "../components/Registration/RecoverPasswordForm";
+import ResetLinkForm from "../components/Registration/ResetLinkForm";
 import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
 import RouterAnimation from "./RouterAnimation";
 const RecoverPassword = () => {
@@ -12,7 +12,7 @@ const RecoverPassword = () => {
           <VerificationSentComponent content="Password recovery" />
         )}
         {!verificationSent && (
-          <RecoverPasswordForm
+          <ResetLinkForm
             notifyVerificationSent={() => setVerificationSent(true)}
           />
         )}
