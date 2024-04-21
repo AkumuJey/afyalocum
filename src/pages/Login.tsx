@@ -9,7 +9,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
 
 const Login = () => {
-  document.title = "AfyaLocum - Login"
+  document.title = "AfyaLocum - Login";
   const [loading, setLoading] = useState<boolean>(false);
   const { currentUser } = useContext(AuthContext);
   if (currentUser) {

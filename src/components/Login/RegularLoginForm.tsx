@@ -49,7 +49,8 @@ const RegularLoginForm = ({handleLoading, loading}: PropTypes) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       if (state) {
-        navigate(state);
+        const { targetPath  } = state
+        navigate(targetPath);
       } else {
         navigate("/");
       }
@@ -60,6 +61,7 @@ const RegularLoginForm = ({handleLoading, loading}: PropTypes) => {
       setSpinner(false)
     }
   };
+  console.log(state)
   return (
     <>
       <Paper

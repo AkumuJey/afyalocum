@@ -8,9 +8,11 @@ interface Props {
 const ProtectedRoutes = ({ children }: Props) => {
   const { currentUser } = useContext(AuthContext);
   const location = useLocation()
-  const currentPath = location.pathname
+  const targetPath = location.pathname
   if (!currentUser) {
-    return <Navigate to={`/login`} state={currentPath} replace={true}/>;
+    return <Navigate to={`/login`} state={{
+      targetPath
+    }} replace={true}/>;
   }
   return <>{children}</>;
 };
