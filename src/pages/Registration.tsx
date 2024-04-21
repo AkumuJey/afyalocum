@@ -17,9 +17,10 @@ const Resigstration = () => {
     <>
       <RouterAnimation>
         {!sent && (
-          <Paper elevation={3} sx={{ p: 2 , width: "100%", maxWidth: "500px", mx: "auto"}}>
+          <Paper elevation={3} sx={{ p: 2 , width: "100%", maxWidth: "500px", mx: "auto", background: "#DDD0C8"}}>
             <div className="text-center">
-              <Typography variant="h6">Verification Link to Your email. Please check your inbox.</Typography>
+              <Typography variant="h6">Verification Link to Your email.</Typography>
+              <Typography variant="h6">Please check your inbox.</Typography>
             </div>
             <div className="mt-4 flex justify-evenly">
               <Link to={`/`} className="py-[0.5rem] px-[1.5rem] rounded-md bg-teal-600 hover:bg-teal-800 hover:text-white font-semibold text-xl">Home</Link>
