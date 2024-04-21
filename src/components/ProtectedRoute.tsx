@@ -9,7 +9,7 @@ const ProtectedRoutes = ({ children }: Props) => {
   const { currentUser } = useContext(AuthContext);
   const location = useLocation()
   const targetPath = location.pathname
-  if (!currentUser) {
+  if (!currentUser?.emailVerified) {
     return <Navigate to={`/login`} state={{
       targetPath
     }} replace={true}/>;

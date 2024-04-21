@@ -7,7 +7,7 @@ const RecoverPassword = () => {
   const location = useLocation();
   document.title = location?.state?.title || "AfyaLocum - Reset Password";
   const content = `${
-    location?.state?.content ? "Verification" : "Password recovery"
+    location?.state?.title ? "Verification" : "Password recovery"
   }`;
   const [verificationSent, setVerificationSent] = useState(false);
   return (
