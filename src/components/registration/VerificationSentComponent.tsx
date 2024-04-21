@@ -1,21 +1,25 @@
 import { Link } from "react-router-dom";
 import { Paper, Typography } from "@mui/material";
-
-const VerificationSentComponent = () => {
+interface PropTypes{
+  content: string
+}
+const VerificationSentComponent = ({ content }: PropTypes) => {
   return (
     <>
       <Paper
         elevation={3}
         sx={{
           p: 2,
-          width: "100%",
+          width: "95%",
           maxWidth: "500px",
           mx: "auto",
           background: "#DDD0C8",
         }}
       >
         <div className="text-center">
-          <Typography variant="h6">Verification Link to Your email.</Typography>
+          <Typography variant="h6">{
+            `${content} Link to Your email.`
+          }</Typography>
           <Typography variant="h6">Please check your inbox.</Typography>
         </div>
         <div className="mt-4 flex justify-evenly">

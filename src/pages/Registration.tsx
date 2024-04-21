@@ -16,7 +16,7 @@ const Resigstration = () => {
   return (
     <>
       <RouterAnimation>
-        {sent && <VerificationSentComponent />}
+        {sent && <VerificationSentComponent content="Verification"/>}
         {!sent && (
           <RegistrationFormLayout
             notifyVerificationSent={() => setSent(true)}

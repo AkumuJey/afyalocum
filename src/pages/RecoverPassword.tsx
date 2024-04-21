@@ -1,7 +1,6 @@
 import { useState } from "react";
-import AwaitingVerification from "../components/RecoverPassword/AwaitingVerification";
-import LinkSent from "../components/RecoverPassword/LinkSent";
-import RecoverPasswordLayout from "../components/RecoverPassword/RecoverPasswordLayout";
+import RecoverPasswordForm from "../components/Registration/RecoverPasswordForm";
+import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
 import RouterAnimation from "./RouterAnimation";
 const RecoverPassword = () => {
   document.title = "AfyaLocum - Reset Password";
@@ -12,10 +11,10 @@ const RecoverPassword = () => {
   return (
     <>
       <RouterAnimation>
-        <RecoverPasswordLayout verificationSent={verificationSent}>
-          {!verificationSent && <AwaitingVerification sendLink={sendLink} />}
-          {verificationSent && <LinkSent />}
-        </RecoverPasswordLayout>
+        {verificationSent && (
+          <VerificationSentComponent content="Password recovery" />
+        )}
+        {!verificationSent && <RecoverPasswordForm sendLink={sendLink} />}
       </RouterAnimation>
     </>
   );
