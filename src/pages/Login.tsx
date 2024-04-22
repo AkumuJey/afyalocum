@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
@@ -9,9 +9,11 @@ import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
 
 const Login = () => {
-  document.title = "AfyaLocum - Login";
   const [loading, setLoading] = useState<boolean>(false);
   const { currentUser } = useContext(AuthContext);
+  useEffect(()=> {
+    document.title = "AfyaLocum - Login";
+  }, [])
   if (currentUser) {
     return <Navigate to={`/`} replace={true} />;
   }

@@ -4,9 +4,12 @@ import Hero from "../components/Home/Hero/Hero";
 import SponsorsAndApprovalsContainer from "../components/Home/SponsorsAndApprovals/SponsorsAndApprovalsContainer";
 import TestimonialsContainer from "../components/Home/Testimonials/TestimonialsContainer";
 import RouterAnimation from "./RouterAnimation";
+import { useEffect } from "react";
 
 const Home = () => {
-  document.title = "AfyaLocum"
+  useEffect(() => {
+    document.title = "AfyaLocum"
+  }, [])
   return (
     <RouterAnimation>
       <>

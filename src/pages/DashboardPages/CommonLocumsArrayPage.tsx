@@ -1,4 +1,10 @@
-import { Skeleton, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  Skeleton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
@@ -52,6 +58,21 @@ const SettledLocums = () => {
   return (
     <>
       <div className="flex gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
+        <div className="w-full">
+        <Stack spacing={2} sx={{ width: 300 }}>
+          <Autocomplete
+            id="trial"
+            freeSolo
+            clearIcon
+            options={(locums || []).map((locum) => locum.description)}
+            renderInput={(params) => <TextField {...params} label="Trial" inputProps={{
+              ...params.inputProps,
+              type: "search"
+            }}/>}
+            noOptionsText="No locum found"
+          />
+        </Stack>
+        </div>
         {error && (
           <Typography variant="h3" color="red">
             An error occurred while fetching the data.
@@ -77,9 +98,7 @@ const SettledLocums = () => {
         {locums && !loading && !error && (
           <>
             {locums.length === 0 ? (
-              <Typography variant="h3">
-                No locums available
-              </Typography>
+              <Typography variant="h3">No locums available</Typography>
             ) : (
               locums.map((locum) => <LocumCard key={locum.id} locum={locum} />)
             )}

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import LocumLinkCard from "../components/Dashboard/LocumLinkCard";
 interface Status {
   booked: boolean;
@@ -31,7 +32,9 @@ const locumRoutes: LocumRoute[] = [
   },
 ];
 const DashboardHome = () => {
-  document.title  = "AfyaLocum - Dashboard"
+  useEffect(()=> {
+    document.title  = "AfyaLocum - Dashboard"
+  }, [])
   return (
     <>
       <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">
