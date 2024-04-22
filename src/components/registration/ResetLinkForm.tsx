@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Alert, Input, InputLabel, Paper } from "@mui/material";
+import { Alert, Input, InputLabel, Paper, Typography } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { auth } from "../../firebase/firebase";
@@ -28,8 +28,6 @@ const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
       setError(true);
     }
   };
-  console.log(location);
-
   return (
     <>
       <Paper
@@ -44,6 +42,16 @@ const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
         component={`form`}
         onSubmit={handleSubmit}
       >
+        {location.state && (
+          <>
+            <Typography>
+              Your email is unverified. Check inbox for verification link.
+            </Typography>
+            <Typography variant="h6" textAlign={`center`}>
+              or
+            </Typography>
+          </>
+        )}
         <InputLabel
           htmlFor="email"
           sx={{
