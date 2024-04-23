@@ -3,7 +3,7 @@ import SponsorOrApprovalComponent from "./SponsorOrApprovalComponent";
 import { Button } from "@mui/material";
 
 const SponsorsAndApprovalsArrayDisplay = () => {
-  const array = new Array(5).fill("sponsor");
+  const array = new Array(2).fill("sponsor");
   return (
     <>
       <div className="bg-teal-500 py-2 w-[500px] overflow-hidden flex flex-nowrap">
@@ -15,7 +15,7 @@ const SponsorsAndApprovalsArrayDisplay = () => {
         >
           {array.map((sample, i) => (
             <li key={i + 1}>
-              <Button variant="contained">{sample}</Button>
+              <Button variant="contained" color="success">{sample}</Button>
             </li>
           ))}
         </motion.ul>

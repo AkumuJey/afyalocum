@@ -1,16 +1,16 @@
 import {
   Autocomplete,
-  Skeleton,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import LocumCard from "../../components/Dashboard/LocumCard";
+import LocumLoading from "../../components/Dashboard/LocumLoading";
 import { db } from "../../firebase/firebase";
-import { useLocation } from "react-router-dom";
 
 interface Status {
   booked: boolean;
@@ -59,41 +59,32 @@ const SettledLocums = () => {
     <>
       <div className="flex gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
         <div className="w-full">
-        <Stack spacing={2} sx={{ width: 300 }}>
-          <Autocomplete
-            id="trial"
-            freeSolo
-            clearIcon
-            options={(locums || []).map((locum) => locum.description)}
-            renderInput={(params) => <TextField {...params} label="Trial" inputProps={{
-              ...params.inputProps,
-              type: "search"
-            }}/>}
-            noOptionsText="No locum found"
-          />
-        </Stack>
+          <Stack spacing={2} sx={{ width: 300 }}>
+            <Autocomplete
+              id="trial"
+              freeSolo
+              clearIcon
+              options={(locums || []).map((locum) => locum.description)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Trial"
+                  inputProps={{
+                    ...params.inputProps,
+                    type: "search",
+                  }}
+                />
+              )}
+              noOptionsText="No locum found"
+            />
+          </Stack>
         </div>
         {error && (
           <Typography variant="h3" color="red">
             An error occurred while fetching the data.
           </Typography>
         )}
-        {loading &&
-          Array(3)
-            .fill("key")
-            .map((item, index) => (
-              <>
-                <Skeleton
-                  variant="rectangular"
-                  sx={{
-                    width: { xs: "100%", md: "30%" },
-                    height: 180,
-                    borderRadius: 3,
-                  }}
-                  key={`${item + index}`}
-                />
-              </>
-            ))}
+        {loading && <LocumLoading />}
 
         {locums && !loading && !error && (
           <>
