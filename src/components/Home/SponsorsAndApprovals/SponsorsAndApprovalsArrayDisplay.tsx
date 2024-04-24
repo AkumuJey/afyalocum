@@ -3,14 +3,14 @@ import SponsorOrApprovalComponent from "./SponsorOrApprovalComponent";
 import { Button } from "@mui/material";
 
 const SponsorsAndApprovalsArrayDisplay = () => {
-  const array = new Array(2).fill("sponsor");
+  const array = new Array(10).fill("sponsor");
   return (
     <>
-      <div className="bg-teal-500 py-2 w-[500px] overflow-hidden flex flex-nowrap">
+      <div className="py-2 w-full max-w-xl mx-auto overflow-hidden flex flex-nowrap gap-2 ">
         <motion.ul
-          className="flex flex-row flex-nowrap gap-1"
-          initial={{ translateX: 0 }}
-          animate={{ x: "100%" }}
+          className="flex flex-row flex-nowrap gap-2"
+          initial={{ x: 0 }}
+          animate={{ x: "-100%" }}
           transition={{ duration: 10, ease: "linear", repeat: Infinity }}
         >
           {array.map((sample, i) => (
@@ -20,9 +20,9 @@ const SponsorsAndApprovalsArrayDisplay = () => {
           ))}
         </motion.ul>
         <motion.ul
-          className="flex flex-row flex-nowrap gap-1"
+          className="flex flex-row flex-nowrap gap-2"
           initial={{ x: 0 }}
-          animate={{ x: "100%" }}
+          animate={{ x: "-100%" }}
           transition={{ duration: 10, ease: "linear", repeat: Infinity }}
         >
           {array.map((sample, i) => (
