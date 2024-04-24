@@ -61,7 +61,6 @@ const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) 
     const storageRef = ref(storage, `images/${currentUser.uid}`);
     await uploadBytes(storageRef, image);
     const downloadUrl = await getDownloadURL(storageRef);
-    console.log(downloadUrl)
     await updateProfile(currentUser, {
       photoURL: downloadUrl,
     });
@@ -71,13 +70,13 @@ const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) 
     try {
       if (photoURL) {
         const oldPhotoUrl = ref(storage, photoURL);
-        console.log(oldPhotoUrl)
         await deleteObject(oldPhotoUrl);
       }
       await updateImage(image as File);
       handleSuccess("Profile Photo Updated Successfully")
     } catch (_error) {
       handleError("Error uploading image")
+      console.log(_error)
     } finally {
       setLoading(false);
     }

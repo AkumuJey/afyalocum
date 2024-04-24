@@ -1,12 +1,11 @@
-import { motion } from "framer-motion";
-import SponsorOrApprovalComponent from "./SponsorOrApprovalComponent";
 import { Button } from "@mui/material";
+import { motion } from "framer-motion";
 
 const SponsorsAndApprovalsArrayDisplay = () => {
-  const array = new Array(10).fill("sponsor");
+  const array = new Array(5).fill("sponsor");
   return (
     <>
-      <div className="py-2 w-full max-w-xl mx-auto overflow-hidden flex flex-nowrap gap-2 ">
+      <div id="horizontal-scroll" className="py-2 w-full max-w-xl mx-auto overflow-hidden flex flex-nowrap gap-2 ">
         <motion.ul
           className="flex flex-row flex-nowrap gap-2"
           initial={{ x: 0 }}

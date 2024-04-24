@@ -2,8 +2,8 @@ import { LoadingButton } from "@mui/lab";
 import { Alert, Input, InputLabel, Paper, Typography } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { FormEvent, useState } from "react";
-import { auth } from "../../firebase/firebase";
 import { useLocation } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
 
 interface PropTypes {
   notifyVerificationSent: () => void;

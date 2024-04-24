@@ -45,13 +45,14 @@ const DescriptionProfile = ({
       handleSuccess("Hospital description updated successfully");
     } catch (_error) {
       handleError("Error updating description");
+      console.log("Error:", _error)
     } finally {
       setLoading(false);
       setIsEditable(false);
     }
   };
 
-  const [description, setDescription] = useState<string | null>(null);
+  const [description, setDescription] = useState<string>("Enter your description...");
   useEffect(() => {
     const fetchDescription = async () => {
       const userRef = doc(db, "hospitals", currentUser.uid);
@@ -110,7 +111,7 @@ const DescriptionProfile = ({
               required
               placeholder="Describe Your Hospital"
               className="max-h-[200px] min-h-[150px] p-3 w-full overflow-hidden"
-              defaultValue={description as string}
+              defaultValue={description}
             />
           </Box>
           <Box

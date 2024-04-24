@@ -1,6 +1,7 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { User } from "firebase/auth";
 import { useContext, useState } from "react";
+import Notification from "../components/NotificationElement";
 import AvatarProfile from "../components/Profile/AvatarProfile";
 import ChangePassword from "../components/Profile/ChangePassword";
 import DescriptionProfile from "../components/Profile/DescriptionProfile";
@@ -8,7 +9,6 @@ import NameProfile from "../components/Profile/NameProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { AuthContext } from "../contexts/AuthContext";
 import RouterAnimation from "./RouterAnimation";
-import Notification from "../components/NotificationElement";
 
 type Severity = "success" | "error";
 
@@ -35,13 +35,14 @@ const Profile = () => {
     setOpen(true);
     setSeverity("success");
   };
+  console.log(currentUser?.photoURL)
   return (
     <>
       <RouterAnimation>
         <ProtectedRoute>
           <Box
             component={`div`}
-            className="w-[95%] max-w-lg valid-height flex flex-col justify-start gap-[4rem] py-5"
+            className="w-[95%] mx-auto max-w-lg valid-height flex flex-col justify-start gap-[4rem] py-5"
           >
             <Notification
               open={open}

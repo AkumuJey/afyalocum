@@ -16,5 +16,8 @@
   .valid-height{
     min-height: var(--custom-height);
   }
-
+#horizontal-scroll{
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
   
