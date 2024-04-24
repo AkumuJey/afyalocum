@@ -23,7 +23,11 @@ const SettledLocums = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { completed, booked } = state.status as Status;
+const [searchItem, setSearchTerm] = useState("")
 
+const getData = (value) => {
+  console.log(value)
+}
   useEffect(() => {
     document.title = `AfyaLocum - ${state.title}`;
     const generateQuery = () => {
@@ -76,6 +80,9 @@ const SettledLocums = () => {
                 />
               )}
               noOptionsText="No locum found"
+              onChange={(_event, newValue) => {
+                getData(newValue)
+              }}
             />
           </Stack>
         </div>
