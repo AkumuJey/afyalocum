@@ -26,7 +26,7 @@ const SponsorsAndApprovalsArrayDisplay = () => {
         >
           {array.map((sample, i) => (
             <li key={i + 1}>
-              <Button variant="contained">{sample}</Button>
+              <Button variant="contained" color="success">{sample}</Button>
             </li>
           ))}
         </motion.ul>
