@@ -1,12 +1,7 @@
-import {
-  Autocomplete,
-  Stack,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import LocumCard from "../../components/Dashboard/LocumCard";
 import LocumLoading from "../../components/Dashboard/LocumLoading";
@@ -18,16 +13,17 @@ interface Status {
 }
 
 const SettledLocums = () => {
-  const { state } = useLocation();
+  const { state, pathname } = useLocation();
   const [locums, setLocums] = useState<SubmittedLocum[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { completed, booked } = state.status as Status;
-const [searchItem, setSearchTerm] = useState("")
 
-const getData = (value) => {
-  console.log(value)
-}
+  const navigate = useNavigate();
+  const getData = (locum: SubmittedLocum) => {
+    console.log(locum);
+    navigate(`${pathname}/${locum.id}`, { state: { locum } });
+  };
   useEffect(() => {
     document.title = `AfyaLocum - ${state.title}`;
     const generateQuery = () => {
@@ -68,20 +64,21 @@ const getData = (value) => {
               id="trial"
               freeSolo
               clearIcon
-              options={(locums || []).map((locum) => locum.description)}
+              options={locums as SubmittedLocum[]}
+              getOptionLabel={(option) => option?.location || ""}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Trial"
+                  label="Find locum with location"
                   inputProps={{
                     ...params.inputProps,
                     type: "search",
                   }}
                 />
               )}
-              noOptionsText="No locum found"
+              noOptionsText="No locums found"
               onChange={(_event, newValue) => {
-                getData(newValue)
+                getData(newValue as SubmittedLocum);
               }}
             />
           </Stack>
