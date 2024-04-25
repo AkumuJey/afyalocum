@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs";
 import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../firebase/firebase";
+
 export interface Job {
   title: string;
   requirements: string;
@@ -44,7 +45,7 @@ export interface PartTwo {
 
 export const submitToFirebase = async (job: SubmittedLocum) => {
   try {
-    const locumsCollection = collection(db, "locums");
+    const locumsCollection = collection(db, "locums",);
     await addDoc(locumsCollection, job);
   } catch (error) {
     throw new Error("Faliled to  update the job details."); 

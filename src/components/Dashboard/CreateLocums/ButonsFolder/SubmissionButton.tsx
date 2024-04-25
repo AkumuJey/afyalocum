@@ -1,17 +1,22 @@
-import { Button } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { useParams } from "react-router-dom";
 interface PropTypes {
   validSubmission: boolean;
-  loading: boolean
+  loading: boolean;
 }
 
 const SubmissionButton = ({ validSubmission, loading }: PropTypes) => {
   const { id } = useParams();
   return (
     <>
-      <Button variant="contained" type="submit" disabled={!validSubmission || loading}>
-        {id ? "Save Changes": "Save Vacancy"}
-      </Button>
+      <LoadingButton
+        loading={loading}
+        variant="contained"
+        type="submit"
+        disabled={!validSubmission || loading}
+      >
+        {id ? "Save Changes" : "Save Vacancy"}
+      </LoadingButton>
     </>
   );
 };

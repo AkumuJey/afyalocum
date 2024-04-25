@@ -93,13 +93,16 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
         });
         if (!update) {
           await submitToFirebase(jobFormat as SubmittedLocum);
+          setTimeout(() => {
+            navigate(`/dashboard/`)
+          }, 2000)
         } else {
           await updateLocumDetails(id as string, jobFormat as SubmittedLocum);
+          setTimeout(() => {
+            navigate(`/dashboard/open-locums/${id}`)
+          }, 2000)
         }
         notifySuccess()
-        setTimeout(() => {
-          navigate(`/dashboard/`)
-        }, 2000)
       } catch (_error) {
         notifyError()
       } finally {

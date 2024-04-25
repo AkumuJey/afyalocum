@@ -1,6 +1,6 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import LocumCard from "../../components/Dashboard/LocumCard";
@@ -28,7 +28,7 @@ const SettledLocums = () => {
     document.title = `AfyaLocum - ${state.title}`;
     const { completed, booked } = state.status as Status;
     const generateQuery = () => {
-      const locumsCollection = collection(db, "locums");
+      const locumsCollection = collection(db, "locums",);
       const openLocumsFilter = where("completed", "==", completed);
       const bookedLocumsFilter = where("booked", "==", booked);
       return query(locumsCollection, bookedLocumsFilter, openLocumsFilter);

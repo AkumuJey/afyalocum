@@ -8,7 +8,7 @@ const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
 const SingleLocumPage = lazy(
   () => import("./pages/DashboardPages/SingleLocumPage")
 );
-const DashboardHome = lazy(() => import("./pages/DashboardHome"));
+const DashboardHome = lazy(() => import("./pages/DashboardPages/DashboardHome"));
 const LocumEdit = lazy(() => import("./pages/DashboardPages/LocumEdit"));
 const SingleLocumLayout = lazy(() => import("./Layout/SingleLocumLayout"));
 const CommonLocumsArrayPage = lazy(
