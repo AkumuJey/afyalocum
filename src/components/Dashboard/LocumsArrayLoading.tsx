@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 
-const LocumLoading = () => {
+const LocumsArrayLoading = () => {
   return (
     <>
       {Array(3)
@@ -22,4 +22,4 @@ const LocumLoading = () => {
   );
 };
 
-export default LocumLoading;
+export default LocumsArrayLoading;

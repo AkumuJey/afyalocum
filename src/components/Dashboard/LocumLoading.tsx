@@ -1,10 +1,10 @@
 import { Skeleton } from "@mui/material";
 
 const LocumLoading = () => {
-    const skeletonArray = new Array(8).fill("Skeleton");
+    const skeletonArray = new Array(6).fill("Skeleton");
   return (
     <>
-      <div className="flex flex-col gap-[0.1px] w-[90%] md:w-[40%] m-[1.5rem]">
+      <div className="flex flex-col gap-[0.1px] w-[90%] md:w-[60%] m-[1.5rem]">
         <Skeleton variant="text" animation="wave" sx={{ fontSize: "2rem" }} />
         {skeletonArray.map((skeleton, index) => (
             <Skeleton variant="text" animation="wave" key={index + skeleton}/>
