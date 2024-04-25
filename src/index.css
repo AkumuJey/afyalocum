@@ -2,22 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    @apply p-0 m-0
+* {
+  @apply p-0 m-0;
 }
 
-*body{
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+*body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 :root {
-    --custom-height: calc(100vh - 5rem);
-  }
-
-  .valid-height{
-    min-height: var(--custom-height);
-  }
-#horizontal-scroll{
-  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
-  -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  --custom-height: calc(100vh - 5rem);
 }
-  
+
+.valid-height {
+  min-height: var(--custom-height);
+}
+#horizontal-scroll {
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+}
+
+@keyframes slider {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.slide-container{
+  background-color: aqua;
+  overflow: hidden;
+  padding-block: 10px;
+  margin: 2rem 1rem;
+  white-space:  nowrap;
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+}
+.slide{
+  animation: 15s slider infinite linear;
+  display: inline-block;
+}
+.slide li{
+  margin: 0  10px;
+  display: inline-block;
+}
+
+.slide-container:hover .slide{
+  animation-play-state: paused;
+}
