@@ -1,10 +1,11 @@
-import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import {  useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import LocumCard from "../../components/Dashboard/LocumCard";
 import LocumsArrayLoading from "../../components/Dashboard/LocumsArrayLoading";
+import LocumSearchBar from "../../components/Dashboard/LocumSearchBar";
 import { db } from "../../firebase/firebase";
 
 interface Status {
@@ -13,17 +14,11 @@ interface Status {
 }
 
 const SettledLocums = () => {
-  const { state, pathname } = useLocation();
+  const { state} = useLocation();
   const [locums, setLocums] = useState<SubmittedLocum[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { completed, booked } = state.status as Status;
-
-  const navigate = useNavigate();
-  const getData = (locum: SubmittedLocum) => {
-    console.log(locum);
-    navigate(`${pathname}/${locum.id}`, { state: { locum } });
-  };
   useEffect(() => {
     document.title = `AfyaLocum - ${state.title}`;
     const { completed, booked } = state.status as Status;
@@ -58,37 +53,8 @@ const SettledLocums = () => {
   }, [completed, booked, state]);
   return (
     <>
-      <div className="flex gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
-        <div className="w-full">
-          <Stack spacing={2} sx={{ width: 300 }}>
-            <Autocomplete
-              id="trial"
-              freeSolo
-              clearIcon
-              options={locums as SubmittedLocum[]}
-              getOptionLabel={(option) => {
-                if (typeof option === "string") {
-                  return "";
-                }
-                return option.location;
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Find locum with location"
-                  inputProps={{
-                    ...params.inputProps,
-                    type: "search",
-                  }}
-                />
-              )}
-              noOptionsText="No locums found"
-              onChange={(_event, newValue) => {
-                getData(newValue as SubmittedLocum);
-              }}
-            />
-          </Stack>
-        </div>
+      <div className="flex flex-col gap-[1.5rem] flex-wrap p-[1.5rem] justify-start w-[95%] md:w-4/4 mx-auto">
+        <LocumSearchBar locums={locums}/>
         {error && (
           <Typography variant="h3" color="red">
             An error occurred while fetching the data.
