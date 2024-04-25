@@ -28,7 +28,7 @@ const LocumRouteCard = ({ locumRoute }: PropTypes) => {
         <Link
           to={locumRoute.routeDirection}
           className="h-full w-full flex justify-center items-center"
-          state={{status: status, title: title}}
+          state={{ status, title}}
         >
           <p>{title}</p>
         </Link>

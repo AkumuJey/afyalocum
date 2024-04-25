@@ -26,6 +26,7 @@ const SettledLocums = () => {
   };
   useEffect(() => {
     document.title = `AfyaLocum - ${state.title}`;
+    const { completed, booked } = state.status as Status;
     const generateQuery = () => {
       const locumsCollection = collection(db, "locums");
       const openLocumsFilter = where("completed", "==", completed);

@@ -1,6 +1,5 @@
 import { Place } from "@mui/icons-material";
 import { Paper, PropTypes, Typography } from "@mui/material";
-
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SubmittedLocum } from "./CreateLocums/hooks/useJobForm";
@@ -15,7 +14,7 @@ const LocumCard = ({ locum }: PropTypes) => {
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const handleClick = () => {
-    navigate(`${pathname}/${locum.id}`, {state: {locum}});
+    navigate(`${pathname}/${locum.id}`);
   };
   return (
     <motion.div

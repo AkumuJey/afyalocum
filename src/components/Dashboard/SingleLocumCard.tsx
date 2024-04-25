@@ -18,8 +18,9 @@ const SingleLocumCard = ({ locum }: PropTypes) => {
     try {
       await deleteLocum(id as string);
       if (id) navigate(pathname.slice(0, -(id.length + 1)), { replace: true });
+      console.log("Routed")
     } catch (error) {
-      console.log(error);
+      console.log("Error: ", error);
     } finally {
       setLoading(false);
     }
