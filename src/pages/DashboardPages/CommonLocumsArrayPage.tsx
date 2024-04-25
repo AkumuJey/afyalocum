@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import LocumCard from "../../components/Dashboard/LocumCard";
-import LocumLoading from "../../components/Dashboard/LocumLoading";
+import LocumsArrayLoading from "../../components/Dashboard/LocumsArrayLoading";
 import { db } from "../../firebase/firebase";
 
 interface Status {
@@ -65,7 +65,12 @@ const SettledLocums = () => {
               freeSolo
               clearIcon
               options={locums as SubmittedLocum[]}
-              getOptionLabel={(option) => option?.location || ""}
+              getOptionLabel={(option) => {
+                if (typeof option === "string") {
+                  return "";
+                }
+                return option.location;
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -88,7 +93,7 @@ const SettledLocums = () => {
             An error occurred while fetching the data.
           </Typography>
         )}
-        {loading && <LocumLoading />}
+        {loading && <LocumsArrayLoading />}
 
         {locums && !loading && !error && (
           <>
