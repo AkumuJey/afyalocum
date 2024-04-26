@@ -53,10 +53,8 @@ export interface PartTwo {
 
 const useJobForm = () => {
   const { currentUser } = useContext(AuthContext);
- 
-
   const { uid } = currentUser as {uid: string}
-  const locumsCollection = collection(db, uid, "locums");
+  const locumsCollection = collection(db, "hospitals", uid, "locums");
  
   const submitToFirebase = async (job: SubmittedLocum) => {
     try {
