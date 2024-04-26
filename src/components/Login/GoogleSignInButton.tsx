@@ -2,8 +2,9 @@ import { Google } from "@mui/icons-material";
 import { Alert, Button, Paper } from "@mui/material";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const containerStyles = {
   display: "flex",
@@ -36,13 +37,20 @@ const GoogleSignInButton = ({ loading, handleLoading }: PropTypes) => {
     handleLoading(true);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((data) => {
-        console.log(data);
+      .then(async (data) => {
+        const { user } = data;
+        const userRef = doc(db, "hospitals", user.uid);
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+          await setDoc(userRef, {
+            hospitalDescription: "",
+          });
+        }
         if (state) {
           navigate(state);
-        } else {
-          navigate("/");
+          return;
         }
+        navigate("/");
       })
       .catch((problem) => {
         console.log(problem);

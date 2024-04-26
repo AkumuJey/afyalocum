@@ -9,7 +9,6 @@ const LocumSearchBar = ({ locums }: PropTypes) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const getData = (locum: SubmittedLocum) => {
-    console.log(locum);
     navigate(`${pathname}/${locum.id}`, { state: { locum } });
   };
   return (
