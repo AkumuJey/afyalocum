@@ -1,6 +1,14 @@
 import { Dayjs } from "dayjs";
-import { addDoc, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../../../firebase/firebase";
+import { useContext } from "react";
+import { AuthContext } from "../../../../contexts/AuthContext";
 
 export interface Job {
   title: string;
@@ -33,7 +41,7 @@ export interface PartOne {
 }
 
 export interface StartStopTime {
-  [key: string]:  Date | Dayjs | null
+  [key: string]: Date | Dayjs | null;
 }
 export interface PartThree {
   location: string;
@@ -43,29 +51,40 @@ export interface PartTwo {
   description: string;
 }
 
-export const submitToFirebase = async (job: SubmittedLocum) => {
-  try {
-    const locumsCollection = collection(db, "locums",);
-    await addDoc(locumsCollection, job);
-  } catch (error) {
-    throw new Error("Faliled to  update the job details."); 
-  }
+const useJobForm = () => {
+  const { currentUser } = useContext(AuthContext);
+ 
+
+  const { uid } = currentUser as {uid: string}
+  const locumsCollection = collection(db, uid, "locums");
+ 
+  const submitToFirebase = async (job: SubmittedLocum) => {
+    try {
+      await addDoc(locumsCollection, job);
+    } catch (error) {
+      throw new Error("Faliled to  update the job details.");
+    }
+  };
+
+  const updateLocumDetails = async (id: string, updatedJob: SubmittedLocum) => {
+    try {
+       const docRef = doc(locumsCollection, id);
+      await updateDoc(docRef, { ...updatedJob });
+    } catch (error) {
+      throw new Error("Faliled to  update the job details.");
+    }
+  };
+
+  const deleteLocum = async (id: string) => {
+    try {
+       const docRef = doc(locumsCollection, id);
+      await deleteDoc(docRef);
+    } catch (error) {
+      throw new Error("Faliled to delete the locum.");
+    }
+  };
+
+  return { submitToFirebase, updateLocumDetails, deleteLocum };
 };
 
-export const updateLocumDetails = async (id: string, updatedJob: SubmittedLocum) => {
-  try {
-    const docRef = doc(db, "locums", id);
-    await updateDoc(docRef, { ...updatedJob });
-  } catch (error) {
-    throw new Error("Faliled to  update the job details."); 
-  }
-};
-
-export const deleteLocum = async (id: string) => {
-  try {
-    const docRef = doc(db, "locums", id);
-    await deleteDoc(docRef);
-  } catch (error) {
-    throw new Error("Faliled to delete the locum.");
-  }
-}
+export default useJobForm;

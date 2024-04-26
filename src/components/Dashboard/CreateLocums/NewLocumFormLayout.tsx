@@ -11,15 +11,13 @@ import PageOne from "./PageOne/PageOne";
 import PageThree from "./PageThree/PageThree";
 import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
-import {
+import useJobForm, {
   Job,
   PartOne,
   PartThree,
   PartTwo,
   StartStopTime,
   SubmittedLocum,
-  submitToFirebase,
-  updateLocumDetails,
 } from "./hooks/useJobForm";
 
 interface PropTypes {
@@ -43,6 +41,8 @@ const formStyling = {
   justifyContent: "space-between",
 };
 const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
+  const { submitToFirebase, updateLocumDetails } = useJobForm();
+
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState<Severity>("success");
@@ -79,7 +79,7 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
       }`
     );
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -94,17 +94,17 @@ const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
         if (!update) {
           await submitToFirebase(jobFormat as SubmittedLocum);
           setTimeout(() => {
-            navigate(`/dashboard/`)
-          }, 2000)
+            navigate(`/dashboard/`);
+          }, 2000);
         } else {
           await updateLocumDetails(id as string, jobFormat as SubmittedLocum);
           setTimeout(() => {
-            navigate(`/dashboard/open-locums/${id}`)
-          }, 2000)
+            navigate(`/dashboard/open-locums/${id}`);
+          }, 2000);
         }
-        notifySuccess()
+        notifySuccess();
       } catch (_error) {
-        notifyError()
+        notifyError();
       } finally {
         setLoading(false);
         setOpen(true);
