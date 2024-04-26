@@ -15,6 +15,7 @@ import { updateProfile, User } from "firebase/auth";
 import {
   deleteObject,
   getDownloadURL,
+  getMetadata,
   ref,
   uploadBytes,
 } from "firebase/storage";
@@ -23,9 +24,13 @@ import { storage } from "../../firebase/firebase";
 interface PropsTypes {
   currentUser: User;
   handleSuccess: (message: string) => void;
-  handleError:  (message: string) => void;
+  handleError: (message: string) => void;
 }
-const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) => {
+const AvatarProfile = ({
+  currentUser,
+  handleSuccess,
+  handleError,
+}: PropsTypes) => {
   const [take, setTake] = useState(true);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -59,6 +64,10 @@ const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) 
 
   const updateImage = async (image: File) => {
     const storageRef = ref(storage, `images/${currentUser.uid}`);
+    const metaData = await getMetadata(storageRef);
+    if (metaData) {
+      await deleteObject(storageRef);
+    }
     await uploadBytes(storageRef, image);
     const downloadUrl = await getDownloadURL(storageRef);
     await updateProfile(currentUser, {
@@ -68,21 +77,17 @@ const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) 
   const handlePhotoUpdate = async () => {
     setLoading(true);
     try {
-      if (photoURL) {
-        const oldPhotoUrl = ref(storage, photoURL);
-        await deleteObject(oldPhotoUrl);
-      }
       await updateImage(image as File);
-      handleSuccess("Profile Photo Updated Successfully")
+      setIsEditable(false);
+      handleSuccess("Profile Photo Updated Successfully");
     } catch (_error) {
-      handleError("Error uploading image")
-      console.log(_error)
+      handleError("Error uploading image");
     } finally {
       setLoading(false);
     }
   };
   return (
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       {!isEditable && (
         <Grid
           container
@@ -117,13 +122,14 @@ const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) 
           >
             {take ? "Upload Image" : "Hospital's Profile Photo"}
           </InputLabel>
-          {take && (
+          {take && !image && (
             <Button
               component="label"
               variant="contained"
               startIcon={<CloudUpload />}
               sx={{
                 backgroundColor: "blue",
+                width: "fit-content",
               }}
             >
               Update new profile photo
@@ -134,18 +140,16 @@ const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) 
                 accept="image/png, image/jpeg"
                 onChange={handleImageChange}
                 contentEditable
-
               />
             </Button>
           )}
           {imageUrl && (
-            <div className="flex flex-col justify-between gap-1 w-full">
+            <div className="flex justify-between items-center gap-1 w-full">
               <Avatar
                 alt="Profile Image"
                 src={imageUrl}
                 sx={{ width: "5rem", height: "5rem" }}
               />
-              <div>
                 <Button
                   variant="outlined"
                   sx={{
@@ -154,41 +158,43 @@ const AvatarProfile = ({ currentUser, handleSuccess, handleError }: PropsTypes) 
                     borderBlockColor: "black",
                     color: "white",
                   }}
+                  disabled={loading}
                   onClick={handleRetake}
                 >
                   {take ? "Use Initial Image" : "Reatake Image"}
                 </Button>
-              </div>
             </div>
           )}
-          <Box
-            component={`div`}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "2rem",
-              width: "100%",
-            }}
-          >
-            <LoadingButton
-              type="submit"
-              variant="contained"
-              color="secondary"
-              loading={loading}
-              disabled={!imageUrl || loading}
-              onClick={handlePhotoUpdate}
+          {image && (
+            <Box
+              component={`div`}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "2rem",
+                width: "100%",
+              }}
             >
-              Update Profile Photo
-            </LoadingButton>
-            <Button
-              type="button"
-              color="secondary"
-              onClick={() => setIsEditable(false)}
-              variant="outlined"
-            >
-              Cancel
-            </Button>
-          </Box>
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                color="secondary"
+                loading={loading}
+                disabled={!imageUrl || loading}
+                onClick={handlePhotoUpdate}
+              >
+                Update Profile Photo
+              </LoadingButton>
+              <Button
+                type="button"
+                color="secondary"
+                onClick={() => setIsEditable(false)}
+                variant="outlined"
+              >
+                Cancel
+              </Button>
+            </Box>
+          )}
         </>
       )}
     </Box>

@@ -45,14 +45,16 @@ const DescriptionProfile = ({
       handleSuccess("Hospital description updated successfully");
     } catch (_error) {
       handleError("Error updating description");
-      console.log("Error:", _error)
+      console.log("Error:", _error);
     } finally {
       setLoading(false);
       setIsEditable(false);
     }
   };
 
-  const [description, setDescription] = useState<string>("Enter your description...");
+  const [description, setDescription] = useState<string>(
+    "Enter your description..."
+  );
   useEffect(() => {
     const fetchDescription = async () => {
       const userRef = doc(db, "hospitals", currentUser.uid);
@@ -130,7 +132,7 @@ const DescriptionProfile = ({
               loading={loading}
               disabled={loading}
             >
-              Update Name
+              Update Description
             </LoadingButton>
             <Button
               type="button"
