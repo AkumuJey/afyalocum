@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RouterAnimation from "../pages/RouterAnimation";
 
@@ -27,9 +27,8 @@ const DashboardLayout = () => {
                   variant="outlined"
                   onClick={() => navigate(-1)}
                 >
-                  Open Locums
+                  Holder
                 </Button>
-                <Link to={`/dashboard`}>Dashboard</Link>
               </div>
             )}
           <div/>
