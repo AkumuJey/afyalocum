@@ -39,6 +39,7 @@ const SettledLocums = () => {
       try {
         setLoading(true);
         const locumsArray: SubmittedLocum[] = [];
+        console.log(snapshot.docs)
         snapshot.docs.forEach((doc) => {
           const data = doc.data() as SubmittedLocum;
           data.id = doc.id;

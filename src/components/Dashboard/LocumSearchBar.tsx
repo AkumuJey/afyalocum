@@ -11,6 +11,7 @@ const LocumSearchBar = ({ locums }: PropTypes) => {
   const getData = (locum: SubmittedLocum) => {
     navigate(`${pathname}/${locum.id}`, { state: { locum } });
   };
+  
   return (
     <div className="w-full">
       <Stack spacing={2} sx={{ width: 300 }}>
