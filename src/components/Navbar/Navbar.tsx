@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import MenuButton from "./MenuButton";
 import NavLinkList from "./NavLinkList";
+import { NavLink } from "react-router-dom";
 
 interface Props {
   window?: () => Window;
@@ -47,6 +48,7 @@ const Navbar = (props: Props) => {
           }}
         >
           <Grid container justifyContent={`space-between`}>
+            <NavLink to={`/`}>
             <Typography
               component={`h2`}
               sx={{
@@ -69,6 +71,7 @@ const Navbar = (props: Props) => {
                 Locum
               </Typography>
             </Typography>
+            </NavLink>
              <MenuButton onToggleClose={() => setOpen(!open)} open={open} />
           </Grid>
           <NavLinkList
