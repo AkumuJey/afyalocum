@@ -1,16 +1,17 @@
+import { User } from "firebase/auth";
 import { collection, doc, onSnapshot } from "firebase/firestore";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import LocumLoading from "../../components/Dashboard/LocumLoading";
 import SingleLocumCard from "../../components/Dashboard/SingleLocumCard";
 import { db } from "../../firebase/firebase";
-import { AuthContext } from "../../contexts/AuthContext";
+import useAuthStatus from "../../hooks/useAuthStatus";
 
 const SingleLocumPage = () => {
   const { id } = useParams();
   const [locum, setLocum] = useState<SubmittedLocum | null>(null);
-  const { currentUser } = useContext(AuthContext);
+  const currentUser : User | null = useAuthStatus();
   const { uid } = currentUser as { uid: string };
   useEffect(() => {
     const locumsCollection = collection(db, "hospitals", uid, "locums");

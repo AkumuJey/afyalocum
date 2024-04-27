@@ -1,13 +1,14 @@
 import { Typography } from "@mui/material";
+import { User } from "firebase/auth";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { SubmittedLocum } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import LocumCard from "../../components/Dashboard/LocumCard";
 import LocumsArrayLoading from "../../components/Dashboard/LocumsArrayLoading";
 import LocumSearchBar from "../../components/Dashboard/LocumSearchBar";
 import { db } from "../../firebase/firebase";
-import { AuthContext } from "../../contexts/AuthContext";
+import useAuthStatus from "../../hooks/useAuthStatus";
 
 interface Status {
   booked: boolean;
@@ -21,7 +22,7 @@ const SettledLocums = () => {
   const [error, setError] = useState<boolean>(false);
   const { completed, booked } = state.status as Status;
 
-  const { currentUser } = useContext(AuthContext);
+  const currentUser : User | null = useAuthStatus();
   const { uid } = currentUser as {uid: string}
 
   useEffect(() => {
