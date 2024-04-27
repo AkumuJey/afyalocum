@@ -1,41 +1,20 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { User } from "firebase/auth";
-import { useState } from "react";
 import Notification from "../components/NotificationElement";
 import AvatarProfile from "../components/Profile/AvatarProfile";
 import ChangePassword from "../components/Profile/ChangePassword";
 import DescriptionProfile from "../components/Profile/DescriptionProfile";
 import NameProfile from "../components/Profile/NameProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
-import useAuthStatus from "../hooks/useAuthStatus";
+import useProfileUpdate from "../hooks/useProfileUpdate";
 import RouterAnimation from "./RouterAnimation";
-
-type Severity = "success" | "error";
+import useAuthStatus from "../hooks/useAuthStatus";
 
 const Profile = () => {
-  const currentUser : User | null = useAuthStatus() 
-  document.title = (`${currentUser?.displayName} | AfyaLocum Profile`);
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [severity, setSeverity] = useState<Severity>("success");
-  const handleClose = () => {
-    setSeverity("success");
-    setOpen(false);
-    setOpen(false);
-  };
-  
-  const handleError = (msg: string) => {
-    setMessage(msg);
-    setOpen(true);
-    setSeverity("error");
-  };
-
-  const handleSuccess = (msg: string) => {
-    setMessage(msg);
-    setOpen(true);
-    setSeverity("success");
-  };
-
+  const currentUser: User | null = useAuthStatus();
+  document.title = `${currentUser?.displayName} | AfyaLocum Profile`;
+  const { open, message, severity, handleSuccess, handleError, handleClose } =
+    useProfileUpdate();
   return (
     <>
       <RouterAnimation>
