@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import useHeroChildrenAnimation from "./useHeroChildrenAnimation";
+import useHeroChildrenAnimation from "../../../hooks/useHeroChildrenAnimation";
 const Header = () => {
   const childrenVariants = useHeroChildrenAnimation()
   return (

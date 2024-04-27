@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import ButtonsContainer from "./ButtonsContainer";
 import Content from "./Content";
 import Header from "./Header";
-import useParentAnimation from "./useParentAnimation";
+import useParentAnimation from "../../../hooks/useParentAnimation";
 
 const Hero = () => {
   const containerVariants = useParentAnimation()

@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { User } from "firebase/auth";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import RegistrationFormLayout from "../components/Registration/RegistrationFormLayourt";
 import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
-import { AuthContext } from "../contexts/AuthContext";
+import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
 
 const Resigstration = () => {
   const [sent, setSent] = useState(false);
-  const { currentUser } = useContext(AuthContext);
+  const currentUser : User | null = useAuthStatus() ;
 
   useEffect(()=> {
     document.title = "AfyaLocum - Signup";

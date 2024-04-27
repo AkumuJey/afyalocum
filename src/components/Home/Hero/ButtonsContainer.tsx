@@ -1,12 +1,12 @@
+import { User } from "firebase/auth";
 import { motion } from "framer-motion";
-import { useContext } from "react";
-import { AuthContext } from "../../../contexts/AuthContext";
+import useAuthStatus from "../../../hooks/useAuthStatus";
+import useHeroChildrenAnimation from "../../../hooks/useHeroChildrenAnimation";
 import LoggedinDisplayButtons from "./LoggedinDisplayButtons";
 import LoggedoutDisplayButtons from "./LoggedoutDisplayButtons";
-import useHeroChildrenAnimation from "./useHeroChildrenAnimation";
 
 const ButtonsContainer = () => {
-  const { currentUser } = useContext(AuthContext);
+  const currentUser : User | null = useAuthStatus()  
   const childrenVariants = useHeroChildrenAnimation()
   return (
     <motion.div
