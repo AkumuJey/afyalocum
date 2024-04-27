@@ -8,50 +8,16 @@ import {
   Paper,
   Popper,
 } from "@mui/material";
-import {
-  KeyboardEvent,
-  SyntheticEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase/firebase";
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import useProfileEssensitials from "../../hooks/useProfileEssensitials";
 import HospitalAvatar from "./HospitalAvatar";
 
 const ProfilePopper = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  const { handleToggle, handleListKeyDown, handleClose, handleSignOut, open } =
+    useProfileEssensitials();
   const anchorRef = useRef<HTMLButtonElement>(null);
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
-  const handleClose = (event: Event | SyntheticEvent) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
-      return;
-    }
-    setOpen(false);
-  };
-  function handleListKeyDown(event: KeyboardEvent) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    } else if (event.key === "Escape") {
-      setOpen(false);
-    }
-  }
-
   const prevOpen = useRef(open);
- 
-  const navigate = useNavigate();
-  const signOut = async () => {
-    await auth.signOut();
-    navigate("/login");
-    setOpen(false);
-  };
 
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -95,12 +61,12 @@ const ProfilePopper = () => {
                     autoFocusItem={open}
                     aria-aria-labelledby="composition-button"
                     id="composition-menu"
-                    onKeyDown={handleListKeyDown}
+                    onKeyDown={() => handleListKeyDown}
                   >
                     <MenuItem onClick={handleClose}>
                       <Link to={`/profile`}>Profile</Link>
                     </MenuItem>
-                    <MenuItem onClick={signOut}>Logout</MenuItem>
+                    <MenuItem onClick={handleSignOut}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
