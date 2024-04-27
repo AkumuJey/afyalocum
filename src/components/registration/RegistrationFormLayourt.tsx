@@ -7,7 +7,7 @@ import EmailAndPasswordInput from "./EmailAndPasswordInput";
 import ImageUpload from "./ImageUpload";
 import NameRegistration from "./NameRegistration";
 import RegistrationError from "./RegistrationError";
-import useRegistrationHooks, { organizationInfo } from "./useRegistrationHooks";
+import useRegistrationHooks, { organizationInfo } from "../../hooks/useRegistrationHooks";
 
 type Severity = "success" | "error";
 

@@ -7,9 +7,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { auth, db, storage } from "../../firebase/firebase";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { auth, db, storage } from "../firebase/firebase";
 
 export interface organizationInfo {
   name: string;
@@ -20,8 +18,6 @@ export interface organizationInfo {
 }
 
 const useRegistrationHooks = () => {
-  const { currentUser } = useContext(AuthContext)
-  const { uid } = currentUser
   const updateHospitalsCollection = async (
     user: User,
     hospitalDescription: string

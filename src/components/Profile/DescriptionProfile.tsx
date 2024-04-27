@@ -1,38 +1,28 @@
+import { LoadingButton } from "@mui/lab";
 import {
-  Grid,
-  Typography,
-  Button,
-  TextareaAutosize,
   Box,
+  Button,
+  Grid,
   InputLabel,
+  TextareaAutosize,
+  Typography,
 } from "@mui/material";
 import { User } from "firebase/auth";
-import { doc, DocumentData, getDoc, updateDoc } from "firebase/firestore";
-import { useState, FormEvent, useEffect } from "react";
+import { doc, DocumentData, getDoc } from "firebase/firestore";
+import { FormEvent, useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
-import { LoadingButton } from "@mui/lab";
+import useProfileUpdate from "../../hooks/useProfileUpdate";
 
 interface PropTypes {
   currentUser: User;
-  handleSuccess: (message: string) => void;
-  handleError: (message: string) => void;
 }
 const DescriptionProfile = ({
   currentUser,
-  handleSuccess,
-  handleError,
 }: PropTypes) => {
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const updateUserDescription = async (description: string) => {
-    if (currentUser) {
-      const userRef = doc(db, "hospitals", currentUser.uid);
-      await updateDoc(userRef, {
-        hospitalDescription: description,
-      });
-    }
-  };
+  const { updateUserDescription, handleSuccess, handleError } = useProfileUpdate()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -45,7 +35,6 @@ const DescriptionProfile = ({
       handleSuccess("Hospital description updated successfully");
     } catch (_error) {
       handleError("Error updating description");
-      console.log("Error:", _error);
     } finally {
       setLoading(false);
       setIsEditable(false);

@@ -7,39 +7,17 @@ import {
   InputLabel,
   Typography,
 } from "@mui/material";
-import { ChangeEvent, useState } from "react";
 
 import { LoadingButton } from "@mui/lab";
 import { styled } from "@mui/material/styles";
-import { updateProfile, User } from "firebase/auth";
-import {
-  deleteObject,
-  getDownloadURL,
-  getMetadata,
-  ref,
-  uploadBytes,
-} from "firebase/storage";
-import { storage } from "../../firebase/firebase";
+import { User } from "firebase/auth";
+import useProfileImageUpdate from "../../hooks/useProfileImageUpdate";
 
 interface PropsTypes {
   currentUser: User;
-  handleSuccess: (message: string) => void;
-  handleError: (message: string) => void;
 }
-const AvatarProfile = ({
-  currentUser,
-  handleSuccess,
-  handleError,
-}: PropsTypes) => {
-  const [take, setTake] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [image, setImage] = useState<File | null>(null);
-  const [isEditable, setIsEditable] = useState(false);
-  const handleRetake = () => {
-    setTake(!take);
-  };
-
+const AvatarProfile = ({ currentUser }: PropsTypes) => {
+  const { photoURL } = currentUser;
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -52,40 +30,18 @@ const AvatarProfile = ({
     width: 1,
   });
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || !e.target.files[0]) return;
-    const imageHolder = e.target.files[0];
-    setImage(imageHolder);
-    setImageUrl(URL.createObjectURL(imageHolder));
-    setTake(false);
-  };
-
-  const { photoURL } = currentUser;
-
-  const updateImage = async (image: File) => {
-    const storageRef = ref(storage, `images/${currentUser.uid}`);
-    const metaData = await getMetadata(storageRef);
-    if (metaData) {
-      await deleteObject(storageRef);
-    }
-    await uploadBytes(storageRef, image);
-    const downloadUrl = await getDownloadURL(storageRef);
-    await updateProfile(currentUser, {
-      photoURL: downloadUrl,
-    });
-  };
-  const handlePhotoUpdate = async () => {
-    setLoading(true);
-    try {
-      await updateImage(image as File);
-      setIsEditable(false);
-      handleSuccess("Profile Photo Updated Successfully");
-    } catch (_error) {
-      handleError("Error uploading image");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    take,
+    loading,
+    imageUrl,
+    isEditable,
+    image,
+    handlePhotoUpdate,
+    handleRetake,
+    handleImageChange,
+    enableEditing,
+    disableEditing,
+  } = useProfileImageUpdate();
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       {!isEditable && (
@@ -104,7 +60,7 @@ const AvatarProfile = ({
             />
           </Grid>
           <div className="flex justify-center items-center">
-            <Button onClick={() => setIsEditable(true)} variant="contained">
+            <Button onClick={enableEditing} variant="contained">
               Edit
             </Button>
           </div>
@@ -150,19 +106,19 @@ const AvatarProfile = ({
                 src={imageUrl}
                 sx={{ width: "5rem", height: "5rem" }}
               />
-                <Button
-                  variant="outlined"
-                  sx={{
-                    width: "auto",
-                    backgroundColor: "teal",
-                    borderBlockColor: "black",
-                    color: "white",
-                  }}
-                  disabled={loading}
-                  onClick={handleRetake}
-                >
-                  {take ? "Use Initial Image" : "Reatake Image"}
-                </Button>
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "auto",
+                  backgroundColor: "teal",
+                  borderBlockColor: "black",
+                  color: "white",
+                }}
+                disabled={loading}
+                onClick={handleRetake}
+              >
+                {take ? "Use Initial Image" : "Reatake Image"}
+              </Button>
             </div>
           )}
           {image && (
@@ -180,7 +136,7 @@ const AvatarProfile = ({
                 variant="contained"
                 color="secondary"
                 loading={loading}
-                disabled={!imageUrl || loading}
+                disabled={!imageUrl || loading || !image}
                 onClick={handlePhotoUpdate}
               >
                 Update Profile Photo
@@ -188,7 +144,7 @@ const AvatarProfile = ({
               <Button
                 type="button"
                 color="secondary"
-                onClick={() => setIsEditable(false)}
+                onClick={disableEditing}
                 variant="outlined"
               >
                 Cancel

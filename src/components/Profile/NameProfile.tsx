@@ -1,32 +1,22 @@
 import { LoadingButton } from "@mui/lab";
 import {
-  Grid,
-  Typography,
-  Button,
-  Input,
   Box,
+  Button,
+  Grid,
+  Input,
   InputLabel,
+  Typography,
 } from "@mui/material";
-import { updateProfile, User } from "firebase/auth";
-import { useState, FormEvent } from "react";
+import { User } from "firebase/auth";
+import { FormEvent, useState } from "react";
+import useProfileUpdate from "../../hooks/useProfileUpdate";
 interface PropTypes {
   currentUser: User;
-  handleSuccess: (message: string) => void;
-  handleError: (message: string) => void;
 }
-const Name = ({ currentUser, handleSuccess, handleError }: PropTypes) => {
+const Name = ({ currentUser }: PropTypes) => {
+  const { updateUserName, handleSuccess, handleError } = useProfileUpdate()
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const updateUserName = async (name: string) => {
-    if (!currentUser) {
-      return;
-    }
-    await updateProfile(currentUser, {
-      displayName: name,
-    });
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     e.preventDefault();
