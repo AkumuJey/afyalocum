@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
+import { User } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import GoogleSignInButton from "../components/Login/GoogleSignInButton";
-import RegularLoginForm from "../components/Login/RegularLoginForm";
 import LoginLayout from "../components/Login/LoginLayout";
-import { AuthContext } from "../contexts/AuthContext";
+import RegularLoginForm from "../components/Login/RegularLoginForm";
+import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { currentUser } = useContext(AuthContext);
+  const currentUser : User | null = useAuthStatus() 
   useEffect(()=> {
     document.title = "AfyaLocum - Login";
   }, [])

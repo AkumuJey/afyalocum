@@ -1,11 +1,11 @@
 import { List, ListItem } from "@mui/material";
 import { User } from "firebase/auth";
 import { NavLink } from "react-router-dom";
-import UserAvatar from "./UserAvatar";
+import useAuthStatus from "../../hooks/useAuthStatus";
+import ProfilePopper from "./ProfilePopper";
 
 interface PropTypes {
   scrollToTop: () => void;
-  currentUser: User | null;
 }
 
 interface Link {
@@ -20,7 +20,8 @@ const linkData: Link[] = [
   { path: "/login", label: "Login" },
 ];
 
-const LargeScreenViewNavlist = ({ scrollToTop, currentUser }: PropTypes) => {
+const LargeScreenViewNavlist = ({ scrollToTop }: PropTypes) => {
+  const currentUser : User | null = useAuthStatus() 
   const isNavigationLinkVisible = (link: Link) => {
     return (
       (currentUser && link.path === "/login") ||
@@ -60,7 +61,7 @@ const LargeScreenViewNavlist = ({ scrollToTop, currentUser }: PropTypes) => {
             </ListItem>
           );
         })}
-        {currentUser && <UserAvatar currentUser={currentUser} />}
+        {currentUser && <ProfilePopper />}
       </List>
     </>
   );

@@ -40,7 +40,7 @@ const Navbar = (props: Props) => {
             display: "flex",
             flexDirection: isMd ? "column" : "row",
             alignItems: "center",
-            backgroundColor: "lightgray",
+            backgroundColor: "#90E4C1",
             transition: "all",
             transitionDuration: 200,
             transitionProperty: "ease",
@@ -76,7 +76,6 @@ const Navbar = (props: Props) => {
             isMd={isMd}
             handleClose={() => setOpen(false)}
           />
-          {/* {!isMd && <MobileViewNavlist handleClick={handleClick} open={open} handleClose={() => setOpen(false)}/>} */}
         </AppBar>
       </HideOnScroll>
     </>

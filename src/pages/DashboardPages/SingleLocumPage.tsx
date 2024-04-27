@@ -17,7 +17,7 @@ const SingleLocumPage = () => {
     const locumsCollection = collection(db, "hospitals", uid, "locums");
     const locumRef = doc(locumsCollection, id);
     const unsubscribe = onSnapshot(locumRef, (locumDoc) => {
-      const locumData = locumDoc.data()!;
+      const locumData = locumDoc.data();
       if (!locumData) return;
       setLocum({ ...(locumData as SubmittedLocum) });
     });

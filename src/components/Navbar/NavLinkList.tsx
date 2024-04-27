@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
 import LargeScreenViewNavlist from "./LargeScreenViewNavlist";
 import MobileViewNavlist from "./MobileViewNavlist";
 
@@ -9,7 +7,6 @@ interface PropTypes {
   handleClose: () => void;
 }
 const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
-  const { currentUser } = useContext(AuthContext);
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -23,7 +20,6 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
       {!isMd && (
         <LargeScreenViewNavlist
           scrollToTop={scrollToTop}
-          currentUser={currentUser}
         />
       )}
       {isMd && (
@@ -31,7 +27,6 @@ const NavLinkList = ({ open, isMd, handleClose }: PropTypes) => {
           handleClick={handleClick}
           handleClose={handleClose}
           open={open}
-          currentUser={currentUser}
         />
       )}
     </>

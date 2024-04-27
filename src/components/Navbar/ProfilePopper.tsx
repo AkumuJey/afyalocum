@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   ClickAwayListener,
   Grid,
@@ -8,9 +7,7 @@ import {
   MenuList,
   Paper,
   Popper,
-  Skeleton,
 } from "@mui/material";
-import { User } from "firebase/auth";
 import {
   KeyboardEvent,
   SyntheticEvent,
@@ -20,11 +17,9 @@ import {
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
+import HospitalAvatar from "./HospitalAvatar";
 
-interface Props {
-  currentUser: User;
-}
-const UserAvatar = ({ currentUser }: Props) => {
+const ProfilePopper = () => {
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
   const handleToggle = () => {
@@ -50,6 +45,14 @@ const UserAvatar = ({ currentUser }: Props) => {
   }
 
   const prevOpen = useRef(open);
+ 
+  const navigate = useNavigate();
+  const signOut = async () => {
+    await auth.signOut();
+    navigate("/login");
+    setOpen(false);
+  };
+
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current!.focus();
@@ -57,17 +60,6 @@ const UserAvatar = ({ currentUser }: Props) => {
 
     prevOpen.current = open;
   }, [open]);
-  const navigate = useNavigate();
-  const signOut = async () => {
-    try {
-      await auth.signOut();
-      navigate("/login");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-    setOpen(false);
-  };
-
   return (
     <>
       <Grid sx={{ mr: "1.5rem" }}>
@@ -79,20 +71,7 @@ const UserAvatar = ({ currentUser }: Props) => {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          {currentUser && currentUser.photoURL ? (
-            <Avatar
-              alt="Logo"
-              src={currentUser.photoURL}
-              sx={{ width: "3rem", height: "3rem" }}
-            />
-          ) : (
-            <Skeleton
-              variant="circular"
-              width={`3rem`}
-              height={`3rem`}
-              animation="wave"
-            />
-          )}
+          <HospitalAvatar />
         </Button>
         <Popper
           open={open}
@@ -133,4 +112,4 @@ const UserAvatar = ({ currentUser }: Props) => {
   );
 };
 
-export default UserAvatar;
+export default ProfilePopper;

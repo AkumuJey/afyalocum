@@ -1,19 +1,19 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { User } from "firebase/auth";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Notification from "../components/NotificationElement";
 import AvatarProfile from "../components/Profile/AvatarProfile";
 import ChangePassword from "../components/Profile/ChangePassword";
 import DescriptionProfile from "../components/Profile/DescriptionProfile";
 import NameProfile from "../components/Profile/NameProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { AuthContext } from "../contexts/AuthContext";
+import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
 
 type Severity = "success" | "error";
 
 const Profile = () => {
-  const { currentUser } = useContext(AuthContext);
+  const currentUser : User | null = useAuthStatus() 
   document.title = (`${currentUser?.displayName} | AfyaLocum Profile`);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -23,7 +23,7 @@ const Profile = () => {
     setOpen(false);
     setOpen(false);
   };
-
+  
   const handleError = (msg: string) => {
     setMessage(msg);
     setOpen(true);
@@ -35,7 +35,7 @@ const Profile = () => {
     setOpen(true);
     setSeverity("success");
   };
-  console.log(currentUser?.photoURL)
+
   return (
     <>
       <RouterAnimation>
