@@ -10,25 +10,25 @@ interface LocumRoute {
   status?: Status;
 }
 
-const locumRoutes: LocumRoute[] = [
-  {
-    title: "Create new locum",
-    routeDirection: "/dashboard/create-new-locum",
-  },
-  {
-    title: "Open Locums",
-    routeDirection: "/dashboard/open-locums",
-  },
-  {
-    title: "Booked Locums",
-    routeDirection: "/dashboard/booked-locums",
-  },
-  {
-    title: "Settled locum",
-    routeDirection: "/dashboard/settled-locums",
-  },
-];
 const DashboardHome = () => {
+  const locumRoutes: LocumRoute[] = [
+    {
+      title: "Create new locum",
+      routeDirection: "/dashboard/create-new-locum",
+    },
+    {
+      title: "Open Locums",
+      routeDirection: "/dashboard/open-locums",
+    },
+    {
+      title: "Booked Locums",
+      routeDirection: "/dashboard/booked-locums",
+    },
+    {
+      title: "Settled locum",
+      routeDirection: "/dashboard/settled-locums",
+    },
+  ];
   useEffect(() => {
     document.title = "AfyaLocum - Dashboard";
   }, []);

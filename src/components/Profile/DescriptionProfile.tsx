@@ -7,54 +7,15 @@ import {
   TextareaAutosize,
   Typography,
 } from "@mui/material";
-import { User } from "firebase/auth";
-import { doc, DocumentData, getDoc } from "firebase/firestore";
-import { FormEvent, useEffect, useState } from "react";
-import { db } from "../../firebase/firebase";
-import useProfileUpdate from "../../hooks/useProfileUpdate";
-import useAuthStatus from "../../hooks/useAuthStatus";
+import useProfileDescription from "../../hooks/useProfileDescription";
 
 interface PropTypes {
   handleError: (msg: string) => void;
   handleSuccess: (msg: string) => void;
 }
 const DescriptionProfile = ({ handleSuccess, handleError }: PropTypes) => {
-  const currentUser: User | null = useAuthStatus();
-  const [isEditable, setIsEditable] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const { updateUserDescription } = useProfileUpdate();
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    setLoading(true);
-    e.preventDefault();
-    try {
-      const formData = new FormData(e.currentTarget);
-      const data = Object.fromEntries(formData.entries());
-      const { description } = data;
-      await updateUserDescription(description as string);
-      handleSuccess("Hospital description updated successfully");
-    } catch (_error) {
-      handleError("Error updating description");
-    } finally {
-      setLoading(false);
-      setIsEditable(false);
-    }
-  };
-
-  const [description, setDescription] = useState<string>(
-    "Enter your description..."
-  );
-  useEffect(() => {
-    const fetchDescription = async () => {
-      const userRef = doc(db, "hospitals", currentUser!.uid);
-      const userDescription = await getDoc(userRef);
-      const descriptionData = userDescription.data();
-      const { hospitalDescription } = descriptionData as DocumentData;
-      setDescription(hospitalDescription as string);
-    };
-    fetchDescription();
-  });
+  const { isEditable, loading, description, enableEdit, disableEdit, handleSubmit } =
+    useProfileDescription(handleSuccess,  handleError);
   return (
     <>
       {!isEditable && (
@@ -64,7 +25,7 @@ const DescriptionProfile = ({ handleSuccess, handleError }: PropTypes) => {
             <Typography>{description}</Typography>
           </Grid>
           <Grid item>
-            <Button onClick={() => setIsEditable(true)} variant="contained">
+            <Button onClick={enableEdit} variant="contained">
               Edit
             </Button>
           </Grid>
@@ -127,7 +88,7 @@ const DescriptionProfile = ({ handleSuccess, handleError }: PropTypes) => {
             <Button
               type="button"
               color="secondary"
-              onClick={() => setIsEditable(false)}
+              onClick={disableEdit}
               variant="outlined"
             >
               Cancel
