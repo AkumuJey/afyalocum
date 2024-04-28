@@ -31,7 +31,7 @@ const SettledLocums = ({ booked, completed, title }: PropTypes) => {
           {locums && !loading && !error && (
             <>
               {locums.length === 0 ? (
-                <Typography variant="h3">No locums available</Typography>
+                <Typography variant="h3" textAlign={`center`}>No locums available</Typography>
               ) : (
                 locums.map((locum) => (
                   <LocumCard key={locum.id} locum={locum} />
