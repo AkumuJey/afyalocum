@@ -37,7 +37,7 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/open-locums",
-    element: <CommonLocumsArrayPage />,
+    element: <CommonLocumsArrayPage booked={false} completed={false} title="Open Locums"/>,
     errorElement: <ErrorPage />,
   },
   {
@@ -59,7 +59,7 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/booked-locums",
-    element: <CommonLocumsArrayPage />,
+    element: <CommonLocumsArrayPage booked={true} completed={false} title="Booked Locums" />,
     errorElement: <ErrorPage />,
   },
   {
@@ -69,7 +69,7 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/settled-locums",
-    element: <CommonLocumsArrayPage />,
+    element: <CommonLocumsArrayPage booked={true} completed={false} title="Settled locum" />,
     errorElement: <ErrorPage />,
   },
   {

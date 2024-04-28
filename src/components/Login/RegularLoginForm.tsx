@@ -1,14 +1,11 @@
 import { Container, Paper } from "@mui/material";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { FormEvent, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase/firebase";
+import useRegularLogin from "../../hooks/useRegularLogin";
 import EmailInput from "./EmailInput";
 import FormHeader from "./FormHeader";
-import PasswordInput from "./PasswordInput";
-import SubmitAndLoadButton from "./SubmitAndLoadButton";
 import LoginError from "./LoginError";
+import PasswordInput from "./PasswordInput";
 import RecoverAndCreateAccount from "./RecoverAndCreateAccount";
+import SubmitAndLoadButton from "./SubmitAndLoadButton";
 
 const containerStyles = {
   display: "flex",
@@ -33,48 +30,9 @@ interface PropTypes {
   loading: boolean;
 }
 const RegularLoginForm = ({ handleLoading, loading }: PropTypes) => {
-  const [error, setError] = useState<boolean>(false);
-  const [spinner, setSpinner] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { state } = location;
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleLoading(true);
-    setSpinner(true);
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const { user } = userCredential;
-      if (!user?.emailVerified) {
-        await auth.signOut();
-        navigate("/recover-password", {
-          state: {
-            title: "AfyaLocum - Verification Link",
-            email
-          },
-        });
-        return;
-      }
-      if (!state?.targetPath) {
-        navigate("/", { replace: true });
-        return;
-      }
-      const { targetPath } = state;
-      navigate(targetPath);
-    } catch (_error) {
-      setError(true);
-    } finally {
-      handleLoading(false);
-      setSpinner(false);
-    }
-  };
+  const { error, spinner, handleSignin, handleClose } =
+    useRegularLogin(handleLoading);
+
   return (
     <>
       <Paper component={`div`} aria-required sx={containerStyles}>
@@ -82,14 +40,14 @@ const RegularLoginForm = ({ handleLoading, loading }: PropTypes) => {
           component={`form`}
           sx={formStyles}
           name="login"
-          onSubmit={handleSubmit}
+          onSubmit={handleSignin}
         >
           <FormHeader />
           <EmailInput loading={loading} />
           <PasswordInput loading={loading} />
           <SubmitAndLoadButton loading={loading} spinner={spinner} />
         </Container>
-        {error && <LoginError handleClose={() => setError(false)} />}
+        {error && <LoginError handleClose={handleClose} />}
         <RecoverAndCreateAccount />
       </Paper>
     </>

@@ -1,29 +1,20 @@
 import { User } from "firebase/auth";
-import { useEffect, useState } from "react";
-import useAuthStatus from "./useAuthStatus";
-import { useLocation } from "react-router-dom";
-import { SubmittedLocum } from "../components/Dashboard/CreateLocums/hooks/useJobForm";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { SubmittedLocum } from "../components/Dashboard/CreateLocums/hooks/useJobForm";
 import { db } from "../firebase/firebase";
+import useAuthStatus from "./useAuthStatus";
 
-interface Status {
-  booked: boolean;
-  completed: boolean;
-}
 
-const useFetchLocumsArray = () => {
-  const { state } = useLocation();
+const useFetchLocumsArray = (booked: boolean, completed: boolean, title: string) => {
   const [locums, setLocums] = useState<SubmittedLocum[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const { completed, booked } = state.status as Status;
-
   const currentUser: User | null = useAuthStatus();
   const { uid } = currentUser as { uid: string };
 
   useEffect(() => {
-    document.title = `AfyaLocum - ${state.title}`;
-    const { completed, booked } = state.status as Status;
+    document.title = `AfyaLocum - ${title}`;
     const generateQuery = () => {
       const locumsCollection = collection(db, "hospitals", uid, "locums");
       const openLocumsFilter = where("completed", "==", completed);
@@ -52,7 +43,7 @@ const useFetchLocumsArray = () => {
       }
     });
     return () => unsubscribe();
-  }, [completed, booked, state, uid]);
+  }, [completed, booked, title, uid]);
   return { locums, loading, error };
 };
 
