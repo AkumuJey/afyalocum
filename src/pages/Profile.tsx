@@ -40,7 +40,7 @@ const Profile = () => {
                 gap: "2rem",
               }}
             >
-              <AvatarProfile currentUser={currentUser as User} />
+              <AvatarProfile />
               <NameProfile currentUser={currentUser as User} />
               <DescriptionProfile currentUser={currentUser as User} />
             </Paper>

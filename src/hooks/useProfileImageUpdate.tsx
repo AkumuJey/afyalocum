@@ -5,14 +5,17 @@ const useProfileImageUpdate = () => {
   const { updateImage, handleSuccess, handleError } = useProfileUpdate();
   const [take, setTake] = useState(true);
 
-  const enableEditing = () => setIsEditable(true);
+  const enableEditing = () => {
+    setIsEditable(true)
+  };
   const disableEditing = () => setIsEditable(false);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
   const [isEditable, setIsEditable] = useState(false);
   const handleRetake = () => {
-    setTake(!take);
+    setTake(true);
+    setImage(null)
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
