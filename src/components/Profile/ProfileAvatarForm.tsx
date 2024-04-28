@@ -29,6 +29,11 @@ const ProfileAvatarForm = ({ disableEditing }: PropTypes) => {
     handleRetake,
     handleImageChange,
   } = useProfileImageUpdate();
+
+  const handleSubmit = async () => {
+    await handlePhotoUpdate()
+    disableEditing()
+  }
   return (
     <>
       <InputLabel
@@ -97,7 +102,7 @@ const ProfileAvatarForm = ({ disableEditing }: PropTypes) => {
             color="secondary"
             loading={loading}
             disabled={!imageUrl || loading || !image}
-            onClick={handlePhotoUpdate}
+            onClick={handleSubmit}
           >
             Update Profile Photo
           </LoadingButton>

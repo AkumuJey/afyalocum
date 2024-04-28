@@ -5,11 +5,8 @@ import ProfileAvatarDisplay from "./ProfileAvatarDisplay";
 import ProfileAvatarForm from "./ProfileAvatarForm";
 
 const AvatarProfile = () => {
-  const {
-    isEditable,
-    disableEditing,
-    enableEditing,
-  } = useProfileImageUpdate();
+  const { isEditable, disableEditing, enableEditing, } =
+    useProfileImageUpdate();
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
