@@ -13,8 +13,8 @@ const LocumSearchBar = ({ locums }: PropTypes) => {
   };
   
   return (
-    <div className="w-full">
-      <Stack spacing={2} sx={{ width: 300 }}>
+    <div className="w-full relative">
+      <Stack spacing={2} sx={{ width: 300, ml: "2rem" }}>
         <Autocomplete
           id="trial"
           freeSolo

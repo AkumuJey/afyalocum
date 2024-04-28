@@ -34,13 +34,15 @@ const DashboardHome = () => {
   }, []);
   return (
     <>
-      <div className="flex flex-wrap p-[1rem] md:p-[2rem] justify-evenly gap-[1.5rem] rounded-md ">
+    <div className="flex flex-col items-center justify-center valid-height py-[2rem]">
+      <div className="flex flex-row flex-wrap justify-center box-border px-[1rem] py-[2rem] h-[20rem] gap-[1rem] w-full md:w-[70%]">
         {locumRoutes.map((locumRoute) => (
           <LocumLinkCard
             locumRoute={locumRoute}
             key={locumRoute.title}
           />
         ))}
+      </div>
       </div>
     </>
   );

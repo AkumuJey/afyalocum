@@ -1,9 +1,7 @@
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { Job } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import NewLocumFormLayout from "../../components/Dashboard/CreateLocums/NewLocumFormLayout";
-const CreateNew = () => {
-  const { state } = useLocation();
-  document.title = state.title
+const CreateNew = () => {  
   const job: Job = {
     title: "",
     requirements: "",
@@ -15,6 +13,9 @@ const CreateNew = () => {
     booked:  false,
     completed: false,
   }
+  useEffect(() => {
+    document.title = "Create new locum"
+  }, [])
   return (
     <>
       <NewLocumFormLayout update={false} existingJob={job}/>

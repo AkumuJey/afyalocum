@@ -14,7 +14,7 @@ const DashboardLayout = () => {
       <RouterAnimation>
         <div className="flex flex-col justify-start items-center h-full w-full py-[1rem]">
             {!hideRegister && (
-              <div className="w-[80%] mx-auto py-[0.4rem]">
+              <div className="w-full md:w-[75%] py-[1rem] px-[2rem]">
                 <Button
                   color="info"
                   variant="outlined"
