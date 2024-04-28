@@ -18,8 +18,10 @@ const VisuallyHiddenInput = styled("input")({
 });
 interface PropTypes {
   disableEditing: () => void;
+  handleError: (msg: string) => void;
+  handleSuccess: (msg: string) => void;
 }
-const ProfileAvatarForm = ({ disableEditing }: PropTypes) => {
+const ProfileAvatarForm = ({ disableEditing, handleSuccess, handleError }: PropTypes) => {
   const {
     take,
     loading,
@@ -31,8 +33,13 @@ const ProfileAvatarForm = ({ disableEditing }: PropTypes) => {
   } = useProfileImageUpdate();
 
   const handleSubmit = async () => {
-    await handlePhotoUpdate()
-    disableEditing()
+    try {
+      await handlePhotoUpdate()
+      disableEditing()
+      handleSuccess("Profile Photo Updated Successfully");
+    } catch (_error) {
+      handleError("Error uploading image");
+    }
   }
   return (
     <>

@@ -6,7 +6,7 @@ const useProfileImageUpdate = () => {
   const [take, setTake] = useState(true);
 
   const enableEditing = () => {
-    setIsEditable(true)
+    setIsEditable(true);
   };
   const disableEditing = () => setIsEditable(false);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ const useProfileImageUpdate = () => {
   const [isEditable, setIsEditable] = useState(false);
   const handleRetake = () => {
     setTake(true);
-    setImage(null)
+    setImage(null);
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,10 +31,10 @@ const useProfileImageUpdate = () => {
     try {
       await updateImage(image as File);
       setIsEditable(false);
-      handleSuccess("Profile Photo Updated Successfully");
-      setImage(null)
+      setImage(null);
     } catch (_error) {
-      handleError("Error uploading image");
+      throw new Error("Failed");
+      
     } finally {
       setLoading(false);
     }
@@ -49,8 +49,10 @@ const useProfileImageUpdate = () => {
     handlePhotoUpdate,
     handleRetake,
     handleImageChange,
+    handleSuccess,
+    handleError,
     enableEditing,
-    disableEditing
+    disableEditing,
   };
 };
 

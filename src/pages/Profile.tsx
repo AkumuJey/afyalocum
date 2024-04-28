@@ -13,7 +13,8 @@ import useAuthStatus from "../hooks/useAuthStatus";
 const Profile = () => {
   const currentUser: User | null = useAuthStatus();
   document.title = `${currentUser?.displayName} | AfyaLocum Profile`;
-  const { open, message, severity, handleClose } = useProfileUpdate();
+  const { open, message, severity, handleClose, handleSuccess, handleError } =
+    useProfileUpdate();
   return (
     <>
       <RouterAnimation>
@@ -40,9 +41,9 @@ const Profile = () => {
                 gap: "2rem",
               }}
             >
-              <AvatarProfile />
-              <NameProfile currentUser={currentUser as User} />
-              <DescriptionProfile currentUser={currentUser as User} />
+              <AvatarProfile handleError={handleError} handleSuccess={handleSuccess}/>
+              <NameProfile handleError={handleError} handleSuccess={handleSuccess}/>
+              <DescriptionProfile handleError={handleError} handleSuccess={handleSuccess}/>
             </Paper>
             <ChangePassword />
           </Box>

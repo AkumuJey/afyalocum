@@ -10,11 +10,14 @@ import {
 import { User } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import useProfileUpdate from "../../hooks/useProfileUpdate";
+import useAuthStatus from "../../hooks/useAuthStatus";
 interface PropTypes {
-  currentUser: User;
+  handleError: (msg: string) => void;
+  handleSuccess: (msg: string) => void;
 }
-const Name = ({ currentUser }: PropTypes) => {
-  const { updateUserName, handleSuccess, handleError } = useProfileUpdate()
+const Name = ({ handleSuccess, handleError }: PropTypes) => {
+  const currentUser: User | null = useAuthStatus();
+  const { updateUserName, } = useProfileUpdate()
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -34,7 +37,7 @@ const Name = ({ currentUser }: PropTypes) => {
     }
   };
 
-  const { displayName } = currentUser;
+  const { displayName } = currentUser as User;
 
   return (
     <>

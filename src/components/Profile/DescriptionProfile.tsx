@@ -12,17 +12,18 @@ import { doc, DocumentData, getDoc } from "firebase/firestore";
 import { FormEvent, useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 import useProfileUpdate from "../../hooks/useProfileUpdate";
+import useAuthStatus from "../../hooks/useAuthStatus";
 
 interface PropTypes {
-  currentUser: User;
+  handleError: (msg: string) => void;
+  handleSuccess: (msg: string) => void;
 }
-const DescriptionProfile = ({
-  currentUser,
-}: PropTypes) => {
+const DescriptionProfile = ({ handleSuccess, handleError }: PropTypes) => {
+  const currentUser: User | null = useAuthStatus();
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { updateUserDescription, handleSuccess, handleError } = useProfileUpdate()
+  const { updateUserDescription } = useProfileUpdate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -46,7 +47,7 @@ const DescriptionProfile = ({
   );
   useEffect(() => {
     const fetchDescription = async () => {
-      const userRef = doc(db, "hospitals", currentUser.uid);
+      const userRef = doc(db, "hospitals", currentUser!.uid);
       const userDescription = await getDoc(userRef);
       const descriptionData = userDescription.data();
       const { hospitalDescription } = descriptionData as DocumentData;
