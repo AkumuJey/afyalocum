@@ -27,7 +27,7 @@ const useProfileEssensitials = () => {
   const navigate = useNavigate();
   const handleSignOut = async () => {
     await auth.signOut();
-    navigate("/login");
+    navigate("/");
     setOpen(false);
   };
 

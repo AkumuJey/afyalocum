@@ -1,6 +1,6 @@
 import { Box, Button, Drawer, Typography } from "@mui/material";
 import { User } from "firebase/auth";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import useAuthStatus from "../../hooks/useAuthStatus";
 import HospitalAvatar from "./HospitalAvatar";
@@ -12,10 +12,12 @@ interface PropTypes {
 }
 
 const MobileViewNavlist = ({ handleClose, handleClick, open }: PropTypes) => {
+  const navigate = useNavigate()
   const currentUser: User | null = useAuthStatus();
-  const handleSignout = () => {
+  const handleSignout = async () => {
+    await auth.signOut();
+    navigate( "/");
     handleClose();
-    auth.signOut();
   };
   return (
     <>

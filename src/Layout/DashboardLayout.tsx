@@ -12,7 +12,7 @@ const DashboardLayout = () => {
   return (
     <ProtectedRoute>
       <RouterAnimation>
-        <div className="flex flex-col justify-start items-center h-full w-full py-[1rem]">
+        <div className="flex flex-col justify-start items-center valid-height w-full py-[1rem]">
             {!hideRegister && (
               <div className="w-full md:w-[75%] py-[1rem] px-[2rem]">
                 <Button
@@ -31,8 +31,8 @@ const DashboardLayout = () => {
                 </Button>
               </div>
             )}
+            <Outlet />
           <div/>
-          <Outlet />
         </div>
       </RouterAnimation>
     </ProtectedRoute>

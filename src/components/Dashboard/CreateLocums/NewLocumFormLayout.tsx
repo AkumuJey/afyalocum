@@ -35,6 +35,7 @@ const formStyling = {
   backgroundColor: "lightgray",
   px: 3,
   mt: 0,
+  mx: "auto",
   minHeight: "300px",
   display: "flex",
   flexDirection: "column",
