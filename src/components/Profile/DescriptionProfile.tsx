@@ -56,7 +56,7 @@ const DescriptionProfile = ({ handleSuccess, handleError }: PropTypes) => {
               Description
             </InputLabel>
             <TextareaAutosize
-              maxRows={5}
+              maxRows={3}
               maxLength={200}
               id="description"
               name="description"

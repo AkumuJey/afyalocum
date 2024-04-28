@@ -7,37 +7,20 @@ import {
   InputLabel,
   Typography,
 } from "@mui/material";
-import { User } from "firebase/auth";
-import { FormEvent, useState } from "react";
-import useProfileUpdate from "../../hooks/useProfileUpdate";
-import useAuthStatus from "../../hooks/useAuthStatus";
+import useProfileName from "../../hooks/useProfileName";
 interface PropTypes {
   handleError: (msg: string) => void;
   handleSuccess: (msg: string) => void;
 }
 const Name = ({ handleSuccess, handleError }: PropTypes) => {
-  const currentUser: User | null = useAuthStatus();
-  const { updateUserName, } = useProfileUpdate()
-  const [isEditable, setIsEditable] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    setLoading(true);
-    e.preventDefault();
-    try {
-      const formData = new FormData(e.currentTarget);
-      const data = Object.fromEntries(formData.entries());
-      const { name } = data;
-      await updateUserName(name as string);
-      handleSuccess("Hospital name updated successfully");
-    } catch (_error) {
-      handleError("Error updating name");
-    } finally {
-      setLoading(false);
-      setIsEditable(false);
-    }
-  };
-
-  const { displayName } = currentUser as User;
+  const {
+    displayName,
+    isEditable,
+    loading,
+    enableEdit,
+    disableEdit,
+    handleSubmit,
+  } = useProfileName(handleSuccess, handleError);
 
   return (
     <>
@@ -48,7 +31,7 @@ const Name = ({ handleSuccess, handleError }: PropTypes) => {
             <Typography>{displayName}</Typography>
           </Grid>
           <Grid item>
-            <Button onClick={() => setIsEditable(true)} variant="contained">
+            <Button onClick={enableEdit} variant="contained">
               Edit
             </Button>
           </Grid>
@@ -106,7 +89,7 @@ const Name = ({ handleSuccess, handleError }: PropTypes) => {
             <Button
               type="button"
               color="secondary"
-              onClick={() => setIsEditable(false)}
+              onClick={disableEdit}
               variant="outlined"
             >
               Cancel
