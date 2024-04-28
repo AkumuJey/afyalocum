@@ -28,10 +28,11 @@ const formStyles = {
 interface PropTypes {
   handleLoading: (decide: boolean) => void;
   loading: boolean;
+  handleUnverified:  () => void;
 }
-const RegularLoginForm = ({ handleLoading, loading }: PropTypes) => {
+const RegularLoginForm = ({ handleLoading, loading, handleUnverified }: PropTypes) => {
   const { error, spinner, handleSignin, handleClose } =
-    useRegularLogin(handleLoading);
+    useRegularLogin(handleLoading, handleUnverified);
 
   return (
     <>
