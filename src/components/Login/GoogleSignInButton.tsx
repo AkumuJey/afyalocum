@@ -52,8 +52,7 @@ const GoogleSignInButton = ({ loading, handleLoading }: PropTypes) => {
         }
         navigate("/");
       })
-      .catch((problem) => {
-        console.log(problem);
+      .catch(() => {
         setError(true);
       })
       .finally(() => {
