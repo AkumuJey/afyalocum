@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Content } from "./useAboutContents";
+import { Content } from "../../hooks/useAboutContents";
 import ContentHeader from "./ContentHeader";
 import ContentBody from "./ContentBody";
 

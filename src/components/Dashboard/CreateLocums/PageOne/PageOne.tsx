@@ -4,8 +4,8 @@ import {
   MenuItem,
   Select
 } from "@mui/material";
-import useInputManagement from "../PageThree/useInputManagement";
-import { PartOne } from "../hooks/useJobForm";
+import useLocumInputManagement from "../../../../hooks/useLocumInputManagement";
+import { PartOne } from "../../../../hooks/useCreateLocum";
 
 interface PropTypes extends PartOne {
   handlePartOne: (partThree: PartOne) => void;
@@ -22,7 +22,7 @@ const PageOne = ({ title, requirements, handlePartOne }: PropTypes) => {
     "Physiotherapist"
   ];
 
-  const { handleInputChange, handleSelectChange } = useInputManagement()
+  const { handleInputChange, handleSelectChange } = useLocumInputManagement()
 
   return (
     <>

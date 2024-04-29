@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Job } from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
+import { Job } from "../../hooks/useCreateLocum";
 import NewLocumFormLayout from "../../components/Dashboard/CreateLocums/NewLocumFormLayout";
 const CreateNew = () => {  
   const job: Job = {

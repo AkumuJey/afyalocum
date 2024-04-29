@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useJobForm, { SubmittedLocum } from "./CreateLocums/hooks/useJobForm";
+import useCreateLocum, { SubmittedLocum } from "../../hooks/useCreateLocum";
 
 interface PropTypes {
   locum: SubmittedLocum;
@@ -20,7 +20,7 @@ const routeState = [
   },
 ];
 const SingleLocumCard = ({ locum }: PropTypes) => {
-  const { deleteLocum } = useJobForm();
+  const { deleteLocum } = useCreateLocum();
   const { id } = useParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();

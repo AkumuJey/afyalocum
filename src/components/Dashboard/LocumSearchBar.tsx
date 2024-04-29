@@ -1,5 +1,5 @@
 import { Autocomplete, Stack, TextField } from "@mui/material";
-import { SubmittedLocum } from "./CreateLocums/hooks/useJobForm";
+import { SubmittedLocum } from "../../hooks/useCreateLocum";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface PropTypes {

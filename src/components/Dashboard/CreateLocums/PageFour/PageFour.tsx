@@ -4,7 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
-import { StartStopTime } from "../hooks/useJobForm";
+import { StartStopTime } from "../../../../hooks/useCreateLocum";
 
 interface PropTypes {
   handlePartFour: (partThree: StartStopTime) => void;
