@@ -1,8 +1,8 @@
 import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import RegistrationFormLayout from "../components/Registration/RegistrationFormLayout.tsx";
-import NotifyVerificationSent from "../components/Registration/NotifyVerificationSent";
+import RegistrationFormLayout from "../components/registration/RegistrationFormLayout.tsx";
+import NotifyVerificationSent from "../components/registration/NotifyVerificationSent.tsx";
 import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
 
