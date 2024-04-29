@@ -1,5 +1,5 @@
 import Testimonial from "./TestimonialView";
-import useTestimoniesHook from "./useTestimoniesHook";
+import useTestimoniesHook from "../../../hooks/useTestimoniesHook";
 
 const TestimonialsArrayDisplay = () => {
   const testimonies = useTestimoniesHook();

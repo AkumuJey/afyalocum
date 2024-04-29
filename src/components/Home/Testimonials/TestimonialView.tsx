@@ -1,6 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { Testimony } from "./useTestimoniesHook";
+import { Testimony } from "../../../hooks/useTestimoniesHook";
 
 interface Props {
   testimony: Testimony;
