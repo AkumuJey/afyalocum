@@ -37,7 +37,7 @@ const LoadingPage = ({ marginTop, content }: PropTypes) => {
             initial: { opacity: 0 },
             animate: {
               opacity: 1,
-              transition: { delayChildren: 0.4, staggerChildren: 0.3 },
+              transition: { delayChildren: 0.3, staggerChildren: 0.2 },
             },
           }}
           exit={{ opacity: 0 }}

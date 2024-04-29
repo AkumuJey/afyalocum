@@ -1,5 +1,5 @@
 import AboutContentComponent from "./AboutContentComponent";
-import useAboutContents from "../../hooks/useAboutContents";
+import useAboutContents from "./useAboutContents";
 
 const AboutContentsArrayDisplay = () => {
   const aboutContent = useAboutContents();

@@ -1,13 +1,13 @@
 import { InputLabel, TextareaAutosize } from "@mui/material";
-import useLocumInputManagement from "../../../../hooks/useLocumInputManagement";
-import { PartTwo } from "../../../../hooks/useCreateLocum";
+import useInputManagement from "../PageThree/useInputManagement";
+import { PartTwo } from "../hooks/useJobForm";
 
 interface PropTypes extends PartTwo {
   handlePartTwo: (partThree: PartTwo) => void;
 }
 
 const PageTwo = ({ description, handlePartTwo }: PropTypes) => {
-  const { handleInputChange } = useLocumInputManagement();
+  const { handleInputChange } = useInputManagement();
   return (
     <>
       <InputLabel

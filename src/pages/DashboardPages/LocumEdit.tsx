@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import {
   Job,
   SubmittedLocum
-} from "../../hooks/useCreateLocum";
+} from "../../components/Dashboard/CreateLocums/hooks/useJobForm";
 import NewLocumFormLayout from "../../components/Dashboard/CreateLocums/NewLocumFormLayout";
 
 

@@ -11,14 +11,14 @@ import PageOne from "./PageOne/PageOne";
 import PageThree from "./PageThree/PageThree";
 import PageTwo from "./PageTwo/PageTwo";
 import ProgressMonitor from "./ProgressMonitor";
-import useCreateLocum, {
+import useJobForm, {
   Job,
   PartOne,
   PartThree,
   PartTwo,
   StartStopTime,
   SubmittedLocum,
-} from "../../../hooks/useCreateLocum";
+} from "./hooks/useJobForm";
 
 interface PropTypes {
   update: boolean;
@@ -42,7 +42,7 @@ const formStyling = {
   justifyContent: "space-between",
 };
 const NewLocumFormLayout = ({ update, existingJob }: PropTypes) => {
-  const { submitToFirebase, updateLocumDetails } = useCreateLocum();
+  const { submitToFirebase, updateLocumDetails } = useJobForm();
 
   const { id } = useParams();
   const [open, setOpen] = useState(false);

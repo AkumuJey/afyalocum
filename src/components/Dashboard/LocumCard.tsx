@@ -2,7 +2,7 @@ import { Place } from "@mui/icons-material";
 import { Paper, PropTypes, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
-import { SubmittedLocum } from "../../hooks/useCreateLocum";
+import { SubmittedLocum } from "./CreateLocums/hooks/useJobForm";
 
 interface PropTypes {
   locum: SubmittedLocum;

@@ -1,7 +1,7 @@
 import { User } from "firebase/auth";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { SubmittedLocum } from "./useCreateLocum";
+import { SubmittedLocum } from "../components/Dashboard/CreateLocums/hooks/useJobForm";
 import { db } from "../firebase/firebase";
 import useAuthStatus from "./useAuthStatus";
 
