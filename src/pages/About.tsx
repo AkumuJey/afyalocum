@@ -5,8 +5,8 @@ import RouterAnimation from "./RouterAnimation";
 
 const About = () => {
   useEffect(() => {
-    document.title = "AfyaLocum - About"
-  }, [])
+    document.title = "AfyaLocum - About";
+  }, []);
   return (
     <RouterAnimation>
       <div className="flex flex-col items-center valid-height py-[2rem]">

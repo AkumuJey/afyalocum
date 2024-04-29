@@ -9,7 +9,9 @@ const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
 const SingleLocumPage = lazy(
   () => import("./pages/DashboardPages/SingleLocumPage")
 );
-const DashboardHome = lazy(() => import("./pages/DashboardPages/DashboardHome"));
+const DashboardHome = lazy(
+  () => import("./pages/DashboardPages/DashboardHome")
+);
 const LocumEdit = lazy(() => import("./pages/DashboardPages/LocumEdit"));
 const SingleLocumLayout = lazy(() => import("./Layout/SingleLocumLayout"));
 const CommonLocumsArrayPage = lazy(
@@ -38,7 +40,15 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/open-locums",
-    element: <CommonLocumsArrayPage booked={false} completed={false} title="Open Locums"/>,
+    element: (
+      <Suspense fallback={<LoadingPage content="Open Locums" />}>
+        <CommonLocumsArrayPage
+          booked={false}
+          completed={false}
+          title="Open Locums"
+        />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
   },
   {
@@ -60,7 +70,15 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/booked-locums",
-    element: <CommonLocumsArrayPage booked={true} completed={false} title="Booked Locums" />,
+    element: (
+      <Suspense fallback={<LoadingPage content="Booked Locums" />}>
+        <CommonLocumsArrayPage
+          booked={true}
+          completed={false}
+          title="Booked Locums"
+        />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
   },
   {
@@ -70,7 +88,13 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/settled-locums",
-    element: <CommonLocumsArrayPage booked={true} completed={false} title="Settled locum" />,
+    element: (
+      <CommonLocumsArrayPage
+        booked={true}
+        completed={false}
+        title="Settled locum"
+      />
+    ),
     errorElement: <ErrorPage />,
   },
   {
@@ -80,7 +104,11 @@ const dashboardChilren: RouteObject[] = [
   },
   {
     path: "/dashboard/create-new-locum",
-    element: <CreateNew />,
+    element: (
+      <Suspense fallback={<LoadingPage content="New Locum" />}>
+        <CreateNew />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
   },
 ];
@@ -95,38 +123,66 @@ function App(props: Props) {
         {
           path: "/",
           index: true,
-          element: <Home />,
+          element: (
+            <Suspense fallback={<LoadingPage content="Welcome" />}>
+              <Home />
+            </Suspense>
+          ),
           errorElement: <ErrorPage />,
         },
         {
           path: "/dashboard",
-          element: <DashboardLayout />,
+          element: (
+            <Suspense fallback={<LoadingPage content="Dashboard" />}>
+              <DashboardLayout />
+            </Suspense>
+          ),
           errorElement: <ErrorPage />,
           children: dashboardChilren,
         },
         {
           path: "/login",
-          element: <Login />,
+          element: (
+            <Suspense fallback={<LoadingPage content="Login" />}>
+              <Login />
+            </Suspense>
+          ),
           errorElement: <ErrorPage />,
         },
         {
           path: "/recover-password",
-          element: <RecoverPassword />,
+          element: (
+            <Suspense fallback={<LoadingPage content="Recover Password" />}>
+              <RecoverPassword />
+            </Suspense>
+          ),
           errorElement: <ErrorPage />,
         },
         {
           path: "/register",
-          element: <Registration />,
+          element: (
+            <Suspense fallback={<LoadingPage content="Signup" />}>
+              <Registration />
+            </Suspense>
+          ),
           errorElement: <ErrorPage />,
         },
         {
           path: "/profile",
-          element: <Profile />,
+          element: (
+            <Suspense fallback={<LoadingPage content="Profile" />}>
+              <Profile />
+            </Suspense>
+          ),
           errorElement: <ErrorPage />,
         },
         {
           path: "/about",
-          element: <About />,
+          element: (
+            <Suspense fallback={<LoadingPage content="About" />}>
+              <About />
+            </Suspense>
+          ),
           errorElement: <ErrorPage />,
         },
         {
@@ -139,9 +195,9 @@ function App(props: Props) {
   ]);
   return (
     <>
-    <Suspense fallback={<LoadingPage marginTop="mt-0"/>}>
-      <RouterProvider router={router} />
-    </Suspense>
+      <Suspense fallback={<LoadingPage marginTop="mt-0" />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </>
   );
 }

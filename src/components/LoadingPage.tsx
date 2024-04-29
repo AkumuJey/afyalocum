@@ -1,44 +1,64 @@
 import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
-interface PropTypes{
-  marginTop?: string
+interface PropTypes {
+  marginTop?: string;
+  content?: string;
 }
-const LoadingPage = ({marginTop}: PropTypes) => {
+const LoadingPage = ({ marginTop, content }: PropTypes) => {
   const text = "AfyaLocum";
-  const textArray = Array.from(text);
-  const mt =  marginTop || "mt-[-5rem]";
+  const stringArray = content || text;
+  const textArray = Array.from(stringArray);
+  const mt = marginTop || "mt-[-5rem]";
   return (
     <>
-      <motion.div
-        className={`min-h-screen flex items-center justify-center bg-[#90E4C1] ${mt} z-10`}
-        initial="initial"
-        animate="animate"
-        variants={{
-          initial: { opacity: 0 },
-          animate: {
-            opacity: 1,
-            transition: { delayChildren: 0.5, staggerChildren: 0.3 },
-          },
-        }}
-        exit={{ opacity: 0 }}
+      <div
+        className={`min-h-screen flex flex-col items-center justify-center bg-[#90E4C1] ${mt} z-10`}
       >
-        {textArray.map((letter, index) => (
-          <motion.span
-            key={letter}
-            className={index < 4 ? `text-[#21573e]` : `text-[#6c757d]`}
-            variants={{
-              initial: { opacity: 0, y: 20, x: 20 },
-              animate: { opacity: 1, y: 0, x: 0 },
-            }}
-            exit={{ opacity: 0, y: 20, x: 20 }}
-          >
-            <Typography variant="h2" fontWeight={`bold`}>
-              {letter}
-            </Typography>
-          </motion.span>
-        ))}
-      </motion.div>
+        {content && (
+          <div className="flex">
+            {Array.from(text).map((letter, index) => (
+              <motion.span
+                key={index + letter}
+                className={`${index < 4 ? "text-[#21573e]" : "text-[#6c757d]"}`}
+              >
+                <Typography variant="h2" fontWeight={`bold`}>
+                  {letter}
+                </Typography>
+              </motion.span>
+            ))}
+          </div>
+        )}
+        <motion.div
+          initial="initial"
+          animate="animate"
+          className="flex"
+          variants={{
+            initial: { opacity: 0 },
+            animate: {
+              opacity: 1,
+              transition: { delayChildren: 0.5, staggerChildren: 0.3 },
+            },
+          }}
+          exit={{ opacity: 0 }}
+        >
+          {textArray.map((letter, index) => (
+            <motion.span
+              key={index + letter}
+              className={content ? "text-purple-600" : (index < 4 ? `text-[#21573e]` : `text-[#6c757d]`)}
+              variants={{
+                initial: { opacity: 0, y: 20, x: 20 },
+                animate: { opacity: 1, y: 0, x: 0 },
+              }}
+              exit={{ opacity: 0, y: 20, x: 20 }}
+            >
+              <Typography variant="h2" fontWeight={`bold`}>
+                {letter}
+              </Typography>
+            </motion.span>
+          ))}
+        </motion.div>
+      </div>
     </>
   );
 };
