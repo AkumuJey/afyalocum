@@ -14,20 +14,20 @@ const DashboardLayout = () => {
       <RouterAnimation>
         <div className="flex flex-col justify-start items-center valid-height w-full py-[1rem]">
             {!hideRegister && (
-              <div className="w-full md:w-[75%] py-[1rem] px-[2rem]">
+              <div className="w-full md:w-[75%] py-[1rem] px-[2rem] flex justify-between">
                 <Button
                   color="info"
                   variant="outlined"
                   onClick={() => navigate(-1)}
                 >
-                  Dashboard
+                  Back
                 </Button>
                 <Button
                   color="info"
                   variant="outlined"
-                  onClick={() => navigate(-1)}
+                  onClick={() => navigate('/dashboard')}
                 >
-                  Holder
+                  Dashboard
                 </Button>
               </div>
             )}
