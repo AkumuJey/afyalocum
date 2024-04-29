@@ -6,9 +6,10 @@ interface PropTypes {
   content?: string;
 }
 const LoadingPage = ({ marginTop, content }: PropTypes) => {
-  const text = "AfyaLocum";
+  const text = "Afya Locum";
   const stringArray = content || text;
   const textArray = Array.from(stringArray);
+  console.log(textArray);
   const mt = marginTop || "mt-[-5rem]";
   return (
     <>
@@ -32,7 +33,7 @@ const LoadingPage = ({ marginTop, content }: PropTypes) => {
         <motion.div
           initial="initial"
           animate="animate"
-          className="flex"
+          className="flex px-[0.5rem]"
           variants={{
             initial: { opacity: 0 },
             animate: {
@@ -52,7 +53,7 @@ const LoadingPage = ({ marginTop, content }: PropTypes) => {
               }}
               exit={{ opacity: 0, y: 20, x: 20 }}
             >
-              <Typography variant="h2" fontWeight={`bold`}>
+              <Typography variant="h3" fontWeight={`bold`}>
                 {letter}
               </Typography>
             </motion.span>

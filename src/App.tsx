@@ -41,13 +41,11 @@ const dashboardChilren: RouteObject[] = [
   {
     path: "/dashboard/open-locums",
     element: (
-      <Suspense fallback={<LoadingPage content="Open Locums" />}>
         <CommonLocumsArrayPage
           booked={false}
           completed={false}
           title="Open Locums"
         />
-      </Suspense>
     ),
     errorElement: <ErrorPage />,
   },
@@ -71,13 +69,11 @@ const dashboardChilren: RouteObject[] = [
   {
     path: "/dashboard/booked-locums",
     element: (
-      <Suspense fallback={<LoadingPage content="Booked Locums" />}>
         <CommonLocumsArrayPage
           booked={true}
           completed={false}
           title="Booked Locums"
         />
-      </Suspense>
     ),
     errorElement: <ErrorPage />,
   },
@@ -105,9 +101,7 @@ const dashboardChilren: RouteObject[] = [
   {
     path: "/dashboard/create-new-locum",
     element: (
-      <Suspense fallback={<LoadingPage content="New Locum" />}>
         <CreateNew />
-      </Suspense>
     ),
     errorElement: <ErrorPage />,
   },
@@ -133,7 +127,7 @@ function App(props: Props) {
         {
           path: "/dashboard",
           element: (
-            <Suspense fallback={<LoadingPage content="Dashboard" />}>
+            <Suspense fallback={<LoadingPage content="Locums" />}>
               <DashboardLayout />
             </Suspense>
           ),
@@ -185,11 +179,11 @@ function App(props: Props) {
           ),
           errorElement: <ErrorPage />,
         },
-        {
-          path: "/loading",
-          element: <LoadingPage />,
-          errorElement: <ErrorPage />,
-        },
+        // {
+        //   path: "/loading",
+        //   element: <LoadingPage />,
+        //   errorElement: <ErrorPage />,
+        // },
       ],
     },
   ]);
