@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { HeroButton as Button } from "./HeroButton";
+import HeroButton from "./HeroButton";
 
 const LoggedoutDisplayButtons = () => {
   return (
     <>
-      <Button xAnimationDirection={-40}>
+      <HeroButton xAnimationDirection={-40}>
         <Link to={`/register`}>Get Started</Link>
-      </Button>
-      <Button xAnimationDirection={40}>
+      </HeroButton>
+      <HeroButton xAnimationDirection={40}>
         <Link to={`/about`}>Learn More</Link>
-      </Button>
+      </HeroButton>
     </>
   )
 }

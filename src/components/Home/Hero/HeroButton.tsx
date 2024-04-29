@@ -6,7 +6,7 @@ interface PropTypes {
   children: ReactNode;
   xAnimationDirection: number;
 }
-export const HeroButton = ({ children, xAnimationDirection }: PropTypes) => {
+ const HeroButton = ({ children, xAnimationDirection }: PropTypes) => {
   return (
     <ButtonAnimation xAnimationDirection={xAnimationDirection}>
       <Button variant="outlined" color="primary">
@@ -15,3 +15,5 @@ export const HeroButton = ({ children, xAnimationDirection }: PropTypes) => {
     </ButtonAnimation>
   );
 };
+
+export default HeroButton
