@@ -7,11 +7,11 @@ import LoginLayout from "../components/Login/LoginLayout";
 import RegularLoginForm from "../components/Login/RegularLoginForm";
 import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
-import NotifyVerificationSent from "../components/Registration/NotifyVerificationSent.tsx";
+import NotifyVerificationSent from "../components/Registration/NotifyVerificationSent";
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [unveriFied, setUnveriFied] = useState<boolean>(false);
+  const [unverified, setUnverified] = useState<boolean>(false);
   const currentUser: User | null = useAuthStatus();
   useEffect(() => {
     document.title = "AfyaLocum - Login";
@@ -23,18 +23,18 @@ const Login = () => {
     <>
       <RouterAnimation>
         <LoginLayout>
-          {unveriFied && (
+          {unverified && (
             <NotifyVerificationSent
               content="Verify your email to login. Verification"
-              closeLinkNotification={() => setUnveriFied(false)}
+              closeLinkNotification={() => setUnverified(false)}
             />
           )}
-          {!unveriFied && (
+          {!unverified && (
             <>
               <RegularLoginForm
                 loading={loading}
                 handleLoading={(value) => setLoading(value)}
-                handleUnverified={() => setUnveriFied(true)}
+                handleUnverified={() => setUnverified(true)}
               />
               <Typography fontWeight={`bold`} textAlign={`center`} py={1}>
                 Or
