@@ -1,14 +1,14 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import { Input, InputLabel } from "@mui/material";
-import useInputManagement from "./useInputManagement";
-import { PartThree } from "../hooks/useJobForm";
+import useLocumInputManagement from "../../../../hooks/useLocumInputManagement";
+import { PartThree } from "../../../../hooks/useCreateLocum";
 interface PropTypes extends PartThree {
   handlePartThree: (partThree: PartThree) => void;
 }
 
 const ariaLabel = { "aria-label": "description" };
 const PageThree = ({ location, rate, handlePartThree }: PropTypes) => {
-  const { handleInputChange } = useInputManagement();
+  const { handleInputChange } = useLocumInputManagement();
   return (
     <>
       <InputLabel

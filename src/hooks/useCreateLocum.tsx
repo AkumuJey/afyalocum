@@ -6,9 +6,8 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../../../firebase/firebase";
-import { useContext } from "react";
-import { AuthContext } from "../../../../contexts/AuthContext";
+import { db } from "../firebase/firebase";
+import useAuthStatus from "./useAuthStatus";
 
 export interface Job {
   title: string;
@@ -51,11 +50,11 @@ export interface PartTwo {
   description: string;
 }
 
-const useJobForm = () => {
-  const { currentUser } = useContext(AuthContext);
-  const { uid } = currentUser as {uid: string}
+const useCreateLocum = () => {
+  const currentUser = useAuthStatus();
+  const { uid } = currentUser as { uid: string };
   const locumsCollection = collection(db, "hospitals", uid, "locums");
- 
+
   const submitToFirebase = async (job: SubmittedLocum) => {
     try {
       await addDoc(locumsCollection, job);
@@ -66,7 +65,7 @@ const useJobForm = () => {
 
   const updateLocumDetails = async (id: string, updatedJob: SubmittedLocum) => {
     try {
-       const docRef = doc(locumsCollection, id);
+      const docRef = doc(locumsCollection, id);
       await updateDoc(docRef, { ...updatedJob });
     } catch (error) {
       throw new Error("Faliled to  update the job details.");
@@ -75,7 +74,7 @@ const useJobForm = () => {
 
   const deleteLocum = async (id: string) => {
     try {
-       const docRef = doc(locumsCollection, id);
+      const docRef = doc(locumsCollection, id);
       await deleteDoc(docRef);
     } catch (error) {
       throw new Error("Faliled to delete the locum.");
@@ -85,4 +84,4 @@ const useJobForm = () => {
   return { submitToFirebase, updateLocumDetails, deleteLocum };
 };
 
-export default useJobForm;
+export default useCreateLocum;
