@@ -7,7 +7,7 @@ import LoginLayout from "../components/Login/LoginLayout";
 import RegularLoginForm from "../components/Login/RegularLoginForm";
 import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
-import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
+import NotifyVerificationSent from "../components/Registration/NotifyVerificationSent.tsx";
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const Login = () => {
       <RouterAnimation>
         <LoginLayout>
           {unveriFied && (
-            <VerificationSentComponent
+            <NotifyVerificationSent
               content="Verify your email to login. Verification"
               closeLinkNotification={() => setUnveriFied(false)}
             />

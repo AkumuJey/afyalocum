@@ -8,7 +8,7 @@ import { auth } from "../../firebase/firebase";
 interface PropTypes {
   notifyVerificationSent: () => void;
 }
-const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
+const VerificationLinkForm = ({ notifyVerificationSent }: PropTypes) => {
   const [error, setError] = useState(false);
   const location = useLocation();
   const buttonContent = `${
@@ -98,4 +98,4 @@ const ResetLinkForm = ({ notifyVerificationSent }: PropTypes) => {
   );
 };
 
-export default ResetLinkForm;
+export default VerificationLinkForm;

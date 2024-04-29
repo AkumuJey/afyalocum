@@ -1,8 +1,8 @@
 import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import RegistrationFormLayout from "../components/Registration/RegistrationFormLayourt";
-import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
+import RegistrationFormLayout from "../components/Registration/RegistrationFormLayout.tsx";
+import NotifyVerificationSent from "../components/Registration/NotifyVerificationSent";
 import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
 
@@ -19,7 +19,7 @@ const Resigstration = () => {
   return (
     <>
       <RouterAnimation>
-        {sent && <VerificationSentComponent content="Verification"/>}
+        {sent && <NotifyVerificationSent content="Verification"/>}
         {!sent && (
           <RegistrationFormLayout
             notifyVerificationSent={() => setSent(true)}

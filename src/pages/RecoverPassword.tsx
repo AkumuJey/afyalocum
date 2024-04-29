@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ResetLinkForm from "../components/Registration/ResetLinkForm";
-import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
+import VerificationLinkForm from "../components/Registration/VerificationLinkForm.tsx";
+import NotifyVerificationSent from "../components/Registration/NotifyVerificationSent.tsx";
 import RouterAnimation from "./RouterAnimation";
 const RecoverPassword = () => {
   const [verificationSent, setVerificationSent] = useState(false);
@@ -11,9 +11,9 @@ const RecoverPassword = () => {
     <>
       <RouterAnimation>
         <div className="min-w-full min-h-full">
-          {verificationSent && <VerificationSentComponent content="Password recovery" />}
+          {verificationSent && <NotifyVerificationSent content="Password recovery" />}
           {!verificationSent && (
-            <ResetLinkForm
+            <VerificationLinkForm
               notifyVerificationSent={() => setVerificationSent(true)}
             />
           )}

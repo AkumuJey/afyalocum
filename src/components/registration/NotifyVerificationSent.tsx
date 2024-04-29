@@ -4,7 +4,7 @@ interface PropTypes{
   content: string
   closeLinkNotification ?: () => void;
 }
-const VerificationSentComponent = ({ content, closeLinkNotification }: PropTypes) => {
+const NotifyVerificationSent = ({ content, closeLinkNotification }: PropTypes) => {
   const handleClick = () => {
     if (!closeLinkNotification)  return;
     closeLinkNotification();
@@ -47,4 +47,4 @@ const VerificationSentComponent = ({ content, closeLinkNotification }: PropTypes
   );
 };
 
-export default VerificationSentComponent;
+export default NotifyVerificationSent;
