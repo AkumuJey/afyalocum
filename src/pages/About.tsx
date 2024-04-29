@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import AboutContentsArrayDisplay from "../components/About/AboutContentsArrayDisplay";
-import SocialMediaIconsContainer from "../components/About/SocialMediaIconsContainer";
+import AboutContentsArrayDisplay from "../components/about/AboutContentsArrayDisplay";
+import SocialMediaIconsContainer from "../components/about/SocialMediaIconsContainer";
 import RouterAnimation from "./RouterAnimation";
 
 const About = () => {
