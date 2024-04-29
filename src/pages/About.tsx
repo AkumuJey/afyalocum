@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import AboutContentsArrayDisplay from "../components/About/AboutContentsArrayDisplay";
-import SocialMediaIconsContainer from "../components/About/SocialMediaIconsContainer";
+
 import RouterAnimation from "./RouterAnimation";
+import AboutContentsArrayDisplay from "@components/About/AboutContentsArrayDisplay";
+import SocialMediaIconsContainer from "@components/About/SocialMediaIconsContainer";
 
 const About = () => {
   useEffect(() => {

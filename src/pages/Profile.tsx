@@ -1,11 +1,12 @@
 import { Box, Paper, Typography } from "@mui/material";
+import ProtectedRoutes from "@components/ProtectedRoute";
+import NotificationElement from "@components/NotificationElement";
+import AvatarProfile from "@components/Profile/AvatarProfile";
+import NameProfile from "@components/Profile/NameProfile";
+import DescriptionProfile from "@components/Profile/DescriptionProfile";
+import ChangePassword from "@components/Profile/ChangePassword";
+
 import { User } from "firebase/auth";
-import Notification from "../components/NotificationElement";
-import AvatarProfile from "../components/Profile/AvatarProfile";
-import ChangePassword from "../components/Profile/ChangePassword";
-import DescriptionProfile from "../components/Profile/DescriptionProfile";
-import NameProfile from "../components/Profile/NameProfile";
-import ProtectedRoute from "../components/ProtectedRoute";
 import useProfileUpdate from "../hooks/useProfileUpdate";
 import RouterAnimation from "./RouterAnimation";
 import useAuthStatus from "../hooks/useAuthStatus";
@@ -18,12 +19,12 @@ const Profile = () => {
   return (
     <>
       <RouterAnimation>
-        <ProtectedRoute>
+        <ProtectedRoutes>
           <Box
             component={`div`}
             className="w-[95%] mx-auto max-w-lg valid-height flex flex-col justify-start gap-[4rem] py-5"
           >
-            <Notification
+            <NotificationElement
               open={open}
               handleClose={handleClose}
               message={message as string}
@@ -41,13 +42,22 @@ const Profile = () => {
                 gap: "2rem",
               }}
             >
-              <AvatarProfile handleError={handleError} handleSuccess={handleSuccess}/>
-              <NameProfile handleError={handleError} handleSuccess={handleSuccess}/>
-              <DescriptionProfile handleError={handleError} handleSuccess={handleSuccess}/>
+              <AvatarProfile
+                handleError={handleError}
+                handleSuccess={handleSuccess}
+              />
+              <NameProfile
+                handleError={handleError}
+                handleSuccess={handleSuccess}
+              />
+              <DescriptionProfile
+                handleError={handleError}
+                handleSuccess={handleSuccess}
+              />
             </Paper>
             <ChangePassword />
           </Box>
-        </ProtectedRoute>
+        </ProtectedRoutes>
       </RouterAnimation>
     </>
   );

@@ -1,10 +1,13 @@
 import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import RegistrationFormLayout from "../components/Registration/RegistrationFormLayourt";
-import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
+
+
 import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
+import VerificationSentComponent from "@components/Registration/VerificationSentComponent";
+import RegistrationFormLayout from "@components/Registration/RegistrationFormLayourt";
+
 
 const Resigstration = () => {
   const [sent, setSent] = useState(false);
