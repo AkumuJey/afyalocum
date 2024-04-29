@@ -9,7 +9,6 @@ const LoadingPage = ({ marginTop, content }: PropTypes) => {
   const text = "Afya Locum";
   const stringArray = content || text;
   const textArray = Array.from(stringArray);
-  console.log(textArray);
   const mt = marginTop || "mt-[-5rem]";
   return (
     <>
@@ -38,7 +37,7 @@ const LoadingPage = ({ marginTop, content }: PropTypes) => {
             initial: { opacity: 0 },
             animate: {
               opacity: 1,
-              transition: { delayChildren: 0.5, staggerChildren: 0.3 },
+              transition: { delayChildren: 0.3, staggerChildren: 0.2 },
             },
           }}
           exit={{ opacity: 0 }}

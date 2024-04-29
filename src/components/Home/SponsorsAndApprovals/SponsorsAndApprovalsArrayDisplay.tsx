@@ -1,14 +1,17 @@
 import { Button } from "@mui/material";
 
 const SponsorsAndApprovalsArrayDisplay = () => {
-  const array = new Array(10).fill("sponsor");
+  const array = new Array(10).fill("KMPDC");
   return (
     <>
-      <div className="slide-container">
+      <div className="slide-container mx-auto">
         <ul className="slide">
           {array.map((sample, i) => (
             <li key={i + 1}>
-              <Button variant="contained" color="success">
+              <Button
+                variant="contained"
+                color={i % 2 === 0 ? "primary" : "success"}
+              >
                 {sample}
               </Button>
             </li>
@@ -17,7 +20,10 @@ const SponsorsAndApprovalsArrayDisplay = () => {
         <ul className="slide">
           {array.map((sample, i) => (
             <li key={i + 1}>
-              <Button variant="contained" color="success">
+              <Button
+                variant="contained"
+                color={i % 2 === 0 ? "primary" : "success"}
+              >
                 {sample}
               </Button>
             </li>
