@@ -58,7 +58,7 @@ const Navbar = (props: Props) => {
             >
               <Typography
                 component={`span`}
-                className="text-[`#21573e`]"
+                className="text-[#21573e]"
                 sx={{ fontWeight: "bold", fontSize: "2.5rem" }}
               >
                 afya

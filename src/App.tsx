@@ -1,9 +1,10 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
+import LoadingPage from "./components/LoadingPage";
 const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
 const SingleLocumPage = lazy(
   () => import("./pages/DashboardPages/SingleLocumPage")
@@ -128,12 +129,19 @@ function App(props: Props) {
           element: <About />,
           errorElement: <ErrorPage />,
         },
+        {
+          path: "/loading",
+          element: <LoadingPage />,
+          errorElement: <ErrorPage />,
+        },
       ],
     },
   ]);
   return (
     <>
+    <Suspense fallback={<LoadingPage marginTop="mt-0"/>}>
       <RouterProvider router={router} />
+    </Suspense>
     </>
   );
 }

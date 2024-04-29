@@ -1,29 +1,45 @@
+import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
-const loaderVariants = {
-  animationOne: {
-    x: [-20, 20, -20, 20],
-    y: [0, -30, 0, -30],
-    transition: {
-      x: {
-        duration: 0.5,
-        repeat: Infinity,
-      },
-      y: {
-        duration: 0.25,
-        ease: "easeOut",
-        repeat: Infinity,
-      },
-    },
-  },
-};
 
-const LoadingPage = () => {
+interface PropTypes{
+  marginTop?: string
+}
+const LoadingPage = ({marginTop}: PropTypes) => {
+  const text = "AfyaLocum";
+  const textArray = Array.from(text);
+  const mt =  marginTop || "mt-[-5rem]";
   return (
-    <motion.div
-      className={`flex justify-center items-center min-h-screen w-full mt-[-5rem] dark:bg-black bg-slate-700`}
-    >
-      <motion.div variants={loaderVariants} initial={{y: 0, x: -20}} animate="animationOne" className="w-3 h-3 rounded-[50%] bg-[#fff]"></motion.div>
-    </motion.div>
+    <>
+      <motion.div
+        className={`min-h-screen flex items-center justify-center bg-[#90E4C1] ${mt} z-10`}
+        initial="initial"
+        animate="animate"
+        variants={{
+          initial: { opacity: 0 },
+          animate: {
+            opacity: 1,
+            transition: { delayChildren: 0.5, staggerChildren: 0.3 },
+          },
+        }}
+        exit={{ opacity: 0 }}
+      >
+        {textArray.map((letter, index) => (
+          <motion.span
+            key={letter}
+            className={index < 4 ? `text-[#21573e]` : `text-[#6c757d]`}
+            variants={{
+              initial: { opacity: 0, y: 20, x: 20 },
+              animate: { opacity: 1, y: 0, x: 0 },
+            }}
+            exit={{ opacity: 0, y: 20, x: 20 }}
+          >
+            <Typography variant="h2" fontWeight={`bold`}>
+              {letter}
+            </Typography>
+          </motion.span>
+        ))}
+      </motion.div>
+    </>
   );
 };
 
