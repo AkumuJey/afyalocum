@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-
+import ResetLinkForm from "../components/Registration/ResetLinkForm";
+import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
 import RouterAnimation from "./RouterAnimation";
-import ResetLinkForm from "@components/Registration/ResetLinkForm";
-import VerificationSentComponent from "@components/Registration/VerificationSentComponent";
 const RecoverPassword = () => {
   const [verificationSent, setVerificationSent] = useState(false);
   useEffect(() => {

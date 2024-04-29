@@ -12,7 +12,7 @@ interface PropTypes {
   handleError: (msg: string) => void;
   handleSuccess: (msg: string) => void;
 }
-const NameProfile = ({ handleSuccess, handleError }: PropTypes) => {
+const Name = ({ handleSuccess, handleError }: PropTypes) => {
   const {
     displayName,
     isEditable,
@@ -101,6 +101,6 @@ const NameProfile = ({ handleSuccess, handleError }: PropTypes) => {
   );
 };
 
-export default NameProfile;
+export default Name;
 //
 //In this code, we have a `Name` component that displays a user's name. When the "Edit" button is clicked, the component becomes editable, allowing the user to change their name. The changes are then saved using the "Save" button. The "Cancel" button reverts the component to its non-editable state..</s>

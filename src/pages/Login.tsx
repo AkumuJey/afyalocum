@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import RouterAnimation from "./RouterAnimation";
-import LoginLayout from "@components/Login/LoginLayout";
-import VerificationSentComponent from "@components/Registration/VerificationSentComponent";
-import RegularLoginForm from "@components/Login/RegularLoginForm";
-import GoogleSignInButton from "@components/Login/GoogleSignInButton";
 import { User } from "firebase/auth";
 import { Navigate } from "react-router-dom";
+import GoogleSignInButton from "../components/Login/GoogleSignInButton";
+import LoginLayout from "../components/Login/LoginLayout";
+import RegularLoginForm from "../components/Login/RegularLoginForm";
 import useAuthStatus from "../hooks/useAuthStatus";
+import RouterAnimation from "./RouterAnimation";
+import VerificationSentComponent from "../components/Registration/VerificationSentComponent";
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
