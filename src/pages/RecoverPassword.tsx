@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import VerificationLinkForm from "../components/registration/VerificationLinkForm.tsx";
-import NotifyVerificationSent from "../components/registration/NotifyVerificationSent.tsx";
+import VerificationLinkForm from "../components/Registration/VerificationLinkForm.tsx";
+import NotifyVerificationSent from "../components/Registration/NotifyVerificationSent.tsx";
 import RouterAnimation from "./RouterAnimation";
 const RecoverPassword = () => {
   const [verificationSent, setVerificationSent] = useState(false);

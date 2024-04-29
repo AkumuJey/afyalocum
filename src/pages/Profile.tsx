@@ -1,10 +1,10 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { User } from "firebase/auth";
 import Notification from "../components/NotificationElement";
-import AvatarProfile from "../components/profile/AvatarProfile";
-import ChangePassword from "../components/profile/ChangePassword";
-import DescriptionProfile from "../components/profile/DescriptionProfile";
-import NameProfile from "../components/profile/NameProfile";
+import AvatarProfile from "../components/Profile/AvatarProfile";
+import ChangePassword from "../components/Profile/ChangePassword";
+import DescriptionProfile from "../components/Profile/DescriptionProfile";
+import NameProfile from "../components/Profile/NameProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
 import useProfileUpdate from "../hooks/useProfileUpdate";
 import RouterAnimation from "./RouterAnimation";

@@ -7,15 +7,15 @@ import {
 import LoadingPage from "./components/LoadingPage";
 const DashboardLayout = lazy(() => import("./Layout/DashboardLayout"));
 const SingleLocumPage = lazy(
-  () => import("./pages/dashboardPages/SingleLocumPage")
+  () => import("./pages/dashboard-pages/SingleLocumPage")
 );
 const DashboardHome = lazy(
-  () => import("./pages/dashboardPages/DashboardHome")
+  () => import("./pages/dashboard-pages/DashboardHome")
 );
-const LocumEdit = lazy(() => import("./pages/dashboardPages/LocumEdit"));
+const LocumEdit = lazy(() => import("./pages/dashboard-pages/LocumEdit"));
 const SingleLocumLayout = lazy(() => import("./Layout/SingleLocumLayout"));
 const CommonLocumsArrayPage = lazy(
-  () => import("./pages/dashboardPages/CommonLocumsArrayPage")
+  () => import("./pages/dashboard-pages/CommonLocumsArrayPage")
 );
 const About = lazy(() => import("./pages/About"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -24,7 +24,7 @@ const Root = lazy(() => import("./pages/Root"));
 const Login = lazy(() => import("./pages/Login"));
 const RecoverPassword = lazy(() => import("./pages/RecoverPassword"));
 const Home = lazy(() => import("./pages/Home"));
-const CreateNew = lazy(() => import("./pages/dashboardPages/CreateNewLocum"));
+const CreateNew = lazy(() => import("./pages/dashboard-pages/CreateNewLocum"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 
 interface Props {
