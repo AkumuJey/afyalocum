@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 import { User } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import GoogleSignInButton from "../components/Login/GoogleSignInButton";
-
+import LoginLayout from "../components/Login/LoginLayout";
 import RegularLoginForm from "../components/Login/RegularLoginForm";
 import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
@@ -22,7 +22,7 @@ const Login = () => {
   return (
     <>
       <RouterAnimation>
-        <LoginLayoutt
+        <LoginLayout>
           <>
             {unverified && (
               <NotifyVerificationSent
