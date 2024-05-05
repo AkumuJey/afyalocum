@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 import { User } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import GoogleSignInButton from "../components/Login/GoogleSignInButton";
-import LoginLayout from "../components/Login/LoginLayout";
+
 import RegularLoginForm from "../components/Login/RegularLoginForm";
 import useAuthStatus from "../hooks/useAuthStatus";
 import RouterAnimation from "./RouterAnimation";
@@ -22,29 +22,31 @@ const Login = () => {
   return (
     <>
       <RouterAnimation>
-        <LoginLayout>
-          {unverified && (
-            <NotifyVerificationSent
-              content="Verify your email to login. Verification"
-              closeLinkNotification={() => setUnverified(false)}
-            />
-          )}
-          {!unverified && (
-            <>
-              <RegularLoginForm
-                loading={loading}
-                handleLoading={(value) => setLoading(value)}
-                handleUnverified={() => setUnverified(true)}
+        <LoginLayoutt
+          <>
+            {unverified && (
+              <NotifyVerificationSent
+                content="Verify your email to login. Verification"
+                closeLinkNotification={() => setUnverified(false)}
               />
-              <Typography fontWeight={`bold`} textAlign={`center`} py={1}>
-                Or
-              </Typography>
-              <GoogleSignInButton
-                loading={loading}
-                handleLoading={(value) => setLoading(value)}
-              />
-            </>
-          )}
+            )}
+            {!unverified && (
+              <>
+                <RegularLoginForm
+                  loading={loading}
+                  handleLoading={(value) => setLoading(value)}
+                  handleUnverified={() => setUnverified(true)}
+                />
+                <Typography fontWeight={`bold`} textAlign={`center`} py={1}>
+                  Or
+                </Typography>
+                <GoogleSignInButton
+                  loading={loading}
+                  handleLoading={(value) => setLoading(value)}
+                />
+              </>
+            )}
+          </>
         </LoginLayout>
       </RouterAnimation>
     </>
